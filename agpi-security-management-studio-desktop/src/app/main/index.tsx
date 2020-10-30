@@ -1,6 +1,7 @@
 // src/react.tsx
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const remote = require('electron').remote
 
 const Index = () => {
@@ -13,10 +14,13 @@ const Index = () => {
       nativeWindow.unmaximize()
     }
     console.log(2)
-
   }, [])
 
-    return <div>Hello React! <button onClick={onClickHandler}>Test</button></div>;
-};
+  return (
+    <div>
+      Hello React! <button onClick={onClickHandler}>Test</button>
+    </div>
+  )
+}
 
-ReactDOM.render(<Index />, document.getElementById('app'));
+ReactDOM.render(<Index />, document.getElementById('root'))
