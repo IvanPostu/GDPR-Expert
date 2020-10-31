@@ -15,7 +15,12 @@ buildscript {
 }
 
 apply plugin: "org.flywaydb.flyway"
-
+flyway {
+  user = 'postgres'
+  password = 'qwerty'
+  url = 'jdbc:postgresql://127.0.0.1:5432/app_db'
+  driver = 'org.postgresql.Driver'
+}
 
 repositories{
   mavenCentral()

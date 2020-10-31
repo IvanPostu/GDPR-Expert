@@ -35,6 +35,7 @@
     <param-value>  
       /WEB-INF/mvc-dispatcher-servlet.xml   
       /WEB-INF/spring-security.xml   
+      /WEB-INF/datasource.xml   
     </param-value>
   </context-param>
   
