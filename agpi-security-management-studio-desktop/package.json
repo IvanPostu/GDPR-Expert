@@ -10,14 +10,13 @@
   "scripts": {
     "electron-build": "webpack --config configs/webpack.electron.js",
     "app-build": "./node_modules/.bin/env-cmd -e production webpack --config configs/webpack.app.js",
-    "dev-server": "npm run electron-build && ./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js --hot --port 8000",
-    "start": "electron ./build/electron/electron.js",
+    "dev-server": "npm run electron-build && ./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",
+    "start": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development electron ./build/electron/electron.js --enable-loging --remote-debugging-port=9222",
     "package:linux": "npm run electron-build && npm run app-build && electron-packager . --overwrite --platform=linux --arch=x64 --out=out"
   },
   "author": "IvanPostu",
   "license": "ISC",
   "dependencies": {
-    "@types/react-icons": "^3.0.0",
     "electron-is-dev": "^1.2.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.0",
@@ -30,6 +29,7 @@
     "@types/jest": "^26.0.15",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@types/react-icons": "^3.0.0",
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",

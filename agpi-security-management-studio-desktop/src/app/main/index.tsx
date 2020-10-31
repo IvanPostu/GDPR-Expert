@@ -1,7 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const remote = require('electron').remote
+import { remote } from 'electron'
+
+import 'normalize.css'
+import './index.scss'
 
 const Index = () => {
   const onClickHandler = React.useCallback(() => {

@@ -1,0 +1,10 @@
+
+@font-face{
+  font-family: 'Roboto';
+  src: local('Roboto'), url(@/assets/fonts/Roboto-Regular.ttf) format('truetype');
+}
+
+body {
+  background: rgb(105, 105, 105);
+  font-family: 'Roboto';
+}
