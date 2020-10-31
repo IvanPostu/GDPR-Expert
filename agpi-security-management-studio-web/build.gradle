@@ -26,9 +26,17 @@ targetCompatibility = 8
 
 final SPRING_VERSION = '5.2.8.RELEASE'
 final HIBERNATE_VERSION = '5.4.22.Final'
+final SPRING_SECURITY_VERSION = '5.4.0'
 
 dependencies {
   
+  compile group: 'org.springframework.security', name: 'spring-security-web', version: SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-config', version: SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-core', version: SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-crypto', version: SPRING_SECURITY_VERSION
+
+
+
   compile group: 'org.springframework', name: 'spring-context', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-beans', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-core', version: SPRING_VERSION

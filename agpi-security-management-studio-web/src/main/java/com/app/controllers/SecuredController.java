@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomeController {
+public class SecuredController {
   
-  @RequestMapping(value = "/home", method = RequestMethod.GET)
+  @RequestMapping(value = "/secured", method = RequestMethod.GET)
   public String listBooks() {
-    
-    return "home";
+
+    return "secured";
   }
 
 }
