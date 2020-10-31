@@ -1,11 +1,11 @@
 {
-  "name": "agpi-security-management-studio-desktop",
+  "name": "security-management-studio-desktop",
   "version": "0.0.1",
   "build": {
-    "productName": "AGPI Security Management Studio",
+    "productName": "Security Management Studio",
     "appId": "university.project"
   },
-  "description": "AGPI Security management studio.",
+  "description": "Security management studio.",
   "main": "build/electron/electron.js",
   "scripts": {
     "electron-build": "webpack --config configs/webpack.electron.js",

@@ -4,7 +4,7 @@ import styles from './styles.module.scss'
 export function Header(): ReactElement {
   return (
     <nav className={styles.topMenu}>
-      <label className={styles.logo}>AGPI Security Management Studio</label>
+      <label className={styles.logo}>Security Management Studio</label>
       <ul className={styles.listBody}>
         <li className={styles.listItem}>
           <a className={styles.link} href="#">
