@@ -1,19 +1,29 @@
-// src/electron.js
-const { app, BrowserWindow } = require('electron');
+import path from 'path'
+import { app, BrowserWindow } from 'electron'
+import isDev from 'electron-is-dev'
 
-function createWindow () {
+let mainWindow: BrowserWindow
+
+function createWindow() {
   // Create the browser window.
-  let win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true
-    }
-  });
+      enableRemoteModule: true,
+    },
+  })
 
-  // and load the index.html of the app.
-  win.loadFile('../app/index.html');
+  mainWindow.loadFile('./build/app/index.html');
+
+  // mainWindow.loadFile(path.resolve('./', 'resources', 'app', 'build', 'app', 'index.html'))
+  // mainWindow.loadURL()
+  // if (isDev) {
+  //   mainWindow.loadURL(`http://127.0.0.1:8000`)
+  // } else {
+  // mainWindow.loadFile('../app/index.html')
+  // }
 }
 
-app.on('ready', createWindow);
+app.on('ready', createWindow)

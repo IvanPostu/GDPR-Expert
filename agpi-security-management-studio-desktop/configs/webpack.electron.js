@@ -1,20 +1,27 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 
 module.exports = [
   {
-    mode: 'development',
+    mode: 'production',
+
     entry: './src/electron/electron.ts',
+
     target: 'electron-main',
-    module: {
-      rules: [{
-        test: /\.ts$/,
-        include: /src/,
-        use: [{ loader: 'ts-loader' }]
-      }]
-    },
+
     output: {
       path: path.resolve(__dirname, '..', 'build', 'electron'),
-      filename: 'electron.js'
-    }
+      filename: 'electron.js',
+    },
+
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          include: /src/,
+          use: [{ loader: 'ts-loader' }],
+        },
+      ],
+    },
   },
 ]

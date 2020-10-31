@@ -1,4 +1,3 @@
-// src/react.tsx
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
