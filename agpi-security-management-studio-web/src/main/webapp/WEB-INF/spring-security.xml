@@ -4,20 +4,39 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
   <http pattern="/home" security="none" />
-  <http  auto-config="true">
-    <intercept-url pattern="/**" access="isAuthenticated()" />
+  <!-- <http pattern="/api/login" security="none" /> -->
+  <http auto-config="true">
+    <intercept-url pattern="/**" access="isAuthenticated() and hasRole('ROLE_ADMIN')" />
+    <!-- <form-login login-page="/api/login" authentication-failure-url="/error" username-parameter="username" password-parameter="password" /> -->
+    <csrf disabled="true" />
+    <!-- <logout logout-success-url="/logout" /> -->
+    <http-basic entry-point-ref="authenticationEntryPointImpl" />
   </http>
 
+  <beans:bean id="authenticationEntryPointImpl" class="com.app.configurations.AuthenticationEntryPointImpl">
+  </beans:bean>
+
+
+  <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+    <beans:property name="userDetailsService" ref="userDetailsService"></beans:property>
+  </beans:bean>
+
+  <beans:bean class="org.springframework.security.authentication.ProviderManager">
+    <beans:constructor-arg>
+      <beans:list>
+        <beans:ref bean="daoAuthenticationProvider" />
+      </beans:list>
+    </beans:constructor-arg>
+  </beans:bean>
+
+  <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"></beans:bean>
 
   <authentication-manager>
-    <authentication-provider>
-      <user-service>
+    <authentication-provider user-service-ref="userDetailsService">
+      <!-- <user-service>
         <user name="u" password="u" authorities="ROLE_ADMIN" />
-      </user-service>
+      </user-service> -->
     </authentication-provider>
   </authentication-manager>
-
-  <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" 
-  factory-method="getInstance" ></beans:bean>
 
 </beans:beans>  

@@ -35,7 +35,7 @@ dependencies {
   compile group: 'org.springframework.security', name: 'spring-security-core', version: SPRING_SECURITY_VERSION
   compile group: 'org.springframework.security', name: 'spring-security-crypto', version: SPRING_SECURITY_VERSION
 
-
+  providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
 
   compile group: 'org.springframework', name: 'spring-context', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-beans', version: SPRING_VERSION
