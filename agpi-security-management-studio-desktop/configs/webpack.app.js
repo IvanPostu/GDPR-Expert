@@ -21,7 +21,7 @@ module.exports = [
   {
     mode: process.env.NODE_ENV,
 
-    entry: './src/app/main/index.tsx',
+    entry: './src/app/main/index.ts',
 
     output: {
       path: path.resolve(__dirname, '..', 'build', 'app'),

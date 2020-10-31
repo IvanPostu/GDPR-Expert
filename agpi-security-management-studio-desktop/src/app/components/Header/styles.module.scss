@@ -1,0 +1,49 @@
+@import "@/app/scss/mixins";
+
+.topMenu {
+  background: #0082e6;
+  height: 45px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  .logo{
+    color: white;
+    font-size: 22px;
+    line-height: 45px;
+    margin-left: 20px;
+    font-weight: bold;
+    @include unselectable;
+  }
+
+  .listBody {
+    float: right;
+    margin-right: 20px;
+
+    .listItem{
+      display: inline-block;
+      line-height: 45px;
+      margin: 0 5px;
+
+      .link{
+        height: 100%;
+        padding: 10px;
+        color: white;
+        border-radius: 3px;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      
+      .link:hover {
+          background: #1b9bff;
+          transition: .1s;
+      }
+
+      .link:active{
+        background: #1584da;
+      }
+    }
+  }
+
+
+}
