@@ -7,16 +7,16 @@ import com.app.domain.entities.UserRoleEntity;
 import com.app.persistence.dao.UserDao;
 import com.app.persistence.dao.UserRoleDao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class UserServiceImpl implements UserService {
 
-  private UserDao userDao;
-  private UserRoleDao userRoleDao;
+  private final UserDao userDao;
+  private final UserRoleDao userRoleDao;
 
-  public void setUserDao(UserDao userDao) {
+  @Autowired
+  public UserServiceImpl(UserDao userDao, UserRoleDao userRoleDao){
     this.userDao = userDao;
-  }
-
-  public void setUserRoleDao(UserRoleDao userRoleDao) {
     this.userRoleDao = userRoleDao;
   }
 

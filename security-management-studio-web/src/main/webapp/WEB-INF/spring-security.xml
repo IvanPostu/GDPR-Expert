@@ -5,7 +5,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
 <http pattern="/home" security="none" />
 
-  <http auto-config="true" entry-point-ref="authenticationEntryPointImpl" >
+  <http auto-config="false" entry-point-ref="authenticationEntryPointImpl" >
     <intercept-url pattern="/login" access="isAnonymous()"/>
     <intercept-url pattern="/logout" access="isAuthenticated()"/>
     
@@ -14,6 +14,8 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <intercept-url pattern="/**" access="isAuthenticated()" />
 
     <form-login  authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
+
+    <logout logout-url="/logout" logout-success-url="/login?successlogout" />
 
     <csrf disabled="true" />
     

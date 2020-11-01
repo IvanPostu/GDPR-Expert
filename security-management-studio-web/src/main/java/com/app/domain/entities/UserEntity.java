@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,11 +32,11 @@ public class UserEntity {
   @Column(name = "password")
   private String password;
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id")
   private List<UserRoleEntity> roles = new ArrayList<>();
 
-  public Boolean getActive() {
+  public Boolean isActive() {
     return active;
   }
 

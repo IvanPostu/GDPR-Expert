@@ -34,6 +34,7 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>  
       /WEB-INF/mvc-dispatcher-servlet.xml   
+      /WEB-INF/thymeleaf.xml   
       /WEB-INF/spring-security.xml   
       /WEB-INF/datasource.xml   
       /WEB-INF/jackson-beans.xml
