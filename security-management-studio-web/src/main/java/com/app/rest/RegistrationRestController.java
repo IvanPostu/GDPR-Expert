@@ -1,11 +1,17 @@
 package com.app.rest;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
+import com.app.domain.ApplicationUserRoles;
 import com.app.domain.dto.RegistrateUserDto;
+import com.app.domain.entities.UserEntity;
 import com.app.domain.entities.UserRoleEntity;
+import com.app.services.UserService;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,24 +23,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/registration")
 public class RegistrationRestController {
+  private final UserService userService;
 
+  @Autowired
+  public RegistrationRestController(UserService userService){
+    this.userService = userService;
+  }
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Object> registerUser(@RequestBody RegistrateUserDto registrateUserDto) {
+  public ResponseEntity<?> registerUser(@RequestBody RegistrateUserDto registrateUserDto) {
 
-    UserRoleEntity r1 = new UserRoleEntity();
-    r1.setId(1L);
-    r1.setName("ABC");
+    UserRoleEntity defaultUserRole = ApplicationUserRoles.userRole();
+    UserEntity user = new UserEntity();
 
-    UserRoleEntity r2 = new UserRoleEntity();
-    r2.setId(12323L);
-    r2.setName("adfadfABC");
+    user.setActive(true);
+    user.setEmail(registrateUserDto.getEmail());
+    user.setPassword(registrateUserDto.getPassword());
+    user.setRoles(Arrays.asList(defaultUserRole));
 
-    List<UserRoleEntity> aa = Arrays.asList(
-      r1, r2
-    );
+    try{
+      userService.addUser(user);
+    }catch(Exception e){
 
-    return new ResponseEntity<Object>(aa, HttpStatus.OK);
+      if(e.getCause() instanceof ConstraintViolationException){
+        ConstraintViolationException ce = (ConstraintViolationException)e.getCause();
+        if(ce.getConstraintName().equals("user_unique_email")){
+          HashMap<String, List<String>> result = new HashMap<>();
+          result.put("errors", Arrays.asList("email_already_exists"));
+          return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
+        }
+      }
+    }
+
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
 }

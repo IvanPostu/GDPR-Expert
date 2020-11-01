@@ -3,11 +3,16 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/security  
 http://www.springframework.org/schema/security/spring-security.xsd">
 
-  <http pattern="/home" security="none" />
+<http pattern="/home" security="none" />
+
   <http auto-config="true" entry-point-ref="authenticationEntryPointImpl" >
-    <intercept-url pattern="/**" access="isAuthenticated() and hasRole('ROLE_ADMIN')" />
     <intercept-url pattern="/login" access="isAnonymous()"/>
     <intercept-url pattern="/logout" access="isAuthenticated()"/>
+    
+    <intercept-url pattern="/api/registration" access="isAnonymous()"/>
+
+    <intercept-url pattern="/**" access="isAuthenticated()" />
+
     <form-login  authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
 
     <csrf disabled="true" />
