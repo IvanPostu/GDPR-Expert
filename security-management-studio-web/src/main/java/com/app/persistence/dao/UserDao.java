@@ -1,16 +1,17 @@
 package com.app.persistence.dao;
 
-import com.app.domain.entities.User;
+import com.app.domain.entities.UserEntity;
 
 public interface UserDao {
-  void addUser(User user);
 
-  void updateUser(User user);
+  void addUser(UserEntity user);
 
-  void removeUser(int id);
+  void updateUser(UserEntity user);
 
-  User getUserById(int id);
+  void removeUser(Long id);
 
-  User getUserByUsername(final String username);
+  UserEntity getUserById(Long id);
+
+  UserEntity getUserByEmail(final String email);
 
 }

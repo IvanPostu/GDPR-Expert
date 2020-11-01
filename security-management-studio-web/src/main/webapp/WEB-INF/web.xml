@@ -36,6 +36,7 @@
       /WEB-INF/mvc-dispatcher-servlet.xml   
       /WEB-INF/spring-security.xml   
       /WEB-INF/datasource.xml   
+      /WEB-INF/jackson-beans.xml
     </param-value>
   </context-param>
   

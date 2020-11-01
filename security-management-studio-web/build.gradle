@@ -35,6 +35,8 @@ final SPRING_SECURITY_VERSION = '5.4.0'
 
 dependencies {
   
+  compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+
   compile group: 'org.springframework.security', name: 'spring-security-web', version: SPRING_SECURITY_VERSION
   compile group: 'org.springframework.security', name: 'spring-security-config', version: SPRING_SECURITY_VERSION
   compile group: 'org.springframework.security', name: 'spring-security-core', version: SPRING_SECURITY_VERSION

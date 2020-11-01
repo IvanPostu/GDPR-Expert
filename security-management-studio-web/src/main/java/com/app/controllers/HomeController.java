@@ -1,6 +1,11 @@
 package com.app.controllers;
 
-import com.app.domain.entities.User;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.UUID;
+
+import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.UserRoleEntity;
 import com.app.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +26,23 @@ public class HomeController {
   }
   
   @RequestMapping(value = "/home", method = RequestMethod.GET)
-  public String listBooks() {
-    
-    // User user = new User();
+  public String home() {
+    // String s = UUID.randomUUID().toString().substring(0, 3);
+
+    // UserEntity user = new UserEntity();
+    // user.setActive(true);
+
+    // UserRoleEntity role = new UserRoleEntity();
+    // role.setName("USER");
+    // user.setRoles(Arrays.asList(role));
+
+    // user.setEmail(s + "aaaa@mail.ru");
+    // user.setPassword("qwerty");
+
+
+    // userService.addUser(user);
+
+    UserEntity user = userService.getUserByEmail("e8daaaa@mail.ru");
 
     return "home";
   }

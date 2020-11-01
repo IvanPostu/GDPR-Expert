@@ -1,18 +1,18 @@
 package com.app.services;
 
-import com.app.domain.entities.User;
+import com.app.domain.entities.UserEntity;
 
 public interface UserService {
   
-  void addUser(User user);
+  void addUser(UserEntity user);
 
-  void updateUser(User user);
+  void updateUser(UserEntity user);
 
-  void removeUser(int id);
+  void removeUser(Long id);
 
-  User getUserById(int id);
+  UserEntity getUserById(Long id);
 
-  User getUserByUsername(final String username);
+  UserEntity getUserByEmail(final String email);
 
 
 }

@@ -1,17 +1,17 @@
 
 package com.app.persistence.dao;
 
+
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import com.app.domain.entities.User;
+import com.app.domain.entities.UserEntity;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,23 +28,23 @@ public class UserDaoImpl implements UserDao {
   }
 
   @Override
-  public void addUser(User user) {
+  public void addUser(UserEntity user) {
     Session session = sessionFactory.getCurrentSession();
     session.persist(user);
     logger.info("User successfully saved. User info " + user.toString());
   }
 
   @Override
-  public void updateUser(User user) {
+  public void updateUser(UserEntity user) {
     Session session = sessionFactory.getCurrentSession();
     session.update(user);
     logger.info("User successfully updated. User info " + user.toString());
   }
 
   @Override
-  public void removeUser(int id) {
+  public void removeUser(Long id) {
     Session session = sessionFactory.getCurrentSession();
-    User user = session.load(User.class, id);
+    UserEntity user = session.load(UserEntity.class, id);
     
     if(user!=null){
       session.delete(user);
@@ -53,26 +53,39 @@ public class UserDaoImpl implements UserDao {
     logger.info("User successfully deleted. User info " + user.toString());
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public User getUserById(int id) {
+  public UserEntity getUserById(Long id) {
     Session session = sessionFactory.getCurrentSession();
-    User user = session.load(User.class, id);
+    final String sqlStr = "FROM UserEntity WHERE user_id=:userId"; 
 
-    return user;
+    TypedQuery<UserEntity> query = session.createQuery(sqlStr);
+    query.setMaxResults(1);
+    query.setParameter("userId", id);
+
+    List<UserEntity> users = query.getResultList();
+    if(users.size()>0){
+      return users.get(0);
+    }
+
+    return null;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public User getUserByUsername(String username) {
-    final String sqlStr = "FROM app_user WHERE username=:uname"; 
+  public UserEntity getUserByEmail(String email) {
     Session session = sessionFactory.getCurrentSession();
-    Transaction tx=session.beginTransaction();  
-    TypedQuery<User> query = session.createQuery(sqlStr);
-    query.setParameter("uname", username);
+    final String sqlStr = "FROM UserEntity WHERE email=:email"; 
+
+    TypedQuery<UserEntity> query = session.createQuery(sqlStr);
     query.setMaxResults(1);
+    query.setParameter("email", email);
 
-    List<User> user = query.getResultList();
+    List<UserEntity> users = query.getResultList();
+    if(users.size()>0){
+      return users.get(0);
+    }
 
-    tx.commit();
     return null;
   }
 

@@ -32,8 +32,13 @@
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
+  <bean id="userRoleDao" class="com.app.persistence.dao.UserRoleDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
   <bean id="userService" class="com.app.services.UserServiceImpl">
     <property name="userDao" ref="userDao" />
+    <property name="userRoleDao" ref="userRoleDao" />
   </bean>
 
   <tx:annotation-driven transaction-manager="transactionManager" />
