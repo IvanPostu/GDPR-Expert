@@ -18,6 +18,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
 
     <csrf disabled="true" />
+    <cors  />
     
   </http>
 
