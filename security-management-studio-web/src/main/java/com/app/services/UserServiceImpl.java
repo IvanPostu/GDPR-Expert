@@ -5,7 +5,7 @@ import com.app.persistence.dao.UserDao;
 
 import org.springframework.stereotype.Service;
 
-@Service
+// @Service
 public class UserServiceImpl implements UserService {
 
   private UserDao userDao;

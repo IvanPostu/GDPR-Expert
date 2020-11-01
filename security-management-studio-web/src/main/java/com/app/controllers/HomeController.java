@@ -23,7 +23,7 @@ public class HomeController {
   @RequestMapping(value = "/home", method = RequestMethod.GET)
   public String listBooks() {
     
-    User user = new User();
+    // User user = new User();
 
     return "home";
   }

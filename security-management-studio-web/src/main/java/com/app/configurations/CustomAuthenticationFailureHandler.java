@@ -1,6 +1,7 @@
 package com.app.configurations;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
       AuthenticationException e) throws IOException, ServletException {
     
-    response.sendRedirect("/loginFailed");
+    response.sendRedirect("/api/auth/failure");
   }
 }
