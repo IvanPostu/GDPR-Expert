@@ -5,7 +5,5 @@
 
   <context:component-scan base-package="com.app" />
   <mvc:annotation-driven />
-  <mvc:cors>
-    <mvc:mapping path="*" allowed-origins="*" allowed-methods="POST, GET, PUT, OPTIONS, DELETE" allowed-headers="X-Auth-Token, Content-Type" />
-  </mvc:cors>
+  
 </beans>

@@ -8,13 +8,13 @@ export function Header(): ReactElement {
       <ul className={styles.listBody}>
         <li className={styles.listItem}>
           <a className={styles.link} href="#">
-            Personal board
+            1
           </a>
         </li>
 
         <li className={styles.listItem}>
           <a className={styles.link} href="#">
-            Company data
+            2
           </a>
         </li>
       </ul>

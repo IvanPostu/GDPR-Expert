@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { loginUser } from '@/app/webApi/auth/login'
+
 export const HomePage = () => {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  )
+  // React.useEffect(() => {
+  //   loginUser('b@mail.ru', 'q').then(() => {})
+  // }, [])
+
+  return <div></div>
 }

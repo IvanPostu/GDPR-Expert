@@ -15,10 +15,11 @@ function createWindow() {
     frame: false,
   })
 
+  mainWindow.webContents.openDevTools()
   if (isDev) {
     mainWindow.loadURL(`http://127.0.0.1:8000`)
-    mainWindow.webContents.openDevTools()
   } else {
+    //
     mainWindow.loadFile('./build/app/index.html')
   }
 }

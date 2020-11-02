@@ -1,5 +1,6 @@
 export enum routeNames {
+  RootPageRoute = '/',
   HomeRoute = '/HomeRoute',
-  AuthenticationRoute = '/AuthenticationRoute',
+  LoginPageRoute = '/LoginPageRoute',
   AboutRoute = '/AboutRoute',
 }

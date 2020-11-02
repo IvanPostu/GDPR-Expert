@@ -3,33 +3,37 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/security  
 http://www.springframework.org/schema/security/spring-security.xsd">
 
-<http pattern="/home" security="none" />
 
-  <http auto-config="false" entry-point-ref="authenticationEntryPointImpl" >
-    <intercept-url pattern="/login" access="isAnonymous()"/>
-    <intercept-url pattern="/logout" access="isAuthenticated()"/>
-    
-    <intercept-url pattern="/api/registration" access="isAnonymous()"/>
+
+  <http auto-config="false" entry-point-ref="authenticationEntryPointImpl">
+
+    <!-- <custom-filter ref="cookieFilter" after="BASIC_AUTH_FILTER"  /> -->
+    <!-- <custom-filter after="BASIC_AUTH_FILTER" ref="customCookieFilter" /> -->
+
+    <intercept-url pattern="/login" access="isAnonymous()" />
+    <intercept-url pattern="/logout" access="isAuthenticated()" />
+
+    <intercept-url pattern="/api/registration" access="isAnonymous()" />
 
     <intercept-url pattern="/**" access="isAuthenticated()" />
 
-    <form-login  authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
+    <form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" login-processing-url="" />
 
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
 
     <csrf disabled="true" />
-    <cors  />
+    
+
     
   </http>
 
-  <beans:bean id="authenticationEntryPointImpl" class="com.app.configurations.AuthenticationEntryPointImpl">
-  </beans:bean>
+  <!-- <beans:bean id="customCookieFilter" class="com.app.filters.CustomCookieFilter"/> -->
 
-  <beans:bean id="authenticationSuccessHandler" class="com.app.configurations.CustomAuthenticationSuccessHandler">
-  </beans:bean>
+  <beans:bean id="authenticationEntryPointImpl" class="com.app.configurations.AuthenticationEntryPointImpl"></beans:bean>
 
-  <beans:bean id="authenticationFailureHandler" class="com.app.configurations.CustomAuthenticationFailureHandler">
-  </beans:bean>
+  <beans:bean id="authenticationSuccessHandler" class="com.app.configurations.CustomAuthenticationSuccessHandler"></beans:bean>
+
+  <beans:bean id="authenticationFailureHandler" class="com.app.configurations.CustomAuthenticationFailureHandler"></beans:bean>
 
   <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
     <beans:property name="userDetailsService" ref="userDetailsService"></beans:property>
