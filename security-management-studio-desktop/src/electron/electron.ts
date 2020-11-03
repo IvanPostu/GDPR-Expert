@@ -17,12 +17,12 @@ function createWindow() {
   })
 
   mainWindow.webContents.openDevTools()
-  if (isDev) {
-    mainWindow.loadURL(`http://127.0.0.1:8000`)
-  } else {
-    //
-    mainWindow.loadFile('./build/app/index.html')
-  }
+  // if (isDev) {
+  //   mainWindow.loadURL(`http://127.0.0.1:8000`)
+  // } else {
+  //
+  mainWindow.loadFile('../app/index.html')
+  // }
 }
 
 app.on('ready', createWindow)
