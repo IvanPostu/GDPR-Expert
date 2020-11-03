@@ -4,8 +4,10 @@ import { loginUser } from '@/app/webApi/auth/login'
 
 export const HomePage = () => {
   // React.useEffect(() => {
-  //   loginUser('b@mail.ru', 'q').then(() => {})
+  //   fetch('http://127.0.0.1:8080/security-management-studio-web/api/auth/a', {
+  //     method: 'POST',
+  //   }).then((a) => a.json().then((d) => console.log(d)))
   // }, [])
 
-  return <div></div>
+  return <div>Home Page</div>
 }

@@ -11,6 +11,8 @@ const initialState: AuthenticationStateType = {
   userEmail: '',
   userFirstName: '',
   userLastName: '',
+  message: '',
+  messageStatus: 'info',
 }
 
 export const authenticationReducer: Reducer<
@@ -38,6 +40,11 @@ export const authenticationReducer: Reducer<
         ...state,
         isAuthenticated: false,
         userEmail: '',
+      }
+    case T.SET_MESSAGE:
+      return {
+        ...state,
+        ...action.payload,
       }
     case T.FETCH_LOGIN:
     case T.LOGOUT:

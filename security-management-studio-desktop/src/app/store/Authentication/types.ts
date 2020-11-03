@@ -6,6 +6,7 @@ export enum authenticationActionTypeConstants {
   START_LOADING = '@Authentication/START_LOADING',
   STOP_LOADING = '@Authentication/STOP_LOADING',
   SET_AUTH_DATA = '@Authentication/SET_AUTH_DATA',
+  SET_MESSAGE = '@Authentication/SET_MESSAGE',
   CLEAR_AUTH_DATA = '@Authentication/CLEAR_AUTH_DATA',
 }
 
@@ -15,10 +16,15 @@ export type AuthenticationStateType = {
   userLastName: string
 } & AuthenticationType
 
+export type MessageType = {
+  message: string
+  messageStatus: 'warn' | 'err' | 'info' | 'success'
+}
+
 export type AuthenticationType = {
   isAuthenticated: boolean
   userEmail: string
-}
+} & MessageType
 
 export type FetchLoginActionPayloadType = {
   readonly email: string
@@ -28,6 +34,11 @@ export type FetchLoginActionPayloadType = {
 export interface FetchLoginActionType extends Action {
   type: typeof authenticationActionTypeConstants.FETCH_LOGIN
   payload: FetchLoginActionPayloadType
+}
+
+export interface SetMessageActionType extends Action {
+  type: typeof authenticationActionTypeConstants.SET_MESSAGE
+  payload: MessageType
 }
 
 export interface LogoutActionType extends Action {
@@ -58,3 +69,4 @@ export type AuthenticationRootActionType =
   | StopLoadingActionType
   | SetAuthDataActionType
   | ClearAuthDataActionType
+  | SetMessageActionType

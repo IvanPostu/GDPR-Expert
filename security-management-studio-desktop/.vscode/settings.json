@@ -56,7 +56,9 @@
       "**/.git/objects/**": true,
       "**/.git/subtree-cache/**": true,
       "**/node_modules/*/**": true,
-      "**/build/*/**": true
+      "**/build/*/**": true,
+      "**/out/*/**": true,
+      "**/sbuild/*/**": true
     },
     "editor.rulers": [100],
     "editor.wordWrap": "wordWrapColumn",

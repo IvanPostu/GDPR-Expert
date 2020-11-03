@@ -7,7 +7,7 @@ export async function loginUser(email: string, password: string): Promise<boolea
 
   const options: RequestInit = {
     method: 'POST',
-    // credentials: 'include',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
@@ -19,7 +19,9 @@ export async function loginUser(email: string, password: string): Promise<boolea
     const redirectPath = new URL(response.url).pathname
     const authResponse = await fetch(`${webServerURL}${redirectPath}`, { method: 'GET' })
     const loginState = await authResponse.json()
-    return true
+
+    const result: boolean = loginState['login_current_status'] === 'login_success'
+    return result
   } catch (e) {
     return false
   }

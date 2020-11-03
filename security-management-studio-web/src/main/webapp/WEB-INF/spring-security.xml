@@ -6,31 +6,24 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
 
   <http auto-config="true" entry-point-ref="authenticationEntryPointImpl">
-
-    <!-- <custom-filter ref="cookieFilter" after="BASIC_AUTH_FILTER"  /> -->
-    <!-- <custom-filter after="BASIC_AUTH_FILTER" ref="customCookieFilter" /> -->
-    
     
     <csrf disabled="true" />
-    <custom-filter after="BASIC_AUTH_FILTER" ref="cookieFilter" />
 
     <intercept-url pattern="/login" access="isAnonymous()" />
     <intercept-url pattern="/logout" access="isAuthenticated()" />
 
     <intercept-url pattern="/api/registration" access="isAnonymous()" />
+    <!-- <intercept-url pattern="/api/auth/success" access="isAnonymous()" />
+    <intercept-url pattern="/api/auth/failure" access="isAnonymous()" /> -->
 
     <intercept-url pattern="/**" access="isAuthenticated()" />
 
     <form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" login-processing-url="" />
 
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
-
-    
-
     
   </http>
 
-  <beans:bean id="cookieFilter" class="com.app.filters.CookieFilter"/>
 
   <beans:bean id="authenticationEntryPointImpl" class="com.app.configurations.AuthenticationEntryPointImpl"></beans:bean>
 

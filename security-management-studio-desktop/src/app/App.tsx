@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, ReactElement } from 'react'
+import React, { FC, PropsWithChildren, ReactElement, Fragment } from 'react'
 import { HashRouter, Route } from 'react-router-dom'
 
 import { HomePage } from '@/app/pages/HomePage'
@@ -14,21 +14,22 @@ import { ReduxWrapper } from '@/app/store/root'
 
 const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
   return (
-    <ReduxWrapper>
-      <HashRouter>
-        <WindowTopBar />
-        <Header />
-        {/* <Link to={routeNames.HomeRoute}>Home</Link>
-        <Link to={routeNames.AboutRoute}>About</Link> */}
+    <Fragment>
+      <WindowTopBar />
+      <ReduxWrapper>
+        <HashRouter>
+          <Header />
+          <div style={{ marginTop: '50px' }}>
+            <Route path={routeNames.RootPageRoute} exact component={RootPage} />
 
-        <Route path={routeNames.RootPageRoute} exact component={RootPage} />
-
-        <Route path={[routeNames.HomeRoute]} exact component={HomePage} />
-        <Route path={routeNames.AboutRoute} exact component={AboutPage} />
-        <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
-        <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
-      </HashRouter>
-    </ReduxWrapper>
+            <Route path={[routeNames.HomeRoute]} exact component={HomePage} />
+            <Route path={routeNames.AboutRoute} exact component={AboutPage} />
+            <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
+            <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
+          </div>
+        </HashRouter>
+      </ReduxWrapper>
+    </Fragment>
   )
 }
 

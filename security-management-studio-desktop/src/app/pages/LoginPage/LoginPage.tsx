@@ -1,27 +1,61 @@
+import { bindActionCreators, Dispatch } from 'redux'
 import React, { Component, ReactElement, PropsWithChildren } from 'react'
+import { connect } from 'react-redux'
 
 import { LoginPageView } from './LoginPageView'
 import { LoginFormDataType } from './types'
-import { loginUser } from '@/app/webApi/auth/login'
+import {
+  fetchLoginActionCreator,
+  clearMessageActionCreator,
+} from '@/app/store/Authentication/actionCreators'
+import { GlobalStateType } from '@/app/store'
+import { Redirect } from 'react-router-dom'
+import { routeNames } from '@/app/routes/routeNames'
 
-type LoginPagePropType = PropsWithChildren<unknown>
+function mapStateToProps(state: GlobalStateType) {
+  return {
+    isLoadProcess: state.authenticationReducer.isLoadProcess,
+    isAuthenticated: state.authenticationReducer.isAuthenticated,
 
-class LoginPageComponent extends Component<LoginPagePropType> {
+    message: state.authenticationReducer.message,
+    messageStatus: state.authenticationReducer.messageStatus,
+  }
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  const actionCreators = { fetchLoginActionCreator, clearMessageActionCreator }
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+type LoginPagePropType = PropsWithChildren<unknown> &
+  ReturnType<typeof mapDispatchToProps> &
+  ReturnType<typeof mapStateToProps>
+
+class LoginPageContainer extends Component<LoginPagePropType> {
   constructor(props: LoginPagePropType) {
     super(props)
 
     this.submitHandler = this.submitHandler.bind(this)
   }
 
-  componentDidMount(): void {
-    loginUser('b@mail.ru', 'q').then((a) => console.log(a))
+  submitHandler(data: LoginFormDataType): void {
+    this.props.fetchLoginActionCreator(data.email, data.password)
   }
 
-  submitHandler(data: LoginFormDataType): void {}
-
   render(): ReactElement {
-    return <LoginPageView submit={this.submitHandler} isLoad={false} />
+    if (this.props.isAuthenticated) {
+      return <Redirect to={routeNames.HomeRoute} />
+    }
+
+    return (
+      <LoginPageView
+        clearErrorMessage={this.props.clearMessageActionCreator}
+        submit={this.submitHandler}
+        isLoad={this.props.isLoadProcess}
+        errorMessage={this.props.message}
+      />
+    )
   }
 }
 
-export const LoginPage = LoginPageComponent
+export const LoginPage = connect(mapStateToProps, mapDispatchToProps)(LoginPageContainer)

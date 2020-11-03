@@ -1,6 +1,5 @@
 @import "@/app/scss/mixins";
-
-$containerHeight: 30px;
+@import "./topBarVariables.scss";
 
 .container {
   // @include unselectable;
@@ -10,6 +9,8 @@ $containerHeight: 30px;
   background-color: rgb(25, 55, 85);
   display: flex;
   justify-content: flex-end;
+  position: fixed;
+  z-index: 9999;
 
   .iconsContainer{
     width: 90px;
