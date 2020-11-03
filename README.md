@@ -1,4 +1,4 @@
-# AGPI Security Management Studio
+# Security Management Studio
 
 ## Desktop:
 
