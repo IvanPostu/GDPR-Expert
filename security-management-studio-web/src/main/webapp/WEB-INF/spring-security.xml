@@ -9,6 +9,10 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- <custom-filter ref="cookieFilter" after="BASIC_AUTH_FILTER"  /> -->
     <!-- <custom-filter after="BASIC_AUTH_FILTER" ref="customCookieFilter" /> -->
+    
+    
+    <csrf disabled="true" />
+    <custom-filter after="BASIC_AUTH_FILTER" ref="cookieFilter" />
 
     <intercept-url pattern="/login" access="isAnonymous()" />
     <intercept-url pattern="/logout" access="isAuthenticated()" />
@@ -21,13 +25,12 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
 
-    <csrf disabled="true" />
     
 
     
   </http>
 
-  <!-- <beans:bean id="customCookieFilter" class="com.app.filters.CustomCookieFilter"/> -->
+  <beans:bean id="cookieFilter" class="com.app.filters.CookieFilter"/>
 
   <beans:bean id="authenticationEntryPointImpl" class="com.app.configurations.AuthenticationEntryPointImpl"></beans:bean>
 

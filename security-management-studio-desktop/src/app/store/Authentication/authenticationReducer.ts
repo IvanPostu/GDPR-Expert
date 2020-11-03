@@ -9,6 +9,8 @@ const initialState: AuthenticationStateType = {
   isAuthenticated: false,
   isLoadProcess: false,
   userEmail: '',
+  userFirstName: '',
+  userLastName: '',
 }
 
 export const authenticationReducer: Reducer<

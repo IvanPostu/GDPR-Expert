@@ -11,6 +11,8 @@ export enum authenticationActionTypeConstants {
 
 export type AuthenticationStateType = {
   isLoadProcess: boolean
+  userFirstName: string
+  userLastName: string
 } & AuthenticationType
 
 export type AuthenticationType = {

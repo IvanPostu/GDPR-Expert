@@ -1,9 +1,10 @@
 import React, { FC, PropsWithChildren, ReactElement } from 'react'
-import { HashRouter, Link, Route } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 
 import { HomePage } from '@/app/pages/HomePage'
 import { AboutPage } from '@/app/pages/AboutPage'
 import { LoginPage } from '@/app/pages/LoginPage'
+import { RegistrationPage } from '@/app/pages/RegistrationPage'
 import { RootPage } from '@/app/pages/RootPage'
 
 import { WindowTopBar } from '@/app/components/WindowTopBar'
@@ -25,6 +26,7 @@ const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
         <Route path={[routeNames.HomeRoute]} exact component={HomePage} />
         <Route path={routeNames.AboutRoute} exact component={AboutPage} />
         <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
+        <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
       </HashRouter>
     </ReduxWrapper>
   )
