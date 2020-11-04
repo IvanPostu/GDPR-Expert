@@ -5,6 +5,8 @@ import styles from './styles.module.scss'
 import image314 from '@/app/assets/images/imageadfdaf.jpg'
 import { OrganisationCard } from './OrganisationCard'
 import { InfoButton } from '@/app/components/Button/InfoButton'
+import { NavLink } from 'react-router-dom'
+import { routeNames } from '@/app/routes/routeNames'
 
 export const OrganisationsPageView = (): ReactElement => {
   return (
@@ -13,7 +15,9 @@ export const OrganisationsPageView = (): ReactElement => {
         <div className={styles.createNewOrganisationContainer}>
           <label className={styles.title}>Organizații</label>
           <div>
-            <InfoButton onClick={() => {}} title="Creare organizație nouă" />
+            <NavLink to={routeNames.CreateOrganisationPageRoute}>
+              <InfoButton onClick={() => {}} title="Creare organizație nouă" />
+            </NavLink>
           </div>
         </div>
 

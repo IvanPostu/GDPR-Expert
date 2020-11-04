@@ -10,6 +10,7 @@ import { WindowTopBar } from '@/app/components/WindowTopBar'
 import { Header } from '@/app/components/Header'
 import { routeNames } from '@/app/routes/routeNames'
 import { ReduxWrapper } from '@/app/store/root'
+import { CreateOrganisationPage } from './pages/CreateOrganisationPage'
 
 const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
   return (
@@ -18,10 +19,15 @@ const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
       <ReduxWrapper>
         <HashRouter>
           <Header />
-          <div style={{ marginTop: '50px', height: '1500px' }}>
+          <div style={{ marginTop: '50px' }}>
             <Route path={routeNames.RootPageRoute} exact component={RootPage} />
 
             <Route path={routeNames.OrganisationsPageRoute} exact component={OrganisationsPage} />
+            <Route
+              path={routeNames.CreateOrganisationPageRoute}
+              exact
+              component={CreateOrganisationPage}
+            />
             <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
             <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
           </div>

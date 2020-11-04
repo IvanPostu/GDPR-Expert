@@ -1,6 +1,6 @@
-@import "@/app/scss/mixins";
-@import "@/app/scss/colors";
-@import "@/app/components/WindowTopBar/topBarVariables";
+@import '@/app/scss/mixins';
+@import '@/app/scss/colors';
+@import '@/app/components/WindowTopBar/topBarVariables';
 
 .topMenu {
   background: $blue1;
@@ -10,7 +10,7 @@
   position: relative;
   top: $containerHeight;
 
-  .logo{
+  .logo {
     color: white;
     font-size: 22px;
     line-height: 45px;
@@ -23,31 +23,29 @@
     float: right;
     margin-right: 20px;
 
-    .listItem{
+    .listItem {
       display: inline-block;
       line-height: 45px;
       margin: 0 5px;
 
-      .link{
+      .link {
         height: 100%;
         padding: 10px;
         color: white;
         border-radius: 3px;
-        text-transform: uppercase;
         text-decoration: none;
+        font-weight: bold;
+        @include unselectable();
       }
 
-      
       .link:hover {
-          background: #1b9bff;
-          transition: .1s;
+        background: #1b9bff;
+        transition: 0.1s;
       }
 
-      .link:active{
+      .link:active {
         background: #1584da;
       }
     }
   }
-
-
 }
