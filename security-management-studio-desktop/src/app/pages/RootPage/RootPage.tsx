@@ -17,6 +17,6 @@ export const RootPage: FC<RootPagePropType> = (props): ReactElement => {
   if (!isAuthenticated) {
     return <Redirect to={routeNames.LoginPageRoute} />
   } else {
-    return <Redirect to={routeNames.HomeRoute} />
+    return <Redirect to={routeNames.OrganisationsPageRoute} />
   }
 }

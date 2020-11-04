@@ -1,0 +1,49 @@
+@import '@/app/scss/mixins';
+
+.card {
+  @include unselectable();
+  color: #111;
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 8px 0;
+  border-radius: 4px;
+  max-width: 320px;
+  margin-right: 20px;
+
+  &:hover{
+    opacity: .85;
+  }
+
+  &:active{
+    opacity: .75;
+  }
+
+  span {
+    display: block;
+  }
+
+  .cardHeader {
+    position: relative;
+    height: 175px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    background-blend-mode: overlay;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .cardTitle {
+    padding: 3.5% 0 2.5% 0.5rem;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .cardSummary {
+    margin: 5% 5% 3% 5%;
+  }
+}

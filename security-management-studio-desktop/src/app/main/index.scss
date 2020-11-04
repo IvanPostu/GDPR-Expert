@@ -22,9 +22,15 @@ button {
 
 }
 
+#root {
+  overflow-y: auto;
+  max-height: 100vh;
+
+}
+
 body {
   background: rgb(235, 235, 235);
   font-family: 'Roboto';
-  overflow: hidden;
   max-height: 100vh;
+
 }

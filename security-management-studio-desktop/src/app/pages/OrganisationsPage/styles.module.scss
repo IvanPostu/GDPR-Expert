@@ -1,0 +1,28 @@
+.cards {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 1.5%;
+  box-sizing: border-box;
+
+
+}
+
+.createNewOrganisationContainer {
+
+  flex-basis: 75vh;
+  padding: 2em;
+  background: transparent;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.74);
+  border-radius: .25em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 26px;
+    font-weight: bold;
+
+  }
+
+}

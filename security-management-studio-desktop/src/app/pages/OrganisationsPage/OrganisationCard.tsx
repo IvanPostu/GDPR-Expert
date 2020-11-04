@@ -1,0 +1,27 @@
+import React, { ReactElement, FC } from 'react'
+import styles from './cards.module.scss'
+
+type OrganisationCardPropType = {
+  title: string
+  text: string
+  image: string
+  titleBackgroundColor?: string
+  titleTextColor?: string
+}
+
+export const OrganisationCard: FC<OrganisationCardPropType> = (props): ReactElement => {
+  const titleBackgroundColor = props.titleBackgroundColor || 'rgba(75, 145, 220, 0.65)'
+  const titleTextColor = props.titleTextColor || 'black'
+
+  return (
+    <a className={styles.card}>
+      <span className={styles.cardHeader}>
+        <img src={props.image} width="100%" height="100%" style={{ opacity: 0.85 }} />
+        <span className={styles.cardTitle} style={{ background: titleBackgroundColor }}>
+          <h3 style={{ color: titleTextColor }}>{props.title}</h3>
+        </span>
+      </span>
+      <span className={styles.cardSummary}>{props.text}</span>
+    </a>
+  )
+}

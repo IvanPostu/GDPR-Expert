@@ -1,8 +1,7 @@
 import React, { FC, PropsWithChildren, ReactElement, Fragment } from 'react'
 import { HashRouter, Route } from 'react-router-dom'
 
-import { HomePage } from '@/app/pages/HomePage'
-import { AboutPage } from '@/app/pages/AboutPage'
+import { OrganisationsPage } from '@/app/pages/OrganisationsPage'
 import { LoginPage } from '@/app/pages/LoginPage'
 import { RegistrationPage } from '@/app/pages/RegistrationPage'
 import { RootPage } from '@/app/pages/RootPage'
@@ -19,11 +18,10 @@ const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
       <ReduxWrapper>
         <HashRouter>
           <Header />
-          <div style={{ marginTop: '50px' }}>
+          <div style={{ marginTop: '50px', height: '1500px' }}>
             <Route path={routeNames.RootPageRoute} exact component={RootPage} />
 
-            <Route path={[routeNames.HomeRoute]} exact component={HomePage} />
-            <Route path={routeNames.AboutRoute} exact component={AboutPage} />
+            <Route path={routeNames.OrganisationsPageRoute} exact component={OrganisationsPage} />
             <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
             <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
           </div>

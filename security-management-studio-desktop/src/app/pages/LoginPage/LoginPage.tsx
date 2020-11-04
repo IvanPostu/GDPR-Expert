@@ -44,7 +44,7 @@ class LoginPageContainer extends Component<LoginPagePropType> {
 
   render(): ReactElement {
     if (this.props.isAuthenticated) {
-      return <Redirect to={routeNames.HomeRoute} />
+      return <Redirect to={routeNames.OrganisationsPageRoute} />
     }
 
     return (
