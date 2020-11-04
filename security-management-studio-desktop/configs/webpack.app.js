@@ -111,7 +111,7 @@ module.exports = [
     module: {
       rules: [
         {
-          test: /\.ts(x?)$/,
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: /src/,
           use: [{ loader: 'ts-loader' }],
         },
