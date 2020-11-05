@@ -8,6 +8,8 @@
   "description": "Security management studio.",
   "main": "build/electron/electron.js",
   "scripts": {
+    "dev": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",
+
     "electron-build": "webpack --config configs/webpack.electron.js",
     "app-build": "./node_modules/.bin/env-cmd -e production webpack --config configs/webpack.app.js",
     "dev-server": "npm run electron-build && ./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",

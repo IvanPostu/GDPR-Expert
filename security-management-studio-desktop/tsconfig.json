@@ -71,8 +71,12 @@
     },
   },
   "exclude": [
-    "./src/build/",
-    "./src/out/"
+    "./build",
+    "./out",
+    "./configs",
+    "./jest.config.js",
+    "./postcss.config.js",
+    "./setupTests.js",
   ]
  
 }

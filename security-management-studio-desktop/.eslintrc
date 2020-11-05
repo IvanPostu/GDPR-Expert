@@ -16,7 +16,8 @@
     "@typescript-eslint/no-empty-function": "warn",
     "no-console": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "@typescript-eslint/ban-ts-comment": "warn"
   },
   "settings": {
     "react": {

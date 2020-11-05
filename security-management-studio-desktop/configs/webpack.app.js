@@ -60,26 +60,11 @@ module.exports = [
 
     devServer: isDev
       ? {
-          // contentBase: path.join(__dirname, 'webpackdist'),
-          // proxy: {
-          //   '/web': {
-          //     target: 'http://127.0.0.1:8080',
-          //     pathRewrite: { '^/web': '' },
-          //     changeOrigin: true,
-          //     cookieDomainRewrite: '127.0.0.1',
-          //     onProxyReq: (proxyReq) => {
-          //       if (proxyReq.getHeader('origin')) {
-          //         proxyReq.setHeader('origin', 'http://127.0.0.1:8080')
-          //       }
-          //     },
-          //   },
-          // },
           compress: true,
-          host: false,
           port: 8000,
           hot: true,
-          overlay: true,
-          historyApiFallback: true,
+          inline: true,
+          liveReload: false,
           writeToDisk: true,
           headers: {
             'Access-Control-Allow-Origin': '*',
