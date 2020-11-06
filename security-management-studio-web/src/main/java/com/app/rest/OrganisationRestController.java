@@ -1,6 +1,7 @@
 package com.app.rest;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.app.domain.dto.CreateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
@@ -23,21 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/organisation")
 public class OrganisationRestController {
   private static final Logger logger = LogManager.getLogger(OrganisationRestController.class);
-  
+
   private final OrganisationService organisationService;
 
   @Autowired
-  public OrganisationRestController(OrganisationService organisationService){
+  public OrganisationRestController(OrganisationService organisationService) {
     this.organisationService = organisationService;
   }
 
-  @RequestMapping(value = "/create", method = RequestMethod.POST, 
-    consumes = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createOrganisation(
-    @RequestBody CreateOrganisationDto organisationDto, 
+    @RequestBody CreateOrganisationDto organisationDto,
     @AuthenticationPrincipal UserEntity user
-  ){
-    
+  ) 
+  {
+
     OrganisationEntity organisationEntity = new OrganisationEntity();
     organisationEntity.setActive(true);
     organisationEntity.setAddress(organisationDto.getAddress());
@@ -47,6 +48,7 @@ public class OrganisationRestController {
     organisationEntity.setLegalForm(organisationDto.getLegalForm());
     organisationEntity.setName(organisationDto.getOrganisationName());
     organisationEntity.setPhoneNumber(organisationDto.getTelephone());
+    organisationEntity.setOwner(user);
 
     organisationService.addOrganisation(organisationEntity);
 
@@ -54,5 +56,12 @@ public class OrganisationRestController {
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
+  @RequestMapping(value = "/all", method = RequestMethod.GET)
+  public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal UserEntity user) {
+    Set<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(
+      user.getId());
+
+    return ResponseEntity.ok(userOrgList);
+  }
 
 }

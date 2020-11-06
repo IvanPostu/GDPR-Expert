@@ -81,12 +81,9 @@ public class UserDaoImpl implements UserDao {
     query.setMaxResults(1);
     query.setParameter("email", email);
 
-    List<UserEntity> users = query.getResultList();
-    if(users.size()>0){
-      return users.get(0);
-    }
+    UserEntity user = query.getSingleResult();
 
-    return null;
+    return user;
   }
 
 }

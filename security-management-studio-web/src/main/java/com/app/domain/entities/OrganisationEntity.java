@@ -1,8 +1,11 @@
 package com.app.domain.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -55,7 +58,37 @@ public class OrganisationEntity {
 
   @Setter 
   @Getter
-  @Column(name = "created_at")
+  @Column(name = "created_at", columnDefinition = "TIMESTAMP")
   private LocalDateTime createdAt;
   
+  @JsonIgnore
+  @Setter 
+  @Getter
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name="user_owner_id")
+  private UserEntity owner;
+
+
+  @Override
+  public boolean equals(Object o) {
+    if(this == o){
+      return true;
+    }
+
+    if(o == null){
+      return false;
+    }
+
+    if(getClass() != o.getClass()){
+      return false;
+    }
+
+    OrganisationEntity obj = (OrganisationEntity)o;
+    return Objects.equals(obj.getId(), getId());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId());
+  }
 }

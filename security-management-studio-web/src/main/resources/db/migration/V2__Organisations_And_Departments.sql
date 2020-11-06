@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS app.organisation
 (
 	"organisation_id" BIGSERIAL NOT NULL,
+  "user_owner_id" BIGINT NOT NULL,
 	"name" VARCHAR(128),
 	"legal_form" VARCHAR(64), 
 	"address" VARCHAR(256),
@@ -12,12 +13,12 @@ CREATE TABLE IF NOT EXISTS app.organisation
 	PRIMARY KEY ("organisation_id")
 	
 );
--- legal_form: Întreprinzătorul individual
--- Societate în nume colectiv
--- Societate în comandită
--- Cooperativă (de producție și întreprinzători)
--- Societate cu răspundere limitată
--- Societate pe acțiuni (tip deschis și tip închis)
+
+ALTER TABLE IF EXISTS app.organisation 
+ADD CONSTRAINT userowner_organisation_fk
+FOREIGN KEY ("user_owner_id") 
+REFERENCES app."user"("user_id");
+
 
 CREATE TABLE IF NOT EXISTS app.department
 (

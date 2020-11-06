@@ -53,7 +53,8 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public UserEntity getUserByEmail(final String email) {
-    return userDao.getUserByEmail(email);
+    UserEntity user  = userDao.getUserByEmail(email);
+    return user;
   }
 
 }

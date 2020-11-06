@@ -1,5 +1,10 @@
 package com.app.persistence.dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.TypedQuery;
+
 import com.app.domain.entities.OrganisationEntity;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,4 +30,20 @@ public class OrganisationDaoImpl implements OrganisationDao {
     session.persist(oEntity);
     logger.info("Organisation successfully saved. Organisation info " + oEntity.toString());
   }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public Set<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId) {
+    Session session = sessionFactory.getCurrentSession();
+    final String sqlStr = "FROM OrganisationEntity WHERE user_owner_id=:ownerId"; 
+
+    TypedQuery<OrganisationEntity> query = session.createQuery(sqlStr);
+    query.setParameter("ownerId", userOwnerId);
+
+    Set<OrganisationEntity> organisations = new HashSet<>(query.getResultList());
+
+    return organisations;
+  }
+
+ 
 }

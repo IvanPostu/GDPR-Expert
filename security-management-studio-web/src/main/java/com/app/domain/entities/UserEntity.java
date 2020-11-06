@@ -2,8 +2,10 @@ package com.app.domain.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +57,11 @@ public class UserEntity implements UserDetails {
   @JoinColumn(name = "user_id")
   private List<UserRoleEntity> roles = new ArrayList<>();
 
+  @Setter
+  @Getter
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_owner_id")
+  private Set<OrganisationEntity> organisations = new HashSet<>();
 
   @Override
   public boolean equals(Object o) {
