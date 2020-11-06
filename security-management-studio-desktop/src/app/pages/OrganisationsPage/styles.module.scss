@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   padding: 1.5%;
   box-sizing: border-box;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.74);
 
 
 }
@@ -12,7 +13,7 @@
 
   flex-basis: 75vh;
   padding: 2em;
-  background: transparent;
+  background: rgb(220, 240, 240);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.74);
   border-radius: .25em;
   display: flex;

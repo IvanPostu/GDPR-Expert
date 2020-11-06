@@ -1,0 +1,22 @@
+@import '@/app/scss/colors';
+
+$borderRadius: 8px;
+
+.btn {
+  display: inline-block;
+  background-color: $blue1;
+  padding: 14px 0;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 8px;
+  border-radius: $borderRadius;
+  
+  width: 100%;
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.55;
+  }
+}

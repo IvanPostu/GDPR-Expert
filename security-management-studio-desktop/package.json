@@ -9,7 +9,6 @@
   "main": "build/electron/electron.js",
   "scripts": {
     "dev": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",
-
     "electron-build": "webpack --config configs/webpack.electron.js",
     "app-build": "./node_modules/.bin/env-cmd -e production webpack --config configs/webpack.app.js",
     "dev-server": "npm run electron-build && ./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",
@@ -64,6 +63,7 @@
     "postcss-loader": "^4.0.4",
     "prettier": "^2.1.2",
     "sass-loader": "^10.0.3",
+    "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^4.1.0",
     "ts-jest": "^26.4.1",
     "ts-loader": "^8.0.6",

@@ -1,0 +1,33 @@
+@import '@/app/scss/colors';
+
+$borderRadius:  8px;
+
+.txtInputContainer {
+  border: 1px solid gray;
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-radius: $borderRadius;
+
+  label {
+    display: block;
+    text-align: center;
+    color: rgba(51, 51, 51, 0.63);
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 18px;
+    margin-top: 6px;
+  }
+
+  textarea{
+    height: 90px;
+    resize: none;
+  }
+}

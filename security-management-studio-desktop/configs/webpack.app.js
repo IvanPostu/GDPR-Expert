@@ -106,7 +106,7 @@ module.exports = [
           exclude: sassModuleRegex,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
+              loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader',
             },
             {
               loader: 'css-loader',
@@ -119,11 +119,7 @@ module.exports = [
           test: sassModuleRegex,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: isDev,
-                reloadAll: true,
-              },
+              loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader',
             },
             {
               loader: 'css-loader',
@@ -143,7 +139,7 @@ module.exports = [
           exclude: cssModuleRegex,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
+              loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader',
             },
             {
               loader: 'css-loader',
@@ -155,11 +151,7 @@ module.exports = [
           test: cssModuleRegex,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: isDev,
-                reloadAll: true,
-              },
+              loader: isProd ? MiniCssExtractPlugin.loader : 'style-loader',
             },
             {
               loader: 'css-loader',
