@@ -36,14 +36,18 @@
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
-  <bean id="userService" class="com.app.services.UserServiceImpl">
+  <bean id="organisationDao" class="com.app.persistence.dao.OrganisationDaoImpl">
+    <constructor-arg index="0" ref="sessionFactory" />
+  </bean>
+
+  <!-- <bean id="userService" class="com.app.services.UserServiceImpl">
     <constructor-arg index="0" ref="userDao" />
     <constructor-arg index="1" ref="userRoleDao" />
   </bean>
 
   <bean id="userDetailsService" class="com.app.services.UserDetailsServiceImpl">
     <constructor-arg index="0" ref="userService" />
-  </bean>
+  </bean> -->
 
   <tx:annotation-driven transaction-manager="transactionManager" />
 

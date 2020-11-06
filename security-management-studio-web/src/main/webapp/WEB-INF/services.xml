@@ -3,11 +3,19 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-  <context:component-scan base-package="com.app" />
-  <mvc:annotation-driven>
-    <mvc:argument-resolvers>
-      <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver" />
-    </mvc:argument-resolvers>
-  </mvc:annotation-driven>
+
+
+  <bean id="userService" class="com.app.services.UserServiceImpl">
+    <constructor-arg index="0" ref="userDao" />
+    <constructor-arg index="1" ref="userRoleDao" />
+  </bean>
+
+  <bean id="userDetailsService" class="com.app.services.UserDetailsServiceImpl">
+    <constructor-arg index="0" ref="userService" />
+  </bean>
+
+  <bean id="organisationService" class="com.app.services.OrganisationServiceImpl">
+    <constructor-arg index="0" ref="organisationDao" />
+  </bean>
 
 </beans>

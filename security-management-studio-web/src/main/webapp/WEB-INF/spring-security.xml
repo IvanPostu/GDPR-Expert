@@ -13,13 +13,13 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <intercept-url pattern="/logout" access="isAuthenticated()" />
 
     <intercept-url pattern="/api/registration" access="isAnonymous()" />
-    <!-- <intercept-url pattern="/api/auth/success" access="isAnonymous()" />
-    <intercept-url pattern="/api/auth/failure" access="isAnonymous()" /> -->
+    
+    <intercept-url pattern="/api/organisation/create" access="isAuthenticated()" />
 
     <intercept-url pattern="/**" access="isAuthenticated()" />
 
-    <form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" login-processing-url="" />
 
+    <form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" login-processing-url="" />
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
     
   </http>
