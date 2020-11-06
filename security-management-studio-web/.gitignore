@@ -5,6 +5,7 @@ target/
 !**/src/test/**
 
 logs
+*.session.sql
 temp
 
 ### STS ###
