@@ -2,7 +2,6 @@ package com.app.services;
 
 import com.app.domain.entities.UserEntity;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,22 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     UserEntity userFromDatabase = userService.getUserByEmail(username);
     if (userFromDatabase != null){
-      User user = new User(
-        userFromDatabase.getEmail(), 
-        userFromDatabase.getPassword(),
-        userFromDatabase.isActive(),
-        true,
-        true, 
-        true,
-        userFromDatabase.getRoles()
-      );
-
-      return user;
+      return userFromDatabase;
+    } else {
+      throw new UsernameNotFoundException("Unable to find user with username provided!!");
     }
-
-    
-
-    throw new UsernameNotFoundException("Unable to find user with username provided!!");
   }
 
 }

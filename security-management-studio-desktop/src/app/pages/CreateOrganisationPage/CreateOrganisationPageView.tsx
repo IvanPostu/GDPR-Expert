@@ -1,33 +1,37 @@
 import { BasicLoader } from '@/app/components/BasicLoader'
 import { ButtonA } from '@/app/components/Form/ButtonA'
 import { FormCardA } from '@/app/components/Form/FormCardA'
+import { SelectA } from '@/app/components/Form/SelectA'
 import { TextInputA, TextAreaA } from '@/app/components/Form/TextInputA'
-import React, { Fragment, ReactElement, SyntheticEvent, useCallback, useState } from 'react'
+import React, { FC, Fragment, ReactElement, SyntheticEvent, useCallback, useState } from 'react'
+import { legalForms } from './legalForms'
+import { OrganisationDataType } from './types'
 
-type OrganisationDataType = {
-  orgName: string
-  address: string
-  email: string
-  telephone: string
-  legalRepresentative: string
-  description: string
+type CreateOrganisationPageViewPropType = {
+  onOrganisationCreate: (organisation: OrganisationDataType) => void
+  isLoading: boolean
 }
 
-export const CreateOrganisationPageView = (): ReactElement => {
-  const isLoading = false
+export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> = (
+  props: CreateOrganisationPageViewPropType,
+): ReactElement => {
+  const isLoading = props.isLoading
 
   const [organisationData, setOrganisationData] = useState<OrganisationDataType>({
-    orgName: '',
+    organisationName: '',
     address: '',
     email: '',
     telephone: '',
     legalRepresentative: '',
+    legalForm: '',
     description: '',
   })
 
   const onSubmit = useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault()
+      props.onOrganisationCreate(organisationData)
+      // console.log(organisationData)
     },
     [organisationData],
   )
@@ -43,7 +47,7 @@ export const CreateOrganisationPageView = (): ReactElement => {
         onTextChange={(str: string) =>
           setOrganisationData({
             ...organisationData,
-            orgName: str,
+            organisationName: str,
           })
         }
       />
@@ -84,13 +88,23 @@ export const CreateOrganisationPageView = (): ReactElement => {
         }
       />
       <TextAreaA
-        labelName="Descriere organizație:"
+        labelName="Descriere organizație: "
         onTextChange={(str: string) =>
           setOrganisationData({
             ...organisationData,
             description: str,
           })
         }
+      />
+      <SelectA
+        setSelectedItem={(str) =>
+          setOrganisationData({
+            ...organisationData,
+            legalForm: str,
+          })
+        }
+        title="Forma organizatorico-juridică: "
+        items={legalForms}
       />
       <ButtonA type="submit" title="Salvează" />
     </Fragment>

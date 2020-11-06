@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.app.domain.dto.CreateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
+import com.app.domain.entities.UserEntity;
 import com.app.services.OrganisationService;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,7 +35,7 @@ public class OrganisationRestController {
     consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createOrganisation(
     @RequestBody CreateOrganisationDto organisationDto, 
-    @AuthenticationPrincipal User user
+    @AuthenticationPrincipal UserEntity user
   ){
     
     OrganisationEntity organisationEntity = new OrganisationEntity();
@@ -44,7 +44,7 @@ public class OrganisationRestController {
     organisationEntity.setAdministrator(organisationDto.getLegalRepresentative());
     organisationEntity.setCreatedAt(LocalDateTime.now());
     organisationEntity.setEmail(organisationDto.getEmail());
-    organisationEntity.setLegalForm("S.R.L.");
+    organisationEntity.setLegalForm(organisationDto.getLegalForm());
     organisationEntity.setName(organisationDto.getOrganisationName());
     organisationEntity.setPhoneNumber(organisationDto.getTelephone());
 

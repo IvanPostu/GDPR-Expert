@@ -1,6 +1,7 @@
 package com.app.domain.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,68 +15,45 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="user", schema = "app")
-public class UserEntity {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "user", schema = "app")
+public class UserEntity implements UserDetails {
+
+  private static final long serialVersionUID = 3167844333375708893L;
+
+  @Setter
+  @Getter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="user_id", unique = true)
+  @Column(name = "user_id", unique = true)
   private Long id;
-  
-  @Column(name = "active")
-  private Boolean active;
 
+  @Setter
+  @Getter()
+  @Column(name = "active")
+  private boolean active;
+
+  @Setter
+  @Getter
   @Column(name = "email")
   private String email;
 
+  @Setter
+  @Getter
   @Column(name = "password")
   private String password;
 
+  @Setter
+  @Getter
   @OneToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id")
   private List<UserRoleEntity> roles = new ArrayList<>();
-
-  public Boolean isActive() {
-    return active;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public List<UserRoleEntity> getRoles() {
-    return roles;
-  }
-
-
-  public void setActive(Boolean active) {
-    this.active = active;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public void setRoles(List<UserRoleEntity> roles) {
-    this.roles = roles;
-  }
 
 
   @Override
@@ -91,6 +69,36 @@ public class UserEntity {
   @Override
   public int hashCode() {
     return Objects.hash(this.getId());
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles;
+  }
+
+  @Override
+  public String getUsername() {
+    return getEmail();
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return isActive();
   }
 
 }
