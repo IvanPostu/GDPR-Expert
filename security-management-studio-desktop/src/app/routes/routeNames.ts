@@ -3,5 +3,6 @@ export enum routeNames {
   LoginPageRoute = '/LoginPageRoute',
   RegistrationPageRoute = '/RegistrationPageRoute',
   OrganisationsPageRoute = '/OrganisationsPageRoute',
+  OrganisationPageRoute = '/OrganisationPageRoute',
   CreateOrganisationPageRoute = '/CreateOrganisationPageRoute',
 }

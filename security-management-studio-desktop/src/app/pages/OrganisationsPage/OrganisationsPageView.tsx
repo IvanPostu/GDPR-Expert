@@ -9,10 +9,12 @@ import { NavLink } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 import { OrganisationResponseTypeA } from '@/app/webApi/organisation/getOrganisations'
 import { defaultOrganisationImage } from './defaultOrganisationImage'
+import { BasicLoader } from '@/app/components/BasicLoader'
 
 type OrganisationsPageViewPropType = {
   organisations: Array<OrganisationResponseTypeA>
   onRefreshClick: () => void
+  isLoad: boolean
 }
 
 export const OrganisationsPageView = (props: OrganisationsPageViewPropType): ReactElement => {
@@ -36,20 +38,22 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
     </div>
   )
 
-  console.log(organisations)
-
   return (
     <Fragment>
       <Container>
         <div className={styles.createNewOrganisationContainer}>
           <div className={styles.item}>
             <label className={styles.title}>Organizații</label>
-            <span
-              onClick={props.onRefreshClick}
-              style={{ marginLeft: '20px', borderRadius: '20px' }}
-            >
-              <IoIosRefreshCircle fill="#0082e6" size="50px" />
-            </span>
+
+            {!props.isLoad && (
+              <span
+                onClick={props.onRefreshClick}
+                style={{ marginLeft: '20px', borderRadius: '20px' }}
+              >
+                <IoIosRefreshCircle fill="#0082e6" size="50px" />
+              </span>
+            )}
+            {props.isLoad && <BasicLoader />}
           </div>
           <div className={styles.item}>
             <NavLink to={routeNames.CreateOrganisationPageRoute}>

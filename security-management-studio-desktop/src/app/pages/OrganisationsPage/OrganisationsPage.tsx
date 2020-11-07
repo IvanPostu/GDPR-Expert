@@ -33,6 +33,7 @@ class OrganisationsPageComponent extends Component<OrganisationsPageComponentPro
       <OrganisationsPageView
         onRefreshClick={this.props.reloadOrganisationsPageActionCreator}
         organisations={this.props.organisations}
+        isLoad={this.props.organisationsIsLoadProcess}
       />
     )
   }

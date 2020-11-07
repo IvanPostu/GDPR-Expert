@@ -1,16 +1,15 @@
-import { bindActionCreators, Dispatch } from 'redux'
-import React, { Component, ReactElement, PropsWithChildren } from 'react'
+import { routeNames } from '@/app/routes/routeNames'
+import { GlobalStateType } from '@/app/store'
+import {
+  clearMessageActionCreator,
+  fetchLoginActionCreator,
+} from '@/app/store/Authentication/actionCreators'
+import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import { connect } from 'react-redux'
-
+import { Redirect, RouteComponentProps } from 'react-router-dom'
+import { bindActionCreators, Dispatch } from 'redux'
 import { LoginPageView } from './LoginPageView'
 import { LoginFormDataType } from './types'
-import {
-  fetchLoginActionCreator,
-  clearMessageActionCreator,
-} from '@/app/store/Authentication/actionCreators'
-import { GlobalStateType } from '@/app/store'
-import { Redirect } from 'react-router-dom'
-import { routeNames } from '@/app/routes/routeNames'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -29,7 +28,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
 
 type LoginPagePropType = PropsWithChildren<unknown> &
   ReturnType<typeof mapDispatchToProps> &
-  ReturnType<typeof mapStateToProps>
+  ReturnType<typeof mapStateToProps> &
+  RouteComponentProps
 
 class LoginPageContainer extends Component<LoginPagePropType> {
   constructor(props: LoginPagePropType) {

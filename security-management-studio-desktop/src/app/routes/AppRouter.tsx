@@ -1,49 +1,33 @@
-import React, { ReactElement, Fragment } from 'react'
-import { HashRouter, Route } from 'react-router-dom'
-import { OrganisationsPage } from '@/app/pages/OrganisationsPage'
-import { LoginPage } from '@/app/pages/LoginPage'
-import { RegistrationPage } from '@/app/pages/RegistrationPage'
-import { RootPage } from '@/app/pages/RootPage'
 import { Header } from '@/app/components/Header'
-import { routeNames } from '@/app/routes/routeNames'
-import { CreateOrganisationPage } from '@/app/pages/CreateOrganisationPage'
-import { GlobalStateType } from '../store'
-import { connect } from 'react-redux'
+import React, { ReactElement } from 'react'
+import { HashRouter, Route } from 'react-router-dom'
+import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
+import { LoginPage } from '../pages/LoginPage'
+import { OrganisationPage } from '../pages/OrganisationPage'
+import { OrganisationsPage } from '../pages/OrganisationsPage'
+import { RegistrationPage } from '../pages/RegistrationPage'
+import { RootPage } from '../pages/RootPage'
+import { routeNames } from './routeNames'
 
-function mapStateToProps(state: GlobalStateType) {
-  return {
-    isAuthenticated: state.authenticationReducer.isAuthenticated,
-  }
-}
-
-type AppRouterComponentPropType = ReturnType<typeof mapStateToProps>
-
-const AppRouterComponent = (props: AppRouterComponentPropType): ReactElement => {
-  const isAuth = props.isAuthenticated
-
-  const routes = isAuth ? (
-    <Fragment>
-      <Route path={routeNames.RootPageRoute} exact component={RootPage} />
-
-      <Route path={routeNames.OrganisationsPageRoute} exact component={OrganisationsPage} />
-      <Route
-        path={routeNames.CreateOrganisationPageRoute}
-        exact
-        component={CreateOrganisationPage}
-      />
-      <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
-      <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
-    </Fragment>
-  ) : (
-    <Route path={'*'} component={LoginPage} />
-  )
-
+const AppRouterComponent = (): ReactElement => {
   return (
     <HashRouter>
       <Header />
-      <div style={{ marginTop: '50px' }}>{routes}</div>
+      <div style={{ marginTop: '50px' }}>
+        <Route path={routeNames.RootPageRoute} exact component={RootPage} />
+
+        <Route path={routeNames.OrganisationsPageRoute} exact component={OrganisationsPage} />
+        <Route path={routeNames.OrganisationPageRoute} exact component={OrganisationPage} />
+        <Route
+          path={routeNames.CreateOrganisationPageRoute}
+          exact
+          component={CreateOrganisationPage}
+        />
+        <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
+        <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
+      </div>
     </HashRouter>
   )
 }
 
-export const AppRouter = connect(mapStateToProps)(AppRouterComponent)
+export const AppRouter = AppRouterComponent
