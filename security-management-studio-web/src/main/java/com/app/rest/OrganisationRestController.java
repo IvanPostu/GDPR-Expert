@@ -1,10 +1,16 @@
 package com.app.rest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import com.app.beans.ApplicationDateTimeFormatter;
 import com.app.domain.dto.CreateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
+import com.app.domain.entities.OrganisationLogoEntity;
 import com.app.domain.entities.UserEntity;
 import com.app.services.OrganisationService;
 
@@ -15,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,10 +33,15 @@ public class OrganisationRestController {
   private static final Logger logger = LogManager.getLogger(OrganisationRestController.class);
 
   private final OrganisationService organisationService;
+  private final ApplicationDateTimeFormatter dateTimeFormatter;
 
   @Autowired
-  public OrganisationRestController(OrganisationService organisationService) {
+  public OrganisationRestController(
+    OrganisationService organisationService,
+    ApplicationDateTimeFormatter dateTimeFormatter
+  ) {
     this.organisationService = organisationService;
+    this.dateTimeFormatter = dateTimeFormatter;
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -48,8 +60,25 @@ public class OrganisationRestController {
     organisationEntity.setLegalForm(organisationDto.getLegalForm());
     organisationEntity.setName(organisationDto.getOrganisationName());
     organisationEntity.setPhoneNumber(organisationDto.getTelephone());
+    organisationEntity.setDescription(organisationDto.getDescription());
     organisationEntity.setOwner(user);
 
+    
+    if(!StringUtils.isEmpty(organisationDto.getBase64LogoImage())){
+      OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
+      byte[] imageBytes = organisationDto.getBase64LogoImage().getBytes();
+      Byte[] imageForSave = new Byte[imageBytes.length];
+
+      int index = 0;
+      for(byte b : imageBytes){
+        imageForSave[index++] = b;
+      }
+
+      logoEntity.setImageData(imageForSave);
+     
+      organisationEntity.setOrganisationLogoEntity(logoEntity);
+    }
+    
     organisationService.addOrganisation(organisationEntity);
 
     logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
@@ -59,9 +88,38 @@ public class OrganisationRestController {
   @RequestMapping(value = "/all", method = RequestMethod.GET)
   public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal UserEntity user) {
     Set<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(
-      user.getId());
+      user.getId(), true);
 
-    return ResponseEntity.ok(userOrgList);
+
+    List<Map<String, Object>> response = new ArrayList<>(userOrgList.size());
+
+    for (OrganisationEntity org : userOrgList){
+      Map<String, Object> item = new HashMap<>();
+      item.put("organisationName", org.getName());
+      item.put("organisationId", org.getId());
+      item.put("organisationLogo", "");
+      item.put("organisationCreatedDateTime", org.getCreatedAt()
+        .format(dateTimeFormatter.getApplicationDateTimeFormat())
+      );
+
+      if(org.getOrganisationLogoEntity() != null){
+        Byte[] imgBytes = org.getOrganisationLogoEntity().getImageData();
+        if(imgBytes.length > 0){
+          StringBuilder imgBuilder = new StringBuilder(imgBytes.length);
+          for(Byte b : imgBytes){
+            imgBuilder.append((char)b.byteValue());
+          }
+
+          item.put("organisationLogo", imgBuilder.toString());
+        }
+      }
+      item.put("organisationDescription", org.getDescription());
+
+      response.add(item);
+    }
+
+
+    return ResponseEntity.ok(response);
   }
 
 }

@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -58,6 +59,12 @@ public class OrganisationEntity {
 
   @Setter 
   @Getter
+  @Column(name = "description")
+  private String description;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+  @Setter 
+  @Getter
   @Column(name = "created_at", columnDefinition = "TIMESTAMP")
   private LocalDateTime createdAt;
   
@@ -67,6 +74,13 @@ public class OrganisationEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="user_owner_id")
   private UserEntity owner;
+
+  @JsonIgnore
+  @Setter 
+  @Getter
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name="organisation_id")
+  private OrganisationLogoEntity organisationLogoEntity;
 
 
   @Override

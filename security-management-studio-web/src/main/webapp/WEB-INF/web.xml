@@ -53,6 +53,7 @@
       /WEB-INF/datasource.xml   
       /WEB-INF/services.xml   
       /WEB-INF/jackson-beans.xml
+      /WEB-INF/context.xml
     </param-value>
   </context-param>
 
