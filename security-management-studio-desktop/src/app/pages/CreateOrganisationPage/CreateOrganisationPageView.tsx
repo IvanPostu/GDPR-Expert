@@ -3,6 +3,7 @@ import { ButtonA } from '@/app/components/Form/ButtonA'
 import { FormCardA } from '@/app/components/Form/FormCardA'
 import { SelectA } from '@/app/components/Form/SelectA'
 import { TextInputA, TextAreaA } from '@/app/components/Form/TextInputA'
+import { ImageFileInputA } from '@/app/components/Form/ImageFileInputA'
 import React, { FC, Fragment, ReactElement, SyntheticEvent, useCallback, useState } from 'react'
 import { legalForms } from './legalForms'
 import { OrganisationDataType } from './types'
@@ -10,6 +11,9 @@ import { OrganisationDataType } from './types'
 type CreateOrganisationPageViewPropType = {
   onOrganisationCreate: (organisation: OrganisationDataType) => void
   isLoading: boolean
+  message: string
+  messageColor: string
+  clearMessage: () => void
 }
 
 export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> = (
@@ -25,13 +29,13 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
     legalRepresentative: '',
     legalForm: '',
     description: '',
+    base64Image: '',
   })
 
   const onSubmit = useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault()
       props.onOrganisationCreate(organisationData)
-      // console.log(organisationData)
     },
     [organisationData],
   )
@@ -106,12 +110,26 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
         title="Forma organizatorico-juridică: "
         items={legalForms}
       />
+      <ImageFileInputA
+        base64ImageLoadedHandler={(base64Image) => {
+          setOrganisationData({
+            ...organisationData,
+            base64Image,
+          })
+        }}
+        labelName="Logo organizație: "
+      />
+
+      {props.message && (
+        <p style={{ color: props.messageColor, margin: '10px' }}>{props.message}</p>
+      )}
+
       <ButtonA type="submit" title="Salvează" />
     </Fragment>
   )
 
   return (
-    <FormCardA onSubmit={onSubmit}>
+    <FormCardA onClick={props.clearMessage} onSubmit={onSubmit}>
       <h1>Creare organizație: </h1>
       {content}
     </FormCardA>

@@ -43,8 +43,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
     if(withLogos){
       for(OrganisationEntity o : organisations){
-        OrganisationLogoEntity entity = o.getOrganisationLogoEntity();
-        char c = 'a';
+        o.getOrganisationLogoEntity();
       }
     }
 
