@@ -29,6 +29,7 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
     <div className={styles.cards}>
       {organisations.map((item) => (
         <OrganisationCard
+          organisationId={Number(item.organisationId)}
           key={item.organisationId}
           image={item.organisationLogo || defaultOrganisationImage}
           text={item.organisationDescription}

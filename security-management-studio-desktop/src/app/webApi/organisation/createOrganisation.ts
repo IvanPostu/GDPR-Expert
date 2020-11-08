@@ -1,5 +1,15 @@
 import { webServerURL } from '@/constants'
-import { CreateOrganisationDataTypeForWebApi } from './types'
+
+export type CreateOrganisationDataTypeForWebApi = {
+  organisationName: string
+  address: string
+  email: string
+  telephone: string
+  legalRepresentative: string
+  legalForm: string
+  description: string
+  base64LogoImage: string
+}
 
 export async function createOrganisation(
   data: CreateOrganisationDataTypeForWebApi,

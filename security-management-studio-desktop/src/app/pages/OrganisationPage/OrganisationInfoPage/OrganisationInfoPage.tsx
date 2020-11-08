@@ -4,8 +4,19 @@ import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import { RouteChildrenProps } from 'react-router-dom'
 import { OrganisationPageLayout } from '../OrganisationPageLayout'
 import { BasicLoader } from '@/app/components/BasicLoader'
+import { connect } from 'react-redux'
+import { GlobalStateType } from '@/app/store'
 
-type OrganisationInfoPageComponentPropType = RouteChildrenProps & PropsWithChildren<unknown>
+function mapStateToProps(globalState: GlobalStateType) {
+  return {
+    isLoading: globalState.organisationReducer.isLoading,
+    organisationInfo: globalState.organisationReducer.organisation,
+  }
+}
+
+type OrganisationInfoPageComponentPropType = RouteChildrenProps &
+  PropsWithChildren<unknown> &
+  ReturnType<typeof mapStateToProps>
 
 class OrganisationInfoPageComponent extends Component<OrganisationInfoPageComponentPropType> {
   constructor(props: OrganisationInfoPageComponentPropType) {
@@ -13,7 +24,7 @@ class OrganisationInfoPageComponent extends Component<OrganisationInfoPageCompon
   }
 
   render(): ReactElement {
-    const loading = false
+    const loading = this.props.isLoading
 
     const content = loading ? (
       <div style={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
@@ -21,18 +32,20 @@ class OrganisationInfoPageComponent extends Component<OrganisationInfoPageCompon
       </div>
     ) : (
       <OrganisationInfo
-        orgAddress="adr1"
-        orgAdministrator="Abc Cde"
-        orgDescription="Simple description."
-        orgEmail="qwerty@mail.ru"
-        orgLegalForm="S.R.L."
-        orgName="Coca cola"
-        orgPhoneNumber="06714 614376 731 "
-        orgLogoImage={testImg}
-        orgDepartmentCount={12}
-        orgEmployeeCount={56}
-        orgFondationDate={'08.08.2010'}
-        orgPlatformRegistrationDate={'08.12.2010'}
+        orgAddress={this.props.organisationInfo.organisationAddress}
+        orgAdministrator={this.props.organisationInfo.organisationAdministrator}
+        orgDescription={this.props.organisationInfo.organisationDescription}
+        orgEmail={this.props.organisationInfo.organisationEmail}
+        orgLegalForm={this.props.organisationInfo.organisationLegalForm}
+        orgName={this.props.organisationInfo.organisationName}
+        orgPhoneNumber={this.props.organisationInfo.organisationPhoneNumber}
+        orgLogoImage={this.props.organisationInfo.organisationLogo}
+        orgDepartmentCount={Number(this.props.organisationInfo.organisationDepartmentCount)}
+        orgEmployeeCount={Number(this.props.organisationInfo.organisationEmployeeCount)}
+        orgFondationDate={this.props.organisationInfo.organisationFoundedDate}
+        orgPlatformRegistrationDate={
+          this.props.organisationInfo.organisationCreatedOnPlatformDateTime
+        }
       />
     )
 
@@ -40,4 +53,4 @@ class OrganisationInfoPageComponent extends Component<OrganisationInfoPageCompon
   }
 }
 
-export const OrganisationInfoPage = OrganisationInfoPageComponent
+export const OrganisationInfoPage = connect(mapStateToProps)(OrganisationInfoPageComponent)

@@ -4,11 +4,13 @@ import {
   fetchOrganisationsSagaWatcher,
   reloadOrganisationsSagaWatcher,
 } from '@/app/store/Organisations/organisationsSagas'
+import { fetchOrganisationInfoSagaWatcher } from '@/app/store/OrganisationInfo/organisationSaga'
 
 export default function* (): Generator {
   yield all([
     fetchBotsSagaWatcher(),
     fetchOrganisationsSagaWatcher(),
     reloadOrganisationsSagaWatcher(),
+    fetchOrganisationInfoSagaWatcher(),
   ])
 }

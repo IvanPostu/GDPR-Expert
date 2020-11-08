@@ -15,7 +15,7 @@ const initialState: OrganisationsStateType = {
 export const organisationsReducer: Reducer<OrganisationsStateType, OrganisationsRootActionType> = (
   state: OrganisationsStateType = initialState,
   action: OrganisationsRootActionType,
-) => {
+): OrganisationsStateType => {
   switch (action.type) {
     case T.START_LOADING:
       return {
