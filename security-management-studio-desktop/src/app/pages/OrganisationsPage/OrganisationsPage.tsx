@@ -11,6 +11,7 @@ import {
 function mapStateToProps(state: GlobalStateType) {
   return {
     organisationsIsLoadProcess: state.organisationsReducer.isLoadProcess,
+    isLoadedFirstTime: state.organisationsReducer.isLoadedFirstTime,
     organisations: state.organisationsReducer.organisations,
   }
 }
@@ -26,6 +27,12 @@ type OrganisationsPageComponentPropType = ReturnType<typeof mapStateToProps> &
 class OrganisationsPageComponent extends Component<OrganisationsPageComponentPropType> {
   constructor(props: OrganisationsPageComponentPropType) {
     super(props)
+  }
+
+  componentDidMount(): void {
+    if (!this.props.isLoadedFirstTime && !this.props.organisationsIsLoadProcess) {
+      this.props.fetchOrganisationsActionCreator()
+    }
   }
 
   render(): ReactElement {
