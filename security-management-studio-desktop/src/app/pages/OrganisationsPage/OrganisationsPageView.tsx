@@ -8,7 +8,7 @@ import { InfoButton } from '@/app/components/Button/InfoButton'
 import { NavLink } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 import { OrganisationResponseTypeA } from '@/app/webApi/organisation/getOrganisations'
-import { defaultOrganisationImage } from './defaultOrganisationImage'
+import { defaultOrganisationImage } from '../../constants/defaultOrganisationImage'
 import { BasicLoader } from '@/app/components/BasicLoader'
 
 type OrganisationsPageViewPropType = {

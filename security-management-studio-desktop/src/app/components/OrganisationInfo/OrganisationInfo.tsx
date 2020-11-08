@@ -1,3 +1,4 @@
+import { defaultOrganisationImage } from '@/app/constants/defaultOrganisationImage'
 import React, { ReactElement, FC } from 'react'
 import styles from './styles.module.scss'
 
@@ -53,7 +54,7 @@ export const OrganisationInfo: FC<OrganisationInfoPropType> = (
         <div>
           <img
             style={{ marginRight: '20px' }}
-            src={props.orgLogoImage}
+            src={props.orgLogoImage ? props.orgLogoImage : defaultOrganisationImage}
             width="150px"
             height="150px"
             alt=""

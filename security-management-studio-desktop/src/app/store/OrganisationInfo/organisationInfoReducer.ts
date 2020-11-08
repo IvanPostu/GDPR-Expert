@@ -25,7 +25,10 @@ const initialState: OrganisationInfoStateType = {
   errorMessages: [],
 }
 
-export const organisationReducer: Reducer<OrganisationInfoStateType, OrganisationRootActionType> = (
+export const organisationInfoReducer: Reducer<
+  OrganisationInfoStateType,
+  OrganisationRootActionType
+> = (
   state: OrganisationInfoStateType = initialState,
   action: OrganisationRootActionType,
 ): OrganisationInfoStateType => {

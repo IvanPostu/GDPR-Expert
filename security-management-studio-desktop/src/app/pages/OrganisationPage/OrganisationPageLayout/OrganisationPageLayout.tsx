@@ -1,14 +1,15 @@
 import { SuccessButton } from '@/app/components/Button/SuccessButton'
 import { Container } from '@/app/components/Container'
 import { routeNames } from '@/app/routes/routeNames'
+import { GlobalStateType } from '@/app/store'
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, RouteChildrenProps } from 'react-router-dom'
 import styles from './styles.module.scss'
 
-function mapStateToProps() {
+function mapStateToProps(globalState: GlobalStateType) {
   return {
-    currentOrganisationName: 'Abc org name',
+    currentOrganisationName: globalState.organisationInfoReducer.organisation.organisationName,
   }
 }
 

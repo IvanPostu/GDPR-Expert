@@ -1,5 +1,4 @@
 import { OrganisationInfo } from '@/app/components/OrganisationInfo'
-import testImg from '@/app/assets/images/imageadfdaf.jpg'
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import { RouteChildrenProps } from 'react-router-dom'
 import { OrganisationPageLayout } from '../OrganisationPageLayout'
@@ -9,8 +8,8 @@ import { GlobalStateType } from '@/app/store'
 
 function mapStateToProps(globalState: GlobalStateType) {
   return {
-    isLoading: globalState.organisationReducer.isLoading,
-    organisationInfo: globalState.organisationReducer.organisation,
+    isLoading: globalState.organisationInfoReducer.isLoading,
+    organisationInfo: globalState.organisationInfoReducer.organisation,
   }
 }
 

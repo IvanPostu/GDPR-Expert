@@ -9,10 +9,9 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     
     <csrf disabled="true" />
 
-    <intercept-url pattern="/login" access="isAnonymous()" />
+    <intercept-url pattern="/login" access="permitAll" />
     <intercept-url pattern="/logout" access="isAuthenticated()" />
-
-    <intercept-url pattern="/api/registration" access="isAnonymous()" />
+    <intercept-url pattern="/api/registration" access="permitAll" />
     
     <intercept-url pattern="/api/organisation/create" access="isAuthenticated()" />
 
