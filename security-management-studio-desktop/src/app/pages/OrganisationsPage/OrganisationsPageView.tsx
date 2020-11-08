@@ -32,6 +32,10 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
           key={item.organisationId}
           image={item.organisationLogo || defaultOrganisationImage}
           text={item.organisationDescription}
+          organisationCreatedOnPlatformDateTime={
+            item.organisationCreatedOnPlatformDateTime.split('T')[0]
+          }
+          organisationFoundedDate={item.organisationFoundedDate}
           title={item.organisationName}
         />
       ))}

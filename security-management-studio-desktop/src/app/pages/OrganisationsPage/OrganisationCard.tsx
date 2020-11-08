@@ -6,6 +6,8 @@ import styles from './cards.module.scss'
 type OrganisationCardPropType = {
   title: string
   text: string
+  organisationFoundedDate: string
+  organisationCreatedOnPlatformDateTime: string
   image: string
   titleBackgroundColor?: string
   titleTextColor?: string
@@ -24,7 +26,19 @@ export const OrganisationCard: FC<OrganisationCardPropType> = (props): ReactElem
           <h3 style={{ color: titleTextColor }}>{props.title}</h3>
         </span>
       </span>
-      <span className={styles.cardSummary}>{description}</span>
+      <span className={styles.cardSummary}>
+        {description}
+        <div className={styles.dates}>
+          <div className={styles.date}>
+            <span>Data fondării:</span>
+            <span>{props.organisationFoundedDate}</span>
+          </div>
+          <div className={styles.date}>
+            <span>Data înregistrării pe platformă:</span>
+            <span>{props.organisationCreatedOnPlatformDateTime}</span>
+          </div>
+        </div>
+      </span>
     </NavLink>
   )
 }

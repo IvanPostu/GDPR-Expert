@@ -60,15 +60,14 @@ class RegistrationPageContainer extends Component<
           message: 'Cont de utilizator creat cu success.',
           messageStatus: 'success',
         })
-        this.setState(() => ({ redirectToLogin: true }))
+        this.setState(() => ({ redirectToLogin: true, isLoad: false }))
       } else {
         this.setState({
           message: 'A apărut eroare în procesul de înregistrare, încercați din nou.',
           messageColor: 'red',
+          isLoad: false,
         })
       }
-
-      this.setState({ isLoad: false })
     }
   }
 

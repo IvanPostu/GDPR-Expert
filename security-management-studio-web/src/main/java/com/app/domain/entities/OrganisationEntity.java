@@ -1,6 +1,7 @@
 package com.app.domain.entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -65,8 +66,14 @@ public class OrganisationEntity {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
   @Setter 
   @Getter
-  @Column(name = "created_at", columnDefinition = "TIMESTAMP")
-  private LocalDateTime createdAt;
+  @Column(name = "created_on_platform_at", columnDefinition = "TIMESTAMP")
+  private LocalDateTime createdOnPlatformAt;
+  
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+  @Setter 
+  @Getter
+  @Column(name = "founded_at", columnDefinition = "DATE")
+  private Date foundedAt;
   
   @JsonIgnore
   @Setter 

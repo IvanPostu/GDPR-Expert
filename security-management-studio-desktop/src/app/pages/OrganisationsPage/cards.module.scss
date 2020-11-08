@@ -5,7 +5,7 @@
   color: #111;
   position: relative;
   margin-bottom: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 8px 0;
   border-radius: 4px;
   width: 320px;
@@ -44,6 +44,19 @@
   }
 
   .cardSummary {
-    margin: 5% 5% 3% 5%;
+    margin: 5% 5% 0 5%;
+    
+    .dates{
+      padding-top: 20px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      .date{
+      justify-content: space-between;
+        display: flex;
+      }
+
+    }
   }
+
 }

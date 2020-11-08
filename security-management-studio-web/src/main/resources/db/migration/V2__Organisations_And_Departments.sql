@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS app.organisation
 	"phone_number" VARCHAR(128),
 	"email" VARCHAR(128),
 	"active" BOOLEAN NOT NULL,
-	"created_at" TIMESTAMP,
+	"created_on_platform_at" TIMESTAMP,
+	"founded_at" DATE,
 	PRIMARY KEY ("organisation_id")
 	
 );

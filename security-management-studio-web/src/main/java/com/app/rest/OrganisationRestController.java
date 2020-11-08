@@ -2,11 +2,13 @@ package com.app.rest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.app.beans.ApplicationDateFormatter;
 import com.app.beans.ApplicationDateTimeFormatter;
 import com.app.domain.dto.CreateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
@@ -34,14 +36,17 @@ public class OrganisationRestController {
 
   private final OrganisationService organisationService;
   private final ApplicationDateTimeFormatter dateTimeFormatter;
+  private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
   public OrganisationRestController(
     OrganisationService organisationService,
-    ApplicationDateTimeFormatter dateTimeFormatter
+    ApplicationDateTimeFormatter dateTimeFormatter,
+    ApplicationDateFormatter dateFormatter
   ) {
     this.organisationService = organisationService;
     this.dateTimeFormatter = dateTimeFormatter;
+    this.dateFormatter = dateFormatter;
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +60,8 @@ public class OrganisationRestController {
     organisationEntity.setActive(true);
     organisationEntity.setAddress(organisationDto.getAddress());
     organisationEntity.setAdministrator(organisationDto.getLegalRepresentative());
-    organisationEntity.setCreatedAt(LocalDateTime.now());
+    organisationEntity.setCreatedOnPlatformAt(LocalDateTime.now());
+    organisationEntity.setFoundedAt(new Date());
     organisationEntity.setEmail(organisationDto.getEmail());
     organisationEntity.setLegalForm(organisationDto.getLegalForm());
     organisationEntity.setName(organisationDto.getOrganisationName());
@@ -98,8 +104,12 @@ public class OrganisationRestController {
       item.put("organisationName", org.getName());
       item.put("organisationId", org.getId());
       item.put("organisationLogo", "");
-      item.put("organisationCreatedDateTime", org.getCreatedAt()
+      item.put("organisationCreatedOnPlatformDateTime", org.getCreatedOnPlatformAt()
         .format(dateTimeFormatter.getApplicationDateTimeFormat())
+      );
+      item.put("organisationFoundedDate", dateFormatter
+        .getApplicationDateFormat()
+        .format(org.getFoundedAt())
       );
 
       if(org.getOrganisationLogoEntity() != null){

@@ -5,7 +5,8 @@ export type OrganisationResponseTypeA = {
   organisationName: string
   organisationLogo: string
   organisationId: string
-  organisationCreatedDateTime: string
+  organisationCreatedOnPlatformDateTime: string
+  organisationFoundedDate: string
 }
 
 export async function getOrganisations(): Promise<Array<OrganisationResponseTypeA>> {
