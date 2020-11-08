@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.NoResultException;
+
 import com.app.beans.ApplicationDateFormatter;
 import com.app.beans.ApplicationDateTimeFormatter;
 import com.app.domain.dto.CreateOrganisationDto;
@@ -24,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,22 +42,16 @@ public class OrganisationRestController {
   private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
-  public OrganisationRestController(
-    OrganisationService organisationService,
-    ApplicationDateTimeFormatter dateTimeFormatter,
-    ApplicationDateFormatter dateFormatter
-  ) {
+  public OrganisationRestController(OrganisationService organisationService,
+      ApplicationDateTimeFormatter dateTimeFormatter, ApplicationDateFormatter dateFormatter) {
     this.organisationService = organisationService;
     this.dateTimeFormatter = dateTimeFormatter;
     this.dateFormatter = dateFormatter;
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> createOrganisation(
-    @RequestBody CreateOrganisationDto organisationDto,
-    @AuthenticationPrincipal UserEntity user
-  ) 
-  {
+  public ResponseEntity<?> createOrganisation(@RequestBody CreateOrganisationDto organisationDto,
+      @AuthenticationPrincipal UserEntity user) {
 
     OrganisationEntity organisationEntity = new OrganisationEntity();
     organisationEntity.setActive(true);
@@ -69,65 +66,102 @@ public class OrganisationRestController {
     organisationEntity.setDescription(organisationDto.getDescription());
     organisationEntity.setOwner(user);
 
-    
-    if(!StringUtils.isEmpty(organisationDto.getBase64LogoImage())){
+    if (!StringUtils.isEmpty(organisationDto.getBase64LogoImage())) {
       OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
       byte[] imageBytes = organisationDto.getBase64LogoImage().getBytes();
       Byte[] imageForSave = new Byte[imageBytes.length];
 
       int index = 0;
-      for(byte b : imageBytes){
+      for (byte b : imageBytes) {
         imageForSave[index++] = b;
       }
 
       logoEntity.setImageData(imageForSave);
-     
+
       organisationEntity.setOrganisationLogoEntity(logoEntity);
     }
-    
+
     organisationService.addOrganisation(organisationEntity);
 
     logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
+  private String byteArrayToStringConverter(Byte[] bytes) {
+
+    if (bytes.length > 0) {
+      StringBuilder strBuilder = new StringBuilder(bytes.length);
+      for (Byte b : bytes) {
+        strBuilder.append((char) b.byteValue());
+      }
+
+      return strBuilder.toString();
+    }
+
+    return "";
+  }
+
   @RequestMapping(value = "/all", method = RequestMethod.GET)
   public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal UserEntity user) {
-    Set<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(
-      user.getId(), true);
-
+    Set<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(user.getId(), true);
 
     List<Map<String, Object>> response = new ArrayList<>(userOrgList.size());
 
-    for (OrganisationEntity org : userOrgList){
+    for (OrganisationEntity org : userOrgList) {
       Map<String, Object> item = new HashMap<>();
       item.put("organisationName", org.getName());
       item.put("organisationId", org.getId());
       item.put("organisationLogo", "");
-      item.put("organisationCreatedOnPlatformDateTime", org.getCreatedOnPlatformAt()
-        .format(dateTimeFormatter.getApplicationDateTimeFormat())
-      );
-      item.put("organisationFoundedDate", dateFormatter
-        .getApplicationDateFormat()
-        .format(org.getFoundedAt())
-      );
-
-      if(org.getOrganisationLogoEntity() != null){
-        Byte[] imgBytes = org.getOrganisationLogoEntity().getImageData();
-        if(imgBytes.length > 0){
-          StringBuilder imgBuilder = new StringBuilder(imgBytes.length);
-          for(Byte b : imgBytes){
-            imgBuilder.append((char)b.byteValue());
-          }
-
-          item.put("organisationLogo", imgBuilder.toString());
-        }
-      }
+      item.put("organisationCreatedOnPlatformDateTime",
+          org.getCreatedOnPlatformAt().format(dateTimeFormatter.getApplicationDateTimeFormat()));
+      item.put("organisationFoundedDate", dateFormatter.getApplicationDateFormat().format(org.getFoundedAt()));
       item.put("organisationDescription", org.getDescription());
+
+      if (org.getOrganisationLogoEntity() != null) {
+        Byte[] imgBytes = org.getOrganisationLogoEntity().getImageData();
+        item.put("organisationLogo", byteArrayToStringConverter(imgBytes));
+      }
 
       response.add(item);
     }
 
+    return ResponseEntity.ok(response);
+  }
+
+  @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
+  public ResponseEntity<?> organisationInfo(@PathVariable("id") Long organisationId,
+      @AuthenticationPrincipal UserEntity user) {
+
+    OrganisationEntity organisationEntity = null;
+
+    try {
+      organisationEntity = organisationService
+        .findOrganisationByIdAndOwnerId(organisationId, user.getId(), true).get();
+    } catch (NoResultException e) {
+      return ResponseEntity.noContent().build();
+    }
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("organisationName", organisationEntity.getName());
+    response.put("organisationId", organisationEntity.getId());
+    response.put("organisationLogo", "");
+    response.put("organisationCreatedOnPlatformDateTime",
+        organisationEntity.getCreatedOnPlatformAt().format(dateTimeFormatter.getApplicationDateTimeFormat()));
+    response.put("organisationFoundedDate",
+        dateFormatter.getApplicationDateFormat().format(organisationEntity.getFoundedAt()));
+    response.put("organisationDescription", organisationEntity.getDescription());
+    response.put("organisationLegalForm", organisationEntity.getLegalForm());
+    response.put("organisationAdministrator", organisationEntity.getAdministrator());
+    response.put("organisationAddress", organisationEntity.getAddress());
+    response.put("organisationPhoneNumber", organisationEntity.getPhoneNumber());
+    response.put("organisationEmail", organisationEntity.getEmail());
+    response.put("organisationDepartmentCount", 9);
+    response.put("organisationEmployeeCount", 78);
+
+    if (organisationEntity.getOrganisationLogoEntity() != null) {
+      Byte[] imgBytes = organisationEntity.getOrganisationLogoEntity().getImageData();
+      response.put("organisationLogo", byteArrayToStringConverter(imgBytes));
+    }
 
     return ResponseEntity.ok(response);
   }

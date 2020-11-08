@@ -45,5 +45,20 @@ public class OrganisationDaoImpl implements OrganisationDao {
     return organisations;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public OrganisationEntity findOrganisationByIdAndOwnerId(Long organisationId, Long ownerId) {
+    Session session = sessionFactory.getCurrentSession();
+    final String sqlStr = "FROM OrganisationEntity WHERE organisation_id=:orgId "+
+      " AND user_owner_id=:ownerId"; 
+
+    TypedQuery<OrganisationEntity> query = session.createQuery(sqlStr);
+    query.setParameter("ownerId", ownerId);
+    query.setParameter("orgId", organisationId);
+
+    OrganisationEntity organisation = query.getSingleResult();
+    return organisation;
+  }
+
  
 }

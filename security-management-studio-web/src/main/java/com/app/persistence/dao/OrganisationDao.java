@@ -8,6 +8,8 @@ public interface OrganisationDao {
   
   Set<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId);
 
+  OrganisationEntity findOrganisationByIdAndOwnerId(Long organisationId, Long ownerId);
+
   void addOrganisation(OrganisationEntity oEntity);
 
 }

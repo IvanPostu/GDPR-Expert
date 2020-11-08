@@ -1,5 +1,6 @@
 package com.app.services;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -17,9 +18,7 @@ public class OrganisationServiceImpl implements OrganisationService {
   private final OrganisationLogoDao organisationLogoDao;
 
   @Autowired
-  public OrganisationServiceImpl(OrganisationDao organisationDao, 
-    OrganisationLogoDao organisationLogoDao) 
-  {
+  public OrganisationServiceImpl(OrganisationDao organisationDao, OrganisationLogoDao organisationLogoDao) {
     this.organisationDao = organisationDao;
     this.organisationLogoDao = organisationLogoDao;
   }
@@ -27,10 +26,10 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Override
   @Transactional
   public void addOrganisation(OrganisationEntity oEntity) {
-    
+
     organisationDao.addOrganisation(oEntity);
     OrganisationLogoEntity logo = oEntity.getOrganisationLogoEntity();
-    if(logo != null){
+    if (logo != null) {
       logo.setId(oEntity.getId());
       organisationLogoDao.addOrganisationLogo(logo);
     }
@@ -41,12 +40,29 @@ public class OrganisationServiceImpl implements OrganisationService {
   public Set<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId, boolean withLogos) {
     Set<OrganisationEntity> organisations = organisationDao.findOrganisationsByOwnerId(userOwnerId);
 
-    if(withLogos){
-      for(OrganisationEntity o : organisations){
+    if (withLogos) {
+      for (OrganisationEntity o : organisations) {
         o.getOrganisationLogoEntity();
       }
     }
 
     return organisations;
+  }
+
+  @Override
+  @Transactional
+
+  public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, Long ownerId,
+      boolean withLogo) {
+
+    OrganisationEntity daoResult = organisationDao.findOrganisationByIdAndOwnerId(organisationId, ownerId);
+
+    Optional<OrganisationEntity> result = Optional.of(daoResult);
+
+    if (withLogo && daoResult != null) {
+      daoResult.getOrganisationLogoEntity();
+    }
+
+    return result;
   }
 }
