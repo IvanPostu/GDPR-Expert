@@ -18,7 +18,7 @@
       <props>
         <prop key="hibernate.dialect">
                 org.hibernate.dialect.PostgreSQL95Dialect
-              </prop>
+        </prop>
         <prop key="hibernate.show_sql">true</prop>
       </props>
     </property>

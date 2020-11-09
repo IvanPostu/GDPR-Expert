@@ -8,7 +8,11 @@ export const SuccessButton = (props: ButtonPropType): ReactElement => {
   const onClick = props.onClick ? props.onClick : () => {}
 
   return (
-    <button className={`${styles.btn} ${successButtonStyle.infoButton}`} onClick={onClick}>
+    <button
+      type="button"
+      className={`${styles.btn} ${successButtonStyle.infoButton}`}
+      onClick={onClick}
+    >
       {props.title}
     </button>
   )

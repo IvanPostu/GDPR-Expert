@@ -1,5 +1,5 @@
 import { webServerURL } from '@/constants'
-import { ErrorResponseType } from '../types'
+import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
 export type ResponseType = {
   organisationId: string
@@ -19,7 +19,7 @@ export type ResponseType = {
 
 export async function getOrganisationById(
   organisationId: number,
-): Promise<ResponseType | ErrorResponseType> {
+): Promise<ResponseType | UnsuccessResponseData> {
   const options: RequestInit = {
     method: 'GET',
     credentials: 'include',
@@ -40,9 +40,7 @@ export async function getOrganisationById(
 
     throw new Error()
   } catch (e) {
-    throw {
-      errorKeywords: [],
-      status: status ? status : 404,
-    } as ErrorResponseType
+    const error = new UnsuccessResponseData(status ? status : 404, [])
+    throw error as UnsuccessResponseData
   }
 }

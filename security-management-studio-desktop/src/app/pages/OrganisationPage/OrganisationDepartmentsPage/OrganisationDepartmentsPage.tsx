@@ -24,7 +24,7 @@ class OrganisationDepartmentsPageComponent extends Component<
         <div className={styles.container}>
           <div className={styles.panel}>
             <NavLink to={routeNames.CreateDepartmentPageRoute}>
-              <InfoButton title="Adaugă departament nou" />
+              <InfoButton className={styles.btn} title="Adaugă departament nou" />
             </NavLink>
           </div>
           {isEmpty ? (

@@ -1,0 +1,14 @@
+.container {
+  width: 500px;
+  overflow: hidden;
+  background: rgba(238, 238, 238, 0.975);
+  box-shadow: 0 0 10px rgb(85, 85, 85);
+  border-radius: 8px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  padding: 10px;
+  text-align: center;
+}

@@ -49,6 +49,20 @@ public class OrganisationRestController {
     this.dateFormatter = dateFormatter;
   }
 
+  private String byteArrayToStringConverter(Byte[] bytes) {
+
+    if (bytes.length > 0) {
+      StringBuilder strBuilder = new StringBuilder(bytes.length);
+      for (Byte b : bytes) {
+        strBuilder.append((char) b.byteValue());
+      }
+
+      return strBuilder.toString();
+    }
+
+    return "";
+  }
+
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createOrganisation(@RequestBody CreateOrganisationDto organisationDto,
       @AuthenticationPrincipal UserEntity user) {
@@ -84,21 +98,7 @@ public class OrganisationRestController {
     organisationService.addOrganisation(organisationEntity);
 
     logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-  }
-
-  private String byteArrayToStringConverter(Byte[] bytes) {
-
-    if (bytes.length > 0) {
-      StringBuilder strBuilder = new StringBuilder(bytes.length);
-      for (Byte b : bytes) {
-        strBuilder.append((char) b.byteValue());
-      }
-
-      return strBuilder.toString();
-    }
-
-    return "";
+    return ResponseEntity.status(HttpStatus.CREATED).body(organisationEntity.getId());
   }
 
   @RequestMapping(value = "/all", method = RequestMethod.GET)
