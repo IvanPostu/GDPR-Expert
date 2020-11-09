@@ -17,10 +17,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
   private final SessionFactory sessionFactory;
 
   @Autowired
-  public DepartmentDaoImpl (SessionFactory sessionFactory){
+  public DepartmentDaoImpl(SessionFactory sessionFactory) {
     this.sessionFactory = sessionFactory;
   }
-
 
   @Override
   public void addDepartment(DepartmentEntity departmentEntity) {
@@ -40,5 +39,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
     // TODO Auto-generated method stub
 
   }
+
   
 }

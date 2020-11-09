@@ -18,4 +18,9 @@
     <constructor-arg index="0" ref="organisationDao" />
   </bean>
 
+  <bean id="departmentService" class="com.app.services.DepartmentServiceImpl">
+    <constructor-arg index="0" ref="departmentDao" />
+    <constructor-arg index="1" ref="organisationDao" />
+  </bean>
+
 </beans>

@@ -2,6 +2,7 @@ package com.app.domain.entities;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -89,6 +90,12 @@ public class OrganisationEntity {
   @JoinColumn(name="organisation_id")
   private OrganisationLogoEntity organisationLogoEntity;
 
+  @JsonIgnore
+  @Setter 
+  @Getter
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name="organisation_id")
+  private List<DepartmentEntity> depatrments;
 
   @Override
   public boolean equals(Object o) {

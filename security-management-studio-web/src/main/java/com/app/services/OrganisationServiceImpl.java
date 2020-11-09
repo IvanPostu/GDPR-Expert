@@ -51,7 +51,6 @@ public class OrganisationServiceImpl implements OrganisationService {
 
   @Override
   @Transactional
-
   public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, Long ownerId,
       boolean withLogo) {
 
