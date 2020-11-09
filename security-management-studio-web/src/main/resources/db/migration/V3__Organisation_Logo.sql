@@ -10,6 +10,7 @@ CREATE TABLE app.organisation_logo
 
 ALTER TABLE app.organisation_logo 
 ADD CONSTRAINT organisation_organisation_logo_fk FOREIGN KEY ("organisation_id") 
-REFERENCES app."organisation"("organisation_id");
+REFERENCES app."organisation"("organisation_id")
+ON DELETE CASCADE;
 
 

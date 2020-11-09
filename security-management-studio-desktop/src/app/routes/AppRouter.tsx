@@ -2,6 +2,7 @@ import { Header } from '@/app/components/Header'
 import React, { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
+import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { LoginPage } from '../pages/LoginPage'
 import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/OrganisationDepartmentsPage/OrganisationDepartmentsPage'
@@ -68,6 +69,14 @@ const AppRouterComponent = (): ReactElement => {
             path={routeNames.CreateOrganisationPageRoute}
             exact
             trueComponent={CreateOrganisationPage}
+            falseComponent={LoginPage}
+          />
+
+          <DecisionRoute
+            decisionFunc={() => isAuthenticated}
+            path={routeNames.CreateDepartmentPageRoute}
+            exact
+            trueComponent={CreateDepartmentPage}
             falseComponent={LoginPage}
           />
 

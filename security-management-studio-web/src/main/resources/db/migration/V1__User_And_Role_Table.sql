@@ -22,4 +22,5 @@ UNIQUE (email);
 
 ALTER TABLE IF EXISTS app.user_role 
 ADD CONSTRAINT user_role_fk
-FOREIGN KEY (user_id) REFERENCES app."user";
+FOREIGN KEY (user_id) REFERENCES app."user"
+ON DELETE CASCADE;

@@ -1,9 +1,11 @@
 // import { DepartmentsTable } from './DepartmentsTable'
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
-import { RouteChildrenProps } from 'react-router-dom'
+import { NavLink, RouteChildrenProps } from 'react-router-dom'
 import { OrganisationPageLayout } from '../OrganisationPageLayout'
 import { GenericTableA } from '@/app/components/Tables'
 import styles from './styles.module.scss'
+import { InfoButton } from '@/app/components/Button/InfoButton'
+import { routeNames } from '@/app/routes/routeNames'
 
 type OrganisationDepartmentsPageComponentPropType = RouteChildrenProps & PropsWithChildren<unknown>
 
@@ -20,6 +22,11 @@ class OrganisationDepartmentsPageComponent extends Component<
     return (
       <OrganisationPageLayout {...this.props}>
         <div className={styles.container}>
+          <div className={styles.panel}>
+            <NavLink to={routeNames.CreateDepartmentPageRoute}>
+              <InfoButton title="Adaugă departament nou" />
+            </NavLink>
+          </div>
           {isEmpty ? (
             <div className={styles.emptyDepartmentsMessage}>
               <p>Pentru organizația dată nu există departamente!</p>

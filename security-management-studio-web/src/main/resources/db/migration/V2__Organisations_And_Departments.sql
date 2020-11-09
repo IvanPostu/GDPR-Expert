@@ -1,8 +1,9 @@
-CREATE TABLE IF NOT EXISTS app.organisation
+CREATE TABLE  app.organisation
 (
 	"organisation_id" BIGSERIAL NOT NULL,
   "user_owner_id" BIGINT NOT NULL,
 	"name" VARCHAR(128),
+  "description" VARCHAR(1024) DEFAULT '',
 	"legal_form" VARCHAR(64), 
 	"address" VARCHAR(256),
 	"administrator" VARCHAR(256),
@@ -15,10 +16,11 @@ CREATE TABLE IF NOT EXISTS app.organisation
 	
 );
 
-ALTER TABLE IF EXISTS app.organisation 
+ALTER TABLE app.organisation 
 ADD CONSTRAINT userowner_organisation_fk
 FOREIGN KEY ("user_owner_id") 
-REFERENCES app."user"("user_id");
+REFERENCES app."user"("user_id")
+ON DELETE CASCADE;
 
 
 CREATE TABLE IF NOT EXISTS app.department
@@ -34,8 +36,9 @@ CREATE TABLE IF NOT EXISTS app.department
 	PRIMARY KEY ("department_id")
 );
 
-ALTER TABLE IF EXISTS app.department 
+ALTER TABLE app.department 
 ADD CONSTRAINT organisation_department_fk
 FOREIGN KEY ("organisation_id") 
-REFERENCES app."organisation"("organisation_id");
+REFERENCES app."organisation"("organisation_id")
+ON DELETE CASCADE;
 
