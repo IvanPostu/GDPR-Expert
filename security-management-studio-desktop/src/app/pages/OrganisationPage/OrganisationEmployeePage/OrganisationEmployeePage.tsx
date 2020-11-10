@@ -19,7 +19,7 @@ class OrganisationEmployeePageComponent extends Component<
     return (
       <OrganisationPageLayout {...this.props}>
         <div className={styles.container}>
-          {isEmpty ? (
+          {/* {isEmpty ? (
             <div className={styles.emptyEmployeeMessage}>
               <p>Organizația dată nu are angajanți!</p>
             </div>
@@ -35,7 +35,7 @@ class OrganisationEmployeePageComponent extends Component<
                 ],
               ]}
             />
-          )}
+          )} */}
         </div>
       </OrganisationPageLayout>
     )

@@ -5,8 +5,11 @@ import styles from './styles.module.scss'
 type GenericTableAPropType = {
   // cellSizes: Array<string>
   headerCells: Array<string>
-  cells: Array<Array<string>>
+  cells: Array<{ [key: string]: string }>
   actionsWidth?: string
+  onDeleteClick: (id: string) => void
+  onUpdateClick: (id: string) => void
+  onInfoClick: (id: string) => void
 }
 
 export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
@@ -14,11 +17,13 @@ export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
   const content = props.cells.map((item, index) => {
     return (
       <div key={index} className={styles.row}>
-        {item.map((cell, cellIndex) => (
-          <div key={cellIndex} className={styles.cell}>
-            {cell}
-          </div>
-        ))}
+        {Object.keys(item)
+          .filter((key) => key !== 'id')
+          .map((key, cellIndex) => (
+            <div key={cellIndex} className={styles.cell}>
+              {item[key]}
+            </div>
+          ))}
         <div style={actionsStyles} className={styles.cell}>
           <button className={styles.action} style={{ background: 'rgb(0, 145, 0)' }}>
             <IoIosInformationCircleOutline style={{ fontSize: 24 }} />
@@ -26,7 +31,11 @@ export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
           <button className={styles.action}>
             <IoIosCreate style={{ fontSize: 24 }} />
           </button>
-          <button className={styles.action} style={{ background: 'rgb(145, 0, 0)' }}>
+          <button
+            onClick={() => props.onDeleteClick(item['id'])}
+            className={styles.action}
+            style={{ background: 'rgb(145, 0, 0)' }}
+          >
             <IoIosTrash style={{ fontSize: 24 }} />
           </button>
         </div>
