@@ -44,9 +44,7 @@ class OrganisationDepartmentsPageComponent extends Component<
   }
 
   componentDidMount(): void {
-    if (!this.props.isLoadedFirstTime && this.props.organisationId) {
-      this.props.fetchDepartmentsActionCreator(Number(this.props.organisationId))
-    }
+    this.props.fetchDepartmentsActionCreator(Number(this.props.organisationId))
   }
 
   render(): ReactElement {
