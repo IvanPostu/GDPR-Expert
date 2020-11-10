@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import com.app.beans.ApplicationDateFormatter;
 import com.app.beans.ApplicationDateTimeFormatter;
@@ -63,9 +66,29 @@ public class OrganisationRestController {
     return "";
   }
 
+  /**
+   * 
+   * @param user
+   * @param organisationDto
+   * @return onsuccess id
+   * @return onerror {
+   *  empty_address
+   *  empty_name
+   *  invalid_email
+   *  empty_telephone
+   *  empty_representative
+    }
+   */
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> createOrganisation(@RequestBody CreateOrganisationDto organisationDto,
-      @AuthenticationPrincipal UserEntity user) {
+  public ResponseEntity<?> createOrganisation(@AuthenticationPrincipal UserEntity user,
+      @RequestBody CreateOrganisationDto organisationDto) {
+
+    Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    Set<ConstraintViolation<CreateOrganisationDto>> violations = validator.validate(organisationDto);
+
+    if(violations.size()>0){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
+    }
 
     OrganisationEntity organisationEntity = new OrganisationEntity();
     organisationEntity.setActive(true);
@@ -135,8 +158,7 @@ public class OrganisationRestController {
     OrganisationEntity organisationEntity = null;
 
     try {
-      organisationEntity = organisationService
-        .findOrganisationByIdAndOwnerId(organisationId, user.getId(), true).get();
+      organisationEntity = organisationService.findOrganisationByIdAndOwnerId(organisationId, user.getId(), true).get();
     } catch (NoResultException e) {
       return ResponseEntity.noContent().build();
     }

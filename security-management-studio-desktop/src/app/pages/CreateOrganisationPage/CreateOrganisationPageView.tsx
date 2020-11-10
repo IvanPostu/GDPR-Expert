@@ -7,12 +7,15 @@ import { ImageFileInputA } from '@/app/components/Form/ImageFileInputA'
 import React, { FC, Fragment, ReactElement, SyntheticEvent, useCallback, useState } from 'react'
 import { legalForms } from './legalForms'
 import { OrganisationDataType } from './types'
+import { ErrorAlert } from '@/app/components/CustomAlert/ErrorAlert/ErrorAlert'
+import { SuccessAlert } from '@/app/components/CustomAlert/SuccessAlert/SuccessAlert'
 
 type CreateOrganisationPageViewPropType = {
   onOrganisationCreate: (organisation: OrganisationDataType) => void
   isLoading: boolean
+  isErrorMessage: boolean
   message: string
-  messageColor: string
+  onSuccess: () => void
   clearMessage: () => void
 }
 
@@ -20,7 +23,7 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
   props: CreateOrganisationPageViewPropType,
 ): ReactElement => {
   const isLoading = props.isLoading
-
+  const message = props.message
   const [organisationData, setOrganisationData] = useState<OrganisationDataType>({
     organisationName: '',
     address: '',
@@ -40,7 +43,7 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
     [organisationData],
   )
 
-  const content = isLoading ? (
+  let content = isLoading ? (
     <div style={{ left: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <BasicLoader size="100px" />
     </div>
@@ -120,16 +123,22 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
         labelName="Logo organizație: "
       />
 
-      {props.message && (
-        <p style={{ color: props.messageColor, margin: '10px' }}>{props.message}</p>
-      )}
-
       <ButtonA type="submit" title="Salvează" />
     </Fragment>
   )
 
+  content = message ? (
+    props.isErrorMessage ? (
+      <ErrorAlert onOkClick={props.clearMessage} text={message} />
+    ) : (
+      <SuccessAlert onOkClick={props.onSuccess} text={message} />
+    )
+  ) : (
+    content
+  )
+
   return (
-    <FormCardA onClick={props.clearMessage} onSubmit={onSubmit}>
+    <FormCardA onSubmit={onSubmit}>
       <h1>Creare organizație: </h1>
       {content}
     </FormCardA>

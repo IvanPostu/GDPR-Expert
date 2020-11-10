@@ -8,7 +8,11 @@ export const InfoButton: FC<ButtonPropType> = (props: ButtonPropType): ReactElem
   const onClick = props.onClick ? props.onClick : () => {}
 
   return (
-    <button className={`${styles.btn} ${infoButtonStyles.infoButton}`} onClick={onClick}>
+    <button
+      type="button"
+      className={`${styles.btn} ${infoButtonStyles.infoButton}`}
+      onClick={onClick}
+    >
       {props.title}
     </button>
   )

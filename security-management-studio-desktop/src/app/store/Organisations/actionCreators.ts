@@ -24,9 +24,17 @@ export function reloadOrganisationsPageActionCreator(): ReloadPageActionType {
 export function setOrganisationsDataActionCreator(
   data: Array<OrganisationResponseTypeA>,
 ): SetOrganisationsDataActionType {
+  const arr = data
+    .sort((a, b) =>
+      a.organisationCreatedOnPlatformDateTime.localeCompare(
+        b.organisationCreatedOnPlatformDateTime,
+      ),
+    )
+    .reverse()
+
   return {
     type: T.SET_ORGANISATIONS_DATA,
-    payload: data,
+    payload: arr,
   }
 }
 

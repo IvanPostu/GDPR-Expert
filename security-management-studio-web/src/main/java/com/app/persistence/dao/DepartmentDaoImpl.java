@@ -35,7 +35,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
   }
 
   @Override
-  public void deleteBuId(Long departmentId) {
+  public void deleteById(Long departmentId) {
     // TODO Auto-generated method stub
 
   }

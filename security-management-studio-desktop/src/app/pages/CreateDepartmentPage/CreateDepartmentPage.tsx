@@ -7,6 +7,8 @@ import { Redirect } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { SuccessAlert } from '@/app/components/CustomAlert/SuccessAlert/SuccessAlert'
+import { fetchDepartmentsActionCreator } from '@/app/store/Departments/actionCreators'
+import { bindActionCreators, Dispatch } from 'redux'
 
 function mapStateToProps(globalState: GlobalStateType) {
   return {
@@ -14,8 +16,14 @@ function mapStateToProps(globalState: GlobalStateType) {
   }
 }
 
+function mapDispatchToProps(dispatch: Dispatch) {
+  const actionCreators = { fetchDepartmentsActionCreator }
+  return bindActionCreators(actionCreators, dispatch)
+}
+
 type CreateDepartmentPageComponentPropType = PropsWithChildren<unknown> &
-  ReturnType<typeof mapStateToProps>
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>
 
 type CreateDepartmentPageComponentStateType = {
   redirectToDepartments: boolean
@@ -63,6 +71,7 @@ class CreateDepartmentPageComponent extends Component<
   }
 
   onSuccessClick() {
+    this.props.fetchDepartmentsActionCreator(Number(this.props.organisationId))
     this.setState({
       redirectToDepartments: true,
     })
@@ -89,4 +98,7 @@ class CreateDepartmentPageComponent extends Component<
   }
 }
 
-export const CreateDepartmentPage = connect(mapStateToProps)(CreateDepartmentPageComponent)
+export const CreateDepartmentPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreateDepartmentPageComponent)

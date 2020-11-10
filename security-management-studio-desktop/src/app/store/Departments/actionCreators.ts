@@ -17,9 +17,13 @@ export function fetchDepartmentsActionCreator(organisationId: number): FetchDepa
 export function setDepartmentsDataActionCreator(
   data: Array<DepartmentType>,
 ): SetDepartmentsDataActionType {
+  const newArr = data
+    .sort((a, b) => a.departmentCreatedAt.localeCompare(b.departmentCreatedAt))
+    .reverse()
+
   return {
     type: T.SET_DEPARTMENTS_DATA,
-    payload: data,
+    payload: newArr,
   }
 }
 

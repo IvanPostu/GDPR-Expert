@@ -9,6 +9,6 @@ public interface DepartmentDao {
 
   Optional<DepartmentEntity> getById(Long departmentId);
 
-  void deleteBuId(Long departmentId);
+  void deleteById(Long departmentId);
 
 }

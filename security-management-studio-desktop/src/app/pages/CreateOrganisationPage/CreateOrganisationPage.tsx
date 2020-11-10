@@ -2,13 +2,15 @@ import React, { Component, ReactElement } from 'react'
 import { CreateOrganisationPageView } from './CreateOrganisationPageView'
 import { OrganisationDataType } from './types'
 import { createOrganisation } from '@/app/webApi/organisation/createOrganisation'
-import { RouteChildrenProps } from 'react-router-dom'
+import { Redirect, RouteChildrenProps } from 'react-router-dom'
 import { bindActionCreators, Dispatch } from 'redux'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 import { connect } from 'react-redux'
+import { routeNames } from '@/app/routes/routeNames'
+import { fetchOrganisationsActionCreator } from '@/app/store/Organisations/actionCreators'
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  const actionCreators = { clearAuthDataActionCreator }
+  const actionCreators = { clearAuthDataActionCreator, fetchOrganisationsActionCreator }
   return bindActionCreators(actionCreators, dispatch)
 }
 
@@ -19,7 +21,8 @@ type CreateOrganisationPageComponentPropType = OrganisationDataType &
 type CreateOrganisationPageComponentStatetype = {
   isFetch: boolean
   message: string
-  messageColor: string
+  isErrorMessage: boolean
+  redirectToOrganisations: boolean
 }
 
 class CreateOrganisationPageComponent extends Component<
@@ -34,8 +37,9 @@ class CreateOrganisationPageComponent extends Component<
 
     this.state = {
       isFetch: false,
-      message: 'Error',
-      messageColor: 'red',
+      isErrorMessage: false,
+      message: '',
+      redirectToOrganisations: false,
     }
 
     this.organisationCreateHandler = this.organisationCreateHandler.bind(this)
@@ -51,7 +55,7 @@ class CreateOrganisationPageComponent extends Component<
 
   async organisationCreateHandler(org: OrganisationDataType): Promise<void> {
     this.setState({ isFetch: true })
-    const createdWithSuccess = await createOrganisation(
+    const organisationId = await createOrganisation(
       {
         address: org.address,
         description: org.description,
@@ -65,11 +69,16 @@ class CreateOrganisationPageComponent extends Component<
       () => this.props.clearAuthDataActionCreator(),
     )
 
-    if (!createdWithSuccess) {
+    if (!organisationId) {
       this.setState({
+        isErrorMessage: true,
         message:
           'A apărut eroare în procesul creării organizației, rugăm să mai încercați din nou.',
-        messageColor: 'red',
+      })
+    } else {
+      this.setState({
+        isErrorMessage: false,
+        message: 'Organizația a fost creată cu succes.',
       })
     }
 
@@ -79,6 +88,10 @@ class CreateOrganisationPageComponent extends Component<
   }
 
   render(): ReactElement {
+    if (this.state.redirectToOrganisations) {
+      return <Redirect to={routeNames.OrganisationsPageRoute} />
+    }
+
     return (
       <CreateOrganisationPageView
         isLoading={this.state.isFetch}
@@ -86,8 +99,12 @@ class CreateOrganisationPageComponent extends Component<
         clearMessage={() => {
           this.setState({ message: '' })
         }}
+        onSuccess={() => {
+          this.props.fetchOrganisationsActionCreator()
+          this.setState({ redirectToOrganisations: true })
+        }}
         message={this.state.message}
-        messageColor={this.state.messageColor}
+        isErrorMessage={this.state.isErrorMessage}
       />
     )
   }

@@ -52,15 +52,13 @@ class OrganisationDepartmentsPageComponent extends Component<
   render(): ReactElement {
     const isEmpty = false
     const isLoading = this.props.isLoadProcess
-    const cells = this.props.departments
-      .sort((a, b) => a.departmentCreatedAt.localeCompare(b.departmentCreatedAt))
-      .map((item) => ({
-        id: String(item.departmentId),
-        name: item.departmentName,
-        admin: item.departmentResponsiblePerson,
-        phone: item.departmentPhoneNumber,
-        email: item.departmentEmail,
-      }))
+    const cells = this.props.departments.map((item) => ({
+      id: String(item.departmentId),
+      name: item.departmentName,
+      admin: item.departmentResponsiblePerson,
+      phone: item.departmentPhoneNumber,
+      email: item.departmentEmail,
+    }))
 
     const content = isEmpty ? (
       <div className={styles.emptyDepartmentsMessage}>
