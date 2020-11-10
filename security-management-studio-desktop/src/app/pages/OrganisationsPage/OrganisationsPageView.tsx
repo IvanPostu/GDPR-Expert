@@ -58,7 +58,11 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
                 <IoIosRefreshCircle fill="#0082e6" size="50px" />
               </span>
             )}
-            {props.isLoad && <BasicLoader />}
+            {props.isLoad && (
+              <div style={{ paddingLeft: 20 }}>
+                <BasicLoader />
+              </div>
+            )}
           </div>
           <div className={styles.item}>
             <NavLink to={routeNames.CreateOrganisationPageRoute}>

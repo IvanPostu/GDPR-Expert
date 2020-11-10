@@ -1,27 +1,33 @@
-// import React, { Component, FC, ReactElement } from 'react'
-// import { Route } from 'react-router-dom'
+import React, { Component, FC, PropsWithChildren, ReactElement } from 'react'
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { GlobalStateType } from '../store'
+import { DecisionRoute } from './DecisionRoute'
+import { routeNames } from './routeNames'
 
-// type ProtectedRoutePropType = {
-//   component: Component
-//   logged: boolean
-//   rest: unknown
-// }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DecisionRoutePropType = PropsWithChildren<any> & {
+  component: Component
+}
 
-// export const ProtectedRoute: FC<ProtectedRoutePropType> = ({
-//   component,
-//   logged,
-//   ...rest
-// }): ReactElement => {
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) => {
-//         if (logged) {
-//           return component
-//         } else {
-//           return <div />
-//         }
-//       }}
-//     />
-//   )
-// }
+export const ProtectedRoute: FC<DecisionRoutePropType> = ({
+  component,
+  path,
+  ...rest
+}): ReactElement => {
+  const isAuthenticated = useSelector(
+    (state: GlobalStateType) => state.authenticationReducer.isAuthenticated,
+  )
+
+  const loginPage = () => <Redirect to={routeNames.LoginPageRoute} />
+
+  return (
+    <DecisionRoute
+      {...rest}
+      decision={isAuthenticated}
+      path={path}
+      trueComponent={component}
+      falseComponent={loginPage}
+    />
+  )
+}

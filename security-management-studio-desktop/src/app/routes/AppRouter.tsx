@@ -1,6 +1,5 @@
 import { Header } from '@/app/components/Header'
 import React, { ReactElement } from 'react'
-import { useSelector } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
@@ -11,77 +10,49 @@ import { OrganisationInfoPage } from '../pages/OrganisationPage/OrganisationInfo
 import { OrganisationsPage } from '../pages/OrganisationsPage'
 import { RegistrationPage } from '../pages/RegistrationPage'
 import { RootPage } from '../pages/RootPage'
-import { GlobalStateType } from '../store'
-import { DecisionRoute } from './DecisionRoute'
+import { ProtectedRoute } from './ProtectedRoute'
 import { routeNames } from './routeNames'
 
 const AppRouterComponent = (): ReactElement => {
-  const isAuthenticated = useSelector(
-    (state: GlobalStateType) => state.authenticationReducer.isAuthenticated,
-  )
-
   return (
     <HashRouter>
       <Header />
       <div style={{ marginTop: '50px' }}>
         <Switch>
-          <DecisionRoute
-            decisionFunc={() => isAuthenticated}
-            path={routeNames.RootPageRoute}
-            exact
-            trueComponent={RootPage}
-            falseComponent={LoginPage}
-          />
-
-          <DecisionRoute
-            decisionFunc={() => isAuthenticated}
-            path={routeNames.OrganisationsPageRoute}
-            exact
-            trueComponent={OrganisationsPage}
-            falseComponent={LoginPage}
-          />
-
-          <DecisionRoute
-            path={[routeNames.OrganisationPageRoute, routeNames.OrgansationInfoPageRoute]}
-            exact
-            decisionFunc={() => isAuthenticated}
-            trueComponent={OrganisationInfoPage}
-            falseComponent={LoginPage}
-          />
-
-          <DecisionRoute
-            decisionFunc={() => isAuthenticated}
-            path={routeNames.OrganisationDepartmentsPageRoute}
-            exact
-            trueComponent={OrganisationDepartmentsPage}
-            falseComponent={LoginPage}
-          />
-          <DecisionRoute
-            decisionFunc={() => isAuthenticated}
-            path={routeNames.OrganisationEmployeePageRoute}
-            exact
-            trueComponent={OrganisationEmployeePage}
-            falseComponent={LoginPage}
-          />
-
-          <DecisionRoute
-            decisionFunc={() => isAuthenticated}
-            path={routeNames.CreateOrganisationPageRoute}
-            exact
-            trueComponent={CreateOrganisationPage}
-            falseComponent={LoginPage}
-          />
-
-          <DecisionRoute
-            decisionFunc={() => isAuthenticated}
-            path={routeNames.CreateDepartmentPageRoute}
-            exact
-            trueComponent={CreateDepartmentPage}
-            falseComponent={LoginPage}
-          />
-
           <Route path={routeNames.RegistrationPageRoute} exact component={RegistrationPage} />
           <Route path={routeNames.LoginPageRoute} exact component={LoginPage} />
+          <ProtectedRoute component={RootPage} exact path={routeNames.RootPageRoute} />
+          <ProtectedRoute
+            component={OrganisationsPage}
+            exact
+            path={routeNames.OrganisationsPageRoute}
+          />
+          <ProtectedRoute
+            component={OrganisationInfoPage}
+            exact
+            path={[routeNames.OrganisationPageRoute, routeNames.OrgansationInfoPageRoute]}
+          />
+
+          <ProtectedRoute
+            component={OrganisationDepartmentsPage}
+            exact
+            path={routeNames.OrganisationDepartmentsPageRoute}
+          />
+          <ProtectedRoute
+            component={OrganisationEmployeePage}
+            exact
+            path={routeNames.OrganisationEmployeePageRoute}
+          />
+          <ProtectedRoute
+            component={CreateOrganisationPage}
+            exact
+            path={routeNames.CreateOrganisationPageRoute}
+          />
+          <ProtectedRoute
+            component={CreateDepartmentPage}
+            exact
+            path={routeNames.CreateDepartmentPageRoute}
+          />
         </Switch>
       </div>
     </HashRouter>

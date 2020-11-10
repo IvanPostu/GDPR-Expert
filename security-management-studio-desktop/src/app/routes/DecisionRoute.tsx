@@ -7,8 +7,8 @@ type DecisionRoutePropType = PropsWithChildren<any>
 export const DecisionRoute: FC<DecisionRoutePropType> = ({
   trueComponent,
   falseComponent,
-  decisionFunc,
+  decision,
   ...rest
 }) => {
-  return <Route {...rest} component={decisionFunc() ? trueComponent : falseComponent} />
+  return <Route {...rest} component={decision ? trueComponent : falseComponent} />
 }
