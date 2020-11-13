@@ -51,7 +51,7 @@ class CreateDepartmentPageComponent extends Component<
     this._isMounted = true
   }
 
-  createDepartmentWebApi = async (data: CreateDepartmentFormDataType) => {
+  createDepartmentWebApi = async (data: CreateDepartmentFormDataType): Promise<void> => {
     const departmentId = await createDepartment({
       email: data.orgEmail,
       name: data.orgName,
@@ -82,10 +82,6 @@ class CreateDepartmentPageComponent extends Component<
   }
 
   render(): ReactElement {
-    if (this.props.organisationId === '0') {
-      return <Redirect to={routeNames.OrgansationInfoPageRoute} />
-    }
-
     if (this.state.redirectToDepartments) {
       return <Redirect to={routeNames.OrganisationDepartmentsPageRoute} />
     }

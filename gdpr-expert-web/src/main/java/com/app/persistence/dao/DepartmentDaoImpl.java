@@ -30,14 +30,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
   @Override
   public Optional<DepartmentEntity> getById(Long departmentId) {
-    // TODO Auto-generated method stub
-    return null;
+    Session session = sessionFactory.getCurrentSession();
+    DepartmentEntity departmentEntity = session.load(DepartmentEntity.class, departmentId);
+    return Optional.of(departmentEntity);
   }
 
   @Override
-  public void deleteById(Long departmentId) {
-    // TODO Auto-generated method stub
+  public boolean deleteById(Long departmentId) {
+    Session session = sessionFactory.getCurrentSession();
+    DepartmentEntity departmentEntity = session.load(DepartmentEntity.class, departmentId);
+    boolean deleteWithSuccess = false;
 
+    if(departmentEntity != null){
+      session.delete(departmentEntity);
+      deleteWithSuccess = true;
+    }
+
+    return deleteWithSuccess;
   }
 
   

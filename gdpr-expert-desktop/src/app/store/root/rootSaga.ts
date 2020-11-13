@@ -1,5 +1,8 @@
 import { all } from 'redux-saga/effects'
-import { fetchBotsSagaWatcher } from '@/app/store/Authentication/authenticationSagas'
+import {
+  fetchLoginSagaWatcher,
+  clearAuthDataSagaWatcher,
+} from '@/app/store/Authentication/authenticationSagas'
 import {
   fetchOrganisationsSagaWatcher,
   reloadOrganisationsSagaWatcher,
@@ -9,7 +12,8 @@ import { fetchDepartmentsSagaWatcher } from '@/app/store/Departments/departments
 
 export default function* (): Generator {
   yield all([
-    fetchBotsSagaWatcher(),
+    fetchLoginSagaWatcher(),
+    clearAuthDataSagaWatcher(),
     fetchOrganisationsSagaWatcher(),
     reloadOrganisationsSagaWatcher(),
     fetchOrganisationInfoSagaWatcher(),

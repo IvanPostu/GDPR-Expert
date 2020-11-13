@@ -4,7 +4,6 @@ import {
   StartLoadingActionType,
   ClearAuthDataActionType,
   SetAuthDataActionType,
-  LogoutActionType,
   FetchLoginActionType,
   AuthenticationType,
   SetMessageActionType,
@@ -35,12 +34,6 @@ export function setAuthDataActionCreator(data: AuthenticationType): SetAuthDataA
     payload: {
       ...data,
     },
-  }
-}
-
-export function logoutActionCreator(): LogoutActionType {
-  return {
-    type: T.LOGOUT,
   }
 }
 

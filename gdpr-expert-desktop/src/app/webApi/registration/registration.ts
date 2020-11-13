@@ -1,4 +1,4 @@
-import { webServerURL } from '@/constants'
+import { webServerURL } from '@/app/constants/webServerUrl'
 import { RegistrationUserType } from './types'
 
 export async function registrateUser(data: RegistrationUserType): Promise<boolean> {

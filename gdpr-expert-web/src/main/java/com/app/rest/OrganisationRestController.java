@@ -71,13 +71,14 @@ public class OrganisationRestController {
    * @param user
    * @param organisationDto
    * @return onsuccess id
-   * @return onerror {
+   * @return onerror 
+   * {
    *  empty_address
    *  empty_name
    *  invalid_email
    *  empty_telephone
    *  empty_representative
-    }
+   * }
    */
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createOrganisation(@AuthenticationPrincipal UserEntity user,

@@ -1,4 +1,4 @@
-import { webServerURL } from '@/constants'
+import { webServerURL } from '@/app/constants/webServerUrl'
 import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
 export type DepartmentsResponseType = Array<{

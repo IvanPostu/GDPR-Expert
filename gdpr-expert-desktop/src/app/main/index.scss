@@ -1,3 +1,4 @@
+@import '@/app/scss/colors';
 
 @font-face{
   font-family: 'Roboto';
@@ -14,6 +15,11 @@ a{
   outline: none;
   border: none;
   text-decoration: none;
+  color: $blue1;
+}
+
+a:hover {
+  opacity: 0.7;
 }
 
 button {
@@ -31,6 +37,10 @@ button {
 
 body {
   background: rgb(235, 235, 235);
+  // background: url("@/app/assets/images/GDPR.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
   font-family: 'Roboto';
   max-height: 100vh;
 

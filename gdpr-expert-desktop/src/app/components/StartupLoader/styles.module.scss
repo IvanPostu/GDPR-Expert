@@ -1,0 +1,33 @@
+@import "@/app/scss/colors.scss";
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+
+  div {
+    text-align: center;
+  }
+
+  .loaderBack{
+    z-index: 50;
+    display: block;
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    bottom: 0;
+    background-color: rgb(235, 235, 235);
+  }
+
+  .loader{
+    z-index: 100;
+    display: block;
+    position: absolute;
+    height: 20px;
+    bottom: 0;
+    background-color: $blue1;
+  }
+}

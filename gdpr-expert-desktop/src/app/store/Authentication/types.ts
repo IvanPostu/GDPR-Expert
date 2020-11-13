@@ -2,7 +2,6 @@ import { Action } from 'redux'
 
 export enum authenticationActionTypeConstants {
   FETCH_LOGIN = '@Authentication/FETCH_LOGIN',
-  LOGOUT = '@Authentication/LOGOUT',
   START_LOADING = '@Authentication/START_LOADING',
   STOP_LOADING = '@Authentication/STOP_LOADING',
   SET_AUTH_DATA = '@Authentication/SET_AUTH_DATA',
@@ -41,10 +40,6 @@ export interface SetMessageActionType extends Action {
   payload: MessageType
 }
 
-export interface LogoutActionType extends Action {
-  type: typeof authenticationActionTypeConstants.LOGOUT
-}
-
 export interface StartLoadingActionType extends Action {
   type: typeof authenticationActionTypeConstants.START_LOADING
 }
@@ -64,7 +59,6 @@ export interface ClearAuthDataActionType extends Action {
 
 export type AuthenticationRootActionType =
   | FetchLoginActionType
-  | LogoutActionType
   | StartLoadingActionType
   | StopLoadingActionType
   | SetAuthDataActionType

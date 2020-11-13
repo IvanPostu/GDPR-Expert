@@ -23,4 +23,9 @@
     <constructor-arg index="1" ref="organisationDao" />
   </bean>
 
+  <bean id="employeeService" class="com.app.services.EmployeeServiceImpl">
+    <constructor-arg index="0" ref="employeeDao" />
+    <constructor-arg index="1" ref="departmentDao" />
+  </bean>
+
 </beans>

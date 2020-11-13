@@ -13,7 +13,6 @@ export enum organisationsActionTypeConstants {
 export type OrganisationsStateType = {
   isLoadProcess: boolean
   organisations: Array<OrganisationResponseTypeA>
-  isLoadedFirstTime: boolean
 }
 
 export interface FetchOrganisationsActionType extends Action {

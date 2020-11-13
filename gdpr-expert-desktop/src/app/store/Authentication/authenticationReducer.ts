@@ -47,7 +47,6 @@ export const authenticationReducer: Reducer<
         ...action.payload,
       }
     case T.FETCH_LOGIN:
-    case T.LOGOUT:
     default:
       return state
   }

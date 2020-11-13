@@ -1,5 +1,5 @@
 import { GlobalStateType } from '@/app/store'
-import React, { Component, ReactElement } from 'react'
+import React, { Component, ReactElement, SyntheticEvent } from 'react'
 import { connect } from 'react-redux'
 import { ButtonA } from '../Form/ButtonA'
 import { FormCardA } from '../Form/FormCardA'
@@ -39,7 +39,8 @@ class CreateDepartmentComponent extends Component<
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit(): void {
+  onSubmit(e: SyntheticEvent): void {
+    e.preventDefault()
     this.props.onSubmit({ ...this.state })
   }
 

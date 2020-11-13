@@ -32,9 +32,7 @@ function CustomButton(props: CustomButtonProps): ReactElement {
 export const WindowTopBar = (): ReactElement => {
   const onMinimizeClick = useCallback(() => {
     const nativeWindow = remote.getCurrentWindow()
-    // if (nativeWindow.isMaximizable()) {
     nativeWindow.minimize()
-    // }
   }, [])
 
   const onResizeClick = useCallback(() => {

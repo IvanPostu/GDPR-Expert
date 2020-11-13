@@ -1,4 +1,4 @@
-import { webServerURL } from '@/constants'
+import { webServerURL } from '@/app/constants/webServerUrl'
 
 export type OrganisationResponseTypeA = {
   organisationDescription: string

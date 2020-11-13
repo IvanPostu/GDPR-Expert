@@ -11,7 +11,6 @@ import {
 function mapStateToProps(state: GlobalStateType) {
   return {
     organisationsIsLoadProcess: state.organisationsReducer.isLoadProcess,
-    isLoadedFirstTime: state.organisationsReducer.isLoadedFirstTime,
     organisations: state.organisationsReducer.organisations,
   }
 }
@@ -30,7 +29,7 @@ class OrganisationsPageComponent extends Component<OrganisationsPageComponentPro
   }
 
   componentDidMount(): void {
-    if (!this.props.isLoadedFirstTime && !this.props.organisationsIsLoadProcess) {
+    if (!this.props.organisationsIsLoadProcess) {
       this.props.fetchOrganisationsActionCreator()
     }
   }

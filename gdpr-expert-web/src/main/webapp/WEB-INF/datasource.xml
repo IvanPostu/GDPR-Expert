@@ -48,6 +48,10 @@
     <constructor-arg index="0" ref="sessionFactory" />
   </bean> 
 
+  <bean id="employeeDao" class="com.app.persistence.dao.EmployeeDaoImpl">
+    <constructor-arg index="0" ref="sessionFactory" />
+  </bean> 
+
   <tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>

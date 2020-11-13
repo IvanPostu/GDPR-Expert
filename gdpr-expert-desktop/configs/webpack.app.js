@@ -31,7 +31,7 @@ module.exports = [
 
     target: 'electron-renderer',
 
-    devtool: false,
+    devtool: isDev ? 'source-map' : false,
 
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
@@ -48,12 +48,12 @@ module.exports = [
       new MiniCssExtractPlugin(),
       ...(isDev
         ? [
-            new SourceMapDevToolPlugin({
-              filename: '[file].map',
-              exclude: ['vendor', 'polyfill'],
-              columns: false,
-              module: true,
-            }),
+            // new SourceMapDevToolPlugin({
+            //   filename: '[file].map',
+            //   exclude: ['vendor', 'polyfill'],
+            //   columns: false,
+            //   module: true,
+            // }),
           ]
         : [new CleanWebpackPlugin()]),
     ],

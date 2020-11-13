@@ -1,12 +1,14 @@
-import React, { ReactElement, SyntheticEvent, useCallback, useRef, FC, Fragment } from 'react'
+import React, { ReactElement, SyntheticEvent, useCallback, useState, FC, Fragment } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 
 import { LoginFormDataType } from './types'
-import styles from './styles.module.scss'
-import { routeNames } from '@/app/routes/routeNames'
 import { BasicLoader } from '@/app/components/BasicLoader'
 import { GlobalStateType } from '@/app/store'
+import { FormCardA } from '@/app/components/Form/FormCardA'
+import { TextInputA } from '@/app/components/Form/TextInputA'
+import { ButtonA } from '@/app/components/Form/ButtonA'
+import { NavLink } from 'react-router-dom'
+import { routeNames } from '@/app/routes/routeNames'
 
 type LoginPageViewPropType = {
   submit: (data: LoginFormDataType) => void
@@ -16,11 +18,17 @@ type LoginPageViewPropType = {
 }
 
 export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement => {
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
   const messageStatus = useSelector(
     (store: GlobalStateType) => store.authenticationReducer.messageStatus,
   )
+
+  const [authData, setAuthData] = useState<{
+    email: string
+    password: string
+  }>({
+    email: '',
+    password: '',
+  })
 
   const messageStatusColor =
     messageStatus === 'err'
@@ -31,16 +39,17 @@ export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement =>
       ? 'green'
       : 'yellow'
 
-  const onSubmit = useCallback((e: SyntheticEvent) => {
-    e.preventDefault()
+  const onSubmit = useCallback(
+    (e: SyntheticEvent) => {
+      e.preventDefault()
+      const formData: LoginFormDataType = {
+        ...authData,
+      }
 
-    const formData: LoginFormDataType = {
-      email: emailRef.current?.value as string,
-      password: passwordRef.current?.value as string,
-    }
-
-    props.submit(formData)
-  }, [])
+      props.submit(formData)
+    },
+    [authData],
+  )
 
   const clearErrorMessage = useCallback(() => {
     if (props.errorMessage) {
@@ -54,37 +63,38 @@ export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement =>
     </div>
   ) : (
     <Fragment>
-      <div className={styles.txtInputContainer}>
-        <label>Email :</label>
-        <input onClick={clearErrorMessage} ref={emailRef} type="email" name="email" />
-      </div>
-
-      <div className={styles.txtInputContainer}>
-        <label>Parola :</label>
-        <input onClick={clearErrorMessage} ref={passwordRef} type="password" name="password" />
-      </div>
-
-      {props.errorMessage && <p style={{ color: messageStatusColor }}>{props.errorMessage}</p>}
+      <TextInputA
+        labelName="Email:"
+        onTextChange={(str: string) => setAuthData({ ...authData, email: str })}
+      />
+      <TextInputA
+        labelName="Email:"
+        type="password"
+        onTextChange={(str: string) => setAuthData({ ...authData, password: str })}
+      />
 
       <div style={{ width: '100%', marginTop: '30px' }}>
-        <NavLink to={routeNames.RegistrationPageRoute} className={styles.link}>
+        <NavLink to={routeNames.RegistrationPageRoute} style={{ fontSize: 16 }}>
           Creare cont
         </NavLink>
       </div>
 
-      <button type="submit" className={styles.btn}>
-        Autentificare
-      </button>
+      {props.errorMessage && (
+        <p style={{ color: messageStatusColor, margin: 10 }}>{props.errorMessage}</p>
+      )}
+
+      <ButtonA type="submit" title="Autentificare" />
     </Fragment>
   )
 
   return (
-    <div onSubmit={onSubmit} className={styles.container}>
-      <form className={styles.loginForm}>
-        <h1>Autentificare</h1>
-
-        {content}
-      </form>
-    </div>
+    <FormCardA
+      cardBackgroundColor="rgba(255, 255, 255, 0.97)"
+      onSubmit={onSubmit}
+      onClick={clearErrorMessage}
+    >
+      <h1>Autentificare: </h1>
+      {content}
+    </FormCardA>
   )
 }

@@ -48,7 +48,7 @@ class OrganisationDepartmentsPageComponent extends Component<
   }
 
   render(): ReactElement {
-    const isEmpty = false
+    const isEmpty = this.props.departments.length === 0
     const isLoading = this.props.isLoadProcess
     const cells = this.props.departments.map((item) => ({
       id: String(item.departmentId),
@@ -67,7 +67,7 @@ class OrganisationDepartmentsPageComponent extends Component<
         onDeleteClick={(id) => console.log('delete: ', id)}
         onInfoClick={(id) => console.log('info: ', id)}
         onUpdateClick={(id) => console.log('update: ', id)}
-        headerCells={['Denumire', 'Respinsabil', 'Telefon', 'Email']}
+        headerCells={['Denumire', 'Responsabil', 'Telefon', 'Email']}
         cells={cells}
       />
     )

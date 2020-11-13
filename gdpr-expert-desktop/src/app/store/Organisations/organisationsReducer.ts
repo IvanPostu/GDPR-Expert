@@ -8,7 +8,6 @@ import {
 
 const initialState: OrganisationsStateType = {
   isLoadProcess: false,
-  isLoadedFirstTime: false,
   organisations: [],
 }
 
@@ -30,7 +29,6 @@ export const organisationsReducer: Reducer<OrganisationsStateType, Organisations
     case T.SET_ORGANISATIONS_DATA:
       return {
         ...state,
-        isLoadedFirstTime: true,
         organisations: action.payload,
       }
     case T.RELOAD_PAGE:

@@ -1,4 +1,4 @@
-import { webServerURL } from '@/constants'
+import { webServerURL } from '@/app/constants/webServerUrl'
 
 export async function loginUser(email: string, password: string): Promise<boolean> {
   const data = new URLSearchParams()
