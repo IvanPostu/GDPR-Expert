@@ -34,7 +34,9 @@ function createWindow() {
   })
 
   ipcMain.on('to-default-size', () => {
-    mainWindow.setSize(resources.defaultWindowWidth, resources.defaultWindowHeight)
+    if (!mainWindow.isMaximized) {
+      mainWindow.setSize(resources.defaultWindowWidth, resources.defaultWindowHeight)
+    }
   })
 }
 

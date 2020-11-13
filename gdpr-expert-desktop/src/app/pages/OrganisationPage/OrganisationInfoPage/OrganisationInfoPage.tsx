@@ -43,7 +43,7 @@ class OrganisationInfoPageComponent extends Component<OrganisationInfoPageCompon
         orgEmployeeCount={Number(this.props.organisationInfo.organisationEmployeeCount)}
         orgFondationDate={this.props.organisationInfo.organisationFoundedDate}
         orgPlatformRegistrationDate={
-          this.props.organisationInfo.organisationCreatedOnPlatformDateTime
+          this.props.organisationInfo.organisationCreatedOnPlatformDateTime.split('T')[0]
         }
       />
     )

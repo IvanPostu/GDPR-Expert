@@ -1,0 +1,47 @@
+  
+.container{
+  padding-bottom: 100px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+  min-width: 320px;
+  margin-bottom: 20px;
+
+  .panel{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-image: repeating-linear-gradient(45deg, rgba(38, 38, 38, 0.04) 0px, rgba(38, 38, 38, 0.04) 104px,rgba(106, 106, 106, 0.04) 104px, rgba(106, 106, 106, 0.04) 208px),repeating-linear-gradient(45deg, rgba(41, 41, 41, 0.14) 0px, rgba(41, 41, 41, 0.14) 99px,rgba(197, 197, 197, 0.14) 99px, rgba(197, 197, 197, 0.14) 198px),linear-gradient(90deg, rgb(94, 165, 255),rgb(8, 75, 110));
+
+    h1{
+      color: white;
+      text-shadow: 2px 2px rgb(129, 129, 129);
+      padding-left: 20px;
+    }
+
+    
+  }
+
+  .row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+
+    .key {
+      font-size: 20px;
+      margin-left: 40px;
+    }
+
+    .val{
+      margin-right: 18px;
+      font-size: 18px;
+    }
+
+  }
+
+
+  
+
+}

@@ -4,9 +4,10 @@ import { AppRouter } from '@/app/routes/AppRouter'
 import { WindowTopBar } from '@/app/components/WindowTopBar'
 import { ReduxWrapper } from '@/app/store/root'
 import { StartupLoader } from '@/app/components/StartupLoader'
+import { isShowed } from '@/app/constants/startup'
 
 const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
-  const [startupLoaderIsShowed, setStartupLoaderIsShowed] = useState(true)
+  const [startupLoaderIsShowed, setStartupLoaderIsShowed] = useState(isShowed)
 
   if (startupLoaderIsShowed) {
     return <StartupLoader onComplete={() => setStartupLoaderIsShowed(false)} />

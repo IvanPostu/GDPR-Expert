@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
+import { DepartmentPage } from '../pages/DepartamentPage'
 import { LoginPage } from '../pages/LoginPage'
 import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/OrganisationDepartmentsPage/OrganisationDepartmentsPage'
 import { OrganisationEmployeePage } from '../pages/OrganisationPage/OrganisationEmployeePage/OrganisationEmployeePage'
@@ -48,6 +49,7 @@ const AppRouterComponent = (): ReactElement => {
             exact
             path={routeNames.CreateOrganisationPageRoute}
           />
+          <ProtectedRoute component={DepartmentPage} exact path={routeNames.DepartmentPage} />
           <ProtectedRoute
             component={CreateDepartmentPage}
             exact

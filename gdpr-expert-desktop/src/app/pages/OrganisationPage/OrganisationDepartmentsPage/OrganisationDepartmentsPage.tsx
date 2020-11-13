@@ -11,6 +11,7 @@ import { GlobalStateType } from '@/app/store'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { fetchDepartmentsActionCreator } from '@/app/store/Departments/actionCreators'
+import { RouteComponentProps } from 'react-router'
 
 function mapStateToProps(globalState: GlobalStateType) {
   return {
@@ -27,7 +28,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
 type OrganisationDepartmentsPageComponentPropType = RouteChildrenProps &
   PropsWithChildren<unknown> &
   ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>
+  ReturnType<typeof mapDispatchToProps> &
+  RouteComponentProps
 
 function Loader(): ReactElement {
   return (
@@ -41,10 +43,22 @@ class OrganisationDepartmentsPageComponent extends Component<
 > {
   constructor(props: OrganisationDepartmentsPageComponentPropType) {
     super(props)
+
+    this.redirect = this.redirect.bind(this)
   }
 
   componentDidMount(): void {
     this.props.fetchDepartmentsActionCreator(Number(this.props.organisationId))
+  }
+
+  redirect(type: 'info' | 'delete' | 'update', departmentId: number) {
+    if (type === 'info') {
+      this.props.history.push({
+        pathname: routeNames.DepartmentPage,
+        search: `?departmentId=${departmentId}`,
+        state: { departmentId },
+      })
+    }
   }
 
   render(): ReactElement {
@@ -64,9 +78,9 @@ class OrganisationDepartmentsPageComponent extends Component<
       </div>
     ) : (
       <GenericTableA
-        onDeleteClick={(id) => console.log('delete: ', id)}
-        onInfoClick={(id) => console.log('info: ', id)}
-        onUpdateClick={(id) => console.log('update: ', id)}
+        onDeleteClick={(id) => this.redirect('delete', Number(id))}
+        onInfoClick={(id) => this.redirect('info', Number(id))}
+        onUpdateClick={(id) => this.redirect('update', Number(id))}
         headerCells={['Denumire', 'Responsabil', 'Telefon', 'Email']}
         cells={cells}
       />

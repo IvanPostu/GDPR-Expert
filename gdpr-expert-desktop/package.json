@@ -13,7 +13,8 @@
     "app-build": "./node_modules/.bin/env-cmd -e production webpack --config configs/webpack.app.js",
     "dev-server": "npm run electron-build && ./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",
     "start": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development electron ./build/electron/electron.js --enable-loging --remote-debugging-port=9222",
-    "package:linux": "npm run electron-build && npm run app-build && electron-packager . --overwrite --platform=linux --arch=x64 --out=out"
+    "package:linux": "npm run electron-build && npm run app-build && electron-packager . --overwrite --platform=linux --arch=x64 --out=out",
+    "test": "jest"
   },
   "author": "IvanPostu",
   "license": "ISC",

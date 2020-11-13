@@ -1,7 +1,7 @@
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import StartupLoaderView from './StartupLoaderView'
 import { ipcRenderer, remote } from 'electron'
-import { startupTime, delay } from '@/app/constants/startupTime'
+import { startupTime, delay } from '@/app/constants/startup'
 
 type StartupLoaderPropType = PropsWithChildren<unknown> & {
   onComplete: () => void

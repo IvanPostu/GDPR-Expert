@@ -25,10 +25,14 @@ export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
             </div>
           ))}
         <div style={actionsStyles} className={styles.cell}>
-          <button className={styles.action} style={{ background: 'rgb(0, 145, 0)' }}>
+          <button
+            onClick={() => props.onInfoClick(item['id'])}
+            className={styles.action}
+            style={{ background: 'rgb(0, 145, 0)' }}
+          >
             <IoIosInformationCircleOutline style={{ fontSize: 24 }} />
           </button>
-          <button className={styles.action}>
+          <button onClick={() => props.onUpdateClick(item['id'])} className={styles.action}>
             <IoIosCreate style={{ fontSize: 24 }} />
           </button>
           <button

@@ -45,6 +45,7 @@ public class EmployeeRestController {
       item.put("lastName", e.getLastName());
       item.put("email", e.getEmail());
       item.put("address", e.getAddress());
+      item.put("phoneNumber", e.getPhoneNumber());
       item.put("pesonalDataResponsible", e.isPersonalDataResponsible());
       response.add(item);
     });
