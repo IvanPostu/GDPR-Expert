@@ -1,4 +1,6 @@
+import { routeNames } from '@/app/routes/routeNames'
 import React, { FC, ReactElement } from 'react'
+import { useHistory } from 'react-router-dom'
 import { SuccessButton } from '../Button/SuccessButton'
 import { Container } from '../Container'
 import { GenericTableA } from '../Tables'
@@ -7,6 +9,7 @@ import styles from './styles.module.scss'
 type DepartmentInfoViewPropType = {
   departmentInfo: { [key: string]: string }
   departmentName: string
+  departmentId: number
 }
 
 export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
@@ -24,6 +27,8 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
       </div>
     )
   })
+
+  const history = useHistory()
 
   const cells = [1, 2, 3].map((item, i) => ({
     id: String(i),
@@ -46,7 +51,15 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
         <div className={styles.panel}>
           <h1>Angajanți: </h1>
           <div style={{ marginRight: '20px' }}>
-            <SuccessButton title="Adauga angajant" />
+            <SuccessButton
+              title="Adauga angajant"
+              onClick={() => {
+                history.push({
+                  pathname: routeNames.CreateEmployeePageRoute,
+                  search: `?departmentId=${props.departmentId}&departmentName=${props.departmentName}`,
+                })
+              }}
+            />
           </div>
         </div>
         <GenericTableA

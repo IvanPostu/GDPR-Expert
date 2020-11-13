@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export class UnsuccessResponseData {
   private _status: number
-  private _keywords: Array<string>
+  private _keywords: { [key: string]: string }
 
-  constructor(status: number, keywords: Array<string>) {
+  constructor(status: number, keywords: { [key: string]: string }) {
     this._status = status
     this._keywords = keywords
   }
@@ -12,12 +12,16 @@ export class UnsuccessResponseData {
     return this._status
   }
 
-  get keywords(): Array<string> {
+  get keywords(): { [key: string]: string } {
     return this._keywords
   }
 
   private get _isUnsuccessResponseDataType(): boolean {
     return true
+  }
+
+  get isSessionExpired(): boolean {
+    return this._status === 401
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -56,7 +56,6 @@ class OrganisationDepartmentsPageComponent extends Component<
       this.props.history.push({
         pathname: routeNames.DepartmentPage,
         search: `?departmentId=${departmentId}`,
-        state: { departmentId },
       })
     }
   }

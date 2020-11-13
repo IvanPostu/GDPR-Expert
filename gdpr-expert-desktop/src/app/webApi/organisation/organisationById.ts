@@ -40,7 +40,7 @@ export async function getOrganisationById(
 
     throw new Error()
   } catch (e) {
-    const error = new UnsuccessResponseData(status ? status : 404, [])
+    const error = new UnsuccessResponseData(status, {})
     throw error as UnsuccessResponseData
   }
 }

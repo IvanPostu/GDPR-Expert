@@ -42,6 +42,7 @@ class DepartmentInfoComponent extends PureComponent<
       <DepartmentInfoView
         departmentInfo={this.state.departmentInfo}
         departmentName={this.state.departmentName}
+        departmentId={this.props.departmentId}
       />
     )
   }

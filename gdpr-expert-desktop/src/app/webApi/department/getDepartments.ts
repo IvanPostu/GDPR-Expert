@@ -36,6 +36,6 @@ export async function getDepartments(
 
     throw new Error()
   } catch (e) {
-    return new UnsuccessResponseData(status, [])
+    return new UnsuccessResponseData(status, {})
   }
 }

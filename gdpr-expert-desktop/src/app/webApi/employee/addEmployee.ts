@@ -1,22 +1,23 @@
 import { webServerURL } from '@/app/constants/webServerUrl'
 import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
-type CreateDepartmentRequestDataType = {
-  responsiblePerson: string
-  name: string
-  phoneNumber: string
+type CreateEmployeeRequestDataType = {
+  departmentId: number
+  personalDataResponsible: boolean
+  firstName: string
+  lastName: string
   email: string
-  organisationId: number
+  phoneNumber: string
+  address: string
 }
-
 /**
  *
- * @param data : CreateDepartmentRequestDataType
- * @return
+ * @param data : CreateEmployeeRequestDataType
+ * @return auth_error
  *
  */
-export async function createDepartment(
-  data: CreateDepartmentRequestDataType,
+export async function addEmployee(
+  data: CreateEmployeeRequestDataType,
 ): Promise<number | UnsuccessResponseData> {
   const options: RequestInit = {
     method: 'POST',
@@ -30,7 +31,7 @@ export async function createDepartment(
   let status = 0
 
   try {
-    const response = await fetch(`${webServerURL}/api/department/create`, options)
+    const response = await fetch(`${webServerURL}/api/employee/add`, options)
     status = response.status
 
     if (status !== 201) throw 0

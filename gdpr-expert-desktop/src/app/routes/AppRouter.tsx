@@ -2,6 +2,7 @@ import { Header } from '@/app/components/Header'
 import React, { ReactElement } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
+import { CreateEmployeePage } from '../pages/CreateEmployeePage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
 import { LoginPage } from '../pages/LoginPage'
@@ -54,6 +55,11 @@ const AppRouterComponent = (): ReactElement => {
             component={CreateDepartmentPage}
             exact
             path={routeNames.CreateDepartmentPageRoute}
+          />
+          <ProtectedRoute
+            component={CreateEmployeePage}
+            exact
+            path={routeNames.CreateEmployeePageRoute}
           />
         </Switch>
       </div>
