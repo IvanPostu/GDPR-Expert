@@ -1,11 +1,11 @@
 {
-  "name": "security-management-studio-desktop",
+  "name": "gdpr-expert-desktopp",
   "version": "0.0.1",
   "build": {
-    "productName": "Security Management Studio",
+    "productName": "GDPR Expert",
     "appId": "university.project"
   },
-  "description": "Security management studio.",
+  "description": "GDPR Expert.",
   "main": "build/electron/electron.js",
   "scripts": {
     "dev": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack-dev-server --config configs/webpack.app.js",

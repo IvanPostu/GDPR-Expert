@@ -1,0 +1,70 @@
+
+// > many-to-one; < one-to-many; - one-to-one
+TABLE user_role as R {
+  user_id BIGINT [pk]
+  role_name VARCHAR
+}
+
+TABLE user as U {
+  user_id BIGSERIAL [pk]
+  active BOOLEAN
+  email VARCHAR(256)
+  password VARCHAR(256)
+}
+
+Ref: R.user_id > U.user_id
+
+
+TABLE organisation as O
+{
+	organisation_id BIGSERIAL [pk]
+  "user_owner_id" BIGINT
+	"name" VARCHAR(128)
+  "description" VARCHAR(1024)
+	"legal_form" VARCHAR(64)
+	"address" VARCHAR(256)
+	"administrator" VARCHAR(256)
+	"phone_number" VARCHAR(128)
+	"email" VARCHAR(128)
+	"active" BOOLEAN
+	"created_on_platform_at" TIMESTAMP
+	"founded_at" DATE
+}
+
+Ref: U.user_id < O.user_owner_id
+
+TABLE department as D
+{
+	"department_id" BIGSERIAL [pk]
+	"organisation_id" BIGINT 
+	"name" VARCHAR(128)
+	"responsible" VARCHAR(256)
+	"phone_number" VARCHAR(256)
+	"email" VARCHAR(128)
+	"active" BOOLEAN
+	"created_at" TIMESTAMP
+}
+
+Ref: D.organisation_id > O.organisation_id
+
+TABLE organisation_logo as OL
+{
+	"organisation_id" BIGINT [pk]
+	"image_data" BYTEA
+}
+
+Ref: OL.organisation_id - O.organisation_id
+
+TABLE "employee" as E {
+  "employee_id" BIGSERIAL  [pk]
+  "department_id" BIGINT 
+  "personal_data_responsible" BOOLEAN 
+  "email" VARCHAR(256)
+  "phone_number" VARCHAR(128)
+  "address" VARCHAR(256)
+}
+
+Ref: E.department_id > D.department_id
+
+
+

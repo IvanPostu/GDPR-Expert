@@ -45,7 +45,7 @@ export function Header(): ReactElement {
 
   return (
     <nav className={styles.topMenu}>
-      <label className={styles.logo}>Security Management Studio</label>
+      <label className={styles.logo}>GDPR Expert</label>
       <ul className={styles.listBody}>{content}</ul>
     </nav>
   )
