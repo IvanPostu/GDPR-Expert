@@ -1,8 +1,5 @@
-import { InfoButton } from '@/app/components/Button/InfoButton'
-import { GenericTableA } from '@/app/components/Tables'
-import { routeNames } from '@/app/routes/routeNames'
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
-import { NavLink, RouteChildrenProps } from 'react-router-dom'
+import { RouteChildrenProps } from 'react-router-dom'
 import { OrganisationPageLayout } from '../OrganisationPageLayout'
 import styles from './styles.module.scss'
 
@@ -16,16 +13,16 @@ class OrganisationEmployeePageComponent extends Component<
   }
 
   render(): ReactElement {
-    const isEmpty = false
+    // const isEmpty = false
 
     return (
       <OrganisationPageLayout {...this.props}>
         <div className={styles.container}>
-          <div className={styles.panel}>
+          {/* <div className={styles.panel}>
             <NavLink to={routeNames.CreateDepartmentPageRoute}>
               <InfoButton className={styles.btn} title="Adaugă angajant nou" />
             </NavLink>
-          </div>
+          </div> */}
           {/* {isEmpty ? (
             <div className={styles.emptyEmployeeMessage}>
               <p>Organizația dată nu are angajanți!</p>

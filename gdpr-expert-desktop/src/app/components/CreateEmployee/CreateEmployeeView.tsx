@@ -1,5 +1,6 @@
-import React, { FC, ReactElement, SyntheticEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, FC, ReactElement, SyntheticEvent, useCallback, useState } from 'react'
 import { ButtonA } from '../Form/ButtonA'
+import { CheckboxA } from '../Form/CheckboxA'
 import { FormCardA } from '../Form/FormCardA'
 import { TextInputA } from '../Form/TextInputA'
 
@@ -15,6 +16,8 @@ export type EmployeeDataType = {
 type CreateEmployeeViewPropType = {
   onSubmit: (data: EmployeeDataType) => void
   departmentName: string
+  onPersonalDataResponsibleCheckboxClick: (e: ChangeEvent<HTMLInputElement>) => void
+  personalDataResponsibleChecked: boolean
 }
 
 export const CreateEmployeeView: FC<CreateEmployeeViewPropType> = (
@@ -68,6 +71,11 @@ export const CreateEmployeeView: FC<CreateEmployeeViewPropType> = (
         labelName="Număr de telefon:"
         type="text"
         onTextChange={(str: string) => setEmployeeData((prev) => ({ ...prev, phoneNumber: str }))}
+      />
+      <CheckboxA
+        onChange={props.onPersonalDataResponsibleCheckboxClick}
+        checked={props.personalDataResponsibleChecked}
+        labelName="Responsabil de date cu caracter personal: "
       />
       <ButtonA type="submit" title="Adaugă" />
     </FormCardA>

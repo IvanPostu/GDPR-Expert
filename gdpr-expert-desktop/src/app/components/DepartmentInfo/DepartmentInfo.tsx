@@ -77,6 +77,8 @@ class DepartmentInfoComponent extends PureComponent<
               personalDataResponsible: a.pesonalDataResponsible ? 'Da' : 'Nu',
             }
           })
+
+          departmentEmployees.reverse()
           this.setState({ departmentEmployeesFetching: false, departmentEmployees })
         }
       }

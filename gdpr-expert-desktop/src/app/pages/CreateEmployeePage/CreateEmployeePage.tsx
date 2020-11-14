@@ -1,3 +1,4 @@
+import { CreateEmployee } from '@/app/components/CreateEmployee'
 import {
   CreateEmployeeView,
   EmployeeDataType,
@@ -49,7 +50,6 @@ class CreateEmployeePageComponent extends Component<
 
   onSubmit(data: EmployeeDataType): void {
     const { address, email, firstName, lastName, personalDataResponsible, phoneNumber } = data
-
     addEmployee({
       departmentId: this.state.departmentId,
       address,
@@ -94,9 +94,7 @@ class CreateEmployeePageComponent extends Component<
       )
     }
 
-    return (
-      <CreateEmployeeView departmentName={this.state.departmentName} onSubmit={this.onSubmit} />
-    )
+    return <CreateEmployee departmentName={this.state.departmentName} onSubmit={this.onSubmit} />
   }
 }
 

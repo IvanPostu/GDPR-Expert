@@ -28,6 +28,8 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Transactional
   public EmployeeEntity addEmployee(CreateEmployeeDto employeeDto) {
     EmployeeEntity employeeEntity = new EmployeeEntity();
+    employeeEntity.setFirstName(employeeDto.getFirstName());
+    employeeEntity.setLastName(employeeDto.getLastName());
     employeeEntity.setAddress(employeeDto.getAddress());
     employeeEntity.setEmail(employeeDto.getEmail());
     employeeEntity.setPhoneNumber(employeeDto.getPhoneNumber());
