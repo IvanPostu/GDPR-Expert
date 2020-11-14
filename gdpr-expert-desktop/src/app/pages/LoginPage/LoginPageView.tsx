@@ -64,13 +64,13 @@ export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement =>
   ) : (
     <Fragment>
       <TextInputA
-        labelName="Email:"
-        onTextChange={(str: string) => setAuthData({ ...authData, email: str })}
+        labelname="Email:"
+        onChange={(e) => setAuthData({ ...authData, email: e.target.value })}
       />
       <TextInputA
-        labelName="Password:"
+        labelname="Password:"
         type="password"
-        onTextChange={(str: string) => setAuthData({ ...authData, password: str })}
+        onChange={(e) => setAuthData({ ...authData, password: e.target.value })}
       />
 
       <div style={{ width: '100%', marginTop: '30px' }}>
@@ -88,11 +88,7 @@ export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement =>
   )
 
   return (
-    <FormCardA
-      cardBackgroundColor="rgba(255, 255, 255, 0.97)"
-      onSubmit={onSubmit}
-      onClick={clearErrorMessage}
-    >
+    <FormCardA onSubmit={onSubmit} onClick={clearErrorMessage}>
       <h1>Autentificare: </h1>
       {content}
     </FormCardA>

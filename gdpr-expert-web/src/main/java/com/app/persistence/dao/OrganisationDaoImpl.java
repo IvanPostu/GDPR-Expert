@@ -74,5 +74,11 @@ public class OrganisationDaoImpl implements OrganisationDao {
     return deleteWithSuccess;
   }
 
+  @Override
+  public void updateOrganisation(OrganisationEntity oEntity) {
+    Session session = sessionFactory.getCurrentSession();
+    session.update(oEntity);
+  }
+
  
 }

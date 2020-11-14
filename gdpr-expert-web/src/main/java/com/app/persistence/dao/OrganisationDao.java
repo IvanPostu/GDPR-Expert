@@ -12,6 +12,8 @@ public interface OrganisationDao {
 
   void addOrganisation(OrganisationEntity oEntity);
 
+  void updateOrganisation(OrganisationEntity oEntity);
+
   boolean removeOrganisation(Long organisationId);
 
 }

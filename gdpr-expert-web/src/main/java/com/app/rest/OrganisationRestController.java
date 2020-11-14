@@ -17,6 +17,7 @@ import javax.validation.Validator;
 import com.app.beans.ApplicationDateFormatter;
 import com.app.beans.ApplicationDateTimeFormatter;
 import com.app.domain.dto.CreateOrganisationDto;
+import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
 import com.app.domain.entities.UserEntity;
@@ -122,6 +123,60 @@ public class OrganisationRestController {
     }
 
     organisationService.addOrganisation(organisationEntity);
+
+    logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
+    return ResponseEntity.status(HttpStatus.CREATED).body(organisationEntity.getId());
+  }
+
+  @RequestMapping( method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> updateOrganisation(@AuthenticationPrincipal UserEntity user,
+      @RequestBody UpdateOrganisationDto organisationDto) {
+
+    Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    Set<ConstraintViolation<CreateOrganisationDto>> violations = validator
+      .validate(organisationDto);
+
+    if (violations.size() > 0) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
+    }
+
+    Date orgFoundedAt = new Date();
+    try {
+      orgFoundedAt = dateFormatter.getApplicationDateFormat().parse(organisationDto.getFoundedAt());
+    } catch (ParseException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(String.format("Server date format is %s", dateFormatter.getApplicationDateFormat().toPattern()));
+    }
+
+    OrganisationEntity organisationEntity = new OrganisationEntity();
+    organisationEntity.setId(organisationDto.getId());
+    organisationEntity.setActive(true);
+    organisationEntity.setAddress(organisationDto.getAddress());
+    organisationEntity.setAdministrator(organisationDto.getLegalRepresentative());
+    organisationEntity.setCreatedOnPlatformAt(LocalDateTime.now());
+    organisationEntity.setFoundedAt(orgFoundedAt);
+    organisationEntity.setEmail(organisationDto.getEmail());
+    organisationEntity.setLegalForm(organisationDto.getLegalForm());
+    organisationEntity.setName(organisationDto.getOrganisationName());
+    organisationEntity.setPhoneNumber(organisationDto.getTelephone());
+    organisationEntity.setDescription(organisationDto.getDescription());
+    organisationEntity.setOwner(user);
+
+    if (!StringUtils.isEmpty(organisationDto.getBase64LogoImage())) {
+      OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
+      byte[] imageBytes = organisationDto.getBase64LogoImage().getBytes();
+      Byte[] imageForSave = new Byte[imageBytes.length];
+
+      int index = 0;
+      for (byte b : imageBytes) {
+        imageForSave[index++] = b;
+      }
+
+      logoEntity.setImageData(imageForSave);
+
+      organisationEntity.setOrganisationLogoEntity(logoEntity);
+    }
+
+    organisationService.updateOrganisation(organisationEntity);
 
     logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
     return ResponseEntity.status(HttpStatus.CREATED).body(organisationEntity.getId());

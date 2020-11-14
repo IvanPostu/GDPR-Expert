@@ -8,6 +8,7 @@ import lombok.Setter;
 
 public class CreateOrganisationDto {
   
+
   @Setter
   @Getter
   @NotBlank(message="empty_name")

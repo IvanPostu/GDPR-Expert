@@ -2,13 +2,24 @@ import React, { ReactElement, ChangeEvent, useCallback, useState } from 'react'
 import styles from './styles.module.scss'
 
 type SelectAPropType = {
+  defaultValue?: string
   title: string
   items: Array<string>
   setSelectedItem: (str: string) => void
 }
 
 export const SelectA = (props: SelectAPropType): ReactElement => {
-  const [selectedElementIndex, setSelectedElementIndex] = useState(0)
+  const defaultValue = props.defaultValue || ''
+  const [selectedElementIndex, setSelectedElementIndex] = useState(() => {
+    let result = 0
+    for (let i = 0; i < props.items.length; i++) {
+      if (props.items[i] === defaultValue) {
+        result = i
+        break
+      }
+    }
+    return result
+  })
 
   const onChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {

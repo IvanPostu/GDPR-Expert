@@ -5,6 +5,7 @@ import styles from './styles.module.scss'
 
 type OrganisationInfoPropType = {
   deleteOrganisation: () => void
+  updateOrganisation: () => void
   orgName: string
   orgLegalForm: string
   orgAdministrator: string
@@ -67,7 +68,10 @@ export const OrganisationInfo: FC<OrganisationInfoPropType> = (
       <div className={styles.row}>
         <div />
         <div>
-          <GenericButton onClick={() => {}} style={{ background: '#0044AA', marginLeft: '20px' }}>
+          <GenericButton
+            onClick={props.updateOrganisation}
+            style={{ background: '#0044AA', marginLeft: '20px' }}
+          >
             Modificare organizație
           </GenericButton>
           <GenericButton

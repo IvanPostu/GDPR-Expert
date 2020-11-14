@@ -1,17 +1,16 @@
-import React, { ReactElement } from 'react'
+import React, { DetailedHTMLProps, ReactElement, TextareaHTMLAttributes } from 'react'
 import styles from './styles.module.scss'
 
 type TextAreaAPropType = {
-  onTextChange: (str: string) => void
-  labelName?: string
-}
+  labelname?: string
+} & DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 
 export const TextAreaA = (props: TextAreaAPropType): ReactElement => {
-  const labelName = props.labelName || ''
+  const labelname = props.labelname || ''
   return (
     <div className={styles.txtInputContainer}>
-      <label>{labelName}</label>
-      <textarea onChange={(e) => props.onTextChange(e.target.value)} />
+      <label>{labelname}</label>
+      <textarea {...props} />
     </div>
   )
 }

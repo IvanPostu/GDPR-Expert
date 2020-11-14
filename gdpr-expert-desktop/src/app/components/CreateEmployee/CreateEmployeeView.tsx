@@ -41,41 +41,41 @@ export const CreateEmployeeView: FC<CreateEmployeeViewPropType> = (
   )
 
   return (
-    <FormCardA cardBackgroundColor="rgba(255, 255, 255, 0.97)" onSubmit={onSubmit}>
+    <FormCardA onSubmit={onSubmit}>
       <h2>Adaugare angajant </h2>
       <p style={{ marginTop: '10px' }}>
         Pentru departamentul: <b>{props.departmentName}</b>
       </p>
 
       <TextInputA
-        labelName="Nume:"
+        labelname="Nume:"
         type="text"
-        onTextChange={(str: string) => setEmployeeData((prev) => ({ ...prev, lastName: str }))}
+        onChange={(e) => setEmployeeData((prev) => ({ ...prev, lastName: e.target.value }))}
       />
       <TextInputA
-        labelName="Prenume:"
+        labelname="Prenume:"
         type="text"
-        onTextChange={(str: string) => setEmployeeData((prev) => ({ ...prev, firstName: str }))}
+        onChange={(e) => setEmployeeData((prev) => ({ ...prev, firstName: e.target.value }))}
       />
       <TextInputA
-        labelName="Adresă:"
+        labelname="Adresă:"
         type="text"
-        onTextChange={(str: string) => setEmployeeData((prev) => ({ ...prev, address: str }))}
+        onChange={(e) => setEmployeeData((prev) => ({ ...prev, address: e.target.value }))}
       />
       <TextInputA
-        labelName="Email:"
+        labelname="Email:"
         type="email"
-        onTextChange={(str: string) => setEmployeeData((prev) => ({ ...prev, email: str }))}
+        onChange={(e) => setEmployeeData((prev) => ({ ...prev, email: e.target.value }))}
       />
       <TextInputA
-        labelName="Număr de telefon:"
+        labelname="Număr de telefon:"
         type="text"
-        onTextChange={(str: string) => setEmployeeData((prev) => ({ ...prev, phoneNumber: str }))}
+        onChange={(e) => setEmployeeData((prev) => ({ ...prev, phoneNumber: e.target.value }))}
       />
       <CheckboxA
         onChange={props.onPersonalDataResponsibleCheckboxClick}
         checked={props.personalDataResponsibleChecked}
-        labelName="Responsabil de date cu caracter personal: "
+        labelname="Responsabil de date cu caracter personal: "
       />
       <ButtonA type="submit" title="Adaugă" />
     </FormCardA>

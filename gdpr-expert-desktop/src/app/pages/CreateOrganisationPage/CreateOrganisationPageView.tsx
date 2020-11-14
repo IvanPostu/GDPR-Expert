@@ -51,66 +51,66 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
   ) : (
     <Fragment>
       <TextInputA
-        labelName="Denumire organizație:"
-        onTextChange={(str: string) =>
+        labelname="Denumire organizație:"
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            organisationName: str,
+            organisationName: e.target.value,
           })
         }
       />
       <TextInputA
-        labelName="Adresa juridică:"
-        onTextChange={(str: string) =>
+        labelname="Adresa juridică:"
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            address: str,
+            address: e.target.value,
           })
         }
       />
       <TextInputA
-        labelName="Email:"
-        onTextChange={(str: string) =>
+        labelname="Email:"
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            email: str,
+            email: e.target.value,
           })
         }
       />
       <TextInputA
-        labelName="Telefon:"
-        onTextChange={(str: string) =>
+        labelname="Telefon:"
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            telephone: str,
+            telephone: e.target.value,
           })
         }
       />
       <TextInputA
-        labelName="Reprezentant legal:"
-        onTextChange={(str: string) =>
+        labelname="Reprezentant legal:"
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            legalRepresentative: str,
+            legalRepresentative: e.target.value,
           })
         }
       />
       <TextAreaA
-        labelName="Descriere organizație: "
-        onTextChange={(str: string) =>
+        labelname="Descriere organizație: "
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            description: str,
+            description: e.target.value,
           })
         }
       />
       <TextInputA
         type="date"
-        labelName="Data fondării:"
-        onTextChange={(str: string) =>
+        labelname="Data fondării:"
+        onChange={(e) =>
           setOrganisationData({
             ...organisationData,
-            foundedAt: str,
+            foundedAt: e.target.value,
           })
         }
       />
@@ -131,7 +131,7 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
             base64Image,
           })
         }}
-        labelName="Logo organizație: "
+        labelname="Logo organizație: "
       />
 
       <ButtonA type="submit" title="Salvează" />

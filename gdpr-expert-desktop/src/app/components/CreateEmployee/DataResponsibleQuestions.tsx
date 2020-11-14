@@ -5,7 +5,7 @@ import { QuestionA } from '../Form/QuestionA'
 
 export const DataResponsibleQuestions = (): ReactElement => {
   return (
-    <FormCardA cardBackgroundColor="rgba(255, 255, 255, 0.97)" onSubmit={() => {}}>
+    <FormCardA>
       <h2>Chestionar: </h2>
       <p style={{ margin: '10px' }}>
         <b>

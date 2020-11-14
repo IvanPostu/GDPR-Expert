@@ -1,19 +1,16 @@
-import React, { ReactElement } from 'react'
+import React, { DetailedHTMLProps, InputHTMLAttributes, ReactElement } from 'react'
 import styles from './styles.module.scss'
 
 type TextInputAPropType = {
-  onTextChange: (str: string) => void
-  labelName?: string
-  type?: string
-}
+  labelname?: string
+} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 export const TextInputA = (props: TextInputAPropType): ReactElement => {
-  const labelName = props.labelName || ''
-  const type = props.type || 'text'
+  const labelname = props.labelname || ''
   return (
     <div className={styles.txtInputContainer}>
-      <label>{labelName}</label>
-      <input type={type} onChange={(e) => props.onTextChange(e.target.value)} />
+      <label>{labelname}</label>
+      <input {...props} />
     </div>
   )
 }

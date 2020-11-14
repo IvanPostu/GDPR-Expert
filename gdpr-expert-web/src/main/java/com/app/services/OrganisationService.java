@@ -15,5 +15,7 @@ public interface OrganisationService {
 
   void addOrganisation(OrganisationEntity oEntity);
 
+  void updateOrganisation(OrganisationEntity oEntity);
+
   boolean deleteById(Long organisationId, Long ownerId);
 }

@@ -73,4 +73,15 @@ public class OrganisationServiceImpl implements OrganisationService {
     
     return organisationDao.removeOrganisation(daoResult.getId());
   }
+
+  @Override
+  @Transactional
+  public void updateOrganisation(OrganisationEntity oEntity) {
+    organisationDao.updateOrganisation(oEntity);
+    OrganisationLogoEntity logo = oEntity.getOrganisationLogoEntity();
+    if (logo != null) {
+      logo.setId(oEntity.getId());
+      organisationLogoDao.addOrganisationLogo(logo);
+    }
+  }
 }

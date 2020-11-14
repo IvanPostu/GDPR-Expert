@@ -53,6 +53,7 @@ class OrganisationInfoPageComponent extends Component<
 
     this._isMounted = false
     this.deleteOrganisation = this.deleteOrganisation.bind(this)
+    this.updateOrganisation = this.updateOrganisation.bind(this)
   }
 
   componentDidMount(): void {
@@ -87,6 +88,10 @@ class OrganisationInfoPageComponent extends Component<
     }
   }
 
+  updateOrganisation() {
+    this.props.history.push(routeNames.OrganisationUpdatePage)
+  }
+
   render(): ReactElement {
     const loading = this.props.isLoading || this.state.isLoading
 
@@ -94,6 +99,7 @@ class OrganisationInfoPageComponent extends Component<
       <FullWidthLoader />
     ) : (
       <OrganisationInfo
+        updateOrganisation={this.updateOrganisation}
         deleteOrganisation={this.deleteOrganisation}
         orgAddress={this.props.organisationInfo.organisationAddress}
         orgAdministrator={this.props.organisationInfo.organisationAdministrator}

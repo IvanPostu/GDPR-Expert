@@ -53,21 +53,21 @@ class CreateDepartmentComponent extends Component<
         </p>
 
         <TextInputA
-          labelName="Denumire:"
-          onTextChange={(str: string) => this.setState({ orgName: str })}
+          labelname="Denumire:"
+          onChange={(e) => this.setState({ orgName: e.target.value })}
         />
         <TextInputA
-          labelName="Telefon:"
-          onTextChange={(str: string) => this.setState({ orgPhone: str })}
+          labelname="Telefon:"
+          onChange={(e) => this.setState({ orgPhone: e.target.value })}
         />
         <TextInputA
           type="email"
-          labelName="Email:"
-          onTextChange={(str: string) => this.setState({ orgEmail: str })}
+          labelname="Email:"
+          onChange={(e) => this.setState({ orgEmail: e.target.value })}
         />
         <TextInputA
-          labelName="Persoană responsabilă:"
-          onTextChange={(str: string) => this.setState({ orgResponsible: str })}
+          labelname="Persoană responsabilă:"
+          onChange={(e) => this.setState({ orgResponsible: e.target.value })}
         />
         <ButtonA type="submit" title="Salvează" />
       </FormCardA>
