@@ -1,4 +1,5 @@
 import { webServerURL } from '@/app/constants/webServerUrl'
+import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
 export type OrganisationResponseTypeA = {
   organisationDescription: string
@@ -9,15 +10,20 @@ export type OrganisationResponseTypeA = {
   organisationFoundedDate: string
 }
 
-export async function getOrganisations(): Promise<Array<OrganisationResponseTypeA>> {
+export async function getOrganisations(): Promise<
+  Array<OrganisationResponseTypeA> | UnsuccessResponseData
+> {
   const options: RequestInit = {
     method: 'GET',
     credentials: 'include',
     headers: {},
   }
 
+  let status = 0
+
   try {
     const response = await fetch(`${webServerURL}/api/organisation/all`, options)
+    status = response.status
 
     if (response.status === 200 && response.ok) {
       const organisations = await response.json()
@@ -26,6 +32,6 @@ export async function getOrganisations(): Promise<Array<OrganisationResponseType
 
     throw new Error()
   } catch (e) {
-    return []
+    return new UnsuccessResponseData(status, {})
   }
 }

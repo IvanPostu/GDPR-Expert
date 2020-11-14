@@ -1,6 +1,7 @@
 import { routeNames } from '@/app/routes/routeNames'
 import React, { FC, ReactElement } from 'react'
 import { useHistory } from 'react-router-dom'
+import { BasicLoader } from '../BasicLoader'
 import { SuccessButton } from '../Button/SuccessButton'
 import { Container } from '../Container'
 import { GenericTableA } from '../Tables'
@@ -10,11 +11,21 @@ type DepartmentInfoViewPropType = {
   departmentInfo: { [key: string]: string }
   departmentName: string
   departmentId: number
+  departmentEmployees: Array<{
+    id: string
+    fullName: string
+    address: string
+    email: string
+    phone: string
+    personalDataResponsible: string
+  }>
+  departmentEmployeesFetching: boolean
 }
 
 export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
   props: DepartmentInfoViewPropType,
 ): ReactElement => {
+  const employeesIsFetching = props.departmentEmployeesFetching
   const departmentInfo = Object.keys(props.departmentInfo).map((k) => {
     return (
       <div key={k} className={styles.row}>
@@ -29,15 +40,6 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
   })
 
   const history = useHistory()
-
-  const cells = [1, 2, 3].map((item, i) => ({
-    id: String(i),
-    fullName: 'AAA',
-    address: 'BBB',
-    email: 'emailadfadf',
-    phone: 'phone',
-    responsible: 'Da',
-  }))
 
   return (
     <Container>
@@ -62,20 +64,51 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
             />
           </div>
         </div>
-        <GenericTableA
-          onDeleteClick={(id) => console.log(id)}
-          onInfoClick={(id) => console.log(id)}
-          onUpdateClick={(id) => console.log(id)}
-          headerCells={[
-            'Nume/Prenume',
-            'Adresa',
-            'Email',
-            'Nr. telefon',
-            'Responsabil de date cu caracter personal',
-          ]}
-          cells={cells}
-        />
+        {employeesIsFetching ? (
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+            <BasicLoader size="100px" />
+          </div>
+        ) : (
+          <EmployeesTable departmentEmployees={props.departmentEmployees} />
+        )}
       </div>
     </Container>
   )
+}
+
+type EmployeesTablePropType = {
+  departmentEmployees: Array<{
+    id: string
+    fullName: string
+    address: string
+    email: string
+    phone: string
+    personalDataResponsible: string
+  }>
+}
+
+function EmployeesTable(props: EmployeesTablePropType): ReactElement {
+  if (props.departmentEmployees.length > 0) {
+    return (
+      <GenericTableA
+        onDeleteClick={(id) => console.log(id)}
+        onInfoClick={(id) => console.log(id)}
+        onUpdateClick={(id) => console.log(id)}
+        headerCells={[
+          'Nume/Prenume',
+          'Adresa',
+          'Email',
+          'Nr. telefon',
+          'Responsabil de date cu caracter personal',
+        ]}
+        cells={props.departmentEmployees}
+      />
+    )
+  } else {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+        <h3>Departamentul dat nu conține angajanți.</h3>
+      </div>
+    )
+  }
 }
