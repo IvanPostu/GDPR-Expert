@@ -15,14 +15,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
   public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
       Authentication authentication) throws IOException, ServletException {
 
-        
-    // HttpSession session = httpServletRequest.getSession();
-    // UserEntity authUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    // session.setAttribute("userId", authUser.getId());
-    // session.setAttribute("authorities", authentication.getAuthorities());
-
+      
+    httpServletResponse.getWriter().write("login_success");
     httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-    httpServletResponse.sendRedirect("/api/auth/success");
   }
 
 }

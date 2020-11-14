@@ -22,13 +22,6 @@ public class AuthRestController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
   }
 
-  @GetMapping("/success")
-  public ResponseEntity<?> authSuccess(){
-    HashMap<String, String> result = new HashMap<>();
-    result.put("login_current_status", "login_success");
-    return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
-  }
-
   @GetMapping("/failure")
   public ResponseEntity<?> authFailure(){
     HashMap<String, String> result = new HashMap<>();

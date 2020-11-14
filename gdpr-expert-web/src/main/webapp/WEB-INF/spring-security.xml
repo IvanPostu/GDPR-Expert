@@ -18,7 +18,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <intercept-url pattern="/**" access="isAuthenticated()" />
 
 
-    <form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" login-processing-url="" />
+    <form-login authentication-success-forward-url="/success" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
     
   </http>
@@ -46,9 +46,6 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
   <authentication-manager>
     <authentication-provider user-service-ref="userDetailsService">
-      <!-- <user-service>
-        <user name="u" password="u" authorities="ROLE_ADMIN" />
-      </user-service> -->
     </authentication-provider>
   </authentication-manager>
 

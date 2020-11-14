@@ -3,9 +3,9 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <bean id="validator"
+    <!-- <bean id="validator"
       class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
-    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/> -->
 
     <bean id="applicationDateTimeFormatter" class="com.app.beans.ApplicationDateTimeFormatter" />
     <bean id="applicationDateFormatter" class="com.app.beans.ApplicationDateFormatter" />

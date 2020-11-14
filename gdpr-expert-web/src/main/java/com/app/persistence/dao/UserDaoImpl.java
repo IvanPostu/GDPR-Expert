@@ -2,8 +2,6 @@
 package com.app.persistence.dao;
 
 
-import java.util.List;
-
 import javax.persistence.TypedQuery;
 
 import com.app.domain.entities.UserEntity;
@@ -53,22 +51,12 @@ public class UserDaoImpl implements UserDao {
     logger.info("User successfully deleted. User info " + user.toString());
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public UserEntity getUserById(Long id) {
     Session session = sessionFactory.getCurrentSession();
-    final String sqlStr = "FROM UserEntity WHERE user_id=:userId"; 
+    UserEntity user = session.load(UserEntity.class, id);
 
-    TypedQuery<UserEntity> query = session.createQuery(sqlStr);
-    query.setMaxResults(1);
-    query.setParameter("userId", id);
-
-    List<UserEntity> users = query.getResultList();
-    if(users.size()>0){
-      return users.get(0);
-    }
-
-    return null;
+    return user;
   }
 
   @SuppressWarnings("unchecked")

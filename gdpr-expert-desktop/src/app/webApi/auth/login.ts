@@ -16,11 +16,8 @@ export async function loginUser(email: string, password: string): Promise<boolea
 
   try {
     const response = await fetch(`${webServerURL}/login`, options)
-    const redirectPath = new URL(response.url).pathname
-    const authResponse = await fetch(`${webServerURL}${redirectPath}`, { method: 'GET' })
-    const loginState = await authResponse.json()
-
-    const result: boolean = loginState['login_current_status'] === 'login_success'
+    const responseData = await response.text()
+    const result: boolean = responseData === 'login_success' && response.ok
     return result
   } catch (e) {
     return false
