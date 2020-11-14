@@ -1,4 +1,5 @@
 import { webServerURL } from '@/app/constants/webServerUrl'
+import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
 export type CreateOrganisationDataTypeForWebApi = {
   organisationName: string
@@ -9,12 +10,12 @@ export type CreateOrganisationDataTypeForWebApi = {
   legalForm: string
   description: string
   base64LogoImage: string
+  foundedAt: string //"foundedAt": "2000-11-22"
 }
 
 export async function createOrganisation(
   data: CreateOrganisationDataTypeForWebApi,
-  on401StatusCallback: () => void,
-): Promise<boolean> {
+): Promise<boolean | UnsuccessResponseData> {
   const options: RequestInit = {
     method: 'POST',
     credentials: 'include',
@@ -24,14 +25,14 @@ export async function createOrganisation(
     body: JSON.stringify(data),
   }
 
+  let status = 0
+
   try {
     const response = await fetch(`${webServerURL}/api/organisation/create`, options)
-    if (response.status === 401) {
-      on401StatusCallback()
-    }
+    status = response.status
 
     return response.status === 201
   } catch (e) {
-    return false
+    return new UnsuccessResponseData(status, {})
   }
 }

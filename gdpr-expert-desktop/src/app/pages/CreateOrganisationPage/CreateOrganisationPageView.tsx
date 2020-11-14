@@ -33,6 +33,7 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
     legalForm: '',
     description: '',
     base64Image: '',
+    foundedAt: '',
   })
 
   const onSubmit = useCallback(
@@ -100,6 +101,16 @@ export const CreateOrganisationPageView: FC<CreateOrganisationPageViewPropType> 
           setOrganisationData({
             ...organisationData,
             description: str,
+          })
+        }
+      />
+      <TextInputA
+        type="date"
+        labelName="Data fondării:"
+        onTextChange={(str: string) =>
+          setOrganisationData({
+            ...organisationData,
+            foundedAt: str,
           })
         }
       />

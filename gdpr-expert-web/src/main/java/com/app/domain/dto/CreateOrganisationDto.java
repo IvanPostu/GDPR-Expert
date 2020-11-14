@@ -45,4 +45,8 @@ public class CreateOrganisationDto {
   @Getter
   private String base64LogoImage;
 
+  @Setter 
+  @Getter
+  private String foundedAt;
+
 }

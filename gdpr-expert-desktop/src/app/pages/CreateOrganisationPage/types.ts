@@ -7,4 +7,5 @@ export type OrganisationDataType = {
   legalForm: string
   description: string
   base64Image: string
+  foundedAt: string //"foundedAt": "2000-11-22"
 }

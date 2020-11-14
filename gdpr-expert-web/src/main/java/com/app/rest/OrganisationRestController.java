@@ -1,5 +1,6 @@
 package com.app.rest;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -85,12 +86,19 @@ public class OrganisationRestController {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
     }
 
+    Date orgFoundedAt = new Date();
+    try {
+      orgFoundedAt = dateFormatter.getApplicationDateFormat().parse(organisationDto.getFoundedAt());
+    } catch (ParseException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(String.format("Server date format is %s", dateFormatter.getApplicationDateFormat().toPattern()));
+    }
+
     OrganisationEntity organisationEntity = new OrganisationEntity();
     organisationEntity.setActive(true);
     organisationEntity.setAddress(organisationDto.getAddress());
     organisationEntity.setAdministrator(organisationDto.getLegalRepresentative());
     organisationEntity.setCreatedOnPlatformAt(LocalDateTime.now());
-    organisationEntity.setFoundedAt(new Date());
+    organisationEntity.setFoundedAt(orgFoundedAt);
     organisationEntity.setEmail(organisationDto.getEmail());
     organisationEntity.setLegalForm(organisationDto.getLegalForm());
     organisationEntity.setName(organisationDto.getOrganisationName());

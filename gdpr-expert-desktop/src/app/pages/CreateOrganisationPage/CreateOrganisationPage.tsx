@@ -55,19 +55,17 @@ class CreateOrganisationPageComponent extends Component<
 
   async organisationCreateHandler(org: OrganisationDataType): Promise<void> {
     this.setState({ isFetch: true })
-    const organisationId = await createOrganisation(
-      {
-        address: org.address,
-        description: org.description,
-        email: org.email,
-        legalForm: org.legalForm,
-        legalRepresentative: org.legalRepresentative,
-        organisationName: org.organisationName,
-        telephone: org.telephone,
-        base64LogoImage: org.base64Image,
-      },
-      () => this.props.clearAuthDataActionCreator(),
-    )
+    const organisationId = await createOrganisation({
+      address: org.address,
+      description: org.description,
+      email: org.email,
+      legalForm: org.legalForm,
+      legalRepresentative: org.legalRepresentative,
+      organisationName: org.organisationName,
+      telephone: org.telephone,
+      base64LogoImage: org.base64Image,
+      foundedAt: org.foundedAt,
+    })
 
     if (!organisationId) {
       this.setState({
