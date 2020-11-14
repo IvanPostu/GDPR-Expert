@@ -17,7 +17,7 @@ type OrganisationCardPropType = {
 }
 
 export const OrganisationCard: FC<OrganisationCardPropType> = (props): ReactElement => {
-  const titleBackgroundColor = props.titleBackgroundColor || 'rgba(75, 145, 220, 0.65)'
+  const titleBackgroundColor = props.titleBackgroundColor || 'rgba(75, 145, 220, 0.95)'
   const titleTextColor = props.titleTextColor || 'black'
   const description = props.text.length > 100 ? props.text.substr(0, 100) + ' ...' : props.text
   const organisationId = props.organisationId

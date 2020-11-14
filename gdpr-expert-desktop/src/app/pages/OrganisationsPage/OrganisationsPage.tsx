@@ -6,6 +6,7 @@ import { OrganisationsPageView } from './OrganisationsPageView'
 import {
   reloadOrganisationsPageActionCreator,
   fetchOrganisationsActionCreator,
+  setOrganisationsDataActionCreator,
 } from '@/app/store/Organisations/actionCreators'
 
 function mapStateToProps(state: GlobalStateType) {
@@ -16,7 +17,11 @@ function mapStateToProps(state: GlobalStateType) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  const actionCreators = { reloadOrganisationsPageActionCreator, fetchOrganisationsActionCreator }
+  const actionCreators = {
+    reloadOrganisationsPageActionCreator,
+    fetchOrganisationsActionCreator,
+    setOrganisationsDataActionCreator,
+  }
   return bindActionCreators(actionCreators, dispatch)
 }
 
@@ -30,6 +35,7 @@ class OrganisationsPageComponent extends Component<OrganisationsPageComponentPro
 
   componentDidMount(): void {
     if (!this.props.organisationsIsLoadProcess) {
+      this.props.setOrganisationsDataActionCreator([])
       this.props.fetchOrganisationsActionCreator()
     }
   }

@@ -64,4 +64,13 @@ public class OrganisationServiceImpl implements OrganisationService {
 
     return result;
   }
+
+  @Override
+  @Transactional
+  public boolean deleteById(Long organisationId, Long ownerId) {
+    OrganisationEntity daoResult = organisationDao
+      .findOrganisationByIdAndOwnerId(organisationId, ownerId);
+    
+    return organisationDao.removeOrganisation(daoResult.getId());
+  }
 }

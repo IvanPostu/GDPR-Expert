@@ -10,14 +10,14 @@
   border-radius: 4px;
   width: 320px;
   margin-right: 20px;
-  opacity: .98;
+  opacity: 0.98;
 
-  &:hover{
-    opacity: .98;
+  &:hover {
+    opacity: 0.9;
   }
 
-  &:active{
-    opacity: .98;
+  &:active {
+    opacity: 0.85;
   }
 
   span {
@@ -45,18 +45,16 @@
 
   .cardSummary {
     margin: 5% 5% 0 5%;
-    
-    .dates{
+
+    .dates {
       padding-top: 20px;
       font-size: 14px;
       display: flex;
       flex-direction: column;
-      .date{
-      justify-content: space-between;
+      .date {
+        justify-content: space-between;
         display: flex;
       }
-
     }
   }
-
 }

@@ -60,5 +60,19 @@ public class OrganisationDaoImpl implements OrganisationDao {
     return organisation;
   }
 
+  @Override
+  public boolean removeOrganisation(Long organisationId) {
+    Session session = sessionFactory.getCurrentSession();
+    OrganisationEntity organisationEntity = session.load(OrganisationEntity.class, organisationId);
+    boolean deleteWithSuccess = false;
+
+    if(organisationEntity != null){
+      session.delete(organisationEntity);
+      deleteWithSuccess = true;
+    }
+
+    return deleteWithSuccess;
+  }
+
  
 }

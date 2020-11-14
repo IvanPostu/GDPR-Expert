@@ -14,17 +14,27 @@ export const DataResponsibleQuestions = (): ReactElement => {
         </b>
       </p>
       <QuestionA
-        question="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam temporibus ad dicta magni!?"
+        question="Departamentul din care face parte angajatul prestează servicii publice sau activează ca organism public?"
         items={['Da', 'Nu']}
         setSelectedItem={(str) => console.log(str)}
       />
       <QuestionA
-        question="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam temporibus ad dicta magni!?"
+        question="Activitatea angajatului dat are tangențe cu procesare datelor?"
         items={['Da', 'Nu']}
         setSelectedItem={(str) => console.log(str)}
       />
       <QuestionA
-        question="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam temporibus ad dicta magni!?"
+        question="Datele procesate de angajant în caz de scurgere de informație pot provoca urmări?"
+        items={['Da', 'Nu']}
+        setSelectedItem={(str) => console.log(str)}
+      />
+      <QuestionA
+        question="Datele procesate de angajat fac parte din categoria datelor sensibile?"
+        items={['Da', 'Nu']}
+        setSelectedItem={(str) => console.log(str)}
+      />
+      <QuestionA
+        question="Angajatul procesează date despre activitatea sau starea persoanelor fizece sau juridice?"
         items={['Da', 'Nu']}
         setSelectedItem={(str) => console.log(str)}
       />

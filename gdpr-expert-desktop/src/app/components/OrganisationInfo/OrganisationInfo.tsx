@@ -1,8 +1,10 @@
 import { defaultOrganisationImage } from '@/app/constants/defaultOrganisationImage'
 import React, { ReactElement, FC } from 'react'
+import { GenericButton } from '../GenericButton'
 import styles from './styles.module.scss'
 
 type OrganisationInfoPropType = {
+  deleteOrganisation: () => void
   orgName: string
   orgLegalForm: string
   orgAdministrator: string
@@ -62,6 +64,21 @@ export const OrganisationInfo: FC<OrganisationInfoPropType> = (
         </div>
       </div>
       {content}
+      <div className={styles.row}>
+        <div />
+        <div>
+          <GenericButton onClick={() => {}} style={{ background: '#0044AA', marginLeft: '20px' }}>
+            Modificare organizație
+          </GenericButton>
+          <GenericButton
+            onClick={props.deleteOrganisation}
+            style={{ background: '#882222', marginLeft: '20px' }}
+          >
+            Ștergere organizație
+          </GenericButton>
+        </div>
+        <div />
+      </div>
     </div>
   )
 }

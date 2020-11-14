@@ -71,14 +71,8 @@ public class OrganisationRestController {
    * @param user
    * @param organisationDto
    * @return onsuccess id
-   * @return onerror 
-   * {
-   *  empty_address
-   *  empty_name
-   *  invalid_email
-   *  empty_telephone
-   *  empty_representative
-   * }
+   * @return onerror { empty_address empty_name invalid_email empty_telephone
+   *         empty_representative }
    */
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createOrganisation(@AuthenticationPrincipal UserEntity user,
@@ -87,7 +81,7 @@ public class OrganisationRestController {
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     Set<ConstraintViolation<CreateOrganisationDto>> violations = validator.validate(organisationDto);
 
-    if(violations.size()>0){
+    if (violations.size() > 0) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
     }
 
@@ -187,6 +181,22 @@ public class OrganisationRestController {
     }
 
     return ResponseEntity.ok(response);
+  }
+
+  @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+  public ResponseEntity<?> deleteOrganisation(@PathVariable("id") Long organisationId,
+      @AuthenticationPrincipal UserEntity user) {
+
+    try{
+      boolean deletedWithSuccess = organisationService.deleteById(organisationId, user.getId());
+      if(deletedWithSuccess){
+        return ResponseEntity.status(HttpStatus.OK).build();
+      }else{
+        throw new Exception();
+      }
+    }catch(Exception e){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
   }
 
 }

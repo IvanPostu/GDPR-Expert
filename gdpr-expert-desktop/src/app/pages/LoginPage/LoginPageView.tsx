@@ -68,7 +68,7 @@ export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement =>
         onTextChange={(str: string) => setAuthData({ ...authData, email: str })}
       />
       <TextInputA
-        labelName="Email:"
+        labelName="Password:"
         type="password"
         onTextChange={(str: string) => setAuthData({ ...authData, password: str })}
       />
