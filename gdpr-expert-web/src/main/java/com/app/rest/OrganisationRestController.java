@@ -176,7 +176,7 @@ public class OrganisationRestController {
     response.put("organisationAddress", organisationEntity.getAddress());
     response.put("organisationPhoneNumber", organisationEntity.getPhoneNumber());
     response.put("organisationEmail", organisationEntity.getEmail());
-    response.put("organisationDepartmentCount", 9);
+    response.put("organisationDepartmentCount", 77);
     response.put("organisationEmployeeCount", 78);
 
     if (organisationEntity.getOrganisationLogoEntity() != null) {

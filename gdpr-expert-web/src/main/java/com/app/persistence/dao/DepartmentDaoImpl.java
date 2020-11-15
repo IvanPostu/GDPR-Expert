@@ -1,7 +1,5 @@
 package com.app.persistence.dao;
 
-import java.util.Optional;
-
 import com.app.domain.entities.DepartmentEntity;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,10 +27,10 @@ public class DepartmentDaoImpl implements DepartmentDao {
   }
 
   @Override
-  public Optional<DepartmentEntity> getById(Long departmentId) {
+  public DepartmentEntity getById(Long departmentId) {
     Session session = sessionFactory.getCurrentSession();
     DepartmentEntity departmentEntity = session.load(DepartmentEntity.class, departmentId);
-    return Optional.of(departmentEntity);
+    return departmentEntity;
   }
 
   @Override

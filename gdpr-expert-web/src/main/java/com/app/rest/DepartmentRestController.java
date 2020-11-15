@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.app.beans.ApplicationDateTimeFormatter;
 import com.app.domain.dto.CreateDepartment;
+import com.app.domain.dto.UpdateDepartmentDto;
 import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.UserEntity;
@@ -36,20 +37,21 @@ public class DepartmentRestController {
   private final ApplicationDateTimeFormatter dateTimeFormatter;
 
   @Autowired
-  public DepartmentRestController(DepartmentService departmentService, OrganisationService organisationService, ApplicationDateTimeFormatter dateTimeFormatter) {
+  public DepartmentRestController(DepartmentService departmentService, OrganisationService organisationService,
+      ApplicationDateTimeFormatter dateTimeFormatter) {
     this.departmentService = departmentService;
     this.organisationService = organisationService;
     this.dateTimeFormatter = dateTimeFormatter;
   }
 
   @RequestMapping(value = "/organisation/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> createOrganisation(@PathVariable("id") Long organisationId,
+  public ResponseEntity<?> getDepartmentForOrganisation(@PathVariable("id") Long organisationId,
       @AuthenticationPrincipal UserEntity user) {
 
     List<DepartmentEntity> departments = departmentService.getDepartmentsForOrganisation(organisationId, user.getId());
 
     List<HashMap<String, Object>> response = new ArrayList<>(departments.size());
-    for(DepartmentEntity d : departments){
+    for (DepartmentEntity d : departments) {
       HashMap<String, Object> item = new HashMap<>();
       item.put("departmentName", d.getName());
       item.put("departmentEmail", d.getEmail());
@@ -65,14 +67,26 @@ public class DepartmentRestController {
     return ResponseEntity.ok(response);
   }
 
-  @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> createOrganisation(@RequestBody CreateDepartment departmentDto,
+  @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Object> updateDepartment(@RequestBody UpdateDepartmentDto departmentDto,
       @AuthenticationPrincipal UserEntity user) {
 
-    
+    departmentService.updateDepartment(departmentDto);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  public ResponseEntity<Object> deleteDepartment(@PathVariable("id") Long departmentId, @AuthenticationPrincipal UserEntity user) {
+    departmentService.removeDepartment(departmentId);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
+  @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> createDepartment(@RequestBody CreateDepartment departmentDto,
+      @AuthenticationPrincipal UserEntity user) {
+
     OrganisationEntity organisationEntity = organisationService
-      .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false)
-      .get();
+        .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false).get();
 
     DepartmentEntity departmentEntity = new DepartmentEntity();
     departmentEntity.setActive(true);
@@ -84,7 +98,7 @@ public class DepartmentRestController {
     departmentEntity.setOrganisation(organisationEntity);
 
     departmentService.addDepartment(departmentEntity);
- 
+
     logger.info(String.format("Created department with id %d.", departmentEntity.getId()));
     return ResponseEntity.status(HttpStatus.CREATED).body(departmentEntity.getId());
   }

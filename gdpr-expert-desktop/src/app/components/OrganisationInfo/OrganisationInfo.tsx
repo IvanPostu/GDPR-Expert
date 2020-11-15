@@ -31,8 +31,8 @@ export const OrganisationInfo: FC<OrganisationInfoPropType> = (
     'Număr de telefon: ': props.orgPhoneNumber,
     'Email: ': props.orgEmail,
     'Descriere: ': props.orgDescription,
-    'Numărul de departamente: ': String(props.orgDepartmentCount),
-    'Numărul de angajanți: ': String(props.orgEmployeeCount),
+    // 'Numărul de departamente: ': String(props.orgDepartmentCount),
+    // 'Numărul de angajanți: ': String(props.orgEmployeeCount),
     'Data fondării: ': props.orgFondationDate,
     'Data înregistrării pe platformă': props.orgPlatformRegistrationDate,
   }

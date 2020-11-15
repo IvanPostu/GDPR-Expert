@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     employeeEntity.setPhoneNumber(employeeDto.getPhoneNumber());
     employeeEntity.setPersonalDataResponsible(employeeDto.isPersonalDataResponsible());
 
-    DepartmentEntity departmentEntity = departmentDao.getById(employeeDto.getDepartmentId()).get();
+    DepartmentEntity departmentEntity = departmentDao.getById(employeeDto.getDepartmentId());
 
     employeeEntity.setDepartment(departmentEntity);
 
@@ -48,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Transactional
   public List<EmployeeEntity> employeesForDepartment(Long departmentId) {
     
-    DepartmentEntity departmentEntity = departmentDao.getById(departmentId).get();
+    DepartmentEntity departmentEntity = departmentDao.getById(departmentId);
     List<EmployeeEntity> employees = new ArrayList<>(departmentEntity.getEmployees());
 
     return employees;
