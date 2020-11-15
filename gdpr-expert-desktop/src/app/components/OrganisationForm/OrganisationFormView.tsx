@@ -74,7 +74,7 @@ export const OrganisationFormView: FunctionComponent<OrganisationFormViewPropTyp
         <ImageFileInputA
           base64Image={props.organisation.base64Image}
           base64ImageLoadedHandler={(base64Image) => {
-            props.setStateData({ ...props.organisation, base64Image: base64Image }, true)
+            props.setStateData({ ...props.organisation, base64Image }, true)
           }}
           labelname="Logo organizație: "
         />

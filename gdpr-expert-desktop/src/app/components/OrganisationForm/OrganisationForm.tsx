@@ -1,9 +1,17 @@
+import { routeNames } from '@/app/routes/routeNames'
 import { GlobalStateType } from '@/app/store'
+import { createOrganisation } from '@/app/webApi/organisation/createOrganisation'
 import { updateOrganisation } from '@/app/webApi/organisation/updateOrganisation'
+import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import React, { PropsWithChildren, PureComponent, ReactElement, SyntheticEvent } from 'react'
 import { connect } from 'react-redux'
+import { RouteChildrenProps } from 'react-router-dom'
+import { bindActionCreators, Dispatch } from 'redux'
+import { ErrorAlert } from '../CustomAlert/ErrorAlert/ErrorAlert'
+import { SuccessAlert } from '../CustomAlert/SuccessAlert/SuccessAlert'
 import { OrganisationFormView } from './OrganisationFormView'
 import { OrganisationDataType } from './types'
+import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -11,11 +19,20 @@ function mapStateToProps(state: GlobalStateType) {
   }
 }
 
-type OrganisationFormComponentPropType = PropsWithChildren<unknown> & {
-  formType: 'update' | 'create'
-} & ReturnType<typeof mapStateToProps>
+function mapDispatchToProps(dispatch: Dispatch) {
+  const actionCreators = { clearAuthDataActionCreator }
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+type OrganisationFormComponentPropType = RouteChildrenProps &
+  PropsWithChildren<unknown> & {
+    formType: 'update' | 'create'
+  } & ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>
 
 type OrganisationFormComponentStateType = {
+  successMessage: string
+  errorMessage: string
   organisation: OrganisationDataType
   imageChanged: boolean
 }
@@ -24,11 +41,17 @@ class OrganisationFormComponent extends PureComponent<
   OrganisationFormComponentPropType,
   OrganisationFormComponentStateType
 > {
+  private _isMounted: boolean
+
   constructor(props: OrganisationFormComponentPropType) {
     super(props)
 
+    this._isMounted = false
+
     if (props.formType === 'create') {
       this.state = {
+        errorMessage: '',
+        successMessage: '',
         imageChanged: false,
         organisation: {
           id: 0,
@@ -58,6 +81,8 @@ class OrganisationFormComponent extends PureComponent<
       } = props.organisation
 
       this.state = {
+        errorMessage: '',
+        successMessage: '',
         imageChanged: false,
         organisation: {
           id: Number(organisationId),
@@ -76,6 +101,15 @@ class OrganisationFormComponent extends PureComponent<
 
     this.setStateData = this.setStateData.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.sessionExpiredHandler = this.sessionExpiredHandler.bind(this)
+  }
+
+  componentDidMount(): void {
+    this._isMounted = true
+  }
+
+  componentWillUnmount(): void {
+    this._isMounted = false
   }
 
   setStateData(data: OrganisationDataType, imageChanged?: boolean): void {
@@ -84,6 +118,10 @@ class OrganisationFormComponent extends PureComponent<
     } else {
       this.setState({ organisation: data })
     }
+  }
+
+  sessionExpiredHandler() {
+    this.props.clearAuthDataActionCreator()
   }
 
   async onSubmit(e: SyntheticEvent) {
@@ -113,11 +151,67 @@ class OrganisationFormComponent extends PureComponent<
         telephone,
         organisationName,
       })
-      console.log(res)
+
+      if (!this._isMounted) return
+      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        const resError = res as UnsuccessResponseData
+        this.setState({ successMessage: 'Organizație modificată cu succes.' })
+        if (resError.isSessionExpired) {
+          this.sessionExpiredHandler()
+        }
+      } else {
+        this.setState({ errorMessage: 'A apărut eroare în procesul modificării organizației.' })
+      }
+    } else {
+      const res = await createOrganisation({
+        address,
+        base64LogoImage: base64Image,
+        description,
+        foundedAt,
+        email,
+        legalForm,
+        legalRepresentative,
+        telephone,
+        organisationName,
+      })
+
+      if (!this._isMounted) return
+      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        const resError = res as UnsuccessResponseData
+        this.setState({ successMessage: 'Organizație creată cu succes.' })
+        if (resError.isSessionExpired) {
+          this.sessionExpiredHandler()
+        }
+      } else {
+        this.setState({ errorMessage: 'A apărut eroare în procesul creării organizației.' })
+      }
     }
   }
 
   render(): ReactElement {
+    if (this.state.successMessage) {
+      return (
+        <SuccessAlert
+          onOkClick={() => {
+            this.setState({ errorMessage: '', successMessage: '' })
+            this.props.history.push(routeNames.OrganisationsPageRoute)
+          }}
+          text={this.state.successMessage}
+        />
+      )
+    }
+
+    if (this.state.errorMessage) {
+      return (
+        <ErrorAlert
+          onOkClick={() => {
+            this.setState({ errorMessage: '', successMessage: '' })
+          }}
+          text={this.state.errorMessage}
+        />
+      )
+    }
+
     return (
       <OrganisationFormView
         onSubmit={this.onSubmit}
@@ -129,4 +223,7 @@ class OrganisationFormComponent extends PureComponent<
   }
 }
 
-export const OrganisationForm = connect(mapStateToProps)(OrganisationFormComponent)
+export const OrganisationForm = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(OrganisationFormComponent)

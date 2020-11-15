@@ -5,8 +5,12 @@ import com.app.domain.entities.OrganisationLogoEntity;
 public interface OrganisationLogoDao {
   
 
+  OrganisationLogoEntity findById(Long organisationLogoEntityId);
+  
   void addOrganisationLogo(OrganisationLogoEntity organisationLogoEntity);
+  
+  void updateOrganisationLogo(OrganisationLogoEntity organisationLogoEntity);
 
-  void removeOrganisationLogo(Long organisationLogoId);
+  boolean removeOrganisationLogo(Long organisationLogoId);
 
 }

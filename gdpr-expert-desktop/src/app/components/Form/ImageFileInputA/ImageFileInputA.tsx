@@ -16,17 +16,20 @@ export const ImageFileInputA = (props: ImageFileInputAPropType): ReactElement =>
     }
   }, [])
 
-  const onFileCangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = e.target.files
-    const reader = new FileReader()
-    reader.onload = (event) => {
-      if (componentIsMounted.current) {
-        props.base64ImageLoadedHandler(event.target?.result as string)
+  const onFileCangeHandler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const selectedFiles = e.target.files
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        if (componentIsMounted.current) {
+          props.base64ImageLoadedHandler(event.target?.result as string)
+        }
       }
-    }
 
-    reader.readAsDataURL(selectedFiles?.item(0) as Blob)
-  }, [])
+      reader.readAsDataURL(selectedFiles?.item(0) as Blob)
+    },
+    [props],
+  )
 
   return (
     <div>

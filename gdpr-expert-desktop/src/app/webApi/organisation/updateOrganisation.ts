@@ -32,7 +32,11 @@ export async function updateOrganisation(
     const response = await fetch(`${webServerURL}/api/organisation`, options)
     status = response.status
 
-    return response.status === 201
+    if (response.status === 201) {
+      return true
+    } else {
+      throw 1
+    }
   } catch (e) {
     return new UnsuccessResponseData(status, {})
   }

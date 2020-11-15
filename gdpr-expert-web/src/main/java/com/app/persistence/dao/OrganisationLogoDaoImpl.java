@@ -27,17 +27,33 @@ public class OrganisationLogoDaoImpl implements OrganisationLogoDao {
   }
 
   @Override
-  public void removeOrganisationLogo(Long organisationLogoId) {
+  public boolean removeOrganisationLogo(Long organisationLogoId) {
     Session session = sessionFactory.getCurrentSession();
     OrganisationLogoEntity organisationLogo = session.load(
       OrganisationLogoEntity.class, organisationLogoId);
     
     if(organisationLogo!=null){
       session.delete(organisationLogo);
+      return true;
     }
 
     logger.info("Organisation logo successfully deleted.");
+    return false;
+  }
 
+  @Override
+  public OrganisationLogoEntity findById(Long organisationLogoEntityId) {
+    Session session = sessionFactory.getCurrentSession();
+    OrganisationLogoEntity organisationLogo = session.load(
+      OrganisationLogoEntity.class, organisationLogoEntityId);
+
+    return organisationLogo;
+  }
+
+  @Override
+  public void updateOrganisationLogo(OrganisationLogoEntity organisationLogoEntity) {
+    Session session = sessionFactory.getCurrentSession();
+    session.update(organisationLogoEntity);
   }
   
 }

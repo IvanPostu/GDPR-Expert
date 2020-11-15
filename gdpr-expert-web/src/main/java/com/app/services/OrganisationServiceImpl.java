@@ -80,8 +80,17 @@ public class OrganisationServiceImpl implements OrganisationService {
     organisationDao.updateOrganisation(oEntity);
     OrganisationLogoEntity logo = oEntity.getOrganisationLogoEntity();
     if (logo != null) {
-      logo.setId(oEntity.getId());
-      organisationLogoDao.addOrganisationLogo(logo);
+      
+      try{
+        OrganisationLogoEntity logoEnt = organisationLogoDao.findById(oEntity.getId());
+        logoEnt.setId(oEntity.getId());
+        logoEnt.setImageData(logo.getImageData());
+        organisationLogoDao.updateOrganisationLogo(logoEnt);
+      }catch(Exception e){
+        logo.setId(oEntity.getId());
+        organisationLogoDao.addOrganisationLogo(logo);
+      }
+
     }
   }
 }
