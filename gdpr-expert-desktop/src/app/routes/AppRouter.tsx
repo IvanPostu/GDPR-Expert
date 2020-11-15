@@ -7,7 +7,6 @@ import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
 import { LoginPage } from '../pages/LoginPage'
 import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/OrganisationDepartmentsPage/OrganisationDepartmentsPage'
-import { OrganisationEmployeePage } from '../pages/OrganisationPage/OrganisationEmployeePage/OrganisationEmployeePage'
 import { OrganisationInfoPage } from '../pages/OrganisationPage/OrganisationInfoPage/OrganisationInfoPage'
 import { OrganisationsPage } from '../pages/OrganisationsPage'
 import { OrganisationUpdatePage } from '../pages/OrganisationUpdatePage'
@@ -43,12 +42,6 @@ const AppRouterComponent = (): ReactElement => {
             component={OrganisationDepartmentsPage}
             exact
             path={routeNames.OrganisationDepartmentsPageRoute}
-          />
-
-          <ProtectedRoute
-            component={OrganisationEmployeePage}
-            exact
-            path={routeNames.OrganisationEmployeePageRoute}
           />
 
           <ProtectedRoute

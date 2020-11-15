@@ -59,7 +59,8 @@ public class OrganisationDaoImpl implements OrganisationDao {
     OrganisationEntity organisation = query.getSingleResult();
     return organisation;
   }
-
+  
+  @SuppressWarnings("unchecked")
   @Override
   public boolean removeOrganisation(Long organisationId) {
     Session session = sessionFactory.getCurrentSession();
