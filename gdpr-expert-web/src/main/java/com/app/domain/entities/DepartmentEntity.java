@@ -26,7 +26,8 @@ public class DepartmentEntity {
   
   @Id
   @Setter 
-  @Getter@GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Getter
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="department_id", unique = true)
   private Long id;
   

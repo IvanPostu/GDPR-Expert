@@ -1,6 +1,5 @@
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import StartupLoaderView from './StartupLoaderView'
-import { ipcRenderer, remote } from 'electron'
 import { startupTime, delay } from '@/app/constants/startup'
 
 type StartupLoaderPropType = PropsWithChildren<unknown> & {
@@ -39,12 +38,6 @@ export class StartupLoader extends Component<StartupLoaderPropType, StartupLoade
         }
       })
     }, DELAY)
-  }
-
-  componentWillUnmount(): void {
-    const nativeWindow = remote.getCurrentWindow()
-    ipcRenderer.send('to-default-size')
-    nativeWindow.maximize()
   }
 
   render(): ReactElement {

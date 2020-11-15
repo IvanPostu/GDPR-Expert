@@ -1,11 +1,9 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import isDev from 'electron-is-dev'
 
 export const resources = {
   defaultWindowWidth: 800,
   defaultWindowHeight: 600,
-  startupWindowWidth: 400,
-  startupWindowHeight: 300,
 }
 
 let mainWindow: BrowserWindow
@@ -13,8 +11,8 @@ let mainWindow: BrowserWindow
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: resources.startupWindowWidth,
-    height: resources.startupWindowHeight,
+    width: resources.defaultWindowWidth,
+    height: resources.defaultWindowHeight,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
@@ -28,16 +26,6 @@ function createWindow() {
   }
 
   mainWindow.loadFile('../app/index.html')
-
-  ipcMain.on('to-startup-size', () => {
-    mainWindow.setSize(resources.startupWindowWidth, resources.startupWindowHeight)
-  })
-
-  ipcMain.on('to-default-size', () => {
-    if (!mainWindow.isMaximized) {
-      mainWindow.setSize(resources.defaultWindowWidth, resources.defaultWindowHeight)
-    }
-  })
 }
 
 app.on('ready', createWindow)

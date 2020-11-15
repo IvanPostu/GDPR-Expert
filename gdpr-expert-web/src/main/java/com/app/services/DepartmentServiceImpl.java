@@ -2,6 +2,7 @@ package com.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -56,6 +57,14 @@ public class DepartmentServiceImpl implements DepartmentService {
   @Override
   public void removeDepartment(Long departmentId) {
     departmentDao.deleteById(departmentId);
+  }
+
+  @Transactional
+  @Override
+  public Optional<DepartmentEntity> getDepartment(Long departmentId) {
+    DepartmentEntity department = departmentDao.getById(departmentId);
+    department.getEmail();
+    return Optional.of(department);
   }
 
 }

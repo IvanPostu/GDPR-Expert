@@ -58,6 +58,13 @@ class OrganisationDepartmentsPageComponent extends Component<
         search: `?departmentId=${departmentId}`,
       })
     }
+
+    if (type === 'update') {
+      this.props.history.push({
+        pathname: routeNames.UpdateDepartmentPageRoute,
+        search: `?departmentId=${departmentId}`,
+      })
+    }
   }
 
   render(): ReactElement {

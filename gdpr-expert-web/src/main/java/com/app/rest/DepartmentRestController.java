@@ -44,8 +44,26 @@ public class DepartmentRestController {
     this.dateTimeFormatter = dateTimeFormatter;
   }
 
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<Object> getDepartmentById(@PathVariable("id") Long departmentId,
+      @AuthenticationPrincipal UserEntity user) {
+
+    DepartmentEntity d = departmentService.getDepartment(departmentId)
+      .orElseThrow(() -> new RuntimeException());
+      
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("departmentId", d.getId());
+    result.put("departmentName", d.getName());
+    result.put("departmentEmail", d.getEmail());
+    result.put("departmentPhoneNumber", d.getPhoneNumber());
+    result.put("departmentCreatedAt", dateTimeFormatter.parse(d.getCreatedAt()));
+    result.put("departmentResponsiblePerson", d.getResponsible());
+
+    return ResponseEntity.ok(result);
+  }
+
   @RequestMapping(value = "/organisation/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> getDepartmentForOrganisation(@PathVariable("id") Long organisationId,
+  public ResponseEntity<?> getDepartmentsForOrganisation(@PathVariable("id") Long organisationId,
       @AuthenticationPrincipal UserEntity user) {
 
     List<DepartmentEntity> departments = departmentService.getDepartmentsForOrganisation(organisationId, user.getId());
@@ -72,11 +90,12 @@ public class DepartmentRestController {
       @AuthenticationPrincipal UserEntity user) {
 
     departmentService.updateDepartment(departmentDto);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+    return ResponseEntity.status(HttpStatus.CREATED).body(departmentDto.getId() );
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Object> deleteDepartment(@PathVariable("id") Long departmentId, @AuthenticationPrincipal UserEntity user) {
+  public ResponseEntity<Object> deleteDepartment(@PathVariable("id") Long departmentId,
+      @AuthenticationPrincipal UserEntity user) {
     departmentService.removeDepartment(departmentId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
