@@ -22,5 +22,5 @@ public class OrganisationLogoEntity {
   @Setter
   @Getter
   @Column(name = "image_data")
-  private Byte[] imageData;
+  private byte[] imageData;
 }

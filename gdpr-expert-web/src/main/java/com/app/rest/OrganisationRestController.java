@@ -54,20 +54,6 @@ public class OrganisationRestController {
     this.dateFormatter = dateFormatter;
   }
 
-  private String byteArrayToStringConverter(Byte[] bytes) {
-
-    if (bytes.length > 0) {
-      StringBuilder strBuilder = new StringBuilder(bytes.length);
-      for (Byte b : bytes) {
-        strBuilder.append((char) b.byteValue());
-      }
-
-      return strBuilder.toString();
-    }
-
-    return "";
-  }
-
   /**
    * 
    * @param user
@@ -109,15 +95,7 @@ public class OrganisationRestController {
 
     if (!StringUtils.isEmpty(organisationDto.getBase64LogoImage())) {
       OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
-      byte[] imageBytes = organisationDto.getBase64LogoImage().getBytes();
-      Byte[] imageForSave = new Byte[imageBytes.length];
-
-      int index = 0;
-      for (byte b : imageBytes) {
-        imageForSave[index++] = b;
-      }
-
-      logoEntity.setImageData(imageForSave);
+      logoEntity.setImageData(organisationDto.getBase64LogoImage().getBytes());
 
       organisationEntity.setOrganisationLogoEntity(logoEntity);
     }
@@ -163,16 +141,7 @@ public class OrganisationRestController {
 
     if (!StringUtils.isEmpty(organisationDto.getBase64LogoImage())) {
       OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
-      byte[] imageBytes = organisationDto.getBase64LogoImage().getBytes();
-      Byte[] imageForSave = new Byte[imageBytes.length];
-
-      int index = 0;
-      for (byte b : imageBytes) {
-        imageForSave[index++] = b;
-      }
-
-      logoEntity.setImageData(imageForSave);
-
+      logoEntity.setImageData(organisationDto.getBase64LogoImage().getBytes());
       organisationEntity.setOrganisationLogoEntity(logoEntity);
     }
 
@@ -199,8 +168,8 @@ public class OrganisationRestController {
       item.put("organisationDescription", org.getDescription());
 
       if (org.getOrganisationLogoEntity() != null) {
-        Byte[] imgBytes = org.getOrganisationLogoEntity().getImageData();
-        item.put("organisationLogo", byteArrayToStringConverter(imgBytes));
+        byte[] imgBytes = org.getOrganisationLogoEntity().getImageData();
+        item.put("organisationLogo", new String(imgBytes));
       }
 
       response.add(item);
@@ -239,8 +208,8 @@ public class OrganisationRestController {
     response.put("organisationEmployeeCount", 78);
 
     if (organisationEntity.getOrganisationLogoEntity() != null) {
-      Byte[] imgBytes = organisationEntity.getOrganisationLogoEntity().getImageData();
-      response.put("organisationLogo", byteArrayToStringConverter(imgBytes));
+      byte[] imgBytes = organisationEntity.getOrganisationLogoEntity().getImageData();
+      response.put("organisationLogo", new String(imgBytes));
     }
 
     return ResponseEntity.ok(response);
