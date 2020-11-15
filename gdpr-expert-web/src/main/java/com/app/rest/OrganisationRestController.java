@@ -108,7 +108,7 @@ public class OrganisationRestController {
 
   @RequestMapping( method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> updateOrganisation(@AuthenticationPrincipal UserEntity user,
-      @RequestBody UpdateOrganisationDto organisationDto) {
+      @RequestBody UpdateOrganisationDto organisationDto) throws ParseException {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     Set<ConstraintViolation<CreateOrganisationDto>> violations = validator
@@ -118,37 +118,9 @@ public class OrganisationRestController {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
     }
 
-    Date orgFoundedAt = new Date();
-    try {
-      orgFoundedAt = dateFormatter.getApplicationDateFormat().parse(organisationDto.getFoundedAt());
-    } catch (ParseException e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(String.format("Server date format is %s", dateFormatter.getApplicationDateFormat().toPattern()));
-    }
+    organisationService.updateOrganisation(organisationDto, user.getId());
 
-    OrganisationEntity organisationEntity = new OrganisationEntity();
-    organisationEntity.setId(organisationDto.getId());
-    organisationEntity.setActive(true);
-    organisationEntity.setAddress(organisationDto.getAddress());
-    organisationEntity.setAdministrator(organisationDto.getLegalRepresentative());
-    organisationEntity.setCreatedOnPlatformAt(LocalDateTime.now());
-    organisationEntity.setFoundedAt(orgFoundedAt);
-    organisationEntity.setEmail(organisationDto.getEmail());
-    organisationEntity.setLegalForm(organisationDto.getLegalForm());
-    organisationEntity.setName(organisationDto.getOrganisationName());
-    organisationEntity.setPhoneNumber(organisationDto.getTelephone());
-    organisationEntity.setDescription(organisationDto.getDescription());
-    organisationEntity.setOwner(user);
-
-    if (!StringUtils.isEmpty(organisationDto.getBase64LogoImage())) {
-      OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
-      logoEntity.setImageData(organisationDto.getBase64LogoImage().getBytes());
-      organisationEntity.setOrganisationLogoEntity(logoEntity);
-    }
-
-    organisationService.updateOrganisation(organisationEntity);
-
-    logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
-    return ResponseEntity.status(HttpStatus.CREATED).body(organisationEntity.getId());
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @RequestMapping(value = "/all", method = RequestMethod.GET)

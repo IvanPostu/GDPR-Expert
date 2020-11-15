@@ -15,7 +15,6 @@
   </bean>
 
   <bean id="organisationService" class="com.app.services.OrganisationServiceImpl">
-    <constructor-arg index="0" ref="organisationDao" />
   </bean>
 
   <bean id="departmentService" class="com.app.services.DepartmentServiceImpl">

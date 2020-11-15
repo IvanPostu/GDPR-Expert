@@ -1,8 +1,10 @@
 package com.app.services;
 
+import java.text.ParseException;
 import java.util.Optional;
 import java.util.Set;
 
+import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 
 public interface OrganisationService {
@@ -15,7 +17,7 @@ public interface OrganisationService {
 
   void addOrganisation(OrganisationEntity oEntity);
 
-  void updateOrganisation(OrganisationEntity oEntity);
+  void updateOrganisation(UpdateOrganisationDto updateOrganisationDto, Long ownerId) throws ParseException;
 
   boolean deleteById(Long organisationId, Long ownerId);
 }
