@@ -12,6 +12,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { fetchDepartmentsActionCreator } from '@/app/store/Departments/actionCreators'
 import { RouteComponentProps } from 'react-router'
+import { deleteDepartment } from '@/app/webApi/department/deleteDepartment'
+import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 
 function mapStateToProps(globalState: GlobalStateType) {
   return {
@@ -31,6 +33,9 @@ type OrganisationDepartmentsPageComponentPropType = RouteChildrenProps &
   ReturnType<typeof mapDispatchToProps> &
   RouteComponentProps
 
+type OrganisationDepartmentsPageComponentStateType = {
+  isLoading: boolean
+}
 function Loader(): ReactElement {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', padding: '25px' }}>
@@ -39,19 +44,21 @@ function Loader(): ReactElement {
   )
 }
 class OrganisationDepartmentsPageComponent extends Component<
-  OrganisationDepartmentsPageComponentPropType
+  OrganisationDepartmentsPageComponentPropType,
+  OrganisationDepartmentsPageComponentStateType
 > {
   constructor(props: OrganisationDepartmentsPageComponentPropType) {
     super(props)
-
+    this.state = { isLoading: false }
     this.redirect = this.redirect.bind(this)
+    this.deleteDepartment = this.deleteDepartment.bind(this)
   }
 
   componentDidMount(): void {
     this.props.fetchDepartmentsActionCreator(Number(this.props.organisationId))
   }
 
-  redirect(type: 'info' | 'delete' | 'update', departmentId: number) {
+  redirect(type: 'info' | 'update', departmentId: number) {
     if (type === 'info') {
       this.props.history.push({
         pathname: routeNames.DepartmentPage,
@@ -67,9 +74,22 @@ class OrganisationDepartmentsPageComponent extends Component<
     }
   }
 
+  deleteDepartment(departmentId: number) {
+    const deleteDepartmentCond = confirm('Precis doriți să ștergeți departamentul dat?')
+    if (deleteDepartmentCond) {
+      this.setState({ isLoading: true })
+      deleteDepartment(departmentId).then((res) => {
+        if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+          this.props.fetchDepartmentsActionCreator(Number(this.props.organisationId))
+        }
+        this.setState({ isLoading: false })
+      })
+    }
+  }
+
   render(): ReactElement {
     const isEmpty = this.props.departments.length === 0
-    const isLoading = this.props.isLoadProcess
+    const isLoading = this.props.isLoadProcess || this.state.isLoading
     const cells = this.props.departments.map((item) => ({
       id: String(item.departmentId),
       name: item.departmentName,
@@ -84,7 +104,7 @@ class OrganisationDepartmentsPageComponent extends Component<
       </div>
     ) : (
       <GenericTableA
-        onDeleteClick={(id) => this.redirect('delete', Number(id))}
+        onDeleteClick={(id) => this.deleteDepartment(Number(id))}
         onInfoClick={(id) => this.redirect('info', Number(id))}
         onUpdateClick={(id) => this.redirect('update', Number(id))}
         headerCells={['Denumire', 'Responsabil', 'Telefon', 'Email']}

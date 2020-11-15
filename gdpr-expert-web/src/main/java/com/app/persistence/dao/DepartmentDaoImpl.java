@@ -1,5 +1,7 @@
 package com.app.persistence.dao;
 
+import javax.persistence.TypedQuery;
+
 import com.app.domain.entities.DepartmentEntity;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,6 +35,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     return departmentEntity;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public boolean deleteById(Long departmentId) {
     Session session = sessionFactory.getCurrentSession();
@@ -40,8 +43,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
     boolean deleteWithSuccess = false;
 
     if(departmentEntity != null){
-      session.delete(departmentEntity);
-      deleteWithSuccess = true;
+      final String sqlStr = "DELETE FROM DepartmentEntity where department_id=:id"; 
+
+      TypedQuery<DepartmentEntity> query = session.createQuery(sqlStr);
+      query.setParameter("id", departmentId);
+      int result = query.executeUpdate();
+      deleteWithSuccess = result==1;
     }
 
     return deleteWithSuccess;

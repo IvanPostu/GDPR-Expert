@@ -97,7 +97,7 @@ public class DepartmentRestController {
   public ResponseEntity<Object> deleteDepartment(@PathVariable("id") Long departmentId,
       @AuthenticationPrincipal UserEntity user) {
     departmentService.removeDepartment(departmentId);
-    return ResponseEntity.status(HttpStatus.OK).build();
+    return ResponseEntity.status(HttpStatus.OK).body(departmentId);
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

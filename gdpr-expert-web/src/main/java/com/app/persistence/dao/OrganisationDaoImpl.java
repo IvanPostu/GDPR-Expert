@@ -67,8 +67,12 @@ public class OrganisationDaoImpl implements OrganisationDao {
     boolean deleteWithSuccess = false;
 
     if(organisationEntity != null){
-      session.delete(organisationEntity);
-      deleteWithSuccess = true;
+      final String sqlStr = "DELETE FROM OrganisationEntity where organisation_id=:id"; 
+
+      TypedQuery<OrganisationEntity> query = session.createQuery(sqlStr);
+      query.setParameter("id", organisationId);
+      int result = query.executeUpdate();
+      deleteWithSuccess = result==1;
     }
 
     return deleteWithSuccess;
