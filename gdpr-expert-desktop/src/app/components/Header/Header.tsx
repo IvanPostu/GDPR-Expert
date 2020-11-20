@@ -1,10 +1,12 @@
 import { GlobalStateType } from '@/app/store'
-import React, { ReactElement, Fragment, useCallback } from 'react'
+import React, { ReactElement, Fragment, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.scss'
 import { NavLink } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
+import { IoMdMenu } from 'react-icons/io'
+import { SideBar } from '../SideBar'
 
 export function Header(): ReactElement {
   const isAuthenticated = useSelector(
@@ -17,6 +19,8 @@ export function Header(): ReactElement {
   const onLogout = useCallback(() => {
     dispatcher(clearAuthDataActionCreator())
   }, [])
+
+  const [sidebarIsShowed, setSidebarIsShowed] = useState(false)
 
   const content = isAuthenticated ? (
     <Fragment>
@@ -44,9 +48,27 @@ export function Header(): ReactElement {
   )
 
   return (
-    <nav className={styles.topMenu}>
-      <label className={styles.logo}>GDPR Expert</label>
-      <ul className={styles.listBody}>{content}</ul>
-    </nav>
+    <Fragment>
+      <SideBar hide={() => setSidebarIsShowed(false)} isShowed={sidebarIsShowed} />
+      <nav className={styles.topMenu}>
+        <div style={{ width: '400px' }}>
+          <span
+            onClick={() => setSidebarIsShowed(true)}
+            className={styles.menuIcon}
+            style={{ marginLeft: '20px', borderRadius: '20px' }}
+          >
+            <IoMdMenu fill="#fff" size="45px" />
+          </span>
+        </div>
+        <div>
+          <p className={styles.logo}>GDPR Expert</p>
+        </div>
+        <div style={{ width: '400px' }}>
+          {/* <p className={styles.logo}>GDPR Expert</p> */}
+          <ul className={styles.listBody}>{content}</ul>
+        </div>
+        {/* <ul className={styles.listBody}>{content}</ul> */}
+      </nav>
+    </Fragment>
   )
 }
