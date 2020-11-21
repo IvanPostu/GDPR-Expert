@@ -12,6 +12,7 @@ import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/Organisat
 import { OrganisationInfoPage } from '../pages/OrganisationPage/OrganisationInfoPage/OrganisationInfoPage'
 import { OrganisationsPage } from '../pages/OrganisationsPage'
 import { OrganisationUpdatePage } from '../pages/OrganisationUpdatePage'
+import { ProcessingActivitiesPage } from '../pages/ProcessingActivitiesPage/ProcessingActivitiesPage'
 import { RegistrationPage } from '../pages/RegistrationPage'
 import { RootPage } from '../pages/RootPage'
 import { UpdateDepartmentPage } from '../pages/UpdateDepartmentPage'
@@ -91,6 +92,12 @@ const AppRouterComponent = (): ReactElement => {
             component={OrganisationUpdatePage}
             exact
             path={routeNames.OrganisationUpdatePage}
+          />
+
+          <ProtectedRoute
+            component={ProcessingActivitiesPage}
+            exact
+            path={routeNames.ProcessingActivitiesPageRoute}
           />
         </Switch>
       </div>

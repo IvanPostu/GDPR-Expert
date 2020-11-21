@@ -31,7 +31,7 @@ export const SideBarView: FunctionComponent<SideBarViewPropType> = (
           </NavLink>
         </li>
         <li>
-          <NavLink to={routeNames.OrganisationsPageRoute}>
+          <NavLink to={routeNames.ProcessingActivitiesPageRoute}>
             <span style={{ marginRight: '8px' }}>
               <IoMdCrop />
             </span>
