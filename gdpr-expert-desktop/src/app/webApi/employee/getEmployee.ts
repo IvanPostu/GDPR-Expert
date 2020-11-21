@@ -6,9 +6,11 @@ export type GetEmployeeResponse = {
   lastName: string
   address: string
   phoneNumber: string
-  id: number
+  employeeId: number
   personalDataResponsible: boolean
   email: string
+  departmentName: string
+  departmentId: number
 }
 
 export async function getEmployeeById(

@@ -1,6 +1,7 @@
 package com.app.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.app.domain.dto.CreateEmployeeDto;
 import com.app.domain.dto.UpdateEmployeeDto;
@@ -16,6 +17,6 @@ public interface EmployeeService {
 
   void removeEmployee(Long employeeId);
 
-  EmployeeEntity getEmployee(Long employeeId);
+  Optional<EmployeeEntity> getEmployee(Long employeeId);
 
 }

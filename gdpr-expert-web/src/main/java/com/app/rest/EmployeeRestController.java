@@ -43,15 +43,17 @@ public class EmployeeRestController {
     @PathVariable("id") Long employeeId) {
     
 
-    EmployeeEntity e = employeeService.getEmployee(employeeId);
+    EmployeeEntity e = employeeService.getEmployee(employeeId).get();
     Map<String, Object> result = new HashMap<>();
-    result.put("id", e.getId());
+    result.put("employeeId", e.getId());
     result.put("firstName", e.getFirstName());
     result.put("lastName", e.getLastName());
     result.put("email", e.getEmail());
     result.put("address", e.getAddress());
     result.put("phoneNumber", e.getPhoneNumber());
     result.put("personalDataResponsible", e.isPersonalDataResponsible());
+    result.put("departmentName", e.getDepartment().getName());
+    result.put("departmentId", e.getDepartment().getId());
 
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }

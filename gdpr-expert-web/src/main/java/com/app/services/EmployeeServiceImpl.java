@@ -2,6 +2,7 @@ package com.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -79,11 +80,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Override
   @Transactional
-  public EmployeeEntity getEmployee(Long employeeId) {
+  public Optional<EmployeeEntity> getEmployee(Long employeeId) {
     EmployeeEntity employee = employeeDao.findById(employeeId);
-    employee.getAddress();
+    employee.getId();
+    employee.getEmail();
+    String departemntName = employee.getDepartment().getName();
 
-    return employee;
+    return Optional.of(employee);
   }
   
 }

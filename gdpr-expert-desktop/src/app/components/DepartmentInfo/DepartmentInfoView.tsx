@@ -70,6 +70,12 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
           </div>
         ) : (
           <EmployeesTable
+            onInfoClick={(id) => {
+              history.push({
+                pathname: routeNames.EmployeeInfoPageRoute,
+                search: `?employeeId=${id}`,
+              })
+            }}
             onUpdateClick={(id) =>
               history.push({
                 pathname: routeNames.UpdateEmployeePageRoute,
@@ -94,6 +100,7 @@ type EmployeesTablePropType = {
     personalDataResponsible: string
   }>
   onUpdateClick: (id: string) => void
+  onInfoClick: (id: string) => void
 }
 
 function EmployeesTable(props: EmployeesTablePropType): ReactElement {
@@ -101,7 +108,7 @@ function EmployeesTable(props: EmployeesTablePropType): ReactElement {
     return (
       <GenericTableA
         onDeleteClick={(id) => console.log(id)}
-        onInfoClick={(id) => console.log(id)}
+        onInfoClick={props.onInfoClick}
         onUpdateClick={props.onUpdateClick}
         headerCells={[
           'Nume/Prenume',

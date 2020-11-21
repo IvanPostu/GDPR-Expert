@@ -6,6 +6,7 @@ import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateEmployeePage } from '../pages/CreateEmployeePage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
+import EmployeeInfoPage from '../pages/EmployeeInfoPage/EmployeeInfoPage'
 import { LoginPage } from '../pages/LoginPage'
 import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/OrganisationDepartmentsPage/OrganisationDepartmentsPage'
 import { OrganisationInfoPage } from '../pages/OrganisationPage/OrganisationInfoPage/OrganisationInfoPage'
@@ -78,6 +79,12 @@ const AppRouterComponent = (): ReactElement => {
             component={UpdateEmployeePage}
             exact
             path={routeNames.UpdateEmployeePageRoute}
+          />
+
+          <ProtectedRoute
+            component={EmployeeInfoPage}
+            exact
+            path={routeNames.EmployeeInfoPageRoute}
           />
 
           <ProtectedRoute

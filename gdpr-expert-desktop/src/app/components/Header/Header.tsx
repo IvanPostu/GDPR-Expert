@@ -51,7 +51,7 @@ export function Header(): ReactElement {
     <Fragment>
       <SideBar hide={() => setSidebarIsShowed(false)} isShowed={sidebarIsShowed} />
       <nav className={styles.topMenu}>
-        <div style={{ width: '400px' }}>
+        <div style={{ width: '320px' }}>
           <span
             onClick={() => setSidebarIsShowed(true)}
             className={styles.menuIcon}
@@ -63,7 +63,7 @@ export function Header(): ReactElement {
         <div>
           <p className={styles.logo}>GDPR Expert</p>
         </div>
-        <div style={{ width: '400px' }}>
+        <div style={{ width: '320px' }}>
           {/* <p className={styles.logo}>GDPR Expert</p> */}
           <ul className={styles.listBody}>{content}</ul>
         </div>
