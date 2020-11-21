@@ -1,6 +1,7 @@
 import { Header } from '@/app/components/Header'
 import React, { ReactElement } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
+import { WindowTopBar } from '../components/WindowTopBar'
 import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateEmployeePage } from '../pages/CreateEmployeePage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
@@ -20,6 +21,8 @@ import { routeNames } from './routeNames'
 const AppRouterComponent = (): ReactElement => {
   return (
     <HashRouter>
+      <WindowTopBar />
+
       <Header />
       <div style={{ marginTop: '50px' }}>
         <Switch>

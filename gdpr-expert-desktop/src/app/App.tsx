@@ -14,7 +14,6 @@ const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
   } else {
     return (
       <Fragment>
-        <WindowTopBar />
         <ReduxWrapper>
           <AppRouter />
         </ReduxWrapper>
