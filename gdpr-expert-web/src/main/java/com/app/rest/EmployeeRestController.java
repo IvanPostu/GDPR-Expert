@@ -111,13 +111,13 @@ public class EmployeeRestController {
   }
 
 
-  @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<?> removeEmployee(@AuthenticationPrincipal UserEntity user,
     @PathVariable("id") Long employeeId) {
 
     employeeService.removeEmployee(employeeId);
 
-    return ResponseEntity.status(HttpStatus.OK).build();
+    return ResponseEntity.status(HttpStatus.OK).body(employeeId);
   }
 
 }

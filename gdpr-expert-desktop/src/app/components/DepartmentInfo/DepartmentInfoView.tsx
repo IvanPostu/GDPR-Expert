@@ -107,7 +107,6 @@ function EmployeesTable(props: EmployeesTablePropType): ReactElement {
   if (props.departmentEmployees.length > 0) {
     return (
       <GenericTableA
-        onDeleteClick={(id) => console.log(id)}
         onInfoClick={props.onInfoClick}
         onUpdateClick={props.onUpdateClick}
         headerCells={[

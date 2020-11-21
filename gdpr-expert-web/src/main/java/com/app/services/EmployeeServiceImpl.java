@@ -82,9 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Transactional
   public Optional<EmployeeEntity> getEmployee(Long employeeId) {
     EmployeeEntity employee = employeeDao.findById(employeeId);
-    employee.getId();
-    employee.getEmail();
-    String departemntName = employee.getDepartment().getName();
+    employee.getDepartment().getName();
 
     return Optional.of(employee);
   }

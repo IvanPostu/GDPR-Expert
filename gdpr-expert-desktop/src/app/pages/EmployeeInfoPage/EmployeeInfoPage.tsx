@@ -17,7 +17,7 @@ export class EmployeeInfoPage extends Component<EmployeeInfoPagePropType> {
   }
 
   render(): ReactElement {
-    return <EmployeeInfo employeeId={this._employeeId} />
+    return <EmployeeInfo {...this.props} employeeId={this._employeeId} />
   }
 }
 

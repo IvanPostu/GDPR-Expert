@@ -7,9 +7,9 @@ type GenericTableAPropType = {
   headerCells: Array<string>
   cells: Array<{ [key: string]: string }>
   actionsWidth?: string
-  onDeleteClick: (id: string) => void
-  onUpdateClick: (id: string) => void
-  onInfoClick: (id: string) => void
+  onDeleteClick?: (id: string) => void
+  onUpdateClick?: (id: string) => void
+  onInfoClick?: (id: string) => void
 }
 
 export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
@@ -25,23 +25,29 @@ export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
             </div>
           ))}
         <div style={actionsStyles} className={styles.cell}>
-          <button
-            onClick={() => props.onInfoClick(item['id'])}
-            className={styles.action}
-            style={{ background: 'rgb(0, 145, 0)' }}
-          >
-            <IoIosInformationCircleOutline style={{ fontSize: 24 }} />
-          </button>
-          <button onClick={() => props.onUpdateClick(item['id'])} className={styles.action}>
-            <IoIosCreate style={{ fontSize: 24 }} />
-          </button>
-          <button
-            onClick={() => props.onDeleteClick(item['id'])}
-            className={styles.action}
-            style={{ background: 'rgb(145, 0, 0)' }}
-          >
-            <IoIosTrash style={{ fontSize: 24 }} />
-          </button>
+          {props.onInfoClick && (
+            <button
+              onClick={props.onInfoClick?.bind(null, item['id'])}
+              className={styles.action}
+              style={{ background: 'rgb(0, 145, 0)' }}
+            >
+              <IoIosInformationCircleOutline style={{ fontSize: 24 }} />
+            </button>
+          )}
+          {props.onUpdateClick && (
+            <button onClick={props.onUpdateClick?.bind(null, item['id'])} className={styles.action}>
+              <IoIosCreate style={{ fontSize: 24 }} />
+            </button>
+          )}
+          {props.onDeleteClick && (
+            <button
+              onClick={props.onDeleteClick?.bind(null, item['id'])}
+              className={styles.action}
+              style={{ background: 'rgb(145, 0, 0)' }}
+            >
+              <IoIosTrash style={{ fontSize: 24 }} />
+            </button>
+          )}
         </div>
       </div>
     )

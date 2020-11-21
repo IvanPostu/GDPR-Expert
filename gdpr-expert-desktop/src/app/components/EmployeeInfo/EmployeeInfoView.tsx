@@ -1,26 +1,18 @@
-import React, { FC, ReactElement, useCallback } from 'react'
+import React, { FC, ReactElement } from 'react'
 import { Container } from '../Container'
 import { EmployeeInfoDataType } from './EmployeeInfo'
 import styles from './styles.module.scss'
 import { IoMdPerson } from 'react-icons/io'
 import { GenericButton } from '../GenericButton'
-import { useHistory } from 'react-router-dom'
-import { routeNames } from '@/app/routes/routeNames'
 
-type EmployeeInfoViewPropType = EmployeeInfoDataType
+type EmployeeInfoViewPropType = EmployeeInfoDataType & {
+  onUpdateClick: () => void
+  onRemoveClick: () => void
+}
 
 export const EmployeeInfoView: FC<EmployeeInfoViewPropType> = (
   props: EmployeeInfoViewPropType,
 ): ReactElement => {
-  const history = useHistory()
-
-  const onUpdateClick = useCallback(() => {
-    history.push({
-      pathname: routeNames.UpdateEmployeePageRoute,
-      search: `?employeeId=${props.employeeId}&departmentId=${props.departmentId}&departmentName=${props.departmentName}`,
-    })
-  }, [props])
-
   return (
     <Container>
       <div className={styles.container}>
@@ -31,22 +23,6 @@ export const EmployeeInfoView: FC<EmployeeInfoViewPropType> = (
           <h2>{`${props.firstName} ${props.lastName}`}</h2>
         </div>
         <div className={styles.info}>
-          <div className={styles.line}>
-            <div>
-              <b>Prenume</b>
-            </div>
-            <div>
-              <p>{props.firstName}</p>
-            </div>
-          </div>
-          <div className={styles.line}>
-            <div>
-              <b>Nume</b>
-            </div>
-            <div>
-              <p>{props.lastName}</p>
-            </div>
-          </div>
           <div className={styles.line}>
             <div>
               <b>Adresa de locuință</b>
@@ -93,12 +69,15 @@ export const EmployeeInfoView: FC<EmployeeInfoViewPropType> = (
           </div>
           <div className={styles.line} style={{ marginTop: '20px' }}>
             <GenericButton
-              onClick={onUpdateClick}
+              onClick={props.onUpdateClick}
               style={{ background: '#2277EE', marginLeft: '20px' }}
             >
               Modificare date
             </GenericButton>
-            <GenericButton style={{ background: '#aa2233', marginLeft: '20px' }}>
+            <GenericButton
+              onClick={props.onRemoveClick}
+              style={{ background: '#aa2233', marginLeft: '20px' }}
+            >
               Ștergere angajant
             </GenericButton>
           </div>
