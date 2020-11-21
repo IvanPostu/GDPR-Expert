@@ -58,7 +58,7 @@ export const EmployeeFormView = (props: EmployeeFormViewPropType): ReactElement 
         checked={props.employee.personalDataResponsible}
         labelname="Responsabil de date cu caracter personal: "
       />
-      <ButtonA type="submit" title="Adaugă" />
+      <ButtonA type="submit" title={props.type === 'create' ? 'Adaugă' : 'Modifică'} />
     </FormCardA>
   )
 }

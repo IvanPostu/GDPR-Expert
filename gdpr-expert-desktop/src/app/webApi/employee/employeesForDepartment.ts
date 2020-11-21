@@ -7,7 +7,7 @@ export type EmployeeForDepartmentResponseType = {
   address: string
   phoneNumber: string
   id: number
-  pesonalDataResponsible: boolean
+  personalDataResponsible: boolean
   email: string
 }
 /**

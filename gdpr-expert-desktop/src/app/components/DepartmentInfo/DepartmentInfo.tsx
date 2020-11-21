@@ -74,7 +74,7 @@ class DepartmentInfoComponent extends PureComponent<
               address: a.address,
               email: a.email,
               phone: a.phoneNumber,
-              personalDataResponsible: a.pesonalDataResponsible ? 'Da' : 'Nu',
+              personalDataResponsible: a.personalDataResponsible ? 'Da' : 'Nu',
             }
           })
 

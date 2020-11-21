@@ -7,4 +7,6 @@ public interface EmployeeDao {
   void addEmployee(EmployeeEntity employeeEntity);
   
   void removeEmployee(Long employeeId);
+
+  EmployeeEntity findById(Long employeeId);
 }

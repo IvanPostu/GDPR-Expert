@@ -12,6 +12,8 @@ import { EmployeeFormView } from './EmployeeFormView'
 import { EmployeeType } from './types'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 import { connect } from 'react-redux'
+import { getEmployeeById, GetEmployeeResponse } from '@/app/webApi/employee/getEmployee'
+import { updateEmployee } from '@/app/webApi/employee/updateEmployee'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { clearAuthDataActionCreator }
@@ -20,6 +22,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
 
 type EmployeeFormPropType = {
   type: 'update' | 'create'
+  updateEmployeeId?: number
 } & RouteComponentProps &
   ReturnType<typeof mapDispatchToProps>
 
@@ -34,6 +37,7 @@ type EmployeeFormStateType = {
 class EmployeeFormComponent extends Component<EmployeeFormPropType, EmployeeFormStateType> {
   private _departmentId: number
   private _departmentName: string
+  private _employeeId: number
   private _isMounted: boolean
 
   constructor(props: EmployeeFormPropType) {
@@ -41,6 +45,10 @@ class EmployeeFormComponent extends Component<EmployeeFormPropType, EmployeeForm
     this._departmentId = Number(getUrlParameter(this.props.location.search, 'departmentId'))
     this._departmentName = getUrlParameter(this.props.location.search, 'departmentName')
     this._isMounted = false
+    this._employeeId = 0
+
+    if (!this._departmentId || !this._departmentName)
+      throw new Error('Invalid searchParams for EmployeeFormComponent')
 
     this.state = {
       redirectToQuestions: false,
@@ -61,14 +69,56 @@ class EmployeeFormComponent extends Component<EmployeeFormPropType, EmployeeForm
     this.submit = this.submit.bind(this)
     this.fetchCreateEmployee = this.fetchCreateEmployee.bind(this)
     this.handleFetchErrors = this.handleFetchErrors.bind(this)
+    this.fetchEmployeeData = this.fetchEmployeeData.bind(this)
+    this.fetchUpdateEmployee = this.fetchUpdateEmployee.bind(this)
   }
 
   componentDidMount(): void {
     this._isMounted = true
+
+    if (this.props.type === 'update') {
+      this._employeeId = Number(getUrlParameter(this.props.location.search, 'employeeId'))
+      this.setState({ isLoading: true })
+
+      if (!this._employeeId) throw new Error('Update employee, unknown employee id')
+      this.fetchEmployeeData(this._employeeId)
+    }
   }
 
   componentWillUnmount(): void {
     this._isMounted = false
+  }
+
+  fetchEmployeeData(employeeId: number) {
+    getEmployeeById(employeeId).then((res) => {
+      if (!this._isMounted) return
+
+      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        const {
+          address,
+          email,
+          firstName,
+          lastName,
+          personalDataResponsible,
+          phoneNumber,
+        } = res as GetEmployeeResponse
+        this.setState((prevState) => ({
+          ...prevState,
+          employeeData: {
+            email,
+            address,
+            firstName,
+            lastName,
+            personalDataResponsible,
+            phoneNumber,
+          },
+        }))
+      }
+
+      this.setState({
+        isLoading: false,
+      })
+    })
   }
 
   setEmployeeData(data: EmployeeType): void {
@@ -116,11 +166,46 @@ class EmployeeFormComponent extends Component<EmployeeFormPropType, EmployeeForm
     })
   }
 
+  fetchUpdateEmployee() {
+    const {
+      address,
+      email,
+      firstName,
+      lastName,
+      personalDataResponsible,
+      phoneNumber,
+    } = this.state.employeeData
+
+    updateEmployee({
+      id: this._employeeId,
+      address,
+      email,
+      firstName,
+      lastName,
+      personalDataResponsible,
+      phoneNumber,
+    }).then((res) => {
+      if (!this._isMounted) return
+      if (UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        const err = res as UnsuccessResponseData
+        this.handleFetchErrors(err)
+      } else {
+        this.setState({ successMessage: 'Datele despre angajat au fost modificate!' })
+      }
+
+      this.setState({ isLoading: false })
+    })
+  }
+
   submit(e: SyntheticEvent): void {
     e.preventDefault()
     this.setState({ isLoading: true })
     if (this.props.type === 'create') {
       this.fetchCreateEmployee()
+    }
+
+    if (this.props.type === 'update') {
+      this.fetchUpdateEmployee()
     }
   }
 

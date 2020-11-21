@@ -69,7 +69,15 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
             <BasicLoader size="100px" />
           </div>
         ) : (
-          <EmployeesTable departmentEmployees={props.departmentEmployees} />
+          <EmployeesTable
+            onUpdateClick={(id) =>
+              history.push({
+                pathname: routeNames.UpdateEmployeePageRoute,
+                search: `?employeeId=${id}&departmentId=${props.departmentId}&departmentName=${props.departmentName}`,
+              })
+            }
+            departmentEmployees={props.departmentEmployees}
+          />
         )}
       </div>
     </Container>
@@ -85,6 +93,7 @@ type EmployeesTablePropType = {
     phone: string
     personalDataResponsible: string
   }>
+  onUpdateClick: (id: string) => void
 }
 
 function EmployeesTable(props: EmployeesTablePropType): ReactElement {
@@ -93,7 +102,7 @@ function EmployeesTable(props: EmployeesTablePropType): ReactElement {
       <GenericTableA
         onDeleteClick={(id) => console.log(id)}
         onInfoClick={(id) => console.log(id)}
-        onUpdateClick={(id) => console.log(id)}
+        onUpdateClick={props.onUpdateClick}
         headerCells={[
           'Nume/Prenume',
           'Adresa',

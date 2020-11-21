@@ -3,11 +3,18 @@ package com.app.rest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.validation.Validator;
 
 import com.app.domain.dto.CreateEmployeeDto;
+import com.app.domain.dto.UpdateEmployeeDto;
 import com.app.domain.entities.EmployeeEntity;
 import com.app.domain.entities.UserEntity;
 import com.app.services.EmployeeService;
+
+import javax.validation.Validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +38,45 @@ public class EmployeeRestController {
     this.employeeService = employeeService;
   }
 
+  @RequestMapping( value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<?> getEmployee(@AuthenticationPrincipal UserEntity user,
+    @PathVariable("id") Long employeeId) {
+    
+
+    EmployeeEntity e = employeeService.getEmployee(employeeId);
+    Map<String, Object> result = new HashMap<>();
+    result.put("id", e.getId());
+    result.put("firstName", e.getFirstName());
+    result.put("lastName", e.getLastName());
+    result.put("email", e.getEmail());
+    result.put("address", e.getAddress());
+    result.put("phoneNumber", e.getPhoneNumber());
+    result.put("personalDataResponsible", e.isPersonalDataResponsible());
+
+    return ResponseEntity.status(HttpStatus.OK).body(result);
+  }
+
+  @RequestMapping( method = RequestMethod.PUT)
+  public ResponseEntity<?> updateEmployee(@AuthenticationPrincipal UserEntity user,
+    @RequestBody UpdateEmployeeDto updateEmployeeDto) {
+    
+    Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+    List<String> errorMessages = validator
+      .validate(updateEmployeeDto)
+      .stream()
+      .map(a -> a.getMessage())
+      .collect(Collectors.toList());
+
+    if (errorMessages.size() > 0) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessages);
+    }
+
+    employeeService.updateEmployee(updateEmployeeDto);
+
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+
   @RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
   public ResponseEntity<?> getEmployeesByDepartmentId(@AuthenticationPrincipal UserEntity user,
     @PathVariable("id") Long departmentId) {
@@ -46,10 +92,10 @@ public class EmployeeRestController {
       item.put("email", e.getEmail());
       item.put("address", e.getAddress());
       item.put("phoneNumber", e.getPhoneNumber());
-      item.put("pesonalDataResponsible", e.isPersonalDataResponsible());
+      item.put("personalDataResponsible", e.isPersonalDataResponsible());
       response.add(item);
     });
-
+ 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

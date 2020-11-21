@@ -30,5 +30,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
       session.delete(employee);
     }
   }
+
+  @Override
+  public EmployeeEntity findById(Long employeeId) {
+    Session session = sessionFactory.getCurrentSession();
+    EmployeeEntity employee = session.load(EmployeeEntity.class, employeeId);
+    return employee;
+  }
   
 }

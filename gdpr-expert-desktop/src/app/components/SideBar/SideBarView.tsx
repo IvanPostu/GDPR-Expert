@@ -14,14 +14,14 @@ type SideBarViewPropType = {
 export const SideBarView: FunctionComponent<SideBarViewPropType> = (
   props: SideBarViewPropType,
 ): ReactElement => {
-  const leftMargin = props.isShowed ? '0px' : '-890px'
+  const leftMargin = props.isShowed ? '0px' : '-800px'
   return (
     <div className={styles.container} style={{ width: BAR_SIZE, left: leftMargin }}>
       <span onClick={props.hide} className={styles.backButton}>
         <IoIosArrowBack size="45px" />
       </span>
       <img className={styles.logo} src={gdprImage} width={`${BAR_SIZE - 50}px`} />
-      <ul className={styles.sidebar}>
+      <ul onClick={props.hide} className={styles.sidebar}>
         <li>
           <NavLink to={routeNames.OrganisationsPageRoute}>
             <span style={{ marginRight: '8px' }}>

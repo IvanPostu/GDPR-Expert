@@ -6,6 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.app.domain.dto.CreateEmployeeDto;
+import com.app.domain.dto.UpdateEmployeeDto;
 import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.EmployeeEntity;
 import com.app.persistence.dao.DepartmentDao;
@@ -47,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Override
   @Transactional
   public List<EmployeeEntity> employeesForDepartment(Long departmentId) {
-    
+
     DepartmentEntity departmentEntity = departmentDao.getById(departmentId);
     List<EmployeeEntity> employees = new ArrayList<>(departmentEntity.getEmployees());
 
@@ -58,6 +59,31 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Transactional
   public void removeEmployee(Long employeeId) {
     employeeDao.removeEmployee(employeeId);
+  }
+
+  @Override
+  @Transactional
+  public void updateEmployee(UpdateEmployeeDto employeeDto) {
+    EmployeeEntity employeeFromDb = employeeDao.findById(employeeDto.getId());
+
+    UpdateEmployeeDto e = employeeDto;
+    employeeFromDb.setAddress(e.getAddress());
+    employeeFromDb.setEmail(e.getEmail());
+    employeeFromDb.setFirstName(e.getFirstName());
+    employeeFromDb.setLastName(e.getLastName());
+    employeeFromDb.setPhoneNumber(e.getPhoneNumber());
+    employeeFromDb.setPersonalDataResponsible(e.isPersonalDataResponsible());
+
+    employeeDao.addEmployee(employeeFromDb);
+  }
+
+  @Override
+  @Transactional
+  public EmployeeEntity getEmployee(Long employeeId) {
+    EmployeeEntity employee = employeeDao.findById(employeeId);
+    employee.getAddress();
+
+    return employee;
   }
   
 }

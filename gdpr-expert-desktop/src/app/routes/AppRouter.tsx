@@ -13,6 +13,7 @@ import { OrganisationUpdatePage } from '../pages/OrganisationUpdatePage'
 import { RegistrationPage } from '../pages/RegistrationPage'
 import { RootPage } from '../pages/RootPage'
 import { UpdateDepartmentPage } from '../pages/UpdateDepartmentPage'
+import { UpdateEmployeePage } from '../pages/UpdateEmployeePage/UpdateEmployeePage'
 import { ProtectedRoute } from './ProtectedRoute'
 import { routeNames } from './routeNames'
 
@@ -68,6 +69,12 @@ const AppRouterComponent = (): ReactElement => {
             component={CreateEmployeePage}
             exact
             path={routeNames.CreateEmployeePageRoute}
+          />
+
+          <ProtectedRoute
+            component={UpdateEmployeePage}
+            exact
+            path={routeNames.UpdateEmployeePageRoute}
           />
 
           <ProtectedRoute
