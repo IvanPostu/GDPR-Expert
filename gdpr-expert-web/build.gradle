@@ -14,15 +14,34 @@ buildscript {
   }
 }
 
-apply plugin: "org.flywaydb.flyway"
-flyway {
-  user = 'postgres'
-  password = 'qwerty'
-  url = 'jdbc:postgresql://127.0.0.1:5432/app_db'
-  // url = 'jdbc:postgresql://127.0.0.1:5432/app_db_test'
-  driver = 'org.postgresql.Driver'
+Properties properties = new Properties()
+File propertiesFile = new File('flyway.properties')
+propertiesFile.withInputStream {
+  properties.load(it)
 }
 
+apply plugin: "org.flywaydb.flyway"
+
+String flywayDbUrl = properties.applicationDatabaseUrl
+
+if(project.hasProperty("databaseType") && databaseType=="test"){
+  flywayDbUrl = properties.applicationTestDatabaseUrl
+}
+
+
+flyway {
+  user = properties.user
+  password = properties.password
+  url = flywayDbUrl
+  driver = properties.driver
+}
+
+
+task myTask {
+  doFirst {
+    println flyway.url
+  }
+}
 
 test {
   useJUnitPlatform {

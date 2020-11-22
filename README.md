@@ -37,19 +37,13 @@ $ ./gradlew war
 
 ### Database migration
 
-#### Edit file: build.gradle
-...\
-flyway { \
-  ...\
-  user = 'your-username' ...\
-  password = 'your-password'\
-  url = 'jdbc:postgresql://127.0.0.1:5432/app_db'\
-  ... \
-}
+#### Edit file: flyway.properties
+
 
 ```bash
 $ cd gdpr-expert-web/
-$ ./gradlew flywayMigrate
+$ ./gradlew flywayMigrate # for application database
+$ ./gradlew flywayMigrate -PdatabaseType=test # for tests database
 ```
 
 ### Run web application
