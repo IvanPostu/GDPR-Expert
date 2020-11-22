@@ -2,6 +2,7 @@ package com.app.domain.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +45,7 @@ public class CreateOrganisationDto {
 
   @Setter 
   @Getter
+  @NotNull(message="null_image_data")
   private String base64LogoImage;
 
   @Setter 

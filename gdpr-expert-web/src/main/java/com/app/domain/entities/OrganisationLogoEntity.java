@@ -16,11 +16,12 @@ public class OrganisationLogoEntity {
   @Setter
   @Getter
   @Id
-  @Column(name="organisation_id", unique = true)
+  @Column(name="organisation_id")
   private Long id;
 
   @Setter
   @Getter
   @Column(name = "image_data")
   private byte[] imageData;
+
 }

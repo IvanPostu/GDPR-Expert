@@ -86,9 +86,14 @@ public class OrganisationEntity {
   @JsonIgnore
   @Setter 
   @Getter
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="organisation_id")
+  @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+  @JoinColumn(name = "organisation_id")
   private OrganisationLogoEntity organisationLogoEntity;
+
+  // @PreRemove
+  // private void removeLogo() {
+  //   organisationLogoEntity.setOrganisationEntity(null);
+  // }
 
   @JsonIgnore
   @Setter 

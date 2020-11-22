@@ -105,7 +105,8 @@ public class DepartmentRestController {
       @AuthenticationPrincipal UserEntity user) {
 
     OrganisationEntity organisationEntity = organisationService
-        .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false).get();
+        .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false)
+        .get();
 
     DepartmentEntity departmentEntity = new DepartmentEntity();
     departmentEntity.setActive(true);

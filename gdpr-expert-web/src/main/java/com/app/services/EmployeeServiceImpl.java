@@ -10,20 +10,20 @@ import com.app.domain.dto.CreateEmployeeDto;
 import com.app.domain.dto.UpdateEmployeeDto;
 import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.EmployeeEntity;
-import com.app.persistence.dao.DepartmentDao;
-import com.app.persistence.dao.EmployeeDao;
+import com.app.persistence.repositories.DepartmentRepository;
+import com.app.persistence.repositories.EmployeeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-  private final EmployeeDao employeeDao;
-  private final DepartmentDao departmentDao;
+  private final EmployeeRepository employeeRepository;
+  private final DepartmentRepository departmentRepository;
 
   @Autowired
-  public EmployeeServiceImpl(EmployeeDao employeeDao, DepartmentDao departmentDao) {
-    this.employeeDao = employeeDao;
-    this.departmentDao = departmentDao;
+  public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+    this.employeeRepository = employeeRepository;
+    this.departmentRepository = departmentRepository;
   }
 
   @Override
@@ -37,20 +37,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     employeeEntity.setPhoneNumber(employeeDto.getPhoneNumber());
     employeeEntity.setPersonalDataResponsible(employeeDto.isPersonalDataResponsible());
 
-    DepartmentEntity departmentEntity = departmentDao.getById(employeeDto.getDepartmentId());
+    DepartmentEntity departmentEntity = departmentRepository
+      .findById(employeeDto.getDepartmentId())
+      .orElseThrow(() -> new RuntimeException());
 
     employeeEntity.setDepartment(departmentEntity);
 
-    employeeDao.addEmployee(employeeEntity);
+    employeeRepository.save(employeeEntity);
 
     return employeeEntity;
   }
 
-  @Override
   @Transactional
+  @Override
   public List<EmployeeEntity> employeesForDepartment(Long departmentId) {
 
-    DepartmentEntity departmentEntity = departmentDao.getById(departmentId);
+    DepartmentEntity departmentEntity = departmentRepository.findById(departmentId)
+      .orElseThrow(() -> new RuntimeException());
     List<EmployeeEntity> employees = new ArrayList<>(departmentEntity.getEmployees());
 
     return employees;
@@ -59,13 +62,14 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Override
   @Transactional
   public void removeEmployee(Long employeeId) {
-    employeeDao.removeEmployee(employeeId);
+    employeeRepository.deleteById(employeeId);
   }
 
   @Override
   @Transactional
   public void updateEmployee(UpdateEmployeeDto employeeDto) {
-    EmployeeEntity employeeFromDb = employeeDao.findById(employeeDto.getId());
+    EmployeeEntity employeeFromDb = employeeRepository.findById(employeeDto.getId())
+      .orElseThrow(() -> new RuntimeException());
 
     UpdateEmployeeDto e = employeeDto;
     employeeFromDb.setAddress(e.getAddress());
@@ -75,16 +79,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     employeeFromDb.setPhoneNumber(e.getPhoneNumber());
     employeeFromDb.setPersonalDataResponsible(e.isPersonalDataResponsible());
 
-    employeeDao.addEmployee(employeeFromDb);
+    employeeRepository.save(employeeFromDb);
   }
 
   @Override
   @Transactional
   public Optional<EmployeeEntity> getEmployee(Long employeeId) {
-    EmployeeEntity employee = employeeDao.findById(employeeId);
-    employee.getDepartment().getName();
+    EmployeeEntity e = employeeRepository.findById(employeeId)
+      .orElseThrow(() -> new RuntimeException());
+    
+    DepartmentEntity d = e.getDepartment();
+    d.getName();
 
-    return Optional.of(employee);
+    return Optional.of(e);
   }
-  
+
 }

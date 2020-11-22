@@ -2,8 +2,8 @@ package com.app.services;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -11,42 +11,40 @@ import com.app.beans.ApplicationDateFormatter;
 import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
-import com.app.persistence.dao.OrganisationDao;
-import com.app.persistence.dao.OrganisationLogoDao;
+import com.app.persistence.repositories.OrganisationLogoRepository;
+import com.app.persistence.repositories.OrganisationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 public class OrganisationServiceImpl implements OrganisationService {
 
-  private final OrganisationDao organisationDao;
-  private final OrganisationLogoDao organisationLogoDao;
+  private final OrganisationRepository organisationRepository;
+  private final OrganisationLogoRepository organisationLogoRepository ;
   private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
-  public OrganisationServiceImpl(OrganisationDao organisationDao, OrganisationLogoDao organisationLogoDao,
-      ApplicationDateFormatter dateFormatter) {
-    this.organisationDao = organisationDao;
-    this.organisationLogoDao = organisationLogoDao;
+  public OrganisationServiceImpl(OrganisationRepository organisationRepository, OrganisationLogoRepository organisationLogoRepository, ApplicationDateFormatter dateFormatter) {
+        
+    this.organisationRepository = organisationRepository;
+    this.organisationLogoRepository = organisationLogoRepository;
     this.dateFormatter = dateFormatter;
   }
 
-  @Override
   @Transactional
+  @Override
   public void addOrganisation(OrganisationEntity oEntity) {
 
-    organisationDao.addOrganisation(oEntity);
     OrganisationLogoEntity logo = oEntity.getOrganisationLogoEntity();
-    if (logo != null) {
-      logo.setId(oEntity.getId());
-      organisationLogoDao.addOrganisationLogo(logo);
-    }
+    oEntity.setOrganisationLogoEntity(null);
+    oEntity = organisationRepository.save(oEntity);
+    logo.setId(oEntity.getId());
+    organisationLogoRepository.save(logo);
   }
 
-  @Override
   @Transactional
-  public Set<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId, boolean withLogos) {
-    Set<OrganisationEntity> organisations = organisationDao.findOrganisationsByOwnerId(userOwnerId);
+  @Override
+  public List<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId, boolean withLogos) {
+    List<OrganisationEntity> organisations = organisationRepository.findByOwnerId(userOwnerId);
 
     if (withLogos) {
       for (OrganisationEntity o : organisations) {
@@ -57,35 +55,41 @@ public class OrganisationServiceImpl implements OrganisationService {
     return organisations;
   }
 
-  @Override
   @Transactional
-  public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, Long ownerId,
-      boolean withLogo) {
+  @Override
+  public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, 
+    Long ownerId, boolean withLogo) {
 
-    OrganisationEntity daoResult = organisationDao.findOrganisationByIdAndOwnerId(organisationId, ownerId);
+    Optional<OrganisationEntity> organisationEntity = organisationRepository
+      .findOrganisationByIdAndOwnerId(organisationId, ownerId);
 
-    Optional<OrganisationEntity> result = Optional.of(daoResult);
-
-    if (withLogo && daoResult != null) {
-      daoResult.getOrganisationLogoEntity();
-    }
-
-    return result;
+    return organisationEntity;
   }
 
   @Override
   @Transactional
   public boolean deleteById(Long organisationId, Long ownerId) {
-    OrganisationEntity daoResult = organisationDao.findOrganisationByIdAndOwnerId(organisationId, ownerId);
+    OrganisationEntity organisationEntity = organisationRepository
+      .findById(organisationId)
+      .get();
 
-    return organisationDao.removeOrganisation(daoResult.getId());
+    final Long ownerIdFromDb = organisationEntity.getOwner().getId();
+
+    if(ownerIdFromDb.equals(ownerId)){
+      organisationLogoRepository.deleteById(organisationId);
+      organisationRepository.deleteById(organisationId);
+      return true;
+    }
+
+    return false;
   }
 
   @Override
   @Transactional
   public void updateOrganisation(UpdateOrganisationDto updateOrganisationDto, Long ownerId) throws ParseException {
-    OrganisationEntity organisationFromDb = organisationDao
-      .findOrganisationByIdAndOwnerId(updateOrganisationDto.getId(), ownerId);
+    OrganisationEntity organisationFromDb = organisationRepository
+      .findOrganisationByIdAndOwnerId(updateOrganisationDto.getId(), ownerId)
+      .orElseThrow(() -> new RuntimeException());
 
     organisationFromDb.setAddress(updateOrganisationDto.getAddress());
     organisationFromDb.setAdministrator(updateOrganisationDto.getLegalRepresentative());
@@ -97,18 +101,14 @@ public class OrganisationServiceImpl implements OrganisationService {
     organisationFromDb.setPhoneNumber(updateOrganisationDto.getTelephone());
     organisationFromDb.setDescription(updateOrganisationDto.getDescription());
 
-    if (!StringUtils.isEmpty(updateOrganisationDto.getBase64LogoImage())) {
-      OrganisationLogoEntity logoEntity = organisationFromDb.getOrganisationLogoEntity();
+    OrganisationLogoEntity logoEntity = organisationFromDb.getOrganisationLogoEntity();
 
-      if(logoEntity == null){
-        logoEntity = new OrganisationLogoEntity();
-      }
-
-      logoEntity.setId(updateOrganisationDto.getId());
+    logoEntity.setId(updateOrganisationDto.getId());
+    if(!"".equals(updateOrganisationDto.getBase64LogoImage())){
       logoEntity.setImageData(updateOrganisationDto.getBase64LogoImage().getBytes());
-      organisationLogoDao.addOrganisationLogo(logoEntity);
     }
+    organisationFromDb.setOrganisationLogoEntity(logoEntity);
     
-    organisationDao.addOrganisation(organisationFromDb);
+    organisationRepository.save(organisationFromDb);
   }
 }

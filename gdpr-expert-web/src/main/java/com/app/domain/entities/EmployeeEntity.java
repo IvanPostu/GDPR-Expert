@@ -23,7 +23,7 @@ public class EmployeeEntity {
   @Setter 
   @Getter
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="employee_id", unique = true)
+  @Column(name="employee_id")
   private Long id;
   
   @Setter 

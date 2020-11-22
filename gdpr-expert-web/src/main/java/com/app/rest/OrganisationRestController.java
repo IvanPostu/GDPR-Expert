@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
@@ -30,12 +31,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping(value = "/api/organisation")
@@ -67,10 +68,14 @@ public class OrganisationRestController {
       @RequestBody CreateOrganisationDto organisationDto) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-    Set<ConstraintViolation<CreateOrganisationDto>> violations = validator.validate(organisationDto);
+    Set<ConstraintViolation<CreateOrganisationDto>> violations = validator
+      .validate(organisationDto);
 
     if (violations.size() > 0) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
+      List<String> errors = violations.stream()
+        .map(a -> a.getMessage()).collect(Collectors.toList());
+
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
     Date orgFoundedAt = new Date();
@@ -93,12 +98,9 @@ public class OrganisationRestController {
     organisationEntity.setDescription(organisationDto.getDescription());
     organisationEntity.setOwner(user);
 
-    if (!StringUtils.isEmpty(organisationDto.getBase64LogoImage())) {
-      OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
-      logoEntity.setImageData(organisationDto.getBase64LogoImage().getBytes());
-
-      organisationEntity.setOrganisationLogoEntity(logoEntity);
-    }
+    OrganisationLogoEntity logoEntity = new OrganisationLogoEntity();
+    logoEntity.setImageData(organisationDto.getBase64LogoImage().getBytes());
+    organisationEntity.setOrganisationLogoEntity(logoEntity);
 
     organisationService.addOrganisation(organisationEntity);
 
@@ -115,7 +117,9 @@ public class OrganisationRestController {
       .validate(organisationDto);
 
     if (violations.size() > 0) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(violations);
+      List<String> errors = violations.stream()
+        .map(a -> a.getMessage()).collect(Collectors.toList());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
     organisationService.updateOrganisation(organisationDto, user.getId());
@@ -125,7 +129,7 @@ public class OrganisationRestController {
 
   @RequestMapping(value = "/all", method = RequestMethod.GET)
   public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal UserEntity user) {
-    Set<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(user.getId(), true);
+    List<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(user.getId(), true);
 
     List<Map<String, Object>> response = new ArrayList<>(userOrgList.size());
 

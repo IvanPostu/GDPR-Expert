@@ -4,57 +4,48 @@ import javax.transaction.Transactional;
 
 import com.app.domain.entities.UserEntity;
 import com.app.domain.entities.UserRoleEntity;
-import com.app.persistence.dao.UserDao;
-import com.app.persistence.dao.UserRoleDao;
+import com.app.persistence.repositories.UserRepository;
+import com.app.persistence.repositories.UserRoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserServiceImpl implements UserService {
 
-  private final UserDao userDao;
-  private final UserRoleDao userRoleDao;
+  private final UserRoleRepository roleRepository;
+  private final UserRepository userRepository;
 
   @Autowired
-  public UserServiceImpl(UserDao userDao, UserRoleDao userRoleDao){
-    this.userDao = userDao;
-    this.userRoleDao = userRoleDao;
+  public UserServiceImpl(UserRoleRepository roleRepository, UserRepository userRepository){
+    this.roleRepository = roleRepository;
+    this.userRepository = userRepository;
   }
 
-  @Override
   @Transactional
+  @Override
   public void addUser(UserEntity user) {
-    userDao.addUser(user);
+    userRepository.save(user);
     
-    for(UserRoleEntity r : user.getRoles()){
+    for(UserRoleEntity r: user.getRoles()){
       r.setId(user.getId());
-      userRoleDao.addRole(r);
+      roleRepository.save(r);
     }
 
   }
 
-  @Override
   @Transactional
-  public void updateUser(UserEntity user) {
-    userDao.updateUser(user);
-  }
-
   @Override
-  @Transactional
-  public void removeUser(Long id) {
-    userDao.removeUser(id);
-  }
-
-  @Override
-  @Transactional
   public UserEntity getUserById(Long id) {
-    return userDao.getUserById(id);
-  }
-
-  @Override
-  @Transactional
-  public UserEntity getUserByEmail(final String email) {
-    UserEntity user  = userDao.getUserByEmail(email);
+    UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
     return user;
   }
+
+  @Transactional
+  @Override
+  public UserEntity getUserByEmail(String email) {
+    UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException());
+    return user;
+  }
+
+ 
 
 }

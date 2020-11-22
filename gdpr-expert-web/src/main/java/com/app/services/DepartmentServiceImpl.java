@@ -9,62 +9,69 @@ import javax.transaction.Transactional;
 import com.app.domain.dto.UpdateDepartmentDto;
 import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.OrganisationEntity;
-import com.app.persistence.dao.DepartmentDao;
-import com.app.persistence.dao.OrganisationDao;
+import com.app.persistence.repositories.DepartmentRepository;
+import com.app.persistence.repositories.OrganisationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DepartmentServiceImpl implements DepartmentService {
 
-  private final DepartmentDao departmentDao;
-  private final OrganisationDao organisationDao;
+  private final DepartmentRepository departmentRepository;
+  private final OrganisationRepository organisationRepository;
 
   @Autowired
-  public DepartmentServiceImpl(DepartmentDao departmentDao, OrganisationDao organisationDao) {
-    this.departmentDao = departmentDao;
-    this.organisationDao = organisationDao;
+  public DepartmentServiceImpl(DepartmentRepository departmentRepository,
+      OrganisationRepository organisationRepository) {
+
+    this.departmentRepository = departmentRepository;
+    this.organisationRepository = organisationRepository;
   }
 
   @Transactional
   @Override
   public List<DepartmentEntity> getDepartmentsForOrganisation(Long organisationId, Long organisationOwnerId) {
-    OrganisationEntity organisationEntity = organisationDao.findOrganisationByIdAndOwnerId(organisationId,
-        organisationOwnerId);
-    List<DepartmentEntity> departments = new ArrayList<>(organisationEntity.getDepatrments());
+    OrganisationEntity organisationEntity = organisationRepository
+      .findOrganisationByIdAndOwnerId(organisationId, organisationOwnerId)
+      .orElseThrow(() -> new RuntimeException());
 
-    return departments;
+    List<DepartmentEntity> departments = organisationEntity.getDepatrments();
+    List<DepartmentEntity> newArr = new ArrayList<>(departments);
+
+    return newArr;
   }
 
   @Transactional
   @Override
   public void addDepartment(DepartmentEntity departmentEntity) {
-    departmentDao.addDepartment(departmentEntity);
+    departmentRepository.save(departmentEntity);
   }
 
   @Transactional
   @Override
   public void updateDepartment(UpdateDepartmentDto departmentDto) {
-    DepartmentEntity department = departmentDao.getById(departmentDto.getId());
+    DepartmentEntity department = departmentRepository.findById(departmentDto.getId())
+      .orElseThrow(() -> new RuntimeException());
+
     department.setEmail(departmentDto.getEmail());
     department.setName(departmentDto.getName());
     department.setResponsible(departmentDto.getResponsiblePerson());
     department.setPhoneNumber(departmentDto.getPhoneNumber());
 
-    departmentDao.addDepartment(department);
+    departmentRepository.save(department);
   }
 
   @Transactional
   @Override
   public void removeDepartment(Long departmentId) {
-    departmentDao.deleteById(departmentId);
+   
+    departmentRepository.deleteById(departmentId);
   }
 
   @Transactional
   @Override
   public Optional<DepartmentEntity> getDepartment(Long departmentId) {
-    DepartmentEntity department = departmentDao.getById(departmentId);
-    department.getEmail();
-    return Optional.of(department);
+    Optional<DepartmentEntity> department = departmentRepository.findById(departmentId);
+    return department;
   }
 
 }

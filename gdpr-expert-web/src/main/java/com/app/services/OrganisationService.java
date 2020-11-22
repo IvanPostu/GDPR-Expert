@@ -1,15 +1,15 @@
 package com.app.services;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 
 public interface OrganisationService {
 
-  Set<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId, boolean withLogos);
+  List<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId, boolean withLogos);
 
   Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(
     Long organisationId, Long ownerId, boolean withLogo

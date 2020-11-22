@@ -4,15 +4,14 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
 
-
   <http auto-config="true" entry-point-ref="authenticationEntryPointImpl">
-    
+
     <csrf disabled="true" />
 
     <intercept-url pattern="/login" access="permitAll" />
     <intercept-url pattern="/logout" access="isAuthenticated()" />
     <intercept-url pattern="/api/registration" access="permitAll" />
-    
+
     <intercept-url pattern="/api/organisation/create" access="isAuthenticated()" />
 
     <intercept-url pattern="/**" access="isAuthenticated()" />
@@ -20,7 +19,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
     <form-login authentication-success-forward-url="/success" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
     <logout logout-url="/logout" logout-success-url="/login?successlogout" />
-    
+
   </http>
 
 
@@ -45,8 +44,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
   <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"></beans:bean>
 
   <authentication-manager>
-    <authentication-provider user-service-ref="userDetailsService">
-    </authentication-provider>
+    <authentication-provider user-service-ref="userDetailsService"></authentication-provider>
   </authentication-manager>
 
 </beans:beans>  
