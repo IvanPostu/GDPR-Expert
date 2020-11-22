@@ -11,26 +11,17 @@
 		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     
+
+  <context:property-placeholder location="classpath:db.properties" />
+     
+
   <!-- Database Information -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
-    <property name="driverClassName" value="org.postgresql.Driver" />
-    <property name="url" value="jdbc:postgresql://127.0.0.1:5432/app_db" />
-    <property name="username" value="postgres" />
-    <property name="password" value="qwerty" />
+    <property name="driverClassName" value="${db.driver}" />
+    <property name="url" value="${db.url}" />
+    <property name="username" value="${db.username}" />
+    <property name="password" value="${db.password}" />
   </bean>
-
-  <!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-    <property name="dataSource" ref="dataSource" />
-    <property name="packagesToScan" value="com.app" />
-    <property name="hibernateProperties">
-      <props>
-        <prop key="hibernate.dialect">
-                org.hibernate.dialect.PostgreSQL95Dialect
-        </prop>
-        <prop key="hibernate.show_sql">true</prop>
-      </props>
-    </property>
-  </bean> -->
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -41,42 +32,17 @@
 		</property>
 		<property name="jpaProperties">
 		<props>
-		  <prop key="hibernate.show_sql">true</prop>
-		  <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
+		  <prop key="hibernate.show_sql">${db.show_sql}</prop>
+		  <prop key="hibernate.dialect">${db.dialect}</prop>
 		</props>
 		</property>
 	</bean>
 
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    <!-- <property name="sessionFactory" ref="sessionFactory" /> -->
     <property name="entityManagerFactory" ref="entityManagerFactory" />
   </bean>
 
   <jpa:repositories base-package="com.app.persistence.repositories" />
-<!-- 
-  <bean id="userDao" class="com.app.persistence.dao.UserDaoImpl">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="userRoleDao" class="com.app.persistence.dao.UserRoleDaoImpl">
-    <property name="sessionFactory" ref="sessionFactory" />
-  </bean>
-
-  <bean id="organisationDao" class="com.app.persistence.dao.OrganisationDaoImpl">
-    <constructor-arg index="0" ref="sessionFactory" />
-  </bean>
-
-  <bean id="organisationLogoDao" class="com.app.persistence.dao.OrganisationLogoDaoImpl">
-    <constructor-arg index="0" ref="sessionFactory" />
-  </bean>
-
-  <bean id="departmentDao" class="com.app.persistence.dao.DepartmentDaoImpl">
-    <constructor-arg index="0" ref="sessionFactory" />
-  </bean> 
-
-  <bean id="employeeDao" class="com.app.persistence.dao.EmployeeDaoImpl">
-    <constructor-arg index="0" ref="sessionFactory" />
-  </bean>  -->
 
   <tx:annotation-driven transaction-manager="transactionManager" />
 
