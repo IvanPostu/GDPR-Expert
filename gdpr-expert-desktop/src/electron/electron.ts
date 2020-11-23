@@ -26,10 +26,11 @@ function createWindow() {
   })
 
   if (isDev) {
-    // mainWindow.webContents.openDevTools()
+    mainWindow.loadFile('../app/index.html')
+  }else{
+    mainWindow.loadFile('./build/app/index.html')
   }
 
-  mainWindow.loadFile('../app/index.html')
 }
 
 app.on('ready', createWindow)
