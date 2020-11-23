@@ -29,7 +29,7 @@ function createWindow() {
     // mainWindow.webContents.openDevTools()
   }
 
-  mainWindow.loadFile('../app/index.html')
+  mainWindow.loadFile('../../app/index.html')
 }
 
 app.on('ready', createWindow)
