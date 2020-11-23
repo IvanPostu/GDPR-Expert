@@ -4,6 +4,7 @@ import { AppRouter } from '@/app/routes/AppRouter'
 import { ReduxWrapper } from '@/app/store/root'
 import { StartupLoader } from '@/app/components/StartupLoader'
 import { isShowed } from '@/app/constants/startup'
+import { Downloads } from './components/Downloads/Downloads'
 
 const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
   const [startupLoaderIsShowed, setStartupLoaderIsShowed] = useState(isShowed)
@@ -15,6 +16,7 @@ const App: FC<PropsWithChildren<unknown>> = (): ReactElement => {
       <Fragment>
         <ReduxWrapper>
           <AppRouter />
+          <Downloads />
         </ReduxWrapper>
       </Fragment>
     )

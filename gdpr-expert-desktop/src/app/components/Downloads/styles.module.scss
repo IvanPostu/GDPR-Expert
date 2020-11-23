@@ -1,0 +1,35 @@
+.container {
+  // border: 1px solid grey;
+  width: 260px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  .item {
+    margin-bottom: 7px;
+    width: 100%;
+    background-color: rgb(159, 209, 233);
+    height: 40px;
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+
+    p {
+      margin: 4px;
+      margin-left: 9px;
+      width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: default;
+    }
+
+    .indicator{
+      width: 100px;
+      background-color: blue;
+      height: 2px;
+    }
+  }
+}

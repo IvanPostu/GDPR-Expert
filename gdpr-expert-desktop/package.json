@@ -19,6 +19,7 @@
   "author": "IvanPostu",
   "license": "ISC",
   "dependencies": {
+    "electron-dl": "^3.0.2",
     "electron-is-dev": "^1.2.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.0",

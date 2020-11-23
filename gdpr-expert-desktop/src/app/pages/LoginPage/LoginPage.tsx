@@ -10,6 +10,8 @@ import { Redirect, RouteComponentProps } from 'react-router-dom'
 import { bindActionCreators, Dispatch } from 'redux'
 import { LoginPageView } from './LoginPageView'
 import { LoginFormDataType } from './types'
+import { ipcRenderer } from 'electron'
+import { DownloadOptionType } from '@/electron/downloadApi/DownloadOption'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -36,6 +38,15 @@ class LoginPageContainer extends Component<LoginPagePropType> {
     super(props)
 
     this.submitHandler = this.submitHandler.bind(this)
+  }
+
+  componentDidMount(): void {
+    // const GB = 'http://tegos.kz/android/exclusiv/com.ea.game.fifa15_row.zip'
+    // const sixtyMb = `http://tegos.kz/android/exclusiv/2_hotel_transylvania_2_the_game.zip`
+    // const downloadFileOptions: DownloadOptionType = {
+    //   url: sixtyMb,
+    // }
+    // ipcRenderer.send('download-file', downloadFileOptions)
   }
 
   submitHandler(data: LoginFormDataType): void {

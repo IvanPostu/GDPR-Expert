@@ -1,5 +1,9 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import { download } from 'electron-dl'
 import isDev from 'electron-is-dev'
+import { DownloadOptionType } from './downloadApi/DownloadOption'
+
+// electronDl()
 
 export const resources = {
   defaultWindowWidth: 800,
@@ -29,3 +33,14 @@ function createWindow() {
 }
 
 app.on('ready', createWindow)
+
+ipcMain.on('download-file', (event, param: DownloadOptionType) => {
+  const win = BrowserWindow.getFocusedWindow() as BrowserWindow
+  const { url } = param
+  download(win, url, {
+    openFolderWhenDone: true,
+    onProgress: (progress) => {
+      event.reply('download-file-status', param.downloadUniqueId, progress)
+    },
+  })
+})
