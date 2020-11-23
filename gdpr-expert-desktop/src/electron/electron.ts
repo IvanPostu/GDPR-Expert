@@ -1,9 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
-import { download } from 'electron-dl'
 import isDev from 'electron-is-dev'
-import { DownloadOptionType } from './downloadApi/DownloadOption'
-
-// electronDl()
+import { downloadListener } from './downloadApi/downloadListener'
 
 export const resources = {
   defaultWindowWidth: 800,
@@ -12,7 +9,7 @@ export const resources = {
 
 let mainWindow: BrowserWindow
 
-function createWindow() {
+const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: resources.defaultWindowWidth,
@@ -27,21 +24,11 @@ function createWindow() {
 
   if (isDev) {
     mainWindow.loadFile('../app/index.html')
-  }else{
+  } else {
     mainWindow.loadFile('./build/app/index.html')
   }
-
 }
 
 app.on('ready', createWindow)
 
-ipcMain.on('download-file', (event, param: DownloadOptionType) => {
-  const win = BrowserWindow.getFocusedWindow() as BrowserWindow
-  const { url } = param
-  download(win, url, {
-    openFolderWhenDone: true,
-    onProgress: (progress) => {
-      event.reply('download-file-status', param.downloadUniqueId, progress)
-    },
-  })
-})
+ipcMain.on('download-file', downloadListener)

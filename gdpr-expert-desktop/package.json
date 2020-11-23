@@ -21,6 +21,7 @@
   "dependencies": {
     "electron-dl": "^3.0.2",
     "electron-is-dev": "^1.2.0",
+    "nanoid": "^3.1.18",
     "normalize.css": "^8.0.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

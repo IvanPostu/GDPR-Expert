@@ -7,9 +7,10 @@ import { routeNames } from '@/app/routes/routeNames'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { setMessageActionCreator } from '@/app/store/Authentication/actionCreators'
+import { startDownloadActionCreator } from '@/app/store/Downloads/actionCreators'
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  const actionCreators = { setMessageActionCreator }
+  const actionCreators = { setMessageActionCreator, startDownloadActionCreator }
   return bindActionCreators(actionCreators, dispatch)
 }
 
@@ -43,6 +44,10 @@ class RegistrationPageContainer extends Component<
 
   componentDidMount(): void {
     this._isMounted = true
+    const min = `http://tegos.kz/android/exclusiv/1_pac_man_championship_edition_dx.apk`
+    const sixtyMb = `http://tegos.kz/android/exclusiv/2_hotel_transylvania_2_the_game.zip`
+    const GB = 'http://tegos.kz/android/exclusiv/com.ea.game.fifa15_row.zip'
+    this.props.startDownloadActionCreator(min, 'abcdef.txt')
   }
 
   async submitHandler(data: RegistrationFormData): Promise<void> {

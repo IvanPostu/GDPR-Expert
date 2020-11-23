@@ -9,6 +9,7 @@ import {
 } from '@/app/store/Organisations/organisationsSagas'
 import { fetchOrganisationInfoSagaWatcher } from '@/app/store/OrganisationInfo/organisationInfoSaga'
 import { fetchDepartmentsSagaWatcher } from '@/app/store/Departments/departmentsSagas'
+import { updateDownloadsSagaWatcher } from '@/app/store/Downloads/downloadsSagas'
 
 export default function* (): Generator {
   yield all([
@@ -18,5 +19,6 @@ export default function* (): Generator {
     reloadOrganisationsSagaWatcher(),
     fetchOrganisationInfoSagaWatcher(),
     fetchDepartmentsSagaWatcher(),
+    updateDownloadsSagaWatcher(),
   ])
 }
