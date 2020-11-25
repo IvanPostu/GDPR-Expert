@@ -15,7 +15,7 @@ type EmployeeFormViewPropType = {
 }
 
 export const EmployeeFormView = (props: EmployeeFormViewPropType): ReactElement => {
-  const title = props.type === 'create' ? 'Adaugare angajant ' : 'Modificare angajant '
+  const title = props.type === 'create' ? 'Adaugare angajat ' : 'Modificare angajat '
   return (
     <FormCardA onSubmit={props.onSubmit}>
       <h2>{title}</h2>

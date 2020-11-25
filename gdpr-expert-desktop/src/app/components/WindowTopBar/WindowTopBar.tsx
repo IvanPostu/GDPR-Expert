@@ -44,10 +44,10 @@ export const WindowTopBar = (): ReactElement => {
 
   const onResizeClick = useCallback(() => {
     const nativeWindow = remote.getCurrentWindow()
-    if (!nativeWindow.isMaximized()) {
-      nativeWindow.maximize()
-    } else {
+    if (nativeWindow.isMaximized()) {
       nativeWindow.unmaximize()
+    } else {
+      nativeWindow.maximize()
     }
   }, [])
 

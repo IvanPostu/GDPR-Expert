@@ -62,7 +62,7 @@ export const DataResponsibleQuestions = (props: DataResponsibleQuestionsPropType
         }
       />
       <QuestionA
-        question="Datele procesate de angajant în caz de scurgere de informație pot provoca urmări?"
+        question="Datele procesate de angajat în caz de scurgere de informație pot provoca urmări?"
         items={['Da', 'Nu']}
         setSelectedItem={(str) =>
           setResponses({

@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { FullWidthLoader } from '../BasicLoader'
 import { ErrorAlert } from '../CustomAlert/ErrorAlert/ErrorAlert'
 import { SuccessAlert } from '../CustomAlert/SuccessAlert/SuccessAlert'
-import { EmployeeInfoView } from './EmployeeInfoView'
+import { EmployeeInfoView as EmployeeInfoUI } from './EmployeeInfoView'
 
 export type EmployeeInfoDataType = {
   departmentId: number
@@ -58,6 +58,9 @@ export class EmployeeInfo extends PureComponent<EmployeeInfoPropType, EmployeeIn
 
     this.fetchEmployeeInfo = this.fetchEmployeeInfo.bind(this)
     this.fetchRemoveEmployee = this.fetchRemoveEmployee.bind(this)
+    this.onUpdateClick = this.onUpdateClick.bind(this)
+    this.onRemoveClick = this.onRemoveClick.bind(this)
+    this.onShowDocumentsClick = this.onShowDocumentsClick.bind(this)
   }
 
   componentDidMount(): void {
@@ -122,6 +125,30 @@ export class EmployeeInfo extends PureComponent<EmployeeInfoPropType, EmployeeIn
     })
   }
 
+  onUpdateClick(): void {
+    this.props.history.push({
+      pathname: routeNames.UpdateEmployeePageRoute,
+      search: `?employeeId=${this._employeeInfo.employeeId}&departmentId=${this._employeeInfo.departmentId}&departmentName=${this._employeeInfo.departmentName}`,
+    })
+  }
+
+  onRemoveClick(): void {
+    if (confirm('Sunteți sigur că doriți să ștergeți complet informația despre angajatul dat?')) {
+      this.fetchRemoveEmployee()
+    }
+  }
+
+  onShowDocumentsClick(): void {
+    const searchValue = `?employeeId=${this.props.employeeId}&employeeLastName=${this._employeeInfo.lastName}&employeeFirstName=${this._employeeInfo.firstName}`
+
+    // console.log(searchValue)
+
+    this.props.history.push({
+      pathname: routeNames.EmployeeDocumentsPageRoute,
+      search: searchValue,
+    })
+  }
+
   render(): ReactElement {
     if (this.state.isLoading) return <FullWidthLoader />
 
@@ -149,20 +176,10 @@ export class EmployeeInfo extends PureComponent<EmployeeInfoPropType, EmployeeIn
       )
 
     return (
-      <EmployeeInfoView
-        onRemoveClick={() => {
-          if (
-            confirm('Sunteți sigur că doriți să ștergeți complet informația despre angajatul dat?')
-          ) {
-            this.fetchRemoveEmployee()
-          }
-        }}
-        onUpdateClick={() => {
-          this.props.history.push({
-            pathname: routeNames.UpdateEmployeePageRoute,
-            search: `?employeeId=${this._employeeInfo.employeeId}&departmentId=${this._employeeInfo.departmentId}&departmentName=${this._employeeInfo.departmentName}`,
-          })
-        }}
+      <EmployeeInfoUI
+        onRemoveClick={this.onUpdateClick}
+        onUpdateClick={this.onUpdateClick}
+        onShowDocumentListClick={this.onShowDocumentsClick}
         {...this._employeeInfo}
       />
     )

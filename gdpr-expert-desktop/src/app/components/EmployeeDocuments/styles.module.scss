@@ -1,0 +1,27 @@
+.container {
+  .line {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .removeIcon{
+      color: #AA0000;
+      font-size: 28px;
+      cursor: pointer;
+
+      & :hover{
+        color: #EE0000;
+      }
+    }
+
+    div{
+      display: flex;
+      button{
+        height: 80px;
+      }
+    }
+  }
+
+  
+}

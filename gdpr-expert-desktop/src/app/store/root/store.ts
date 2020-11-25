@@ -9,15 +9,15 @@ import { downloadStatusListener } from '@/app/rendererCallbacks/downloadStatusLi
 const sagaMiddleware = createSagaMiddleware()
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function configureStore() {
-  const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
-  sagaMiddleware.run(rootSaga)
+// export function configureStore() {
+export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(rootSaga)
 
-  downloadStatusListener((downloadObjectId, percent) =>
-    store.dispatch(updateDownloadItemActionCreator(downloadObjectId, percent)),
-  )
+downloadStatusListener((downloadObjectId, percent) =>
+  store.dispatch(updateDownloadItemActionCreator(downloadObjectId, percent)),
+)
 
-  return store
-}
+// return store
+// }
 
-export type GlobalStoreType = ReturnType<typeof configureStore>
+// export type GlobalStoreType = ReturnType<typeof configureStore>

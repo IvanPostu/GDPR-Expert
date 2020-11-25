@@ -16,7 +16,10 @@ export enum routeNames {
   CreateOrganisationPageRoute = '/CreateOrganisationPageRoute',
   CreateEmployeePageRoute = '/CreateEmployeePageRoute',
   UpdateEmployeePageRoute = '/UpdateEmployeePageRoute',
+
   EmployeeInfoPageRoute = '/EmployeeInfoPageRoute',
+  EmployeeDocumentsPageRoute = '/EmployeeDocumentsPageRoute',
+  EmployeeAddDocumentsPageRoute = '/EmployeeAddDocumentsPageRoute',
 
   ProcessingActivitiesPageRoute = '/ProcessingActivitiesPageRoute',
 }

@@ -10,8 +10,11 @@ type GenericButtonPropType = PropsWithChildren<unknown> &
   DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export const GenericButton = (props: GenericButtonPropType): ReactElement => {
+  const className = `${styles.btn} ${props.className}`
+  // delete props.className
+
   return (
-    <button className={styles.btn} {...props}>
+    <button {...props} className={className}>
       {props.children}
     </button>
   )

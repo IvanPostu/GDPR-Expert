@@ -54,7 +54,7 @@ export const DepartmentInfoView: FC<DepartmentInfoViewPropType> = (
           <h1>Angajanți: </h1>
           <div style={{ marginRight: '20px' }}>
             <SuccessButton
-              title="Adauga angajant"
+              title="Adauga angajat"
               onClick={() => {
                 history.push({
                   pathname: routeNames.CreateEmployeePageRoute,

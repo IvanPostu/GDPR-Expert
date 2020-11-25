@@ -1,11 +1,14 @@
 import { Header } from '@/app/components/Header'
 import React, { ReactElement } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
+import { EmployeeDocuments } from '../components/EmployeeDocuments/EmployeeDocuments'
 import { WindowTopBar } from '../components/WindowTopBar'
 import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateEmployeePage } from '../pages/CreateEmployeePage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
+import { EmployeeAddDocumentsPage } from '../pages/EmployeeAddDocumentsPage/EmployeeAddDocumentsPage'
+import { EmployeeDocumentsPage } from '../pages/EmployeeDocumentsPage/EmployeeDocumentsPage'
 import EmployeeInfoPage from '../pages/EmployeeInfoPage/EmployeeInfoPage'
 import { LoginPage } from '../pages/LoginPage'
 import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/OrganisationDepartmentsPage/OrganisationDepartmentsPage'
@@ -86,6 +89,18 @@ const AppRouterComponent = (): ReactElement => {
             component={EmployeeInfoPage}
             exact
             path={routeNames.EmployeeInfoPageRoute}
+          />
+
+          <ProtectedRoute
+            component={EmployeeDocumentsPage}
+            exact
+            path={routeNames.EmployeeDocumentsPageRoute}
+          />
+
+          <ProtectedRoute
+            component={EmployeeAddDocumentsPage}
+            exact
+            path={routeNames.EmployeeAddDocumentsPageRoute}
           />
 
           <ProtectedRoute

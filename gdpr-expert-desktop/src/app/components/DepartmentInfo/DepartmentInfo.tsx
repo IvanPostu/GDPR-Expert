@@ -53,7 +53,7 @@ class DepartmentInfoComponent extends PureComponent<
       departmentName: departament.departmentName,
       departmentInfo: {
         Email: departament.departmentEmail,
-        'Data creării': departament.departmentCreatedAt,
+        'Data creării': departament.departmentCreatedAt.replace('T', ' '),
         'Numărul de telefon': departament.departmentPhoneNumber,
         'Persoana responsabilă': departament.departmentResponsiblePerson,
       },
