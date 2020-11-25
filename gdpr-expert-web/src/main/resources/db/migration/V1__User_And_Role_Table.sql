@@ -11,18 +11,14 @@ CREATE TABLE app.user_role (
 CREATE TABLE app."user" (
   user_id BIGSERIAL NOT NULL,
   active BOOLEAN NOT NULL,
-  email VARCHAR(256),
+  email VARCHAR(256) UNIQUE,
   "password" VARCHAR(256) NOT NULL,
   PRIMARY KEY (user_id)
 );
 
 CREATE INDEX user_email_index ON app."user" (email);
 
-ALTER TABLE app."user"
-ADD CONSTRAINT user_unique_email
-UNIQUE (email); 
-
 ALTER TABLE IF EXISTS app.user_role 
-ADD CONSTRAINT user_role_fk
+ADD CONSTRAINT user__roles__fk
 FOREIGN KEY (user_id) REFERENCES app."user"
 ON DELETE CASCADE;

@@ -1,0 +1,9 @@
+
+
+//login
+POST http://127.0.0.1:8080/gdpr-expert-web/login HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+username=q@mail.ru&password=q
+
+

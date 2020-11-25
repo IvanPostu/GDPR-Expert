@@ -1,6 +1,7 @@
 CREATE TABLE app.processing_activity 
 (
   "processing_activity_id" BIGSERIAL NOT NULL,
+  
   "organisation_id" BIGINT,
   "department_id" BIGINT,
   "employee_id" BIGINT,

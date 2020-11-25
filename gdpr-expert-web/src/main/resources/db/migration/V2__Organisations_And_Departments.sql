@@ -17,7 +17,7 @@ CREATE TABLE  app.organisation
 );
 
 ALTER TABLE app.organisation 
-ADD CONSTRAINT userowner_organisation_fk
+ADD CONSTRAINT user_owner__organisations__fk
 FOREIGN KEY ("user_owner_id") 
 REFERENCES app."user"("user_id")
 ON DELETE CASCADE;

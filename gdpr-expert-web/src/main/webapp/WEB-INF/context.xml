@@ -9,5 +9,12 @@
 
     <bean id="applicationDateTimeFormatter" class="com.app.beans.ApplicationDateTimeFormatter" />
     <bean id="applicationDateFormatter" class="com.app.beans.ApplicationDateFormatter" />
-
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <!-- max upload size in bytes -->
+      <property name="maxUploadSize" value="99971520" /> <!-- 99MB -->
+      
+      <!-- max size of file in memory (in bytes) -->
+      <property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+    </bean>
 </beans>

@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: "postgres.Dockerfile"
+    container_name: "gdpr-db"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "qwerty"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/pgdata
+      - ./pg_scripts:/home/ivan/scripts:z
+    restart: always
+
