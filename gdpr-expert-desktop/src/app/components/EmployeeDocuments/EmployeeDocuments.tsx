@@ -68,7 +68,7 @@ class EmployeeDocumentsComponent extends Component<
 
   downloadDocument(documentId: number, documentName: string): void {
     this.props.startDownloadActionCreator(
-      `http://127.0.0.1:8080/gdpr-expert-web/api/employee/docs?employeeId=${this.props.employeeId}&documentId=${documentId}`,
+      `http://127.0.0.1:8080/gdpr-expert-web/api/employee/dcs?employeeId=${this.props.employeeId}&documentId=${documentId}`,
       documentName,
     )
   }

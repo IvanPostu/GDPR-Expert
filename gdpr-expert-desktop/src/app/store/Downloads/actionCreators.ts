@@ -7,6 +7,7 @@ import {
   UpdateItemActionType,
 } from './types'
 import { nanoid } from 'nanoid'
+import { DownloadStatusListenerPropType } from '@/app/rendererCallbacks/downloadStatusListener'
 
 export function startDownloadActionCreator(url: string, filename: string): StartDownloadActionType {
   const uniqueId = nanoid(19) + Date.now().toString()
@@ -45,13 +46,12 @@ export function cancelDownloadActionCreator(downloadObjectId: string): CancelDow
 }
 
 export function updateDownloadItemActionCreator(
-  downloadObjectId: string,
-  newPercent: number,
+  data: DownloadStatusListenerPropType,
 ): UpdateItemActionType {
   return {
     payload: {
-      id: downloadObjectId,
-      percent: newPercent,
+      id: data.downloadObjectId,
+      percent: data.percent,
     },
     type: T.UPDATE_ITEM,
   }

@@ -3,7 +3,10 @@ import rootReducer from './rootReducer'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 import { updateDownloadItemActionCreator } from '../Downloads/actionCreators'
-import { downloadStatusListener } from '@/app/rendererCallbacks/downloadStatusListener'
+import {
+  downloadStatusListener,
+  DownloadStatusListenerPropType,
+} from '@/app/rendererCallbacks/downloadStatusListener'
 // import { Progress } from 'electron-dl'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -13,8 +16,8 @@ const sagaMiddleware = createSagaMiddleware()
 export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(rootSaga)
 
-downloadStatusListener((downloadObjectId, percent) =>
-  store.dispatch(updateDownloadItemActionCreator(downloadObjectId, percent)),
+downloadStatusListener((data: DownloadStatusListenerPropType) =>
+  store.dispatch(updateDownloadItemActionCreator(data)),
 )
 
 // return store
