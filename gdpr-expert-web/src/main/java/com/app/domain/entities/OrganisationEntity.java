@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -21,7 +20,7 @@ public class OrganisationEntity {
   @Getter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="organisation_id", unique = true)
+  @Column(name="organisation_id")
   private Long id;
 
   @Setter
@@ -64,19 +63,16 @@ public class OrganisationEntity {
   @Column(name = "description")
   private String description;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
   @Setter 
   @Getter
   @Column(name = "created_on_platform_at", columnDefinition = "TIMESTAMP")
   private LocalDateTime createdOnPlatformAt;
   
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
   @Setter 
   @Getter
   @Column(name = "founded_at", columnDefinition = "DATE")
   private Date foundedAt;
   
-  @JsonIgnore
   @Setter 
   @Getter
   @ManyToOne(fetch = FetchType.LAZY)

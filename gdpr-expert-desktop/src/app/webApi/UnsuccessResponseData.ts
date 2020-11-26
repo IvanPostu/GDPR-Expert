@@ -27,6 +27,7 @@ export class UnsuccessResponseData {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static isUnsuccessResponseData(o: any): boolean {
     let result = false
+    if (!Boolean(o)) return result
     result = typeof o === 'object'
     result = Boolean((o as UnsuccessResponseData)._isUnsuccessResponseDataType)
 

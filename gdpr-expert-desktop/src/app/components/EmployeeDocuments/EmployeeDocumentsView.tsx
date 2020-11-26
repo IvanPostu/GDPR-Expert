@@ -6,20 +6,25 @@ import styles from './styles.module.scss'
 
 type EmployeeDocumentsViewPropType = {
   employeeFullName: string
+  downloadDocument: (documentId: number, documentName: string) => void
   redirectToEmployeeInfoPage: () => void
   redirectToAddEmployeeDocumentsPage: () => void
+  documents: Array<{
+    documentId: number
+    filename: string
+  }>
 }
 
 export const EmployeeDocumentsView = (props: EmployeeDocumentsViewPropType): ReactElement => {
-  const { employeeFullName } = props
-  return (
-    <EmployeeCard fullname={employeeFullName}>
-      <div className={styles.container}>
-        <div style={{ minHeight: '110px' }}>
-          <h2>Lista de documente pentru angajat</h2>
-          <div className={styles.line}>
+  const { employeeFullName, documents } = props
+  const documentsContent =
+    documents.length > 0
+      ? documents.map((item) => (
+          <div key={item.documentId} className={styles.line}>
             <div>
-              <a>document1.doc</a>
+              <a onClick={props.downloadDocument.bind(null, item.documentId, item.filename)}>
+                {item.filename}
+              </a>
             </div>
             <div>
               <span className={styles.removeIcon}>
@@ -27,8 +32,16 @@ export const EmployeeDocumentsView = (props: EmployeeDocumentsViewPropType): Rea
               </span>
             </div>
           </div>
-        </div>
+        ))
+      : null
 
+  return (
+    <EmployeeCard fullname={employeeFullName}>
+      <div className={styles.container}>
+        <div style={{ minHeight: '110px' }}>
+          <h2>Lista de documente pentru angajat</h2>
+          {documentsContent}
+        </div>
         <div className={styles.line} style={{ marginTop: '20px' }}>
           <div>
             <GenericButton

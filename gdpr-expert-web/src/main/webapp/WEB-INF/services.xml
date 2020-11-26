@@ -21,4 +21,7 @@
   <bean id="employeeService" class="com.app.services.EmployeeServiceImpl">
   </bean> 
 
+  <bean id="employeeDocumentService" class="com.app.services.EmployeeDocumentServiceImpl">
+  </bean> 
+
 </beans>

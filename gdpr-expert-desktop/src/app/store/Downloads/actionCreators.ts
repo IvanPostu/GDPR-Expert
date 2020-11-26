@@ -11,9 +11,9 @@ import { nanoid } from 'nanoid'
 export function startDownloadActionCreator(url: string, filename: string): StartDownloadActionType {
   const uniqueId = nanoid(19) + Date.now().toString()
   downloadFileSender({
+    filename,
     url,
     downloadUniqueId: uniqueId,
-    filename,
   })
 
   return {

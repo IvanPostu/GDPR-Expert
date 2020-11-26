@@ -14,7 +14,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
     <intercept-url pattern="/api/organisation/create" access="isAuthenticated()" />
 
-    <intercept-url pattern="/**" access="isAuthenticated()" />
+    <intercept-url pattern="/**" access="permitAll" />
 
 
     <form-login authentication-success-forward-url="/success" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />

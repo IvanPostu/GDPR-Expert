@@ -1,3 +1,4 @@
 postgres-docker-config/pg_data
 logs
 *.log
+*.swp

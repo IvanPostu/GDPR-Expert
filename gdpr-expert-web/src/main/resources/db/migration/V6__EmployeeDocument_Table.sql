@@ -1,11 +1,12 @@
 CREATE TABLE app.employee_document 
 (
+  "employee_document_id" BIGSERIAL NOT NULL,
   "employee_id" BIGINT NOT NULL,
   "file_name" VARCHAR(64) NOT NULL,
   "document_data" BYTEA,
   "uploaded_to_the_platform_at" DATE,
 
-  PRIMARY KEY("employee_id", "file_name")
+  PRIMARY KEY("employee_document_id")
 );
 
 

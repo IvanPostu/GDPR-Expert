@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -61,14 +59,14 @@ public class DepartmentEntity {
   @Column(name = "created_at")
   private LocalDateTime createdAt;
 
-  @JsonIgnore
+  
   @Setter 
   @Getter
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
   private OrganisationEntity organisation;
 
-  @JsonIgnore
+  
   @Setter 
   @Getter
   @OneToMany(fetch = FetchType.LAZY)

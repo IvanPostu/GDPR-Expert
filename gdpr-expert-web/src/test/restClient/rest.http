@@ -7,12 +7,6 @@ GET http://127.0.0.1:8080/gdpr-expert-web/api/auth/success
 Content-Type: application/json
 
 
-//login
-POST http://127.0.0.1:8080/gdpr-expert-web/login HTTP/1.1
-Content-Type: application/x-www-form-urlencoded
-
-username=q@mail.ru&password=q
-
 
 
 
@@ -21,34 +15,20 @@ POST http://127.0.0.1:8080/gdpr-expert-web/logout HTTP/1.1
 
 POST http://127.0.0.1:8080/gdpr-expert-web/api/signin HTTP/1.1
 
-//login
-POST http://127.0.0.1:8080/gdpr-expert-web/login HTTP/1.1
-Content-Type: application/x-www-form-urlencoded
-
-username=q@mail.ru&password=q
 
 
-
-
-POST http://127.0.0.1:8080/gdpr-expert-web/api/registration HTTP/1.1
-Content-Type: application/json
-
-{
-  "email": "q@mail.ru",
-  "password": "q"
-}
 
 //test
 GET https://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=461341358
 
 // remove employee
-DELETE http://127.0.0.1:8080/gdpr-expert-web/api/employee/22 HTTP/1.1
+DELETE http://127.0.0.1:8080/gdpr-expert-web/api/employee/1 HTTP/1.1
 
 // employees for dep
 GET http://127.0.0.1:8080/gdpr-expert-web/api/employee/department/4 HTTP/1.1
 
 // get employee by id
-GET http://127.0.0.1:8080/gdpr-expert-web/api/employee/2 HTTP/1.1
+GET http://127.0.0.1:8080/gdpr-expert-web/api/employee/1 HTTP/1.1
 
 // update employee
 PUT http://127.0.0.1:8080/gdpr-expert-web/api/employee HTTP/1.1
@@ -69,7 +49,7 @@ POST http://127.0.0.1:8080/gdpr-expert-web/api/employee/add HTTP/1.1
 Content-Type: application/json
 
 {
-  "departmentId": 4,
+  "departmentId": 1,
   "personalDataResponsible": true,
   "firstName": "fname",
   "lastName": "lname",
@@ -89,7 +69,7 @@ GET http://127.0.0.1:8080/gdpr-expert-web/api/department/organisation/9 HTTP/1.1
 GET http://127.0.0.1:8080/gdpr-expert-web/api/department/1 HTTP/1.1
 
 //remove department
-DELETE http://127.0.0.1:8080/gdpr-expert-web/api/department/3 HTTP/1.1
+DELETE http://127.0.0.1:8080/gdpr-expert-web/api/department/1 HTTP/1.1
 
 
 //update department
@@ -97,7 +77,7 @@ PUT http://127.0.0.1:8080/gdpr-expert-web/api/department HTTP/1.1
 Content-Type: application/json
 
 {
-  "id": 4,
+  "id": 1,
   "responsiblePerson": "ZJorj Mike",
   "name": "ZHuman1 Resources.",
   "phoneNumber": "Z7900 00 00 00",
@@ -109,7 +89,7 @@ POST http://127.0.0.1:8080/gdpr-expert-web/api/department/create HTTP/1.1
 Content-Type: application/json
 
 {
-  "organisationId": 9,
+  "organisationId": 1,
   "responsiblePerson": "Jorj Mike",
   "name": "Human Resources.",
   "phoneNumber": "7900 00 00 00",
@@ -117,7 +97,7 @@ Content-Type: application/json
 }
 
 //org info
-GET http://127.0.0.1:8080/gdpr-expert-web/api/organisation/info/21 HTTP/1.1
+GET http://127.0.0.1:8080/gdpr-expert-web/api/organisation/info/1 HTTP/1.1
 
 //delete organisation
 DELETE http://127.0.0.1:8080/gdpr-expert-web/api/organisation/delete/21 HTTP/1.1
@@ -127,7 +107,7 @@ PUT http://127.0.0.1:8080/gdpr-expert-web/api/organisation HTTP/1.1
 Content-Type: application/json
 
 {
-  "id": 21,
+  "id": 1,
   "organisationName": "12abc",
   "address": "str. cde",
   "email": "2@mail.ru",
@@ -150,7 +130,7 @@ Content-Type: application/json
   "telephone": "+373 134 13413 134",
   "legalRepresentative": "Jorik",
   "description": "Best organisation.",
-  "base64LogoImage": "adfadf",
+  "base64LogoImage": "",
   "legalForm": "Cooperativă de producție",
   "foundedAt": "2000-11-22"
 }

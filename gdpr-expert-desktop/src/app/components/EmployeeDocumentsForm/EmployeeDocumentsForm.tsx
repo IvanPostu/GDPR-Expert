@@ -1,3 +1,5 @@
+import { addDocumentsForEmployee } from '@/app/webApi/employee/addDocumentsForEmployee'
+import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { nanoid } from 'nanoid'
 import React, { Component, ReactElement, SyntheticEvent } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
@@ -20,6 +22,8 @@ class EmployeeDocumentsFormComponent extends Component<
   EmployeeDocumentsFormComponentPropType,
   EmployeeDocumentsFormComponentStateType
 > {
+  private _isMounted = false
+
   constructor(props: EmployeeDocumentsFormComponentPropType) {
     super(props)
 
@@ -30,6 +34,15 @@ class EmployeeDocumentsFormComponent extends Component<
     this.onSumbit = this.onSumbit.bind(this)
     this.onAddFiles = this.onAddFiles.bind(this)
     this.removeFile = this.removeFile.bind(this)
+    this.saveDocuments = this.saveDocuments.bind(this)
+  }
+
+  componentDidMount(): void {
+    this._isMounted = true
+  }
+
+  componentWillUnmount(): void {
+    this._isMounted = false
   }
 
   onAddFiles(files: FileList): void {
@@ -57,9 +70,23 @@ class EmployeeDocumentsFormComponent extends Component<
     })
   }
 
+  saveDocuments(): void {
+    addDocumentsForEmployee({
+      documents: this.state.files.map((a) => a.file),
+      employeeId: this.props.employeeId,
+    }).then((res) => {
+      if (!this._isMounted) return
+      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        console.log('success')
+      } else {
+        console.log('unsuccess')
+      }
+    })
+  }
+
   onSumbit(e: SyntheticEvent): void {
     e.preventDefault()
-    console.log(this.state.files)
+    this.saveDocuments()
   }
 
   removeFile(id: string): void {
