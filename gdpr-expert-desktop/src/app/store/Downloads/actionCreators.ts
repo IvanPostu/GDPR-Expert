@@ -52,6 +52,7 @@ export function updateDownloadItemActionCreator(
     payload: {
       id: data.downloadObjectId,
       percent: data.percent,
+      status: data.status,
     },
     type: T.UPDATE_ITEM,
   }

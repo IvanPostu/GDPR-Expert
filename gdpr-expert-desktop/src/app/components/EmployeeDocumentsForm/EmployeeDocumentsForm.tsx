@@ -1,8 +1,8 @@
 import { addDocumentsForEmployee } from '@/app/webApi/employee/addDocumentsForEmployee'
-import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { nanoid } from 'nanoid'
 import React, { Component, ReactElement, SyntheticEvent } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
+import { FullWidthLoader } from '../BasicLoader'
 import { EmployeeDocumentsFormUI } from './EmployeeDocumentsFormUI'
 
 type EmployeeDocumentsFormComponentPropType = RouteComponentProps & {
@@ -16,6 +16,7 @@ type EmployeeDocumentsFormComponentStateType = {
     file: File
     id: string
   }>
+  isLoading: boolean
 }
 
 class EmployeeDocumentsFormComponent extends Component<
@@ -29,6 +30,7 @@ class EmployeeDocumentsFormComponent extends Component<
 
     this.state = {
       files: [],
+      isLoading: false,
     }
 
     this.onSumbit = this.onSumbit.bind(this)
@@ -71,16 +73,22 @@ class EmployeeDocumentsFormComponent extends Component<
   }
 
   saveDocuments(): void {
+    this.setState({
+      isLoading: true,
+    })
     addDocumentsForEmployee({
       documents: this.state.files.map((a) => a.file),
       employeeId: this.props.employeeId,
-    }).then((res) => {
+    }).then(() => {
       if (!this._isMounted) return
-      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
-        console.log('success')
-      } else {
-        console.log('unsuccess')
-      }
+      // if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+      //   console.log('success')
+      // } else {
+      //   console.log('unsuccess')
+      // }
+      this.setState({
+        isLoading: false,
+      })
     })
   }
 
@@ -110,6 +118,8 @@ class EmployeeDocumentsFormComponent extends Component<
   render(): ReactElement {
     const { employeeFirstName, employeeLastName } = this.props
     const fullName = `${employeeFirstName} ${employeeLastName}`
+
+    if (this.state.isLoading) return <FullWidthLoader />
 
     return (
       <EmployeeDocumentsFormUI

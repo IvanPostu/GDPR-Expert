@@ -1,3 +1,4 @@
+import { DownloadStatusType } from '@/app/rendererCallbacks/downloadStatusListener'
 import { Action } from 'redux'
 
 export enum downloadsActionTypeConstants {
@@ -46,6 +47,7 @@ export interface UpdateItemActionType {
   payload: {
     id: string
     percent: number
+    status: DownloadStatusType
   }
 }
 

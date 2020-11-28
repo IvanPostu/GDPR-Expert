@@ -2,7 +2,6 @@ package com.app.rest;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,8 +50,9 @@ public class EmployeeDocumentsRestController {
       @RequestParam(value = "employeeId", required = true) Long employeeId,
       @RequestParam(value = "documentId", required = true) Long documentId) throws IOException {
 
-    EmployeeDocumentEntity document = employeeService.getDocument(employeeId, documentId);
-    byte[] output = document.getDocumentData();
+    EmployeeDocumentEntity document = employeeDocumentService.getDocumentById(documentId)
+        .get();
+    byte[] output = new byte[22];// document.getDocumentData();
 
     response.setContentLength(output.length);
     response.setContentType(MediaType.ALL_VALUE);
@@ -71,8 +71,9 @@ public class EmployeeDocumentsRestController {
   public ResponseEntity<Collection<EmployeeDocumentInfoDto>> getEmployeeDocumentsInfo(
       @PathVariable(value = "employeeId") Long employeeId) {
 
-    Collection<EmployeeDocumentInfoDto> documents = employeeService.documentsForEmployee(employeeId).stream()
-        .map(a -> new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(), a.getFileName())).collect(Collectors.toList());
+    Collection<EmployeeDocumentInfoDto> documents = employeeDocumentService
+      .getEmployeeDocuments(employeeId);
+    //     .map(a -> new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(), a.getFileName())).collect(Collectors.toList());
 
     return ResponseEntity.status(HttpStatus.OK).body(documents);
   }

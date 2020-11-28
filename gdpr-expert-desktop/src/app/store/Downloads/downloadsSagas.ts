@@ -3,8 +3,8 @@ import { UpdateItemActionType, downloadsActionTypeConstants as T } from './types
 import { finishDownloadActionCreator } from './actionCreators'
 
 function* updateDownloadsSagaWorker(action: UpdateItemActionType): Generator {
-  const { id, percent } = action.payload
-  if (percent >= 1.0) {
+  const { id, percent, status } = action.payload
+  if (percent >= 1.0 || status === 'interrupted' || status === 'paused') {
     yield put(finishDownloadActionCreator(id))
   }
 }

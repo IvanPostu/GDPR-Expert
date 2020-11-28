@@ -2,7 +2,6 @@ package com.app.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +34,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     this.employeeDocumentRepository = employeeDocumentRepository;
   }
 
-  @Override
   @Transactional
+  @Override
   public EmployeeEntity addEmployee(CreateEmployeeDto employeeDto) {
     EmployeeEntity employeeEntity = new EmployeeEntity();
     employeeEntity.setFirstName(employeeDto.getFirstName());
@@ -68,13 +67,11 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   @Override
-  @Transactional
   public void removeEmployee(Long employeeId) {
     employeeRepository.deleteById(employeeId);
   }
 
   @Override
-  @Transactional
   public void updateEmployee(UpdateEmployeeDto employeeDto) {
     EmployeeEntity employeeFromDb = employeeRepository.findById(employeeDto.getId())
         .orElseThrow(() -> new RuntimeException());
@@ -87,16 +84,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     employeeFromDb.setPhoneNumber(e.getPhoneNumber());
     employeeFromDb.setPersonalDataResponsible(e.isPersonalDataResponsible());
 
-    employeeRepository.save(employeeFromDb);
+    employeeRepository.update(employeeFromDb);
   }
 
   @Override
-  @Transactional
-  public Optional<EmployeeEntity> getEmployee(Long employeeId) {
-    EmployeeEntity e = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException());
+  public Optional<EmployeeEntity> getEmployeeWithDepartment(Long employeeId) {
 
-    DepartmentEntity d = e.getDepartment();
-    d.getName();
+    EmployeeEntity e = employeeRepository.findById(employeeId)
+      .orElseThrow(() -> new RuntimeException());
 
     return Optional.of(e);
   }
@@ -116,35 +111,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         e.printStackTrace();
         throw new RuntimeException();
       }
-      doc.setEmployee(employeeFromDb);
+      doc.setEmployeeId(employeeFromDb.getId());
       doc.setUploadedToThePlatformAt(uploadedToThePlatformAt);
       doc.setFileName(files[i].getOriginalFilename());
       documents.add(doc);
     }
 
     employeeDocumentRepository.saveAll(documents);
-  }
-
-  @Transactional
-  @Override
-  public EmployeeDocumentEntity getDocument(Long employeeId, Long documentId) {
-
-    EmployeeEntity employeeFromDb = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException());
-
-    EmployeeDocumentEntity document = employeeFromDb.getEmployeeDocuments().stream()
-        .filter(a -> a.getEmployeeDocumentId() == documentId).findFirst().orElseThrow(() -> new RuntimeException());
-
-    return document;
-  }
-
-  @Transactional
-  @Override
-  public Collection<EmployeeDocumentEntity> documentsForEmployee(Long employeeId) {
-    EmployeeEntity employee = employeeRepository.findById(employeeId)
-      .orElseThrow(() -> new RuntimeException());
-
-    ArrayList<EmployeeDocumentEntity> documents = new ArrayList<>(employee.getEmployeeDocuments());
-    return documents;
   }
 
 }

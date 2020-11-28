@@ -4,19 +4,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="employee_document", schema = "app")
+@NoArgsConstructor
 public class EmployeeDocumentEntity {
 
   @Setter
@@ -26,27 +25,33 @@ public class EmployeeDocumentEntity {
   @Column(name="employee_document_id")
   private Long employeeDocumentId;
 
+  @Setter 
+  @Getter
+  @Column(name="employee_id")
+  private Long  employeeId;
+
   @Setter
   @Getter
   @Column(name="file_name")
   private String fileName;
 
-  @Setter
-  @Getter
-  @Column(name = "document_data")
-  private byte[] documentData;
+  public EmployeeDocumentEntity(Long employeeDocumentId, Long employeeId, String fileName, Date uploadedToThePlatformAt){
+    this.employeeDocumentId = employeeDocumentId;
+    this.employeeId = employeeId;
+    this.fileName = fileName;
+    this.uploadedToThePlatformAt = uploadedToThePlatformAt;
+  }
+
 
   @Setter
   @Getter
   @Column(name = "uploaded_to_the_platform_at")
   private Date uploadedToThePlatformAt;
 
-  @Setter 
+  @Setter
   @Getter
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name="employee_id")
-  private EmployeeEntity employee;
-
+  @Column(name = "document_data")
+  private byte[] documentData;
 
 
 }

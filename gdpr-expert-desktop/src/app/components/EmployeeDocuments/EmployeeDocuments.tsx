@@ -10,6 +10,7 @@ import {
   employeeDocumentsInfo,
 } from '@/app/webApi/employee/employeeDocumentsInfo'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
+import { FullWidthLoader } from '../BasicLoader'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { startDownloadActionCreator }
@@ -27,12 +28,15 @@ type EmployeeDocumentsComponentStateType = {
     documentId: number
     filename: string
   }>
+  isLoading: boolean
 }
 
 class EmployeeDocumentsComponent extends Component<
   EmployeeDocumentsComponentPropType,
   EmployeeDocumentsComponentStateType
 > {
+  private _isMounted = false
+
   constructor(props: EmployeeDocumentsComponentPropType) {
     super(props)
 
@@ -43,11 +47,17 @@ class EmployeeDocumentsComponent extends Component<
 
     this.state = {
       documents: [],
+      isLoading: false,
     }
   }
 
   componentDidMount(): void {
+    this._isMounted = true
     this.fetchDocumentsInfoForEmployee()
+  }
+
+  componentWillUnmount(): void {
+    this._isMounted = false
   }
 
   redirectToEmployeeInfoPage(): void {
@@ -68,23 +78,29 @@ class EmployeeDocumentsComponent extends Component<
 
   downloadDocument(documentId: number, documentName: string): void {
     this.props.startDownloadActionCreator(
-      `http://127.0.0.1:8080/gdpr-expert-web/api/employee/dcs?employeeId=${this.props.employeeId}&documentId=${documentId}`,
+      `http://127.0.0.1:8080/gdpr-expert-web/api/employee/docs?employeeId=${this.props.employeeId}&documentId=${documentId}`,
       documentName,
     )
   }
 
   fetchDocumentsInfoForEmployee(): void {
+    this.setState({ isLoading: true })
     employeeDocumentsInfo(this.props.employeeId).then((res) => {
+      if (!this._isMounted) return
       if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
         const arr = res as EmployeeDocumentInfoType[]
         this.setState({ documents: arr })
       }
+      this.setState({ isLoading: false })
     })
   }
 
   render(): ReactElement {
     const { employeeFirstName, employeeLastName } = this.props
     const fullName = `${employeeFirstName} ${employeeLastName}`
+
+    if (this.state.isLoading) return <FullWidthLoader />
+
     return (
       <EmployeeDocumentsView
         downloadDocument={this.downloadDocument}

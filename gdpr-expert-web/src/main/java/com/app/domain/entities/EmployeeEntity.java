@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +20,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+@NamedEntityGraph(
+        name = "employee-department-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("id"),
+                @NamedAttributeNode("personalDataResponsible"),
+                @NamedAttributeNode("email"),
+                @NamedAttributeNode("firstName"),
+                @NamedAttributeNode("lastName"),
+                @NamedAttributeNode("phoneNumber"),
+                @NamedAttributeNode("address"),
+                @NamedAttributeNode("department"),
+        }
+)
 @Entity
 @Table(name="employee", schema = "app")
 public class EmployeeEntity {

@@ -43,7 +43,7 @@ public class EmployeeRestController {
     @PathVariable("id") Long employeeId) {
     
 
-    EmployeeEntity e = employeeService.getEmployee(employeeId).get();
+    EmployeeEntity e = employeeService.getEmployeeWithDepartment(employeeId).get();
     Map<String, Object> result = new HashMap<>();
     result.put("employeeId", e.getId());
     result.put("firstName", e.getFirstName());

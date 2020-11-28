@@ -1,12 +1,21 @@
 package com.app.persistence.repositories;
 
+import java.util.Collection;
+import java.util.Optional;
+
+
 import com.app.domain.entities.EmployeeDocumentEntity;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 
-public interface EmployeeDocumentRepository extends CrudRepository<EmployeeDocumentEntity, Long> {
+public interface EmployeeDocumentRepository extends Repository<EmployeeDocumentEntity, Long> {
   
-  // @Modifying
-  // @Query("DELETE FROM EmployeeDocumentEntity WHERE employee_document_id=:id")
-  // void deleteById(@Param("id") Long departmentId);
+  void saveAll(Collection<EmployeeDocumentEntity> documentEntities);
+
+  void deleteById(Long documentId);
+
+  Collection<EmployeeDocumentEntity> getEmployeeDocuments(Long employeeId);
+
+  Optional<EmployeeDocumentEntity> findById(Long documentId);
+
 }
