@@ -7,6 +7,7 @@ import styles from './styles.module.scss'
 type EmployeeDocumentsViewPropType = {
   employeeFullName: string
   downloadDocument: (documentId: number, documentName: string) => void
+  deleteDocument: (documentId: number) => void
   redirectToEmployeeInfoPage: () => void
   redirectToAddEmployeeDocumentsPage: () => void
   documents: Array<{
@@ -27,7 +28,10 @@ export const EmployeeDocumentsView = (props: EmployeeDocumentsViewPropType): Rea
               </a>
             </div>
             <div>
-              <span className={styles.removeIcon}>
+              <span
+                onClick={props.deleteDocument.bind(null, item.documentId)}
+                className={styles.removeIcon}
+              >
                 <IoIosClose />
               </span>
             </div>

@@ -1,4 +1,3 @@
-import { routeNames } from '@/app/routes/routeNames'
 import React, { Component, ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { bindActionCreators, Dispatch } from 'redux'
@@ -11,6 +10,10 @@ import {
 } from '@/app/webApi/employee/employeeDocumentsInfo'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { FullWidthLoader } from '../BasicLoader'
+import { removeDocumentsForEmployee } from '@/app/webApi/employee/removeDocument'
+import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
+import { employeeAddDocumentsPageRedirect } from '@/app/pages/EmployeeAddDocumentsPage/employeeAddDocumentsPageRedirect'
+import { employeeInfoPageRedirect } from '@/app/pages/EmployeeInfoPage/employeeInfoPageRedirect'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { startDownloadActionCreator }
@@ -29,6 +32,7 @@ type EmployeeDocumentsComponentStateType = {
     filename: string
   }>
   isLoading: boolean
+  messageBox: MessageBoxWrapperPropType
 }
 
 class EmployeeDocumentsComponent extends Component<
@@ -44,10 +48,17 @@ class EmployeeDocumentsComponent extends Component<
     this.redirectToAddEmployeeDocumentsPage = this.redirectToAddEmployeeDocumentsPage.bind(this)
     this.downloadDocument = this.downloadDocument.bind(this)
     this.fetchDocumentsInfoForEmployee = this.fetchDocumentsInfoForEmployee.bind(this)
+    this.fetchDeleteDocumentForEmployee = this.fetchDeleteDocumentForEmployee.bind(this)
 
     this.state = {
       documents: [],
       isLoading: false,
+      messageBox: {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onOkClick: () => {},
+        message: '',
+        type: 'success',
+      },
     }
   }
 
@@ -61,26 +72,23 @@ class EmployeeDocumentsComponent extends Component<
   }
 
   redirectToEmployeeInfoPage(): void {
-    this.props.history.push({
-      pathname: routeNames.EmployeeInfoPageRoute,
-      search: `?employeeId=${this.props.employeeId}`,
+    employeeInfoPageRedirect({
+      history: this.props.history,
+      employeeId: this.props.employeeId,
     })
   }
 
   redirectToAddEmployeeDocumentsPage(): void {
-    const searchValue = `?employeeId=${this.props.employeeId}&employeeLastName=${this.props.employeeLastName}&employeeFirstName=${this.props.employeeFirstName}`
-
-    this.props.history.push({
-      pathname: routeNames.EmployeeAddDocumentsPageRoute,
-      search: searchValue,
+    employeeAddDocumentsPageRedirect({
+      history: this.props.history,
+      employeeId: this.props.employeeId,
+      employeeFirstName: this.props.employeeFirstName,
+      employeeLastName: this.props.employeeLastName,
     })
   }
 
   downloadDocument(documentId: number, documentName: string): void {
-    this.props.startDownloadActionCreator(
-      `http://127.0.0.1:8080/gdpr-expert-web/api/employee/docs?employeeId=${this.props.employeeId}&documentId=${documentId}`,
-      documentName,
-    )
+    this.props.startDownloadActionCreator(documentId, this.props.employeeId, documentName)
   }
 
   fetchDocumentsInfoForEmployee(): void {
@@ -95,6 +103,26 @@ class EmployeeDocumentsComponent extends Component<
     })
   }
 
+  fetchDeleteDocumentForEmployee(documentId: number): void {
+    this.setState({ isLoading: true })
+    removeDocumentsForEmployee({ documentId }).then((res) => {
+      if (!this._isMounted) return
+      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        this.setState({
+          messageBox: {
+            message: 'Documentul a fost șters cu success.',
+            onOkClick: () => {
+              this.setState((prev) => ({ messageBox: { ...prev.messageBox, message: '' } }))
+              this.fetchDocumentsInfoForEmployee()
+            },
+            type: 'success',
+          },
+        })
+      }
+      this.setState({ isLoading: false })
+    })
+  }
+
   render(): ReactElement {
     const { employeeFirstName, employeeLastName } = this.props
     const fullName = `${employeeFirstName} ${employeeLastName}`
@@ -102,13 +130,16 @@ class EmployeeDocumentsComponent extends Component<
     if (this.state.isLoading) return <FullWidthLoader />
 
     return (
-      <EmployeeDocumentsView
-        downloadDocument={this.downloadDocument}
-        documents={this.state.documents}
-        redirectToAddEmployeeDocumentsPage={this.redirectToAddEmployeeDocumentsPage}
-        redirectToEmployeeInfoPage={this.redirectToEmployeeInfoPage}
-        employeeFullName={fullName}
-      />
+      <MessageBoxWrapper {...this.state.messageBox}>
+        <EmployeeDocumentsView
+          deleteDocument={this.fetchDeleteDocumentForEmployee}
+          downloadDocument={this.downloadDocument}
+          documents={this.state.documents}
+          redirectToAddEmployeeDocumentsPage={this.redirectToAddEmployeeDocumentsPage}
+          redirectToEmployeeInfoPage={this.redirectToEmployeeInfoPage}
+          employeeFullName={fullName}
+        />
+      </MessageBoxWrapper>
     )
   }
 }

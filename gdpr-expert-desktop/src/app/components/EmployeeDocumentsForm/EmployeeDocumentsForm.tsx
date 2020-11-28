@@ -1,9 +1,11 @@
+import { employeeDocumentsPageRedirect } from '@/app/pages/EmployeeDocumentsPage/employeeDocumentsPageRedirect'
 import { addDocumentsForEmployee } from '@/app/webApi/employee/addDocumentsForEmployee'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { nanoid } from 'nanoid'
 import React, { Component, ReactElement, SyntheticEvent } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { FullWidthLoader } from '../BasicLoader'
+import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
 import { EmployeeDocumentsFormUI } from './EmployeeDocumentsFormUI'
 
 type EmployeeDocumentsFormComponentPropType = RouteComponentProps & {
@@ -18,6 +20,7 @@ type EmployeeDocumentsFormComponentStateType = {
     id: string
   }>
   isLoading: boolean
+  messageBox: MessageBoxWrapperPropType
 }
 
 class EmployeeDocumentsFormComponent extends Component<
@@ -32,12 +35,19 @@ class EmployeeDocumentsFormComponent extends Component<
     this.state = {
       files: [],
       isLoading: false,
+      messageBox: {
+        message: '',
+        onOkClick: this.clearMessageBox,
+        type: 'success',
+      },
     }
 
     this.onSumbit = this.onSumbit.bind(this)
     this.onAddFiles = this.onAddFiles.bind(this)
     this.removeFile = this.removeFile.bind(this)
     this.saveDocuments = this.saveDocuments.bind(this)
+    this.clearMessageBox = this.clearMessageBox.bind(this)
+    this.redirectToDocuments = this.redirectToDocuments.bind(this)
   }
 
   componentDidMount(): void {
@@ -46,6 +56,14 @@ class EmployeeDocumentsFormComponent extends Component<
 
   componentWillUnmount(): void {
     this._isMounted = false
+  }
+
+  clearMessageBox(): void {
+    this.setState((prevState) => {
+      this.setState({
+        messageBox: { ...prevState.messageBox, message: '' },
+      })
+    })
   }
 
   onAddFiles(files: FileList): void {
@@ -73,6 +91,15 @@ class EmployeeDocumentsFormComponent extends Component<
     })
   }
 
+  redirectToDocuments(): void {
+    employeeDocumentsPageRedirect({
+      history: this.props.history,
+      employeeId: this.props.employeeId,
+      employeeFirstName: this.props.employeeFirstName,
+      employeeLastName: this.props.employeeLastName,
+    })
+  }
+
   saveDocuments(): void {
     this.setState({
       isLoading: true,
@@ -84,7 +111,14 @@ class EmployeeDocumentsFormComponent extends Component<
       if (!this._isMounted) return
 
       if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
-        this.props.history.goBack()
+        this.setState({
+          isLoading: false,
+          messageBox: {
+            message: 'Documente adaugate cu success.',
+            onOkClick: this.redirectToDocuments,
+            type: 'success',
+          },
+        })
       } else {
         this.setState({
           isLoading: false,
@@ -123,13 +157,15 @@ class EmployeeDocumentsFormComponent extends Component<
     if (this.state.isLoading) return <FullWidthLoader />
 
     return (
-      <EmployeeDocumentsFormUI
-        remove={this.removeFile}
-        files={this.state.files}
-        onAddFiles={this.onAddFiles}
-        onSubmit={this.onSumbit}
-        employeeFullName={fullName}
-      />
+      <MessageBoxWrapper {...this.state.messageBox}>
+        <EmployeeDocumentsFormUI
+          remove={this.removeFile}
+          files={this.state.files}
+          onAddFiles={this.onAddFiles}
+          onSubmit={this.onSumbit}
+          employeeFullName={fullName}
+        />
+      </MessageBoxWrapper>
     )
   }
 }

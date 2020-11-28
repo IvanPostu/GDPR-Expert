@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import com.app.domain.entities.EmployeeEntity;
 
@@ -31,8 +33,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
   public EmployeeEntity save(EmployeeEntity employeeEntity) {
 
     em.persist(employeeEntity);
-
-
     return employeeEntity;
   }
 
@@ -41,17 +41,22 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
   public EmployeeEntity update(EmployeeEntity employeeEntity) {
 
     em.merge(employeeEntity);
-
-
     return employeeEntity;
   }
 
+  @Transactional
   @Override
   public void deleteById(Long employeeId) {
     EmployeeEntity employeeEntity = em.find(EmployeeEntity.class, employeeId);
 
     if (employeeEntity != null) {
+      // for(EmployeeDocumentEntity d : employeeEntity.getEmployeeDocuments()){
+      //   em.remove(d);
+      // }
+
       em.remove(employeeEntity);
+    }else{
+      throw new EntityNotFoundException(String.format("EmployeeEntity with id: %d not found!", employeeId));
     }
 
   }

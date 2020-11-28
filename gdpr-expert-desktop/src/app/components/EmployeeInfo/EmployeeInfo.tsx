@@ -156,7 +156,10 @@ export class EmployeeInfo extends PureComponent<EmployeeInfoPropType, EmployeeIn
       return (
         <SuccessAlert
           onOkClick={() => {
-            this.props.history.goBack()
+            this.props.history.push({
+              pathname: routeNames.DepartmentPage,
+              search: `?departmentId=${this._employeeInfo.departmentId}`,
+            })
           }}
           text={this.state.successMessage}
         />
@@ -177,7 +180,7 @@ export class EmployeeInfo extends PureComponent<EmployeeInfoPropType, EmployeeIn
 
     return (
       <EmployeeInfoUI
-        onRemoveClick={this.onUpdateClick}
+        onRemoveClick={this.onRemoveClick}
         onUpdateClick={this.onUpdateClick}
         onShowDocumentListClick={this.onShowDocumentsClick}
         {...this._employeeInfo}

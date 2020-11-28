@@ -30,7 +30,7 @@ GET http://127.0.0.1:8080/gdpr-expert-web/api/employee/docs?employeeId=1&documen
 GET http://127.0.0.1:8080/gdpr-expert-web/api/employee/docs/all/1 HTTP/1.1
 
 // delete document
-DELETE http://127.0.0.1:8080/gdpr-expert-web/api/employee/1 HTTP/1.1
+DELETE http://127.0.0.1:8080/gdpr-expert-web/api/employee/docs/2 HTTP/1.1
 
 
 

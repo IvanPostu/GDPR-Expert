@@ -22,9 +22,10 @@ function downloadStaturCreator(
 
 export function downloadListener(event: IpcMainEvent, data: DownloadOptionType): void {
   const win = BrowserWindow.getFocusedWindow() as BrowserWindow
-  const { downloadUniqueId, url } = data
+  const { downloadUniqueId, url, filename } = data
   download(win, url, {
     openFolderWhenDone: true,
+    filename: filename,
     onStarted: (item: DownloadItem & { id?: string }) => {
       item['id'] = downloadUniqueId
       item.on('updated', (event, state) => {

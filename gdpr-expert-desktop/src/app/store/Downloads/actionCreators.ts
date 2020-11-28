@@ -8,9 +8,16 @@ import {
 } from './types'
 import { nanoid } from 'nanoid'
 import { DownloadStatusListenerPropType } from '@/app/rendererCallbacks/downloadStatusListener'
+import { webServerURL } from '@/app/constants/webServerUrl'
 
-export function startDownloadActionCreator(url: string, filename: string): StartDownloadActionType {
+export function startDownloadActionCreator(
+  documentId: number,
+  employeeId: number,
+  filename: string,
+): StartDownloadActionType {
   const uniqueId = nanoid(19) + Date.now().toString()
+  const url = `${webServerURL}/api/employee/docs?employeeId=${employeeId}&documentId=${documentId}`
+
   downloadFileSender({
     filename,
     url,

@@ -38,7 +38,7 @@ public class EmployeeDocumentsRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<?> addNewEvent(@RequestParam(required = true, value = "files") MultipartFile[] files,
+  public ResponseEntity<?> addEmployeeDocument(@RequestParam(required = true, value = "files") MultipartFile[] files,
       @RequestParam(required = true, value = "employeeId") Long employeeId) throws IOException {
 
     String utf8Filenames[] = new String[files.length];
@@ -61,7 +61,7 @@ public class EmployeeDocumentsRestController {
       @RequestParam(value = "documentId", required = true) Long documentId) throws IOException {
 
     EmployeeDocumentEntity document = employeeDocumentService.getDocumentById(documentId).get();
-    byte[] output =  document.getDocumentData();
+    byte[] output = document.getDocumentData();
 
     response.setContentLength(output.length);
     response.setContentType(MediaType.ALL_VALUE);
@@ -81,19 +81,17 @@ public class EmployeeDocumentsRestController {
       @PathVariable(value = "employeeId") Long employeeId) {
 
     Collection<EmployeeDocumentInfoDto> documents = employeeDocumentService.getEmployeeDocuments(employeeId);
-    // .map(a -> new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(),
-    // a.getFileName())).collect(Collectors.toList());
 
     return ResponseEntity.status(HttpStatus.OK).body(documents);
   }
 
   @RequestMapping(value = "/{documentId}", method = RequestMethod.DELETE)
-  public void deleteEmployeeDocumentById(HttpServletRequest request, HttpServletResponse response,
+  public ResponseEntity<Long> deleteEmployeeDocumentById(HttpServletRequest request, HttpServletResponse response,
       @PathVariable(value = "documentId") Long documentId) {
 
     employeeDocumentService.removeEmployeeDocumentById(documentId);
 
-    response.setStatus(HttpStatus.OK.value());
+    return ResponseEntity.status(HttpStatus.OK).body(documentId);
   }
 
 }
