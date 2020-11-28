@@ -21,6 +21,6 @@ public interface EmployeeService {
 
   Optional<EmployeeEntity> getEmployeeWithDepartment(Long employeeId);
 
-  void addDocumentsToEmployee(Long employeeId, MultipartFile[] files);
+  void addDocumentsToEmployee(Long employeeId, MultipartFile[] files, String[] filenames);
 
 }

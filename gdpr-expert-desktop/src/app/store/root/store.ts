@@ -7,20 +7,12 @@ import {
   downloadStatusListener,
   DownloadStatusListenerPropType,
 } from '@/app/rendererCallbacks/downloadStatusListener'
-// import { Progress } from 'electron-dl'
 
 const sagaMiddleware = createSagaMiddleware()
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-// export function configureStore() {
 export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(rootSaga)
 
-downloadStatusListener((data: DownloadStatusListenerPropType) =>
-  store.dispatch(updateDownloadItemActionCreator(data)),
-)
-
-// return store
-// }
-
-// export type GlobalStoreType = ReturnType<typeof configureStore>
+downloadStatusListener((data: DownloadStatusListenerPropType) => {
+  store.dispatch(updateDownloadItemActionCreator(data))
+})

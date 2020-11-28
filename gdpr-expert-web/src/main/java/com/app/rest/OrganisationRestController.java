@@ -129,7 +129,8 @@ public class OrganisationRestController {
 
   @RequestMapping(value = "/all", method = RequestMethod.GET)
   public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal UserEntity user) {
-    List<OrganisationEntity> userOrgList = organisationService.findOrganisationsByOwnerId(user.getId(), true);
+    List<OrganisationEntity> userOrgList = organisationService
+      .findOrganisationsByOwnerId(user.getId(), true);
 
     List<Map<String, Object>> response = new ArrayList<>(userOrgList.size());
 

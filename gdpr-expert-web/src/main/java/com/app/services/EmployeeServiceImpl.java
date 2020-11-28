@@ -71,6 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     employeeRepository.deleteById(employeeId);
   }
 
+  @Transactional
   @Override
   public void updateEmployee(UpdateEmployeeDto employeeDto) {
     EmployeeEntity employeeFromDb = employeeRepository.findById(employeeDto.getId())
@@ -97,7 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   @Override
-  public void addDocumentsToEmployee(Long employeeId, MultipartFile[] files) {
+  public void addDocumentsToEmployee(Long employeeId, MultipartFile[] files, String[] filenames) {
     EmployeeEntity employeeFromDb = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException());
 
     final Date uploadedToThePlatformAt = new Date();
@@ -113,7 +114,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       }
       doc.setEmployeeId(employeeFromDb.getId());
       doc.setUploadedToThePlatformAt(uploadedToThePlatformAt);
-      doc.setFileName(files[i].getOriginalFilename());
+      doc.setFileName(filenames[i]);
       documents.add(doc);
     }
 

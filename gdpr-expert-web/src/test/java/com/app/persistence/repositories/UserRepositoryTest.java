@@ -31,8 +31,7 @@ public class UserRepositoryTest {
 
   public void CRUDUserTest() {
     userRepository.deleteAll();
-    // if(1+1 == 2)
-    // throw new RuntimeException();
+
     Long savedUserId;
     String savedUserEmail;
     savedUserEmail = UUID.randomUUID().toString() + "a@mail.ru";

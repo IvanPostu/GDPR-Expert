@@ -8,7 +8,7 @@ type AddDocumentsForEmployeeDataType = {
 
 export async function addDocumentsForEmployee(
   data: AddDocumentsForEmployeeDataType,
-): Promise<void | UnsuccessResponseData> {
+): Promise<number | UnsuccessResponseData> {
   let status = 0
 
   try {
@@ -16,19 +16,21 @@ export async function addDocumentsForEmployee(
 
     for (const file of data.documents) {
       formData.append('files', file)
+      formData.append('filenames', file.name)
     }
     formData.append('employeeId', String(data.employeeId))
 
     const options: RequestInit = {
       method: 'POST',
       credentials: 'include',
+
       body: formData,
     }
 
     const response = await fetch(`${webServerURL}/api/employee/docs`, options)
     status = response.status
-
     if (status !== 201) throw 0
+    return 1
   } catch (e) {
     const err = new UnsuccessResponseData(status, {})
     return err

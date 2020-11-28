@@ -1,4 +1,5 @@
 import { addDocumentsForEmployee } from '@/app/webApi/employee/addDocumentsForEmployee'
+import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { nanoid } from 'nanoid'
 import React, { Component, ReactElement, SyntheticEvent } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
@@ -79,16 +80,16 @@ class EmployeeDocumentsFormComponent extends Component<
     addDocumentsForEmployee({
       documents: this.state.files.map((a) => a.file),
       employeeId: this.props.employeeId,
-    }).then(() => {
+    }).then((res) => {
       if (!this._isMounted) return
-      // if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
-      //   console.log('success')
-      // } else {
-      //   console.log('unsuccess')
-      // }
-      this.setState({
-        isLoading: false,
-      })
+
+      if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        this.props.history.goBack()
+      } else {
+        this.setState({
+          isLoading: false,
+        })
+      }
     })
   }
 

@@ -1,6 +1,7 @@
 package com.app.rest;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,16 @@ public class EmployeeDocumentsRestController {
   public ResponseEntity<?> addNewEvent(@RequestParam(required = true, value = "files") MultipartFile[] files,
       @RequestParam(required = true, value = "employeeId") Long employeeId) throws IOException {
 
-    employeeService.addDocumentsToEmployee(employeeId, files);
+    String utf8Filenames[] = new String[files.length];
+
+    for (int j = 0; j < files.length; j++) {
+      String s = new String(files[j].getOriginalFilename().getBytes(StandardCharsets.ISO_8859_1),
+          StandardCharsets.UTF_8);
+      utf8Filenames[j] = s;
+
+    }
+
+    employeeService.addDocumentsToEmployee(employeeId, files, utf8Filenames);
 
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
@@ -50,9 +60,8 @@ public class EmployeeDocumentsRestController {
       @RequestParam(value = "employeeId", required = true) Long employeeId,
       @RequestParam(value = "documentId", required = true) Long documentId) throws IOException {
 
-    EmployeeDocumentEntity document = employeeDocumentService.getDocumentById(documentId)
-        .get();
-    byte[] output = new byte[22];// document.getDocumentData();
+    EmployeeDocumentEntity document = employeeDocumentService.getDocumentById(documentId).get();
+    byte[] output =  document.getDocumentData();
 
     response.setContentLength(output.length);
     response.setContentType(MediaType.ALL_VALUE);
@@ -71,9 +80,9 @@ public class EmployeeDocumentsRestController {
   public ResponseEntity<Collection<EmployeeDocumentInfoDto>> getEmployeeDocumentsInfo(
       @PathVariable(value = "employeeId") Long employeeId) {
 
-    Collection<EmployeeDocumentInfoDto> documents = employeeDocumentService
-      .getEmployeeDocuments(employeeId);
-    //     .map(a -> new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(), a.getFileName())).collect(Collectors.toList());
+    Collection<EmployeeDocumentInfoDto> documents = employeeDocumentService.getEmployeeDocuments(employeeId);
+    // .map(a -> new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(),
+    // a.getFileName())).collect(Collectors.toList());
 
     return ResponseEntity.status(HttpStatus.OK).body(documents);
   }
