@@ -1,14 +1,18 @@
 package com.app.persistence.repositories;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-public class OrganisationRepositoryTest {
+@TestMethodOrder(OrderAnnotation.class)
+public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
 
-  // @Autowired
+  @Autowired
   // private OrganisationRepository organisationRepository;
 
   

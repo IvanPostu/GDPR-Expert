@@ -1,26 +1,21 @@
 package com.app.persistence.repositories;
 
-import org.junit.jupiter.api.Assertions;
-
 import java.util.Iterator;
 import java.util.UUID;
 
 import com.app.domain.entities.UserEntity;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration({ "file:src/main/webapp/WEB-INF/context.xml", "file:src/test/webapp/WEB-INF/datasource.xml", })
+
 @TestMethodOrder(OrderAnnotation.class)
-public class UserRepositoryTest {
+public class UserRepositoryTest extends _RepositoriesConfiguration {
 
   @Autowired
   private UserRepository userRepository;
