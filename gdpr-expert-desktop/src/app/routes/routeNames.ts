@@ -21,5 +21,8 @@ export enum routeNames {
   EmployeeDocumentsPageRoute = '/EmployeeDocumentsPageRoute',
   EmployeeAddDocumentsPageRoute = '/EmployeeAddDocumentsPageRoute',
 
+  GDPREvaluationPageRoute = '/GDPREvaluationPageRoute/GDPREvaluationPageRoute',
+  GDPRLastEvaluationInfoPageRoute = '/GDPREvaluationPageRoute/GDPRLastEvaluationInfoPageRoute',
+
   ProcessingActivitiesPageRoute = '/ProcessingActivitiesPageRoute',
 }

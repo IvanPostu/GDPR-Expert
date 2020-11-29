@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 import { OrganisationResponseTypeA } from '@/app/webApi/organisation/getOrganisations'
 import { defaultOrganisationImage } from '../../constants/defaultOrganisationImage'
-import { BasicLoader } from '@/app/components/BasicLoader'
+import { BasicLoader, FullWidthLoader } from '@/app/components/BasicLoader'
 
 type OrganisationsPageViewPropType = {
   organisations: Array<OrganisationResponseTypeA>
@@ -22,9 +22,19 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
   const listIsEmpty = organisations.length === 0
 
   const content = listIsEmpty ? (
-    <div style={{ marginTop: '20px', textAlign: 'center' }}>
-      <h3>Lista de organizații este goală.</h3>
-    </div>
+    <Fragment>
+      {props.isLoad && (
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <FullWidthLoader />
+        </div>
+      )}
+
+      {!props.isLoad && (
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <h3>Lista de organizații este goală.</h3>
+        </div>
+      )}
+    </Fragment>
   ) : (
     <div className={styles.cards}>
       {organisations.map((item) => (

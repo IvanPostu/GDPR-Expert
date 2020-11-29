@@ -88,7 +88,7 @@ export const LoginPageView: FC<LoginPageViewPropType> = (props): ReactElement =>
   )
 
   return (
-    <FormCardA onSubmit={onSubmit} onClick={clearErrorMessage}>
+    <FormCardA onSubmit={onSubmit} onClick={clearErrorMessage} style={{ marginTop: '15px' }}>
       <h1>Autentificare: </h1>
       {content}
     </FormCardA>

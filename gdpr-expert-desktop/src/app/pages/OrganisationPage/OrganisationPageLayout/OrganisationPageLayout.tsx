@@ -34,7 +34,9 @@ export class OrganisationPageLayoutComponent extends Component<OrganisationPageL
               <NavLink to={routeNames.OrganisationDepartmentsPageRoute}>
                 <SuccessButton title="Departamente" />
               </NavLink>
-              <SuccessButton title="Angajanți" />
+              <NavLink to={routeNames.GDPRLastEvaluationInfoPageRoute}>
+                <SuccessButton title="Evaluare R.G.D.P." />
+              </NavLink>
             </div>
             <div>
               <h1>{this.props.currentOrganisationName}</h1>

@@ -24,4 +24,7 @@
   <bean id="employeeDocumentService" class="com.app.services.EmployeeDocumentServiceImpl">
   </bean> 
 
+  <bean id="gDPREvaluationRestController" class="com.app.services.GDPREvaluationRestControllerImpl">
+  </bean> 
+
 </beans>

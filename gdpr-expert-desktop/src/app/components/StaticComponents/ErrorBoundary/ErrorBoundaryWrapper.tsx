@@ -1,4 +1,5 @@
-import React, { Component, Fragment, PropsWithChildren, ReactElement } from 'react'
+/* eslint-disable no-console */
+import React, { Component, ErrorInfo, Fragment, PropsWithChildren, ReactElement } from 'react'
 
 type ErrorBoundaryPropType = PropsWithChildren<unknown>
 
@@ -7,8 +8,14 @@ class ErrorBoundaryComponent extends Component<ErrorBoundaryPropType> {
     super(props)
   }
 
-  componentDidCatch(): void {
-    location.reload()
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    const isDev = process.env.NODE_ENV === 'development'
+    if (!isDev) {
+      location.reload()
+    }
+
+    console.error(error)
+    console.error(errorInfo)
   }
 
   render(): ReactElement {

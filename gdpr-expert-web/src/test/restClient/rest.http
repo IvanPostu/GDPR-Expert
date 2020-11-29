@@ -2,6 +2,8 @@
 
 GET http://127.0.0.1:8080/gdpr-expert-web/home
 
+GET http://127.0.0.1:8080/gdpr-expert-web/api/gdpr/evaluation HTTP/1.1
+
 
 GET http://127.0.0.1:8080/gdpr-expert-web/api/auth/success
 Content-Type: application/json
