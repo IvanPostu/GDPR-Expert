@@ -14,15 +14,14 @@ public class GDPREvaluationQuestionsDto {
   @AllArgsConstructor
   @NoArgsConstructor
   @Data
-  private static final class Question {
+  public static final class Question {
     private Integer id;
     private Integer categoryId;
     private String text;
   };
-  
+
   private List<String> categories;
 
   private List<Question> questions;
-
 
 }

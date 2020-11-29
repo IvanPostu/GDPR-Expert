@@ -9,6 +9,7 @@ import { DepartmentPage } from '../pages/DepartamentPage'
 import { EmployeeAddDocumentsPage } from '../pages/EmployeeAddDocumentsPage/EmployeeAddDocumentsPage'
 import { EmployeeDocumentsPage } from '../pages/EmployeeDocumentsPage/EmployeeDocumentsPage'
 import EmployeeInfoPage from '../pages/EmployeeInfoPage/EmployeeInfoPage'
+import { GDPREvaluationPage } from '../pages/GDPREvaluationPage/GDPREvaluationPage/GDPREvaluationPage'
 import { GDPRLastEvaluationInfoPage } from '../pages/GDPREvaluationPage/GDPRLastEvaluationInfoPage/GDPRLastEvaluationInfoPage'
 import { LoginPage } from '../pages/LoginPage'
 import { OrganisationDepartmentsPage } from '../pages/OrganisationPage/OrganisationDepartmentsPage/OrganisationDepartmentsPage'
@@ -109,7 +110,7 @@ const AppRouterComponent = (): ReactElement => {
         />
 
         <ProtectedRoute
-          component={OrganisationUpdatePage}
+          component={GDPREvaluationPage}
           exact
           path={routeNames.GDPREvaluationPageRoute}
         />

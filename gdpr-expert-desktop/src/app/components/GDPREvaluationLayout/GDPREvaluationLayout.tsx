@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { Container } from '../Container'
 import { GenericButton } from '../GenericButton'
 import styles from './styles.module.scss'
+import { History } from 'history'
+import { gDPRLastEvaluationInfoPageRedirect } from '@/app/pages/GDPREvaluationPage/GDPRLastEvaluationInfoPage/gDPRLastEvaluationInfoPageRedirect'
+import { gDPREvaluationPageRedirect } from '@/app/pages/GDPREvaluationPage/GDPREvaluationPage/gDPREvaluationPageRedirect'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -12,7 +15,9 @@ function mapStateToProps(state: GlobalStateType) {
 }
 
 type GDPREvaluationLayoutComponentPropType = PropsWithChildren<unknown> &
-  ReturnType<typeof mapStateToProps>
+  ReturnType<typeof mapStateToProps> & {
+    history: History
+  }
 
 const GDPREvaluationLayoutComponent: FC<GDPREvaluationLayoutComponentPropType> = (
   props: GDPREvaluationLayoutComponentPropType,
@@ -27,12 +32,22 @@ const GDPREvaluationLayoutComponent: FC<GDPREvaluationLayoutComponentPropType> =
           </p>
         </div>
         <Container className={styles.buttons}>
-          <GenericButton className={styles.button}>Rezultatul ultimii evaluări</GenericButton>
-          <GenericButton className={styles.button}>Realizare evaluare</GenericButton>
+          <GenericButton
+            className={styles.button}
+            onClick={gDPRLastEvaluationInfoPageRedirect.bind(null, { history: props.history })}
+          >
+            Rezultatul ultimii evaluări
+          </GenericButton>
+          <GenericButton
+            onClick={gDPREvaluationPageRedirect.bind(null, { history: props.history })}
+            className={styles.button}
+          >
+            Realizare evaluare
+          </GenericButton>
         </Container>
       </div>
 
-      <div>{props.children}</div>
+      <Container>{props.children}</Container>
     </div>
   )
 }

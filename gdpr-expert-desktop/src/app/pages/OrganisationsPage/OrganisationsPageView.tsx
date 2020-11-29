@@ -55,8 +55,8 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
 
   return (
     <Fragment>
-      <Container>
-        <div className={styles.createNewOrganisationContainer}>
+      <div className={styles.createNewOrganisationContainer}>
+        <Container className={styles.container}>
           <div className={styles.item}>
             <label className={styles.title}>Organizații</label>
 
@@ -79,10 +79,9 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
               <InfoButton title="Creare organizație nouă" />
             </NavLink>
           </div>
-        </div>
-
-        {content}
-      </Container>
+        </Container>
+      </div>
+      <Container>{content}</Container>
     </Fragment>
   )
 }

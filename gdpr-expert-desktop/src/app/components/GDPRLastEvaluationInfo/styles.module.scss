@@ -1,0 +1,26 @@
+@import '@/app/scss/index';
+
+
+.container{
+  margin-top: 20px;
+  margin-bottom: 1px;
+  min-height: 100px;
+
+  .header{
+    padding: 20px 0 15px 0;
+    
+    .title{
+      font-size: 26px;
+      text-align: center;
+    }
+
+  
+  }
+
+  .body{
+    @include whiteContainer;
+    padding: 10px 0 35px 0;
+    margin-bottom: 25px;
+  }
+
+}

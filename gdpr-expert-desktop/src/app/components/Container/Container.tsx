@@ -7,5 +7,5 @@ type ContainerPropType = {
 
 export function Container(props: ContainerPropType): ReactElement {
   const className = props.className || ''
-  return <div className={`${styles.container} ${className}`}>{props.children}</div>
+  return <div className={`${className} ${styles.container} `}>{props.children}</div>
 }

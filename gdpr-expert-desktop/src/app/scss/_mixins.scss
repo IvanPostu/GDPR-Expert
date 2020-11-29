@@ -1,3 +1,4 @@
+@import "./colors.scss";
 
 @mixin unselectable {
   -webkit-touch-callout: none;
@@ -6,4 +7,9 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@mixin whiteContainer{
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.185);
+  background-color:$white1;
 }

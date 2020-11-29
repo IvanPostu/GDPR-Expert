@@ -41,9 +41,9 @@ export const DataResponsibleQuestions = (props: DataResponsibleQuestionsPropType
           date cu caracter personal.
         </b>
       </p>
-      <QuestionA
+      {/* <QuestionA
         question="Departamentul din care face parte angajatul prestează servicii publice sau activează ca organism public?"
-        items={['Da', 'Nu']}
+        answers={['Da', 'Nu']}
         setSelectedItem={(str) => {
           setResponses({
             ...responses,
@@ -53,7 +53,7 @@ export const DataResponsibleQuestions = (props: DataResponsibleQuestionsPropType
       />
       <QuestionA
         question="Activitatea angajatului dat are tangențe cu procesare datelor?"
-        items={['Da', 'Nu']}
+        answers={['Da', 'Nu']}
         setSelectedItem={(str) =>
           setResponses({
             ...responses,
@@ -63,7 +63,7 @@ export const DataResponsibleQuestions = (props: DataResponsibleQuestionsPropType
       />
       <QuestionA
         question="Datele procesate de angajat în caz de scurgere de informație pot provoca urmări?"
-        items={['Da', 'Nu']}
+        answers={['Da', 'Nu']}
         setSelectedItem={(str) =>
           setResponses({
             ...responses,
@@ -73,7 +73,7 @@ export const DataResponsibleQuestions = (props: DataResponsibleQuestionsPropType
       />
       <QuestionA
         question="Datele procesate de angajat fac parte din categoria datelor sensibile?"
-        items={['Da', 'Nu']}
+        answers={['Da', 'Nu']}
         setSelectedItem={(str) =>
           setResponses({
             ...responses,
@@ -83,14 +83,14 @@ export const DataResponsibleQuestions = (props: DataResponsibleQuestionsPropType
       />
       <QuestionA
         question="Angajatul procesează date despre activitatea sau starea persoanelor fizece sau juridice?"
-        items={['Da', 'Nu']}
+        answers={['Da', 'Nu']}
         setSelectedItem={(str) =>
           setResponses({
             ...responses,
             dataAreRelatedToPersons: str === 'Da',
           })
         }
-      />
+      /> */}
       <ButtonA type="button" title="Salvează" onClick={submit} />
     </FormCardA>
   )

@@ -1,0 +1,12 @@
+@import '@/app/scss/index';
+
+
+.questionCard{
+  @include whiteContainer;
+}
+
+.container{
+  margin: 30px 0 30px;
+
+
+}
