@@ -1,18 +1,25 @@
 import React, { ReactElement } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
-const data = {
-  labels: ['Red', 'Green'],
-  datasets: [
-    {
-      data: [30, 50],
-      backgroundColor: ['#cc1111', '#11cc11'],
-      hoverBackgroundColor: ['#cc1111', '#11cc11'],
-    },
-  ],
+type GDPRLastEvaluationDiagramPropType = {
+  greenPercents: number
+  redPercents: number
 }
 
-export const GDPRLastEvaluationDiagram = (): ReactElement => {
+export const GDPRLastEvaluationDiagram = (
+  props: GDPRLastEvaluationDiagramPropType,
+): ReactElement => {
+  const data = {
+    labels: ['Conformitate cu GDPR', 'Non-conformitate cu GDPR'],
+    datasets: [
+      {
+        data: [props.greenPercents, props.redPercents],
+        backgroundColor: ['#11cc11', '#cc1111'],
+        hoverBackgroundColor: ['#11cc11', '#cc1111'],
+      },
+    ],
+  }
+
   return (
     <div style={{ height: '200px' }}>
       <Doughnut
@@ -20,6 +27,9 @@ export const GDPRLastEvaluationDiagram = (): ReactElement => {
         height={50}
         options={{
           maintainAspectRatio: false,
+          legend: {
+            position: 'bottom',
+          },
         }}
         data={data}
       />

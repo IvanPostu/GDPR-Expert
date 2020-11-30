@@ -3,10 +3,16 @@ import { GDPREvaluationDiagrams } from './diagrams/GDPREvaluationDiagrams'
 import { GDPRLastEvaluationDiagram } from './diagrams/GDPRLastEvaluationDiagram'
 import styles from './styles.module.scss'
 
-export const GDPRLastEvaluationInfoView = (): ReactElement => {
-  const showDiagrams = false
+type GDPRLastEvaluationInfoViewPropType = {
+  dates: Array<string>
+  percentages: Array<number>
+  isEpty?: boolean
+}
 
-  if (!showDiagrams)
+export const GDPRLastEvaluationInfoView = (
+  props: GDPRLastEvaluationInfoViewPropType,
+): ReactElement => {
+  if (props.isEpty)
     return (
       <div className={styles.container}>
         <div className={styles.body}>
@@ -19,19 +25,22 @@ export const GDPRLastEvaluationInfoView = (): ReactElement => {
       </div>
     )
 
+  const greenPercents = props.percentages[props.percentages.length - 1]
+  const redPercents = 100 - greenPercents
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.header}>
-          <p className={styles.title}>Rezultatul utltimii evaluării G.D.P.R.</p>
+          <p className={styles.title}>Rezultatul utltimii evaluări G.D.P.R.</p>
         </div>
-        <GDPRLastEvaluationDiagram />
+        <GDPRLastEvaluationDiagram greenPercents={greenPercents} redPercents={redPercents} />
       </div>
       <div className={styles.body}>
         <div className={styles.header}>
-          <p className={styles.title}>Rezultatul evaluării G.D.P.R.</p>
+          <p className={styles.title}>Diagrama ultimelor evaluării G.D.P.R.</p>
         </div>
-        <GDPREvaluationDiagrams dates={['2010-11-22', '2020-11-22']} percents={[22, 87]} />
+        <GDPREvaluationDiagrams dates={props.dates} percents={props.percentages} />
       </div>
     </div>
   )

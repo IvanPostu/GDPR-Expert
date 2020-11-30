@@ -15,7 +15,7 @@ function barDataCreator(props: GDPREvaluationDiagramsPropType) {
     labels: props.dates,
     datasets: [
       {
-        label: 'Conformitatea gu R.G.P.D.',
+        label: 'Conformitatea cu R.G.P.D.',
         backgroundColor: BG_COLOR,
         borderColor: BORDER_COLOR,
         borderWidth: 1,
@@ -38,6 +38,29 @@ export const GDPREvaluationDiagrams = (props: GDPREvaluationDiagramsPropType): R
         height={50}
         options={{
           maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Data realizării evaluării GDPR',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  beginAtZero: true,
+                  steps: 10,
+                  stepValue: 5,
+                  max: 100,
+                  min: 0,
+                },
+              },
+            ],
+          },
         }}
       />
     </div>

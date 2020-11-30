@@ -6,16 +6,30 @@ import { FullWidthLoader } from '../BasicLoader'
 import { GDPREvaluationQuestionsView } from './GDPREvaluationQuestionsView'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 import { connect } from 'react-redux'
+import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
+import { saveGDPREvaluationResult } from '@/app/webApi/gDPREvaluation/saveGDPREvaluationResult'
+import { GlobalStateType } from '@/app/store'
+import { RouteComponentProps } from 'react-router-dom'
+import { gDPRLastEvaluationInfoPageRedirect } from '@/app/pages/GDPREvaluationPage/GDPRLastEvaluationInfoPage/gDPRLastEvaluationInfoPageRedirect'
+
+function mapStateToProps(state: GlobalStateType) {
+  return {
+    organisationId: state.organisationInfoReducer.organisation.organisationId,
+  }
+}
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { clearAuthDataActionCreator }
   return bindActionCreators(actionCreators, dispatch)
 }
 
-type GDPREvaluationQuestionsComponentPropType = ReturnType<typeof mapDispatchToProps>
+type GDPREvaluationQuestionsComponentPropType = ReturnType<typeof mapDispatchToProps> &
+  ReturnType<typeof mapStateToProps> &
+  RouteComponentProps
 
 type GDPREvaluationQuestionsComponentStateType = {
   isLoading: boolean
+  messageBoxProp: MessageBoxWrapperPropType
   questions: Array<{
     id: number
     text: string
@@ -36,11 +50,17 @@ class GDPREvaluationQuestionsComponent extends Component<
     this.state = {
       isLoading: true,
       questions: [],
+      messageBoxProp: {
+        message: '',
+        onOkClick: alert,
+        type: 'success',
+      },
     }
 
     this.fetchQuestions = this.fetchQuestions.bind(this)
     this.submitHandler = this.submitHandler.bind(this)
     this.selectAnswerHandler = this.selectAnswerHandler.bind(this)
+    this.onFailureHandler = this.onFailureHandler.bind(this)
   }
 
   componentDidMount(): void {
@@ -65,7 +85,7 @@ class GDPREvaluationQuestionsComponent extends Component<
           selectedAnswer: number
         }> = questions.map((a, i) => ({
           answers: ['Da', 'Nu', 'Selectați răspuns...'],
-          selectedAnswer: 2,
+          selectedAnswer: 1,
           id: a.id,
           text: `${i + 1}) ${a.text}`,
         }))
@@ -77,19 +97,76 @@ class GDPREvaluationQuestionsComponent extends Component<
       if (err.isSessionExpired) {
         this.props.clearAuthDataActionCreator()
       }
+      this.onFailureHandler(true)
     }
   }
 
-  submitHandler(e: SyntheticEvent): void {
+  onFailureHandler(goBack?: boolean, message?: string): void {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        isLoading: false,
+        messageBoxProp: {
+          message: message || 'A apărut o problemă de la procesarea cererii.',
+          type: 'error',
+          onOkClick: () => {
+            this.setState({
+              messageBoxProp: {
+                ...this.state.messageBoxProp,
+                message: '',
+              },
+            })
+
+            if (goBack) this.props.history.goBack()
+          },
+        },
+      }
+    })
+  }
+
+  async submitHandler(e: SyntheticEvent): Promise<void> {
     e.preventDefault()
     for (const a of this.state.questions) {
       if (a.selectedAnswer === 2) {
-        alert(2)
+        this.onFailureHandler(false, 'Este necesar de selectat răspuns la toate întrebările!!!')
         return
       }
     }
 
-    alert(1)
+    const percentage =
+      this.state.questions.reduce((acc, cur) => (cur.selectedAnswer === 0 ? acc + 1 : acc), 0) /
+      this.state.questions.length
+
+    this.setState({ isLoading: true })
+    const res = await saveGDPREvaluationResult({
+      organisationId: Number(this.props.organisationId),
+      percentages: percentage,
+    })
+
+    if (!this._isMounted) return
+
+    if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          isLoading: false,
+          messageBoxProp: {
+            message: 'Procesul de evaluare G.D.P.R. a avut loc cu success.',
+            type: 'success',
+            onOkClick: gDPRLastEvaluationInfoPageRedirect.bind(null, {
+              history: this.props.history,
+            }),
+          },
+        }
+      })
+    } else {
+      const err = res as UnsuccessResponseData
+      if (err.isSessionExpired) {
+        this.props.clearAuthDataActionCreator()
+      } else {
+        this.onFailureHandler(false)
+      }
+    }
   }
 
   selectAnswerHandler(arrIndex: number, responseIndex: number): void {
@@ -105,16 +182,18 @@ class GDPREvaluationQuestionsComponent extends Component<
     if (this.state.isLoading) return <FullWidthLoader />
 
     return (
-      <GDPREvaluationQuestionsView
-        onSelectAnswer={this.selectAnswerHandler}
-        onSubmit={this.submitHandler}
-        questions={this.state.questions}
-      />
+      <MessageBoxWrapper {...this.state.messageBoxProp}>
+        <GDPREvaluationQuestionsView
+          onSelectAnswer={this.selectAnswerHandler}
+          onSubmit={this.submitHandler}
+          questions={this.state.questions}
+        />
+      </MessageBoxWrapper>
     )
   }
 }
 
 export const GDPREvaluationQuestions = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(GDPREvaluationQuestionsComponent)

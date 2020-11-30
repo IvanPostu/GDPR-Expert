@@ -9,7 +9,7 @@ export class GDPREvaluationProcess extends Component<GDPREvaluationProcessPropTy
   render(): ReactElement {
     return (
       <GDPREvaluationLayout history={this.props.history}>
-        <GDPREvaluationProcessView />
+        <GDPREvaluationProcessView {...this.props} />
       </GDPREvaluationLayout>
     )
   }

@@ -7,12 +7,10 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "OrganisationEntity")
 @Table(name="organisation", schema = "app")
 public class OrganisationEntity {
 
@@ -79,24 +77,26 @@ public class OrganisationEntity {
   @JoinColumn(name="user_owner_id")
   private UserEntity owner;
 
-  @JsonIgnore
+  
   @Setter 
   @Getter
   @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
   @JoinColumn(name = "organisation_id")
   private OrganisationLogoEntity organisationLogoEntity;
 
-  // @PreRemove
-  // private void removeLogo() {
-  //   organisationLogoEntity.setOrganisationEntity(null);
-  // }
 
-  @JsonIgnore
   @Setter 
   @Getter
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
   private List<DepartmentEntity> depatrments;
+
+  @Setter 
+  @Getter
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name="organisation_id")
+  @OrderBy(value = "completed_at")
+  private List<GDPREvaluationEntity> evaluations;
 
   @Override
   public boolean equals(Object o) {

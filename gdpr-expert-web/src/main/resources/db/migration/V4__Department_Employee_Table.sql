@@ -1,6 +1,6 @@
 CREATE TABLE app."employee" (
   "employee_id" BIGSERIAL NOT NULL,
-  "department_id" BIGINT NOT NULL,
+  "department_id" BIGINT,
   "personal_data_responsible" BOOLEAN NOT NULL DEFAULT false,
   "email" VARCHAR(256),
   "first_name" VARCHAR(128) DEFAULT '',

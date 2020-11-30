@@ -36,7 +36,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
     OrganisationLogoEntity logo = oEntity.getOrganisationLogoEntity();
     oEntity.setOrganisationLogoEntity(null);
-    oEntity = organisationRepository.save(oEntity);
+    organisationRepository.save(oEntity);
     logo.setId(oEntity.getId());
     organisationLogoRepository.save(logo);
   }

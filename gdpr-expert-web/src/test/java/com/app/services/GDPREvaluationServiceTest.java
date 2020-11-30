@@ -14,7 +14,7 @@ public class GDPREvaluationServiceTest {
 
   @Test
   public void getQuestionsMethodTest() throws IOException {
-    GDPREvaluationService service = new GDPREvaluationServiceImpl();
+    GDPREvaluationService service = new GDPREvaluationServiceImpl(null, null);
     GDPREvaluationQuestionsDto dto = service.getQuestions();
     Assertions.assertNotNull(dto);
     Assertions.assertNotNull(dto.getCategories());
@@ -26,7 +26,7 @@ public class GDPREvaluationServiceTest {
 
   @Test
   public void questionsHaveUniqueIds() throws IOException {
-    GDPREvaluationService service = new GDPREvaluationServiceImpl();
+    GDPREvaluationService service = new GDPREvaluationServiceImpl(null, null);
     GDPREvaluationQuestionsDto dto = service.getQuestions();
 
     Set<Integer> ids = dto.getQuestions()
