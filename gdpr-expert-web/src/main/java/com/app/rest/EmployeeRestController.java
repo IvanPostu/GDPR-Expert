@@ -1,6 +1,7 @@
 package com.app.rest;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Validator;
 
 import com.app.domain.dto.CreateEmployeeDto;
+import com.app.domain.dto.EmployeeDataResponsibleQuestionDto;
 import com.app.domain.dto.UpdateEmployeeDto;
 import com.app.domain.entities.EmployeeEntity;
 import com.app.domain.entities.UserEntity;
@@ -34,14 +36,12 @@ public class EmployeeRestController {
   private final EmployeeService employeeService;
 
   @Autowired
-  public EmployeeRestController(EmployeeService employeeService){
+  public EmployeeRestController(EmployeeService employeeService) {
     this.employeeService = employeeService;
   }
 
-  @RequestMapping( value = "/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> getEmployee(@AuthenticationPrincipal UserEntity user,
-    @PathVariable("id") Long employeeId) {
-    
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<?> getEmployee(@AuthenticationPrincipal UserEntity user, @PathVariable("id") Long employeeId) {
 
     EmployeeEntity e = employeeService.getEmployeeWithDepartment(employeeId).get();
     Map<String, Object> result = new HashMap<>();
@@ -58,17 +58,14 @@ public class EmployeeRestController {
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }
 
-  @RequestMapping( method = RequestMethod.PUT)
+  @RequestMapping(method = RequestMethod.PUT)
   public ResponseEntity<?> updateEmployee(@AuthenticationPrincipal UserEntity user,
-    @RequestBody UpdateEmployeeDto updateEmployeeDto) {
-    
+      @RequestBody UpdateEmployeeDto updateEmployeeDto) {
+
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    List<String> errorMessages = validator
-      .validate(updateEmployeeDto)
-      .stream()
-      .map(a -> a.getMessage())
-      .collect(Collectors.toList());
+    List<String> errorMessages = validator.validate(updateEmployeeDto).stream().map(a -> a.getMessage())
+        .collect(Collectors.toList());
 
     if (errorMessages.size() > 0) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessages);
@@ -81,12 +78,12 @@ public class EmployeeRestController {
 
   @RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
   public ResponseEntity<?> getEmployeesByDepartmentId(@AuthenticationPrincipal UserEntity user,
-    @PathVariable("id") Long departmentId) {
+      @PathVariable("id") Long departmentId) {
 
     List<EmployeeEntity> employees = employeeService.employeesForDepartment(departmentId);
     List<HashMap<String, Object>> response = new ArrayList<>(employees.size());
 
-    employees.forEach( e -> {
+    employees.forEach(e -> {
       HashMap<String, Object> item = new HashMap<>();
       item.put("id", e.getId());
       item.put("firstName", e.getFirstName());
@@ -97,7 +94,7 @@ public class EmployeeRestController {
       item.put("personalDataResponsible", e.isPersonalDataResponsible());
       response.add(item);
     });
- 
+
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
@@ -110,14 +107,20 @@ public class EmployeeRestController {
     return ResponseEntity.status(HttpStatus.CREATED).body(e.getId());
   }
 
-
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<?> removeEmployee(@AuthenticationPrincipal UserEntity user,
-    @PathVariable("id") Long employeeId) {
+      @PathVariable("id") Long employeeId) {
 
     employeeService.removeEmployee(employeeId);
 
     return ResponseEntity.status(HttpStatus.OK).body(employeeId);
   }
 
+  @RequestMapping(value = "/dataResponsibleQuestions", method = RequestMethod.GET)
+  public ResponseEntity<Collection<EmployeeDataResponsibleQuestionDto>> dataResponsibleQuestions() {
+
+    List<EmployeeDataResponsibleQuestionDto> questions = employeeService.getDataResponsibleQuestions();
+
+    return ResponseEntity.status(HttpStatus.OK).body(questions);
+  }
 }

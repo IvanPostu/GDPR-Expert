@@ -1,0 +1,54 @@
+[
+  {
+    "id": 10001,
+    "content": "Organizația în care funcționează angajatul dat face parte din GDPR?",
+    "variants": ["Da", "Nu", "Nu sunt sigur"],
+    "variantsId": [10002, 20002, 10003],
+    "keyword": "question"
+  },
+  {
+    "id": 10002,
+    "content": "Activitățile angajatului sunt de procesare a datelor...",
+    "variants": ["Ce implică monitorizarea persoanelor fizice în mod curent și individual pe scară largă?", "Ce include categorii speciale pe scară largă sau infracțiuni și contravenții?", "Activitățile angajatului NU sunt de procesare a datelor."],
+    "variantsId": [20001,20001,20002],
+    "keyword": "question"
+  },
+  {
+    "id": 10003,
+    "content": "Angajatul dat procesează date cu caracter personal?",
+    "variants": ["Da", "Nu"],
+    "variantsId": [10004, 20002],
+    "keyword": "question"
+  },
+  {
+    "id": 10004,
+    "content": "Organizația în care activează angajatul este din U.E.?",
+    "variants": ["Da", "Nu"],
+    "variantsId": [10002, 10005],
+    "keyword": "question"
+  },
+  {
+    "id": 10005,
+    "content": "Prelucrarea se referă la oferirea de bunuri/servicii persoanelor vizate în U.E. fie la monitorizarea comportamentului lor în U.E. ?",
+    "variants": ["Da", "Nu"],
+    "variantsId": [10002, 20002],
+    "keyword": "question"
+  },
+
+  {
+    "id": 20001,
+    "content": "Persoana este responsabilă de date cu caracter personal.",
+    "variants": [],
+    "variantsId": [],
+    "keyword": "answer is_responsible"
+  },
+  {
+    "id": 20002,
+    "content": "Persoana NU este responsabilă de date cu caracter personal.",
+    "variants": [],
+    "variantsId": [],
+    "keyword": "answer is_not_responsible"
+  }
+
+  
+]

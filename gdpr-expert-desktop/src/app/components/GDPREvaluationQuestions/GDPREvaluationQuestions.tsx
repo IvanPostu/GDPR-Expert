@@ -71,7 +71,6 @@ class GDPREvaluationQuestionsComponent extends Component<
   componentWillUnmount(): void {
     this._isMounted = false
   }
-
   async fetchQuestions(): Promise<void> {
     const res = await getQuestions()
     if (!this._isMounted) return
@@ -85,7 +84,7 @@ class GDPREvaluationQuestionsComponent extends Component<
           selectedAnswer: number
         }> = questions.map((a, i) => ({
           answers: ['Da', 'Nu', 'Selectați răspuns...'],
-          selectedAnswer: 1,
+          selectedAnswer: 0,
           id: a.id,
           text: `${i + 1}) ${a.text}`,
         }))

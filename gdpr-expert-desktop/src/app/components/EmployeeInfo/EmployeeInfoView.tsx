@@ -60,28 +60,27 @@ export const EmployeeInfoView = (props: EmployeeInfoViewPropType): ReactElement 
         </div>
 
         <div className={styles.line} style={{ marginTop: '20px' }}>
-          <div>
-            <GenericButton
-              onClick={props.onShowDocumentListClick}
-              style={{ background: '#2277EE', marginLeft: '5px' }}
-            >
-              Lista de documente
-            </GenericButton>
-          </div>
-          <div>
-            <GenericButton
-              onClick={props.onUpdateClick}
-              style={{ background: '#2277EE', marginLeft: '20px' }}
-            >
-              Modificare date despre angajat
-            </GenericButton>
-            <GenericButton
-              onClick={props.onRemoveClick}
-              style={{ background: '#aa2233', marginLeft: '20px' }}
-            >
-              Ștergere angajat
-            </GenericButton>
-          </div>
+          <GenericButton
+            className={styles.btn}
+            onClick={props.onShowDocumentListClick}
+            style={{ background: '#2277EE' }}
+          >
+            Lista de documente
+          </GenericButton>
+          <GenericButton
+            className={styles.btn}
+            onClick={props.onUpdateClick}
+            style={{ background: '#2277EE' }}
+          >
+            Modificare date despre angajat
+          </GenericButton>
+          <GenericButton
+            className={styles.btn}
+            onClick={props.onRemoveClick}
+            style={{ background: '#aa2233' }}
+          >
+            Ștergere angajat
+          </GenericButton>
         </div>
       </div>
     </EmployeeCard>

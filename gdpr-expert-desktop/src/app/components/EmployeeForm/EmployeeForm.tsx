@@ -7,13 +7,13 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { FullWidthLoader } from '../BasicLoader'
 import { ErrorAlert } from '../CustomAlert/ErrorAlert/ErrorAlert'
 import { SuccessAlert } from '../CustomAlert/SuccessAlert/SuccessAlert'
-import { DataResponsibleQuestions } from './DataResponsibleQuestions'
 import { EmployeeFormView } from './EmployeeFormView'
 import { EmployeeType } from './types'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 import { connect } from 'react-redux'
 import { getEmployeeById, GetEmployeeResponse } from '@/app/webApi/employee/getEmployee'
 import { updateEmployee } from '@/app/webApi/employee/updateEmployee'
+import { EmployeeDataResponsibleQuestions } from '../EmployeeDataResponsibleQuestions/EmployeeDataResponsibleQuestions'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { clearAuthDataActionCreator }
@@ -113,6 +113,9 @@ class EmployeeFormComponent extends Component<EmployeeFormPropType, EmployeeForm
             phoneNumber,
           },
         }))
+      } else {
+        const err = res as UnsuccessResponseData
+        this.handleFetchErrors(err)
       }
 
       this.setState({
@@ -237,7 +240,7 @@ class EmployeeFormComponent extends Component<EmployeeFormPropType, EmployeeForm
 
     if (this.state.redirectToQuestions) {
       return (
-        <DataResponsibleQuestions
+        <EmployeeDataResponsibleQuestions
           setPersonalDataResponsible={(resp) =>
             this.setState({
               employeeData: { ...this.state.employeeData, personalDataResponsible: resp },

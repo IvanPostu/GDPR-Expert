@@ -3,5 +3,14 @@
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+
+    .btn{
+      height: 60px;
+      margin-left: 40px;
+    }
+
+    .btn:nth-child(1){
+      margin-left: 5px;
+    }
   }
 }
