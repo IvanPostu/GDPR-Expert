@@ -1,9 +1,9 @@
 {
   "categories": [
     "PRINCIPIILE LEGATE DE PRELUCRAREA DATELOR PERSONALE", 
-    "DREPTURILE SUBIECȚILOR DE DATE ÎN TIMPUL PRELUCRĂRII ȘI ACCESUL INFORMAȚIILOR LOR", 
-    "TRANSFERURI DE DATE CĂTRE TERȚI", 
-    "INFORMAȚII PRIVATE", 
+    "DREPTURILE SUBIECȚILOR DE DATE ÎN TIMPUL PRELUCRĂRII ȘI ACCESUL LA INFORMAȚII", 
+    "TRANSFERURI DE DATE CĂTRE TERȚE PĂRȚI", 
+    "NOTIFICĂRI DE CONFIDENȚIALITATE", 
     "SCURGERI DE DATE", 
     "EVALUAREA IMPACTULUI DE PROTECȚIE A DATELOR (EIPD)"
   ],
@@ -11,33 +11,34 @@
     {
       "id": 1,
       "categoryId": 0,
-      "text": "Este documentată fiecare activitate de procesare pe baza legală? („Organizația ar trebui să păstreze un jurnal al fiecărei activități de prelucrare a datelor cu caracter personal la care se angajează, precum și să păstreze un temei juridic corespunzător. Activitatea de prelucrare are temeiul juridic valid numai dacă se aplică unul sau mai multe dintre următoarele: (a) persoana vizată furnizează, cu consimțământ, date valide; (b) prelucrarea lor este necesară pentru încheierea sau modificarea unui contract; (c) prelucrarea este necesară pentru a se conforma unei obligații legale la care este supus operatorul; (d) prelucrarea este necesară pentru a proteja interesele vitale a persoanei vizate sau ale altei persoane, stipulându-se o cauză ce nu încalcă prevederile legii; (e) prelucrarea este necesară pentru îndeplinirea unei sarcini desfășurate în interes public sau în exercitarea autorității statale legitime; (f) prelucrarea este necesară în scopul intereselor legitime urmărite de operatorul cu date personale sau persoane terțe, în măsura în care acesta nu încalcă drepturile și libertățile fundamentale ale persoanei vizate, în special în cazul în care persoana vizată este un copil ”- articolul 6, alineatul 1, UE RGPD)"
+      "text": "Este documentată fiecare activitate de procesare pe baza legală? (Organizația ar trebui să păstreze un jurnal al fiecărei activități de prelucrare a datelor cu caracter personal la care se angajează, precum și să păstreze un temei juridic corespunzător. Activitatea de prelucrare are temeiul juridic valid numai dacă se aplică unul sau mai multe dintre următoarele: (a) persoana vizată furnizează, cu consimțământ, date valide; (b) prelucrarea lor este necesară pentru încheierea sau modificarea unui contract; (c) prelucrarea este necesară pentru a se conforma unei obligații legale la care este supus operatorul; (d) prelucrarea este necesară pentru a proteja interesele vitale a persoanei vizate sau ale altei persoane, stipulându-se o cauză ce nu încalcă prevederile legii; (e) prelucrarea este necesară pentru îndeplinirea unei sarcini desfășurate în interes public sau în exercitarea autorității statale legitime; (f) prelucrarea este necesară în scopul intereselor legitime urmărite de operatorul cu date personale sau persoane terțe, în măsura în care acesta nu încalcă drepturile și libertățile fundamentale ale persoanei vizate, în special în cazul în care persoana vizată este un copil - articolul 6, alineatul 1, UE RGPD)"
     },
     {
       "id": 2,
       "categoryId": 0,
-      "text": "Este documentat scopul fiecărei activități de procesare? (Fiecare activitate de prelucrare al datelor cu caracter personal ar trebui să fie documentată. „Prelucrarea datelor cu caracter personal” este orice operaţiune sau serie de operaţiuni care se efectuează asupra datelor cu caracter personal prin mijloace automatizate sau neautomatizate, cum ar fi colectarea, înregistrarea, organizarea, stocarea, păstrarea, restabilirea, adaptarea ori modificarea, extragerea, consultarea, utilizarea, dezvăluirea prin transmitere, diseminare sau în orice alt mod, alăturarea ori combinarea, blocarea, ştergerea sau distrugerea (conform legii 133/2011 a Republicii Moldova). &quot;- Articolul 4, alineatul 2, UE RGPD)"
+      "text": "Este documentat scopul fiecărei activități de procesare? (Fiecare activitate de prelucrare a datelor cu caracter personal ar trebui să fie documentată - Articolul 4, alineatul 2, UE RGPD. Prelucrarea datelor cu caracter personal reprezintă orice operaţiune sau serie de operaţiuni care se efectuează asupra datelor cu caracter personal prin mijloace automatizate sau neautomatizate, cum ar fi colectarea, înregistrarea, organizarea, stocarea, păstrarea, restabilirea, adaptarea ori modificarea, extragerea, consultarea, utilizarea, dezvăluirea prin transmitere, diseminare sau în orice alt mod, alăturarea ori combinarea, blocarea, ştergerea sau distrugerea - conform legii 133/2011 a Republicii Moldova.)"
     },
     {
       "id": 3,
       "categoryId": 0,
-      "text": "Vor fi prelucrate datele cu caracter personal într-un alt scop decât cel prevăzut în momentul colectării? (Departamentele din cadrul organizației ar trebui să consulte responsabilul de protecția datelor, consilierul juridic sau orice altă persoană relevantă înainte de prelucrarea datelor cu caracter personal pentru un scop secundar. „Date cu caracter personal” este orice informaţie referitoare la o persoană fizică identificată sau identificabilă (subiect al datelor cu caracter personal). Persoana identificabilă este persoana care poate fi identificată, direct sau indirect, prin referire la un număr de identificare sau la unul ori mai multe elemente specifice identităţii sale fizice, fiziologice, psihice, economice, culturale sau sociale (conform legii 133/2011 a Republicii Moldova). &quot;- articolul 4, alineatul 1, UE RGPD)"
+      "text": "Vor fi prelucrate datele cu caracter personal într-un alt scop decât cel prevăzut în momentul colectării? (Departamentele din cadrul organizației ar trebui să consulte responsabilul de protecția datelor, consilierul juridic sau orice altă persoană relevantă înainte de prelucrarea datelor cu caracter personal pentru un scop secundar - Articolul 4, alineatul 1, UE RGPD. Date cu caracter personal reprezintă orice informaţie referitoare la o persoană fizică identificată sau identificabilă (subiect al datelor cu caracter personal). Persoana identificabilă este persoana care poate fi identificată, direct sau indirect, prin referire la un număr de identificare sau la unul ori mai multe elemente specifice identităţii sale fizice, fiziologice, psihice, economice, culturale sau sociale - conform legii 133/2011 a Republicii Moldova.)"
     },
     {
       "id": 4,
       "categoryId": 0,
-      "text": "Mecanismele de colectare a consimțământului necesită anumite acțiuni (de exemplu, bifând o casetă) sau declarație afirmativă a persoanei vizate? (Atât colectarea cât și prelucrarea datelor cu caracter personal se efectuează cu consimțământul subiectului datelor cu caracter personal (Articolul 5, alineatul 1 Legea 133/2011 RM). Pentru ca consimțământul să fie valabil, acesta ar trebui să fie dat în mod liber, specific, neechivoc și ar trebui să solicite o acțiune afirmativă de la persoana vizată. Tăcerea, casetele bifate în prealabil, renunțarea sau inactivitatea nu constituie un consimțământ valid.)"
+      "text": "Mecanismele de colectare a consimțământului necesită anumite acțiuni (de exemplu, bifând o casetă) sau declarație afirmativă a persoanei vizate? (Atât colectarea cât și prelucrarea datelor cu caracter personal se efectuează cu consimțământul subiectului datelor cu caracter personal - Articolul 5, alineatul 1 Legea 133/2011 a Republicii Moldova. Pentru ca consimțământul să fie valabil, acesta ar trebui să fie dat în mod liber, specific, neechivoc și ar trebui să solicite o acțiune afirmativă de la persoana vizată. Tăcerea, casetele bifate în prealabil, renunțarea sau inactivitatea nu constituie un consimțământ valid.)"
     },
     {
       "id": 5,
       "categoryId": 0,
-      "text": "În cazul în care prelucrarea care implică categorii speciale de date se bazează pe consimțământ, se obține consimțământul explicit (de exemplu, în scris sau verbal) de la persoana vizată? („Categorii speciale de date cu caracter personal” reprezintă datele care dezvăluie originea rasială sau etnică a persoanei, convingerile ei politice, religioase sau filozofice, apartenenţa socială, datele privind starea de sănătate sau viaţa sexuală, precum şi cele referitoare la condamnările penale, măsurile procesuale de constrîngere sau sancţiunile contravenţionale.&quot; - articolul 3, Legea 133/2011 RM)"
+      "text": "În cazul în care prelucrarea care implică categorii speciale de date se bazează pe consimțământ, se obține consimțământul explicit (de exemplu, în scris sau verbal) de la persoana vizată? (Categorii speciale de date cu caracter personal reprezintă datele care dezvăluie originea rasială sau etnică a persoanei, convingerile ei politice, religioase sau filozofice, apartenenţa socială, datele privind starea de sănătate sau viaţa sexuală, precum şi cele referitoare la condamnările penale, măsurile procesuale de constrîngere sau sancţiunile contravenţionale - Articolul 3, Legea 133/2011 a Republicii Moldova.)"
     },
     {
       "id": 6,
       "categoryId": 1,
       "text": "Există un proces pentru a răspunde cererilor de acces la informațiile deținute despre o persoană vizată?"
-    },{
+    },
+    {
       "id": 7,
       "categoryId": 1,
       "text": "Există un proces pentru rectificarea / ștergerea informațiilor despre o persoană vizată în urma unei cereri?"
@@ -50,7 +51,7 @@
     {
       "id": 9,
       "categoryId": 1,
-      "text": "Există un proces pentru a permite unei persoane vizate să revoce în orice moment consimțământul pentru o anumită activitate de prelucrare? (Conform articolului 7 alineatul (3) din RGPD al UE, revocarea consimțământului ar trebui să fie la fel de ușoară pentru persoana vizată ca și acordarea consimțământului)"
+      "text": "Există un proces pentru a permite unei persoane vizate să revoce în orice moment consimțământul pentru o anumită activitate de prelucrare? (Conform articolului 7, alineatul 3, UE RGPD, revocarea consimțământului ar trebui să fie la fel de ușoară pentru persoana vizată ca și acordarea consimțământului.)"
     },
     {
       "id": 10,
@@ -64,107 +65,107 @@
     },
     {
       "id": 12,
-      "categoryId": 2,
-      "text": "Există un proces pentru a se conforma cererilor unei persoane vizate pentru ca datele lor personale să fie transferate direct către alt operator, dacă este posibil din punct de vedere tehnic? (Procesul ar trebui documentat)"
+      "categoryId": 1,
+      "text": "Există un proces pentru a se conforma cererilor unei persoane vizate pentru ca datele lor personale să fie transferate direct către alt operator, dacă este posibil din punct de vedere tehnic? (Procesul ar trebui documentat.)"
     },
     {
       "id": 13,
-      "categoryId": 2,
+      "categoryId": 1,
       "text": "Există un proces pentru a opri prelucrarea în scopuri de marketing direct atunci când se primește o obiecție?"
     },
     {
       "id": 14,
       "categoryId": 2,
-      "text": "Dacă este angajat în luarea automată de decizii, inclusiv profilarea, există un proces prin care o persoană vizată poate solicita o revizuire manuală a deciziei sau a activității de profilare? („Profilarea” este definită ca „orice formă de prelucrare automată a datelor cu caracter personal constând în utilizarea datelor cu caracter personal pentru a evalua anumite aspecte personale referitoare la o persoană fizică, în special pentru a analiza sau prevedea aspecte privind performanța acelei persoane fizice la locul de muncă, economic situație, sănătate, preferințe personale, interese, fiabilitate, comportament, locație sau mișcări - articolul 4 alineatul (4) din RGPD) "
+      "text": "Dacă este angajat în luarea automată de decizii, inclusiv profilarea, există un proces prin care o persoană vizată poate solicita o revizuire manuală a deciziei sau a activității de profilare? (Profilarea reprezintă orice formă de prelucrare automată a datelor cu caracter personal constând în utilizarea datelor cu caracter personal pentru a evalua anumite aspecte personale referitoare la o persoană fizică, în special pentru a analiza sau prevedea aspecte privind performanța acelei persoane fizice la locul de muncă, economic situație, sănătate, preferințe personale, interese, fiabilitate, comportament, locație sau mișcări - articolul 4, alineatul 4, UE RGPD) "
     },
     {
       "id": 15,
-      "categoryId": 2,
-      "text": "A fost desemnat un reprezentant în cadrul Uniunii Europene? (Ar trebui desemnat un reprezentant al Uniunii Europene în cazul în care organizația oferă bunuri sau servicii către sau monitorizează comportamentul persoanelor vizate care se află în Uniunea Europeană. Un „reprezentant” este definit ca „o persoană fizică sau juridică stabilită în Uniune care , desemnat de către operator sau procesator în scris în conformitate cu articolul 27, reprezintă operatorul sau operatorul în ceea ce privește obligațiile lor în temeiul prezentului regulament - Articolul 4 (17) RGPD al UE)"
+      "categoryId": 1,
+      "text": "A fost desemnat un reprezentant în cadrul Uniunii Europene? (Ar trebui desemnat un reprezentant al Uniunii Europene în cazul în care organizația oferă bunuri sau servicii către sau monitorizează comportamentul persoanelor vizate care se află în Uniunea Europeană. Un „reprezentant” este definit ca o persoană fizică sau juridică stabilită în Uniune care, desemnat de către operator sau procesator în scris în conformitate cu articolul 27, reprezintă operatorul sau operatorul în ceea ce privește obligațiile lor în temeiul prezentului regulament - Articolul 4, alineatul 17, UE RGPD.)"
     },
     {
       "id": 16,
-      "categoryId": 3,
+      "categoryId": 2,
       "text": "Contractele cu terți specifică faptul că terțul și orice subcontractant care poate fi utilizat trebuie să aibă la dispoziție clauze / anexe de protecție a datelor și de securitate?"
     },
     {
       "id": 17,
-      "categoryId": 3,
-      "text": "Sunt păstrate evidențe ale tuturor activităților de prelucrare la care se angajează compania dumneavoastră? (Această cerință nu se aplică în cazul în care compania dvs. are mai puțin de 250 de persoane fizice, cu excepția cazului în care activitățile dvs. de prelucrare ar putea duce la un risc ridicat pentru drepturile persoanei vizate sau ar putea implica categorii speciale / sensibile de informații)"
+      "categoryId": 2,
+      "text": "Sunt păstrate evidențe ale tuturor activităților de prelucrare la care se angajează compania dumneavoastră? (Această cerință nu se aplică în cazul în care compania dvs. are mai puțin de 250 de persoane fizice, cu excepția cazului în care activitățile dvs. de prelucrare ar putea duce la un risc ridicat pentru drepturile persoanei vizate sau ar putea implica categorii speciale / sensibile de informații.)"
     },
     {
       "id": 18,
-      "categoryId": 3,
+      "categoryId": 2,
       "text": "Sunt documentate toate transferurile de date, inclusiv transferurile transfrontaliere?"
     },
     {
       "id": 19,
-      "categoryId": 3,
+      "categoryId": 2,
       "text": "Există un mecanism de transfer de date în cazul în care datele cu caracter personal vor fi transferate către o țară terță sau o organizație internațională?"
     },
     {
       "id": 20,
-      "categoryId": 4,
+      "categoryId": 3,
       "text": "Se furnizează persoanelor vizate o notificare de confidențialitate cel târziu în momentul colectării informațiilor de la acele persoane vizate?"
     },
     {
       "id": 21,
-      "categoryId": 4,
-      "text": "Este furnizată o Notificare de confidențialitate persoanelor vizate în fiecare punct de colectare?"
+      "categoryId": 3,
+      "text": "Este furnizată o notificare de confidențialitate persoanelor vizate în fiecare punct de colectare?"
     },
     {
       "id": 22,
-      "categoryId": 4,
+      "categoryId": 3,
       "text": "Dacă datele urmează să fie prelucrate într-un scop secundar, persoanele vizate sunt notificate cu privire la noul scop înainte de prelucrare?"
     },
     {
       "id": 23,
-      "categoryId": 4,
+      "categoryId": 3,
       "text": "Notificarea de confidențialitate specifică clar modul în care persoanele vizate își pot exercita drepturile în temeiul RGPD?"
     },
     {
       "id": 24,
-      "categoryId": 5,
+      "categoryId": 4,
       "text": "Există un proces pentru a se asigura că autoritatea de supraveghere corespunzătoare este notificată în termen de 72 de ore de la o încălcare a datelor confirmată?"
     },
     {
       "id": 25,
-      "categoryId": 5,
-      "text": "Acordurile / contractele cu terți specifică faptul că terțul trebuie să vă notifice (operatorul) fără întârzieri nejustificate după ce a luat cunoștință de o încălcare a datelor sau de o posibilă încălcare a datelor care implică date cu caracter personal? (Toate contractele cu terți care implică tratarea datelor cu caracter personal ar trebui să includă dispoziții pentru a vă informa (operatorul) în cazul unei încălcări a datelor)"
+      "categoryId": 4,
+      "text": "Acordurile / contractele cu terți specifică faptul că terțul trebuie să vă notifice (operatorul) fără întârzieri nejustificate după ce a luat cunoștință de o încălcare a datelor sau de o posibilă încălcare a datelor care implică date cu caracter personal? (Toate contractele cu terți care implică tratarea datelor cu caracter personal ar trebui să includă dispoziții pentru a vă informa (operatorul) în cazul unei încălcări a datelor.)"
     },
     {
       "id": 26,
-      "categoryId": 5,
-      "text": "Există politici interne care definesc ceea ce se consideră a fi o încălcare a datelor și când și dacă este necesară notificarea către persoanele vizate sau autoritățile de supraveghere? (Politicile interne ar trebui să specifice ce constituie o încălcare a datelor în temeiul RGPD și ce tip de scenarii ar putea duce la un „risc pentru drepturile și libertățile” unei persoane, necesitând astfel o notificare către autoritățile relevante sau persoanele vizate)"
+      "categoryId": 4,
+      "text": "Există politici interne care definesc ceea ce se consideră a fi o încălcare a datelor și când și dacă este necesară notificarea către persoanele vizate sau autoritățile de supraveghere? (Politicile interne ar trebui să specifice ce constituie o încălcare a datelor în temeiul RGPD și ce tip de scenarii ar putea duce la un risc pentru drepturile și libertățile unei persoane, necesitând astfel o notificare către autoritățile relevante sau persoanele vizate)"
     },
     {
       "id": 27,
-      "categoryId": 5,
-      "text": "Se păstrează un jurnal al tuturor încălcărilor de date care apar, împreună cu efectele și acțiunile de remediere întreprinse? (RGPD solicită operatorului să documenteze toate încălcările de date care apar pentru a demonstra conformitatea cu articolul 33 alineatul (5): „Operatorul va documenta orice încălcare a datelor cu caracter personal, cuprinzând faptele referitoare la încălcarea datelor cu caracter personal, efectele sale și acțiune de remediere luată. Documentația respectivă va permite autorității de supraveghere să verifice conformitatea cu prezentul articol”)"
+      "categoryId": 4,
+      "text": "Se păstrează un jurnal al tuturor încălcărilor de date care apar, împreună cu efectele și acțiunile de remediere întreprinse? (RGPD solicită operatorului să documenteze toate încălcările de date care apar pentru a demonstra conformitatea cu Articolul 33 alineatul 5: Operatorul va documenta orice încălcare a datelor cu caracter personal, cuprinzând faptele referitoare la încălcarea datelor cu caracter personal, efectele sale și acțiune de remediere luată. Documentația respectivă va permite autorității de supraveghere să verifice conformitatea cu prezentul articol)"
     },
     {
       "id": 28,
-      "categoryId": 5,
-      "text": "Sunt evaluările activităților de prelucrare efectuate de personalul relevant pentru a determina măsurile de protecție a datelor care ar trebui să existe, proporționale cu riscurile implicate în activitatea de prelucrare? („Ținând seama de natura, domeniul de aplicare, contextul și scopurile prelucrării, precum și riscurile diferitelor probabilități și gravități pentru drepturile și libertățile persoanelor fizice, operatorul pune în aplicare măsuri tehnice și organizatorice adecvate pentru a asigura și a putea să să demonstreze că prelucrarea se efectuează în conformitate cu prezentul regulament. Măsurile respective vor fi revizuite și actualizate acolo unde este necesar. - Articolul 24 (1) RGPD din UE)"
+      "categoryId": 4,
+      "text": "Sunt evaluările activităților de prelucrare efectuate de personalul relevant pentru a determina măsurile de protecție a datelor care ar trebui să existe, proporționale cu riscurile implicate în activitatea de prelucrare? (Ținând seama de natura, domeniul de aplicare, contextul și scopurile prelucrării, precum și riscurile diferitelor probabilități și gravități pentru drepturile și libertățile persoanelor fizice, operatorul pune în aplicare măsuri tehnice și organizatorice adecvate pentru a asigura și a putea să să demonstreze că prelucrarea se efectuează în conformitate cu prezentul regulament. Măsurile respective vor fi revizuite și actualizate acolo unde este necesar - Articolul 24, alineatul 1, UE RGPD.)"
     },
     {
       "id": 29,
-      "categoryId": 5,
+      "categoryId": 4,
       "text": "Este evaluată confidențialitatea la etapele de început ale dezvoltării oricărei activități de prelucrare?"
     },
     {
       "id": 30,
-      "categoryId": 5,
-      "text": "Sunt implementate măsuri precum minimizarea datelor și pseudonimizarea în toate unitățile organizaționale aplicabile? („Ținând cont de stadiul tehnicii, de costul implementării și de natura, domeniul de aplicare, contextul și scopurile prelucrării, precum și riscurile de probabilitate și severitate diferite pentru drepturile și libertățile persoanelor fizice pe care le prezintă prelucrarea, operatorul trebuie, atât în ​​momentul stabilirii mijloacelor de prelucrare, cât și în momentul prelucrării în sine, să pună în aplicare măsuri tehnice și organizatorice adecvate, precum pseudonimizarea, care sunt concepute pentru a pune în aplicare principiile de protecție a datelor, precum minimizarea datelor, în o manieră eficientă și să integreze garanțiile necesare în prelucrare pentru a îndeplini cerințele prezentului regulament și a proteja drepturile persoanelor vizate. - Articolul 25 (1) RGPD al UE)"
+      "categoryId": 4,
+      "text": "Sunt implementate măsuri precum minimizarea datelor și pseudonimizarea în toate unitățile organizaționale aplicabile? (Ținând cont de stadiul tehnicii, de costul implementării și de natura, domeniul de aplicare, contextul și scopurile prelucrării, precum și riscurile de probabilitate și severitate diferite pentru drepturile și libertățile persoanelor fizice pe care le prezintă prelucrarea, operatorul trebuie, atât în ​​momentul stabilirii mijloacelor de prelucrare, cât și în momentul prelucrării în sine, să pună în aplicare măsuri tehnice și organizatorice adecvate, precum pseudonimizarea, care sunt concepute pentru a pune în aplicare principiile de protecție a datelor, precum minimizarea datelor, în o manieră eficientă și să integreze garanțiile necesare în prelucrare pentru a îndeplini cerințele prezentului regulament și a proteja drepturile persoanelor vizate - Articolul 25, alineatul 1, UE RGPD.)"
     },
     {
       "id": 31,
-      "categoryId": 6,
+      "categoryId": 5,
       "text": "S-au finalizat evaluările impactului asupra protecției datelor (EIPD) pentru activități de prelucrare care implică categorii speciale de informații, luare automată de decizii sau profilare?"
     },
     {
       "id": 32,
-      "categoryId": 6,
+      "categoryId": 5,
       "text": "Sunt EIPD finalizate înainte de implementarea noilor tehnologii, procese sau proiecte?"
     }
   ]

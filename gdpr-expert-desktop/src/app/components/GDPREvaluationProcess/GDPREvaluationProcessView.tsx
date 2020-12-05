@@ -10,10 +10,7 @@ export const GDPREvaluationProcessView = (
 ): ReactElement => {
   return (
     <div className={styles.container}>
-      {/* <div className={styles.body}> */}
-      {/* <h1>GDPREvaluationProcessView</h1> */}
       <GDPREvaluationQuestions {...props} />
-      {/* </div> */}
     </div>
   )
 }

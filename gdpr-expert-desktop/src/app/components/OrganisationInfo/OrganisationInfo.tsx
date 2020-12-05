@@ -1,88 +1,150 @@
-import { defaultOrganisationImage } from '@/app/constants/defaultOrganisationImage'
-import React, { ReactElement, FC } from 'react'
-import { GenericButton } from '../GenericButton'
-import styles from './styles.module.scss'
+import React, { Component, ReactElement } from 'react'
+import { RouteChildrenProps } from 'react-router-dom'
+import { FullWidthLoader } from '@/app/components/BasicLoader'
+import { connect } from 'react-redux'
+import { GlobalStateType } from '@/app/store'
+import { bindActionCreators, Dispatch } from 'redux'
+import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
+import { removeOrganisation } from '@/app/webApi/organisation/removeOrganisation'
+import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
+import { routeNames } from '@/app/routes/routeNames'
+import { ErrorAlert } from '@/app/components/CustomAlert/ErrorAlert/ErrorAlert'
+import { SuccessAlert } from '@/app/components/CustomAlert/SuccessAlert/SuccessAlert'
+import { OrganisationInfoView } from './OrganisationInfoView'
+import { OrganisationInfoLayout } from '../OrganisationInfoLayout'
 
-type OrganisationInfoPropType = {
-  deleteOrganisation: () => void
-  updateOrganisation: () => void
-  orgName: string
-  orgLegalForm: string
-  orgAdministrator: string
-  orgAddress: string
-  orgPhoneNumber: string
-  orgEmail: string
-  orgDescription: string
-  orgFondationDate: string
-  orgPlatformRegistrationDate: string
-  orgEmployeeCount: number
-  orgDepartmentCount: number
-  orgLogoImage: string
+function mapStateToProps(globalState: GlobalStateType) {
+  return {
+    isLoading: globalState.organisationInfoReducer.isLoading,
+    organisationInfo: globalState.organisationInfoReducer.organisation,
+  }
 }
 
-export const OrganisationInfo: FC<OrganisationInfoPropType> = (
-  props: OrganisationInfoPropType,
-): ReactElement => {
-  const data: { [key: string]: string } = {
-    'Organizație: ': props.orgName,
-    'Forma Legală: ': props.orgLegalForm,
-    'Persoană responsabilă: ': props.orgAdministrator,
-    'Adresa oficială: ': props.orgAddress,
-    'Număr de telefon: ': props.orgPhoneNumber,
-    'Email: ': props.orgEmail,
-    'Descriere: ': props.orgDescription,
-    // 'Numărul de departamente: ': String(props.orgDepartmentCount),
-    // 'Numărul de angajanți: ': String(props.orgEmployeeCount),
-    'Data fondării: ': props.orgFondationDate,
-    'Data înregistrării pe platformă': props.orgPlatformRegistrationDate,
+function mapDispatchToProps(dispatch: Dispatch) {
+  const actionCreators = { clearAuthDataActionCreator }
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+type OrganisationInfoComponentPropType = RouteChildrenProps &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>
+
+type OrganisationInfoComponentStateType = {
+  isLoading: boolean
+  orgDeleteSuccessMessage: string
+  orgDeleteFailMessage: string
+}
+
+class OrganisationInfoComponent extends Component<
+  OrganisationInfoComponentPropType,
+  OrganisationInfoComponentStateType
+> {
+  private _isMounted: boolean
+
+  constructor(props: OrganisationInfoComponentPropType) {
+    super(props)
+
+    this.state = {
+      isLoading: false,
+      orgDeleteFailMessage: '',
+      orgDeleteSuccessMessage: '',
+    }
+
+    this._isMounted = false
+    this.deleteOrganisation = this.deleteOrganisation.bind(this)
+    this.updateOrganisation = this.updateOrganisation.bind(this)
   }
 
-  const content = Object.keys(data).map((item) => (
-    <div key={item} className={styles.row}>
-      <div>
-        <p className={styles.key}>{item}</p>
-      </div>
-      <div>
-        <p className={styles.val}>{data[item]}</p>
-      </div>
-    </div>
-  ))
+  componentDidMount(): void {
+    this._isMounted = true
+  }
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.row}>
-        <div>
-          <p className={styles.key}>Logo: </p>
-        </div>
-        <div>
-          <img
-            style={{ marginRight: '20px' }}
-            src={props.orgLogoImage ? props.orgLogoImage : defaultOrganisationImage}
-            width="150px"
-            height="150px"
-            alt=""
-          />
-        </div>
-      </div>
-      {content}
-      <div className={styles.row}>
-        <div />
-        <div>
-          <GenericButton
-            onClick={props.updateOrganisation}
-            style={{ background: '#0044AA', marginLeft: '20px' }}
-          >
-            Modificare organizație
-          </GenericButton>
-          <GenericButton
-            onClick={props.deleteOrganisation}
-            style={{ background: '#882222', marginLeft: '20px' }}
-          >
-            Ștergere organizație
-          </GenericButton>
-        </div>
-        <div />
-      </div>
-    </div>
-  )
+  componentWillUnmount(): void {
+    this._isMounted = false
+  }
+
+  deleteOrganisation(): void {
+    const remove = confirm(
+      `Doriți complet să ștergeți organizația ${this.props.organisationInfo.organisationName} ?`,
+    )
+
+    if (remove) {
+      this.setState({ isLoading: true })
+      removeOrganisation(Number(this.props.organisationInfo.organisationId)).then((res) => {
+        if (!this._isMounted) return
+        if (UnsuccessResponseData.isUnsuccessResponseData(res)) {
+          const o = res as UnsuccessResponseData
+          if (o.isSessionExpired) {
+            this.props.clearAuthDataActionCreator()
+          } else {
+            this.setState({ orgDeleteFailMessage: 'Ștergerea organizației nu a avut loc!' })
+          }
+        } else {
+          this.setState({ orgDeleteSuccessMessage: 'Ștergerea organizației a avut loc!' })
+        }
+        this.setState({ isLoading: false })
+      })
+    }
+  }
+
+  updateOrganisation() {
+    this.props.history.push(routeNames.OrganisationUpdatePage)
+  }
+
+  render(): ReactElement {
+    const loading = this.props.isLoading || this.state.isLoading
+
+    const content = loading ? (
+      <FullWidthLoader />
+    ) : (
+      <OrganisationInfoView
+        updateOrganisation={this.updateOrganisation}
+        deleteOrganisation={this.deleteOrganisation}
+        orgAddress={this.props.organisationInfo.organisationAddress}
+        orgAdministrator={this.props.organisationInfo.organisationAdministrator}
+        orgDescription={this.props.organisationInfo.organisationDescription}
+        orgEmail={this.props.organisationInfo.organisationEmail}
+        orgLegalForm={this.props.organisationInfo.organisationLegalForm}
+        orgName={this.props.organisationInfo.organisationName}
+        orgPhoneNumber={this.props.organisationInfo.organisationPhoneNumber}
+        orgLogoImage={this.props.organisationInfo.organisationLogo}
+        orgDepartmentCount={Number(this.props.organisationInfo.organisationDepartmentCount)}
+        orgEmployeeCount={Number(this.props.organisationInfo.organisationEmployeeCount)}
+        orgFondationDate={this.props.organisationInfo.organisationFoundedDate}
+        orgPlatformRegistrationDate={
+          this.props.organisationInfo.organisationCreatedOnPlatformDateTime.split('T')[0]
+        }
+      />
+    )
+
+    if (this.state.orgDeleteFailMessage) {
+      return (
+        <ErrorAlert
+          text={this.state.orgDeleteFailMessage}
+          onOkClick={() => {
+            this.setState({ orgDeleteFailMessage: '', orgDeleteSuccessMessage: '' })
+          }}
+        />
+      )
+    }
+
+    if (this.state.orgDeleteSuccessMessage) {
+      return (
+        <SuccessAlert
+          text={this.state.orgDeleteSuccessMessage}
+          onOkClick={() => {
+            this.setState({ orgDeleteFailMessage: '', orgDeleteSuccessMessage: '' })
+            this.props.history.push(routeNames.OrganisationsPageRoute)
+          }}
+        />
+      )
+    }
+
+    return <OrganisationInfoLayout {...this.props}>{content}</OrganisationInfoLayout>
+  }
 }
+
+export const OrganisationInfo = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(OrganisationInfoComponent)

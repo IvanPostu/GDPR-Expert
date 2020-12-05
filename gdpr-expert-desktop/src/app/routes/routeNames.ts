@@ -25,4 +25,5 @@ export enum routeNames {
   GDPRLastEvaluationInfoPageRoute = '/GDPREvaluationPageRoute/GDPRLastEvaluationInfoPageRoute',
 
   ProcessingActivitiesPageRoute = '/ProcessingActivitiesPageRoute',
+  CreateProcessingActivityPageRoute = '/CreateProcessingActivityPageRoute',
 }

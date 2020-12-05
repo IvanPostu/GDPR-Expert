@@ -5,6 +5,7 @@ import { WindowTopBar } from '../components/WindowTopBar'
 import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateEmployeePage } from '../pages/CreateEmployeePage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
+import { CreateProcessingActivityPage } from '../pages/CreateProcessingActivityPage/CreateProcessingActivityPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
 import { EmployeeAddDocumentsPage } from '../pages/EmployeeAddDocumentsPage/EmployeeAddDocumentsPage'
 import { EmployeeDocumentsPage } from '../pages/EmployeeDocumentsPage/EmployeeDocumentsPage'
@@ -125,6 +126,12 @@ const AppRouterComponent = (): ReactElement => {
           component={ProcessingActivitiesPage}
           exact
           path={routeNames.ProcessingActivitiesPageRoute}
+        />
+
+        <ProtectedRoute
+          component={CreateProcessingActivityPage}
+          exact
+          path={routeNames.CreateProcessingActivityPageRoute}
         />
       </Switch>
     </HashRouter>

@@ -10,6 +10,7 @@
     align-items: center;
     margin-top: 10px;
 
+
     .key {
       font-size: 20px;
       margin-left: 40px;
@@ -18,6 +19,11 @@
     .val{
       margin-right: 18px;
       font-size: 18px;
+      max-width: 400px;
+    }
+
+    button{
+      height: 45px;
     }
 
   }

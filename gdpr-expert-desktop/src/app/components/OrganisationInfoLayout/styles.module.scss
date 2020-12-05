@@ -1,4 +1,4 @@
-@import "@/app/scss/colors.scss";
+@import "@/app/scss/index.scss";
 
 .container {
   $bRadius: 20px 20px 0 0;
@@ -18,12 +18,20 @@
     border-radius: $bRadius;
     background-image: repeating-linear-gradient(45deg, rgba(38, 38, 38, 0.04) 0px, rgba(38, 38, 38, 0.04) 104px,rgba(106, 106, 106, 0.04) 104px, rgba(106, 106, 106, 0.04) 208px),repeating-linear-gradient(45deg, rgba(41, 41, 41, 0.14) 0px, rgba(41, 41, 41, 0.14) 99px,rgba(197, 197, 197, 0.14) 99px, rgba(197, 197, 197, 0.14) 198px),linear-gradient(90deg, rgb(94, 165, 255),rgb(8, 75, 110));
 
+    div{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
     h1{
       color: white;
       margin-right: 20px;
     }
 
     button{
+      @include whiteContainer;
+      background-color: $green1;
       height: 40px;
       margin-left: 10px;
       max-width: 220px;

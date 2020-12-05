@@ -30,14 +30,14 @@ export const SideBarView: FunctionComponent<SideBarViewPropType> = (
             Organizații
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to={routeNames.ProcessingActivitiesPageRoute}>
             <span style={{ marginRight: '8px' }}>
               <IoMdCrop />
             </span>
             Activități de prelucrare
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to={routeNames.OrganisationsPageRoute}>
             <span style={{ marginRight: '8px' }}>

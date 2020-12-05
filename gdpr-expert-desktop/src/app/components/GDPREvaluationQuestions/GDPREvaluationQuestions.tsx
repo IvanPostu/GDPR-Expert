@@ -84,7 +84,7 @@ class GDPREvaluationQuestionsComponent extends Component<
           selectedAnswer: number
         }> = questions.map((a, i) => ({
           answers: ['Da', 'Nu', 'Selectați răspuns...'],
-          selectedAnswer: 0,
+          selectedAnswer: 2,
           id: a.id,
           text: `${i + 1}) ${a.text}`,
         }))

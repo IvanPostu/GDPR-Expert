@@ -1,5 +1,6 @@
 import { SuccessButton } from '@/app/components/Button/SuccessButton'
 import { Container } from '@/app/components/Container'
+import { GenericButton } from '@/app/components/GenericButton'
 import { routeNames } from '@/app/routes/routeNames'
 import { GlobalStateType } from '@/app/store'
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
@@ -13,12 +14,12 @@ function mapStateToProps(globalState: GlobalStateType) {
   }
 }
 
-type OrganisationPageLayoutPropType = RouteChildrenProps &
+type OrganisationInfoLayoutPropType = RouteChildrenProps &
   PropsWithChildren<unknown> &
   ReturnType<typeof mapStateToProps>
 
-export class OrganisationPageLayoutComponent extends Component<OrganisationPageLayoutPropType> {
-  constructor(props: OrganisationPageLayoutPropType) {
+export class OrganisationInfoLayoutComponent extends Component<OrganisationInfoLayoutPropType> {
+  constructor(props: OrganisationInfoLayoutPropType) {
     super(props)
   }
 
@@ -37,6 +38,9 @@ export class OrganisationPageLayoutComponent extends Component<OrganisationPageL
               <NavLink to={routeNames.GDPRLastEvaluationInfoPageRoute}>
                 <SuccessButton title="Evaluare R.G.D.P." />
               </NavLink>
+              <NavLink to={routeNames.ProcessingActivitiesPageRoute}>
+                <GenericButton>Activități de procesare D.C.P.</GenericButton>
+              </NavLink>
             </div>
             <div>
               <h1>{this.props.currentOrganisationName}</h1>
@@ -49,4 +53,4 @@ export class OrganisationPageLayoutComponent extends Component<OrganisationPageL
   }
 }
 
-export const OrganisationPageLayout = connect(mapStateToProps)(OrganisationPageLayoutComponent)
+export const OrganisationInfoLayout = connect(mapStateToProps)(OrganisationInfoLayoutComponent)
