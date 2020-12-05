@@ -8,13 +8,13 @@ CREATE TABLE app.processing_activity
   
   "activity_name" VARCHAR(256),
   "purposes" VARCHAR(256),
-  "description" VARCHAR(512),
+  "description" VARCHAR(4096),
   "sensitive_data" BOOLEAN,
   "data_owner" VARCHAR(256),
   "status" VARCHAR(32) NOT NULL, -- WAIT, IN_PROGRESS, COMPLETED
 
-  "beginning_of_the_activity" TIMESTAMP,
-  "end_of_the_activity" TIMESTAMP
+  "beginning_of_the_activity" DATE,
+  "end_of_the_activity" DATE
 
 );
 

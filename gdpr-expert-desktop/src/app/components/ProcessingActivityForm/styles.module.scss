@@ -1,0 +1,16 @@
+@import "@/app/scss/index";
+
+.container{
+  padding: 30px 0 0 0 ;
+
+  .title{
+    text-align: center;
+    font-size: 23px;
+  }
+
+  .submitButton{
+    width: 100%;
+    background-color: $blue1;
+    height: 55px;
+  }
+}

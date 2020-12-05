@@ -1,4 +1,3 @@
-import { SuccessButton } from '@/app/components/Button/SuccessButton'
 import { Container } from '@/app/components/Container'
 import { GenericButton } from '@/app/components/GenericButton'
 import { routeNames } from '@/app/routes/routeNames'
@@ -24,26 +23,31 @@ export class OrganisationInfoLayoutComponent extends Component<OrganisationInfoL
   }
 
   render(): ReactElement {
+    let organisationName = this.props.currentOrganisationName
+    organisationName =
+      organisationName.length > 45 ? organisationName.substr(0, 42) + ' ...' : organisationName
     return (
       <Container>
         <div className={styles.container}>
           <div className={styles.panel}>
             <div>
               <NavLink to={routeNames.OrgansationInfoPageRoute}>
-                <SuccessButton title="Informație de bază" />
+                <GenericButton className={styles.btn}>Informație de bază</GenericButton>
               </NavLink>
               <NavLink to={routeNames.OrganisationDepartmentsPageRoute}>
-                <SuccessButton title="Departamente" />
+                <GenericButton className={styles.btn}>Departamente</GenericButton>
               </NavLink>
               <NavLink to={routeNames.GDPRLastEvaluationInfoPageRoute}>
-                <SuccessButton title="Evaluare R.G.D.P." />
+                <GenericButton className={styles.btn}>Evaluare R.G.D.P.</GenericButton>
               </NavLink>
               <NavLink to={routeNames.ProcessingActivitiesPageRoute}>
-                <GenericButton>Activități de procesare D.C.P.</GenericButton>
+                <GenericButton className={styles.btn}>
+                  Activități de procesare a D.C.P.
+                </GenericButton>
               </NavLink>
             </div>
             <div>
-              <h1>{this.props.currentOrganisationName}</h1>
+              <h5>{organisationName}</h5>
             </div>
           </div>
           {this.props.children}

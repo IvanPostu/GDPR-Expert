@@ -5,7 +5,8 @@ type SelectAPropType = {
   defaultValue?: string
   title: string
   items: Array<string>
-  setSelectedItem: (str: string) => void
+  setSelectedItem?: (str: string) => void
+  setSelectedItemIndex?: (index: number) => void
 }
 
 export const SelectA = (props: SelectAPropType): ReactElement => {
@@ -25,7 +26,8 @@ export const SelectA = (props: SelectAPropType): ReactElement => {
     (e: ChangeEvent<HTMLSelectElement>) => {
       const itemIndex = Number(e.target.value)
       setSelectedElementIndex(itemIndex)
-      props.setSelectedItem(props.items[itemIndex])
+      props.setSelectedItem && props.setSelectedItem(props.items[itemIndex])
+      props.setSelectedItemIndex && props.setSelectedItemIndex(itemIndex)
     },
     [selectedElementIndex, props],
   )

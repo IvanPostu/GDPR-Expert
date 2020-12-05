@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react'
 import { Container } from '../Container'
 import styles from './processingActivitiesView.module.scss'
 import { IoIosAddCircleOutline, IoIosRefresh } from 'react-icons/io'
+import { Link } from 'react-router-dom'
+import { routeNames } from '@/app/routes/routeNames'
 
 type ProcessingActivitiesViewPropType = {
   organisationName: string
@@ -20,11 +22,13 @@ export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType
           </div>
 
           <div>
+            <Link to={routeNames.CreateProcessingActivityPageRoute}>
+              <button className={styles.actionButton}>
+                <IoIosAddCircleOutline style={{ fontSize: 50 }} />
+              </button>
+            </Link>
             <button className={styles.actionButton}>
-              <IoIosAddCircleOutline style={{ fontSize: 42 }} />
-            </button>
-            <button className={styles.actionButton}>
-              <IoIosRefresh style={{ fontSize: 42 }} />
+              <IoIosRefresh style={{ fontSize: 50 }} />
             </button>
           </div>
         </Container>
