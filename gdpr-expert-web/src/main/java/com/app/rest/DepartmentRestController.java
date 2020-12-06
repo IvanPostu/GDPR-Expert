@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,9 +49,8 @@ public class DepartmentRestController {
   public ResponseEntity<Object> getDepartmentById(@PathVariable("id") Long departmentId,
       @AuthenticationPrincipal UserEntity user) {
 
-    DepartmentEntity d = departmentService.getDepartment(departmentId)
-      .orElseThrow(() -> new RuntimeException());
-      
+    DepartmentEntity d = departmentService.getDepartment(departmentId).orElseThrow(() -> new RuntimeException());
+
     HashMap<String, Object> result = new HashMap<>();
     result.put("departmentId", d.getId());
     result.put("departmentName", d.getName());
@@ -64,6 +64,7 @@ public class DepartmentRestController {
 
   @RequestMapping(value = "/organisation/{id}", method = RequestMethod.GET)
   public ResponseEntity<?> getDepartmentsForOrganisation(@PathVariable("id") Long organisationId,
+      @RequestParam(value = "onlyNames", defaultValue = "false", required = false) boolean onlyNames,
       @AuthenticationPrincipal UserEntity user) {
 
     List<DepartmentEntity> departments = departmentService.getDepartmentsForOrganisation(organisationId, user.getId());
@@ -71,12 +72,18 @@ public class DepartmentRestController {
     List<HashMap<String, Object>> response = new ArrayList<>(departments.size());
     for (DepartmentEntity d : departments) {
       HashMap<String, Object> item = new HashMap<>();
-      item.put("departmentName", d.getName());
-      item.put("departmentEmail", d.getEmail());
-      item.put("departmentPhoneNumber", d.getPhoneNumber());
-      item.put("departmentCreatedAt", d.getCreatedAt().format(dateTimeFormatter.getApplicationDateTimeFormat()));
       item.put("departmentId", d.getId());
-      item.put("departmentResponsiblePerson", d.getResponsible());
+
+      if (onlyNames) {
+        item.put("departmentName", d.getName());
+      } else {
+        item.put("departmentName", d.getName());
+        item.put("departmentEmail", d.getEmail());
+        item.put("departmentPhoneNumber", d.getPhoneNumber());
+        item.put("departmentCreatedAt", d.getCreatedAt().format(dateTimeFormatter.getApplicationDateTimeFormat()));
+        item.put("departmentResponsiblePerson", d.getResponsible());
+      }
+
       response.add(item);
     }
 
@@ -90,7 +97,7 @@ public class DepartmentRestController {
       @AuthenticationPrincipal UserEntity user) {
 
     departmentService.updateDepartment(departmentDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(departmentDto.getId() );
+    return ResponseEntity.status(HttpStatus.CREATED).body(departmentDto.getId());
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -105,8 +112,7 @@ public class DepartmentRestController {
       @AuthenticationPrincipal UserEntity user) {
 
     OrganisationEntity organisationEntity = organisationService
-        .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false)
-        .get();
+        .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false).get();
 
     DepartmentEntity departmentEntity = new DepartmentEntity();
     departmentEntity.setActive(true);

@@ -1,4 +1,5 @@
-import React, { ReactElement, SyntheticEvent, useCallback, useRef } from 'react'
+import React, { ReactElement, SyntheticEvent } from 'react'
+import { BasicLoader } from '../BasicLoader'
 import { Container } from '../Container'
 import { FormCardA } from '../Form/FormCardA'
 import { QuestionA } from '../Form/QuestionA'
@@ -9,8 +10,11 @@ import styles from './styles.module.scss'
 import { ProcessingPersonalDataActivity } from './types'
 
 type ProcessingActivityFormViewPropType = {
+  departmentsIsLoad: boolean
+  employeesIsLoad: boolean
   type: 'update' | 'create'
   departments: Array<{ name: string; id: number }>
+  departmentEmplyees: Array<{ firstname: string; lastname: string; id: number }>
   activity: ProcessingPersonalDataActivity
   setActivityData: (newActivity: ProcessingPersonalDataActivity) => void
   onSubmit: (e: SyntheticEvent) => void
@@ -23,10 +27,8 @@ export function ProcessingActivityFormView(
     (props.type === 'create' ? 'Crearea ' : 'Modificarea ') +
     'unei activități de prelucrare a datelor cu caracter personal'
 
-  const departmentsName = useRef<Array<string>>(props.departments.map((a) => a.name))
-  useCallback(() => {
-    departmentsName.current = props.departments.map((a) => a.name)
-  }, [props.departments])
+  const departmentNames = props.departments.map((a) => a.name)
+  const employeeNames = props.departmentEmplyees.map((a) => a.firstname + ' ' + a.lastname)
 
   return (
     <Container className={styles.container}>
@@ -42,13 +44,36 @@ export function ProcessingActivityFormView(
           type="text"
         />
 
-        <SelectA
-          title={'Selectați departamentul:'}
-          items={departmentsName.current}
-          setSelectedItemIndex={(index) =>
-            props.setActivityData({ ...props.activity, departmentId: props.departments[index].id })
-          }
-        />
+        {props.departmentsIsLoad ? (
+          <BasicLoader centered />
+        ) : (
+          <SelectA
+            title={'Selectați departamentul:'}
+            items={departmentNames}
+            disabled={props.employeesIsLoad}
+            setSelectedItemIndex={(index) =>
+              props.setActivityData({
+                ...props.activity,
+                departmentId: props.departments[index].id,
+              })
+            }
+          />
+        )}
+
+        {props.employeesIsLoad ? (
+          <BasicLoader centered />
+        ) : (
+          <SelectA
+            title={'Selectați angajatul ce v-a procesa datele:'}
+            items={employeeNames}
+            setSelectedItemIndex={(index) =>
+              props.setActivityData({
+                ...props.activity,
+                dataResponsibleEmployeeId: props.departmentEmplyees[index].id,
+              })
+            }
+          />
+        )}
 
         <TextInputA
           onChange={(e) => props.setActivityData({ ...props.activity, purposes: e.target.value })}
@@ -66,11 +91,9 @@ export function ProcessingActivityFormView(
         />
 
         <TextInputA
-          onChange={(e) =>
-            props.setActivityData({ ...props.activity, activityOwner: e.target.value })
-          }
-          value={props.activity.activityOwner}
-          labelname="Persoana ce realizează procesarea datelor curente:"
+          onChange={(e) => props.setActivityData({ ...props.activity, dataOwner: e.target.value })}
+          value={props.activity.dataOwner}
+          labelname="Persoana cărei aparțin datele curente:"
           type="text"
         />
 

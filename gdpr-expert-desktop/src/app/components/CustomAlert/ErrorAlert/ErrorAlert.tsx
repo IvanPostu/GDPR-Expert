@@ -4,12 +4,14 @@ import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { InfoButton } from '../../Button/InfoButton'
 
 type ErrorAlertPropType = {
+  title?: string
   text?: string
   onOkClick: () => void
 }
 
 export const ErrorAlert = (props: ErrorAlertPropType): ReactElement => {
   const text = props.text || ''
+  const title = props.title || 'Error'
 
   return (
     <LayoutAlert style={{}}>
@@ -17,7 +19,7 @@ export const ErrorAlert = (props: ErrorAlertPropType): ReactElement => {
         <span style={{ color: 'rgb(128, 0, 0)', fontSize: '60px' }}>
           <IoIosCloseCircleOutline />
         </span>
-        <b style={{ fontSize: 30 }}>Error</b>
+        <b style={{ fontSize: 30 }}>{title}</b>
         <p style={{ margin: '10px' }}>{text}</p>
 
         <div>

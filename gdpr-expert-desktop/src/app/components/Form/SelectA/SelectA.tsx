@@ -4,6 +4,7 @@ import styles from './styles.module.scss'
 type SelectAPropType = {
   defaultValue?: string
   title: string
+  disabled?: boolean
   items: Array<string>
   setSelectedItem?: (str: string) => void
   setSelectedItemIndex?: (index: number) => void
@@ -41,7 +42,7 @@ export const SelectA = (props: SelectAPropType): ReactElement => {
   return (
     <div className={styles.container}>
       <label>{props.title}</label>
-      <select value={selectedElementIndex} onChange={onChange}>
+      <select disabled={props.disabled} value={selectedElementIndex} onChange={onChange}>
         {items}
       </select>
     </div>

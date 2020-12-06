@@ -4,12 +4,14 @@ import { LayoutAlert } from '../LayoutAlert/LayoutAlert'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 
 type SuccessAlertPropType = {
+  title?: string
   text?: string
   onOkClick: () => void
 }
 
 export const SuccessAlert = (props: SuccessAlertPropType): ReactElement => {
   const text = props.text || ''
+  const title = props.title || 'Success'
 
   return (
     <LayoutAlert style={{}}>
@@ -17,7 +19,7 @@ export const SuccessAlert = (props: SuccessAlertPropType): ReactElement => {
         <span style={{ color: 'green', fontSize: '60px' }}>
           <IoIosCheckmarkCircleOutline />
         </span>
-        <b style={{ fontSize: 30 }}>Success</b>
+        <b style={{ fontSize: 30 }}>{title}</b>
         <p style={{ margin: '10px' }}>{text}</p>
 
         <div>

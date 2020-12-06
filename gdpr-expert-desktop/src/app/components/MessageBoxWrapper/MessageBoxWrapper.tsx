@@ -3,6 +3,7 @@ import { ErrorAlert } from '../CustomAlert/ErrorAlert/ErrorAlert'
 import { SuccessAlert } from '../CustomAlert/SuccessAlert/SuccessAlert'
 
 export type MessageBoxWrapperPropType = {
+  title?: string
   message: string
   type: 'error' | 'success'
   onOkClick: () => void
@@ -14,9 +15,11 @@ export class MessageBoxWrapper extends PureComponent<MessageBoxWrapperPropType> 
 
     if (!Boolean(message)) return <Fragment>{children}</Fragment>
 
-    if (type === 'success') return <SuccessAlert onOkClick={onOkClick} text={message} />
+    if (type === 'success')
+      return <SuccessAlert title={this.props.title} onOkClick={onOkClick} text={message} />
 
-    if (type === 'error') return <ErrorAlert onOkClick={onOkClick} text={message} />
+    if (type === 'error')
+      return <ErrorAlert title={this.props.title} onOkClick={onOkClick} text={message} />
 
     return null
   }

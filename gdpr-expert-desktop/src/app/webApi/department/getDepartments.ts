@@ -12,6 +12,7 @@ export type DepartmentsResponseType = Array<{
 
 export async function getDepartments(
   organisationId: number,
+  onlyNames?: boolean,
 ): Promise<DepartmentsResponseType | UnsuccessResponseData> {
   const options: RequestInit = {
     method: 'GET',
@@ -20,12 +21,11 @@ export async function getDepartments(
   }
 
   let status = 404
+  const requestParams = onlyNames ? '?onlyNames=1' : ''
+  const requestUrl = `${webServerURL}/api/department/organisation/${organisationId}${requestParams}`
 
   try {
-    const response = await fetch(
-      `${webServerURL}/api/department/organisation/${organisationId}`,
-      options,
-    )
+    const response = await fetch(requestUrl, options)
 
     status = response.status
 
