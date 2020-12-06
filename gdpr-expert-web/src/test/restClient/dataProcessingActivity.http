@@ -30,3 +30,7 @@ GET http://127.0.0.1:8080/gdpr-expert-web/api/dataProcessingActivity?organisatio
       
       
 
+
+GET http://127.0.0.1:8080/gdpr-expert-web/api/dataProcessingActivity/info/2 HTTP/1.1
+      
+    

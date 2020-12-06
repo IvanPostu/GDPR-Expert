@@ -11,4 +11,5 @@ public interface DataProcessingActivityRepository {
 
   List<DataProcessingActivityEntity> getDataProcessingActivities(Long userId, Long organisationId);
 
+  DataProcessingActivityEntity getDataProcessingActivity(Long dataProcessingActivityId);
 }

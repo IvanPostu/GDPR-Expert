@@ -4,16 +4,16 @@ import { ProcessingActivitiesTableItemsType } from './types'
 
 type ProcessingActivitiesPropType = {
   activities: Array<ProcessingActivitiesTableItemsType>
-  onUpdateClick: (id: string) => void
-  onInfoClick: (id: string) => void
+  onUpdateClick: (id: number) => void
+  onInfoClick: (id: number) => void
 }
 
 export function ProcessingActivitiesTable(props: ProcessingActivitiesPropType): ReactElement {
   if (props.activities.length > 0) {
     return (
       <GenericTableA
-        onInfoClick={props.onInfoClick}
-        onUpdateClick={props.onUpdateClick}
+        onInfoClick={(i) => props.onInfoClick(Number(i))}
+        onUpdateClick={(i) => props.onUpdateClick(Number(i))}
         headerCells={[
           'Denumirea activității de prelucrare',
           'Denumirea de departament',

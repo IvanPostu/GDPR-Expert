@@ -11,6 +11,8 @@ type ProcessingActivitiesViewPropType = {
   organisationName: string
   dataProcessingActivities: Array<ProcessingActivitiesTableItemsType>
   onRefreshClick: () => void
+  onUpdateClick: (id: number) => void
+  onInfoClick: (id: number) => void
 }
 
 export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType): ReactElement => {
@@ -41,8 +43,8 @@ export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType
       <Container>
         <div className={styles.body}>
           <ProcessingActivitiesTable
-            onInfoClick={alert}
-            onUpdateClick={alert}
+            onInfoClick={props.onInfoClick}
+            onUpdateClick={props.onUpdateClick}
             activities={props.dataProcessingActivities}
           />
         </div>

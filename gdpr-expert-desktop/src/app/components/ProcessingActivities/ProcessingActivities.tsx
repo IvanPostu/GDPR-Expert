@@ -12,6 +12,7 @@ import { FullWidthLoader } from '../BasicLoader'
 import { ProcessingActivitiesView } from './ProcessingActivitiesView'
 import { ProcessingActivitiesTableItemsType } from './types'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
+import { dataProcessingActivityInfoPageRedirect } from '@/app/pages/DataProcessingActivityInfoPage/dataProcessingActivityInfoPageRedirect'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -50,6 +51,7 @@ class ProcessingActivitiesComponent extends Component<
 
     this.fetchDataProcessingActivities = this.fetchDataProcessingActivities.bind(this)
     this.onRefreshClick = this.onRefreshClick.bind(this)
+    this.redirectToDataProcessingActivityInfo = this.redirectToDataProcessingActivityInfo.bind(this)
   }
 
   componentDidMount(): void {
@@ -97,11 +99,17 @@ class ProcessingActivitiesComponent extends Component<
     this.fetchDataProcessingActivities()
   }
 
+  redirectToDataProcessingActivityInfo(activityId: number): void {
+    dataProcessingActivityInfoPageRedirect({ activityId, history: this.props.history })
+  }
+
   render(): ReactElement {
     if (this.state.isLoading) return <FullWidthLoader />
 
     return (
       <ProcessingActivitiesView
+        onInfoClick={this.redirectToDataProcessingActivityInfo}
+        onUpdateClick={alert}
         onRefreshClick={this.onRefreshClick}
         dataProcessingActivities={this.state.dataProcessingActivityItems}
         organisationName={this.props.organisationName}

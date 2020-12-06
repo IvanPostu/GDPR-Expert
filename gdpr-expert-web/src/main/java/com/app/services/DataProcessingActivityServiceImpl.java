@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import com.app.beans.ApplicationDateFormatter;
 import com.app.domain.dto.CreateDataProcessingActivityDto;
+import com.app.domain.dto.DataProcessingActivityInfoDto;
 import com.app.domain.dto.DataProcessingActivityItemDto;
 import com.app.domain.entities.DataProcessingActivityEntity;
 import com.app.domain.entities.DepartmentEntity;
@@ -40,10 +41,8 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
     Date endOfTheActivity = new Date();
 
     try {
-      beginningOfTheActivity = dateFormatter
-        .format(createDataProcessingActivityDto.getBeginningOfTheActivity());
-      endOfTheActivity = dateFormatter
-        .format(createDataProcessingActivityDto.getEndOfTheActivity());
+      beginningOfTheActivity = dateFormatter.format(createDataProcessingActivityDto.getBeginningOfTheActivity());
+      endOfTheActivity = dateFormatter.format(createDataProcessingActivityDto.getEndOfTheActivity());
     } catch (ParseException e) {
       throw new RuntimeException("Date parse exception!!!");
     }
@@ -77,31 +76,62 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
   @Transactional
   @Override
   public List<DataProcessingActivityItemDto> getDataProcessingActivities(Long userId, Long organisationid) {
-    List<DataProcessingActivityEntity> activities = dataProcessingActivityRepository
-      .getDataProcessingActivities(userId, organisationid);
+    List<DataProcessingActivityEntity> activities = dataProcessingActivityRepository.getDataProcessingActivities(userId,
+        organisationid);
 
-    List<DataProcessingActivityItemDto> result = activities
-      .stream()
-      .map(a -> {
-        DataProcessingActivityItemDto item = DataProcessingActivityItemDto
-          .builder()
-          .activityId(a.getId())
+    List<DataProcessingActivityItemDto> result = activities.stream().map(a -> {
+      DataProcessingActivityItemDto item = DataProcessingActivityItemDto.builder().activityId(a.getId())
           .activityName(a.getActivityName())
           .dataOwnerFullname(a.getEmployee().getFirstName() + ' ' + a.getEmployee().getLastName())
-          .dataProcessingResponsibleEmployeeFullname(a.getDataOwner())
-          .departmentId(a.getDepartment().getId())
-          .departmentName(a.getDepartment().getName())
-          .organisationId(a.getOrganisation().getId())
-          .organisationName(a.getOrganisation().getName())
-          .processingPurposes(a.getPurposes())
-          .status(a.getStatus())
+          .dataProcessingResponsibleEmployeeFullname(a.getDataOwner()).departmentId(a.getDepartment().getId())
+          .departmentName(a.getDepartment().getName()).organisationId(a.getOrganisation().getId())
+          .organisationName(a.getOrganisation().getName()).processingPurposes(a.getPurposes()).status(a.getStatus())
           .build();
 
-        return item;
-      })
-      .collect(Collectors.toList());
+      return item;
+    }).collect(Collectors.toList());
 
     return result;
+  }
+
+  @Transactional
+  @Override
+  public DataProcessingActivityInfoDto getDataProcessingActivityInfo(Long dataProcessingActivityId) {
+    DataProcessingActivityEntity activity = dataProcessingActivityRepository
+        .getDataProcessingActivity(dataProcessingActivityId);
+
+
+    String beginningOfTheActivity;
+    String endOfTheActivity;
+
+    try{
+      beginningOfTheActivity = dateFormatter.format(activity.getBeginningOfTheActivity());
+      endOfTheActivity = dateFormatter.format(activity.getEndOfTheActivity());
+    }catch(Exception e){
+      throw new RuntimeException();
+    }
+    
+    String employeeFullName = activity.getEmployee().getFirstName() + ' ' 
+      + activity.getEmployee().getLastName();
+
+    DataProcessingActivityInfoDto dto = DataProcessingActivityInfoDto
+      .builder()
+      .activityId(activity.getId())
+      .activityName(activity.getActivityName())
+      .beginningOfTheActivity(beginningOfTheActivity)
+      .endOfTheActivity(endOfTheActivity)
+      .dataIsSensible(activity.isSensitiveData()).dataOwner(activity.getDataOwner())
+      .dataProcessingResponsibleEmployeeFullname(employeeFullName)
+      .dataResponsibleEmployeeId(activity.getEmployee().getId())
+      .description(activity.getDescription())
+      .departmentId(activity.getDepartment().getId())
+      .departmentName(activity.getDepartment().getName())
+      .organisationId(activity.getOrganisation().getId())
+      .organisationName(activity.getOrganisation().getName())
+      .purposes(activity.getPurposes()).status(activity.getStatus()).build();
+
+    return dto;
+
   }
 
 }

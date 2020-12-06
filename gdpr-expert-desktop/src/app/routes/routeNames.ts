@@ -26,4 +26,5 @@ export enum routeNames {
 
   ProcessingActivitiesPageRoute = '/ProcessingActivitiesPageRoute',
   CreateProcessingActivityPageRoute = '/CreateProcessingActivityPageRoute',
+  DataProcessingActivityInfoPageRoute = '/DataProcessingActivityInfoPageRoute',
 }

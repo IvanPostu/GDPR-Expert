@@ -26,17 +26,22 @@ public class DataProcessingActivityRepositoryImpl implements DataProcessingActiv
   public List<DataProcessingActivityEntity> getDataProcessingActivities(Long userId, Long organisationId) {
 
     final String hibernateQuery = "SELECT pa FROM DataProcessingActivityEntity pa "
-        + "INNER JOIN OrganisationEntity o ON o.id=pa.organisation.id " 
-        + "WHERE pa.organisation.owner.id=:userId AND pa.organisation.id=:organisation_id "
-        + "ORDER BY pa.id DESC";
+        + "INNER JOIN OrganisationEntity o ON o.id=pa.organisation.id "
+        + "WHERE pa.organisation.owner.id=:userId AND pa.organisation.id=:organisation_id " + "ORDER BY pa.id DESC";
 
-    List<DataProcessingActivityEntity> activities = em
-      .createQuery(hibernateQuery, DataProcessingActivityEntity.class)
-      .setParameter("userId", userId)
-      .setParameter("organisation_id", organisationId)
-      .getResultList();
+    List<DataProcessingActivityEntity> activities = em.createQuery(hibernateQuery, DataProcessingActivityEntity.class)
+        .setParameter("userId", userId).setParameter("organisation_id", organisationId).getResultList();
 
     return activities;
+  }
+
+  @Override
+  public DataProcessingActivityEntity getDataProcessingActivity(Long dataProcessingActivityId) {
+
+    DataProcessingActivityEntity activity = em
+      .find(DataProcessingActivityEntity.class, dataProcessingActivityId);
+
+    return activity;
   }
 
 }

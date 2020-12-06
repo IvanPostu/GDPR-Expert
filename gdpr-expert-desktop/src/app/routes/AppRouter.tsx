@@ -6,6 +6,7 @@ import { CreateDepartmentPage } from '../pages/CreateDepartmentPage'
 import { CreateEmployeePage } from '../pages/CreateEmployeePage'
 import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { CreateProcessingActivityPage } from '../pages/CreateProcessingActivityPage/CreateProcessingActivityPage'
+import { DataProcessingActivityInfoPage } from '../pages/DataProcessingActivityInfoPage/DataProcessingActivityInfoPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
 import { EmployeeAddDocumentsPage } from '../pages/EmployeeAddDocumentsPage/EmployeeAddDocumentsPage'
 import { EmployeeDocumentsPage } from '../pages/EmployeeDocumentsPage/EmployeeDocumentsPage'
@@ -132,6 +133,12 @@ const AppRouterComponent = (): ReactElement => {
           component={CreateProcessingActivityPage}
           exact
           path={routeNames.CreateProcessingActivityPageRoute}
+        />
+
+        <ProtectedRoute
+          component={DataProcessingActivityInfoPage}
+          exact
+          path={routeNames.DataProcessingActivityInfoPageRoute}
         />
       </Switch>
     </HashRouter>
