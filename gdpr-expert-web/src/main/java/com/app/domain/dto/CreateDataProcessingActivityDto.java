@@ -19,5 +19,6 @@ public class CreateDataProcessingActivityDto {
   private String  endOfTheActivity;      
   private String  description;
   private String  purposes;
+  private String  status;
 
 }

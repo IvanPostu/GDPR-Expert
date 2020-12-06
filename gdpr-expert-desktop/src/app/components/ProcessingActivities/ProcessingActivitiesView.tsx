@@ -4,9 +4,13 @@ import styles from './processingActivitiesView.module.scss'
 import { IoIosAddCircleOutline, IoIosRefresh } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
+import { ProcessingActivitiesTable } from './ProcessingActivitiesTable'
+import { ProcessingActivitiesTableItemsType } from './types'
 
 type ProcessingActivitiesViewPropType = {
   organisationName: string
+  dataProcessingActivities: Array<ProcessingActivitiesTableItemsType>
+  onRefreshClick: () => void
 }
 
 export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType): ReactElement => {
@@ -27,7 +31,7 @@ export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType
                 <IoIosAddCircleOutline style={{ fontSize: 50 }} />
               </button>
             </Link>
-            <button className={styles.actionButton}>
+            <button onClick={props.onRefreshClick} className={styles.actionButton}>
               <IoIosRefresh style={{ fontSize: 50 }} />
             </button>
           </div>
@@ -36,7 +40,11 @@ export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType
 
       <Container>
         <div className={styles.body}>
-          <h1>Lorem ipsum dolor, sit amet consectetur adipisicing.</h1>
+          <ProcessingActivitiesTable
+            onInfoClick={alert}
+            onUpdateClick={alert}
+            activities={props.dataProcessingActivities}
+          />
         </div>
       </Container>
     </div>

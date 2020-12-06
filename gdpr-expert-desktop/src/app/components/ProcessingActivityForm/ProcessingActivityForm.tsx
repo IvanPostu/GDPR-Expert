@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { FullWidthLoader } from '../BasicLoader'
 import { ProcessingActivityFormView } from './ProcessingActivityFormView'
-import { ProcessingPersonalDataActivity } from './types'
+import { DataProcessingStatus, ProcessingPersonalDataActivity } from './types'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 import { bindActionCreators, Dispatch } from 'redux'
 import {
@@ -73,6 +73,7 @@ class ProcessingActivityFormComponent extends Component<
         dataIsSensible: false,
         description: '',
         purposes: '',
+        status: DataProcessingStatus.WAIT,
       },
       msg: {
         message: '',

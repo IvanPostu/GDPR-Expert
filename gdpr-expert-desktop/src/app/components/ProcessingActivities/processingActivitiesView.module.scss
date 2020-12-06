@@ -1,7 +1,6 @@
 @import '@/app/scss/index';
 
 .container {
-  
   .header {
     display: flex;
     flex-direction: row;
@@ -41,7 +40,8 @@
     }
   }
 
-  .body{
+  .body {
     @include whiteContainer;
+    margin: 5px 0 5px 0;
   }
 }

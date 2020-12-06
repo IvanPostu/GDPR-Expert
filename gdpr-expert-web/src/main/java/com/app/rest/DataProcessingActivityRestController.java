@@ -1,6 +1,9 @@
 package com.app.rest;
 
+import java.util.List;
+
 import com.app.domain.dto.CreateDataProcessingActivityDto;
+import com.app.domain.dto.DataProcessingActivityItemDto;
 import com.app.domain.entities.UserEntity;
 import com.app.services.DataProcessingActivityService;
 
@@ -11,29 +14,36 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/dataProcessingActivity")
 public class DataProcessingActivityRestController {
-  
+
   private final DataProcessingActivityService dataProcessingActivityService;
 
   @Autowired
   public DataProcessingActivityRestController(DataProcessingActivityService dataProcessingActivityService) {
     this.dataProcessingActivityService = dataProcessingActivityService;
   }
-  
 
   @RequestMapping(value = "", method = RequestMethod.POST)
   public ResponseEntity<Object> getDepartmentById(@AuthenticationPrincipal UserEntity user,
-    @RequestBody CreateDataProcessingActivityDto createDataProcessingActivityDto) {
+      @RequestBody CreateDataProcessingActivityDto createDataProcessingActivityDto) {
 
-    Long id = dataProcessingActivityService
-      .addDataProcessingActivity(createDataProcessingActivityDto);
+    Long id = dataProcessingActivityService.addDataProcessingActivity(createDataProcessingActivityDto);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(id);
   }
 
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  public ResponseEntity<Object> getDataProcessingActivities(@AuthenticationPrincipal UserEntity user, @RequestParam(value = "organisationId") Long organisationId) {
+
+    List<DataProcessingActivityItemDto> activities = dataProcessingActivityService
+      .getDataProcessingActivities(user.getId(), organisationId);
+
+    return ResponseEntity.status(HttpStatus.OK).body(activities);
+  }
 
 }

@@ -10,6 +10,7 @@ Content-Type: application/json
   "organisationId": 1,
   "dataResponsibleEmployeeId": 1,
   "departmentId": 1,
+  "status": "In asteptare",
   "dataIsSensible": true,
   "activityName": "activity name1",
   "dataOwner": "Sergiu Moraru",
@@ -25,7 +26,7 @@ Content-Type: application/json
 
 
 
-
+GET http://127.0.0.1:8080/gdpr-expert-web/api/dataProcessingActivity?organisationId=1 HTTP/1.1
       
       
 

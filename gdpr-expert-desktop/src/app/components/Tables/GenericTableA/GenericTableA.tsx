@@ -6,6 +6,7 @@ type GenericTableAPropType = {
   // cellSizes: Array<string>
   headerCells: Array<string>
   cells: Array<{ [key: string]: string }>
+  headerWidths?: Array<number>
   actionsWidth?: string
   onDeleteClick?: (id: string) => void
   onUpdateClick?: (id: string) => void
@@ -14,6 +15,12 @@ type GenericTableAPropType = {
 
 export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
   const actionsStyles = { width: props.actionsWidth ? props.actionsWidth : '15%' }
+  const headerWidths = props.headerWidths
+    ? props.headerWidths.map((a) => ({
+        width: `${a}%`,
+      }))
+    : [...Array(props.headerCells.length)].map(() => ({}))
+
   const content = props.cells.map((item, index) => {
     return (
       <div key={index} className={styles.row}>
@@ -57,11 +64,11 @@ export const GenericTableA = (props: GenericTableAPropType): ReactElement => {
     <div className={styles.table}>
       <div className={styles.rowHeader}>
         {props.headerCells.map((item, index) => (
-          <div key={index} className={styles.cell}>
+          <div style={{ ...headerWidths[index] }} key={index} className={styles.cell}>
             {item}
           </div>
         ))}
-        <div style={actionsStyles} className={styles.cell}>
+        <div style={{ ...actionsStyles }} className={styles.cell}>
           Acțiuni
         </div>
       </div>

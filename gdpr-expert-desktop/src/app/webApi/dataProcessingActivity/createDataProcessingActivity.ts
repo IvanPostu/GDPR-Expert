@@ -12,6 +12,7 @@ export type CreateDataProcessingActivityRequestDataType = {
   endOfTheActivity: string
   description: string
   purposes: string
+  status: string
 }
 
 export async function createDataProcessingActivity(

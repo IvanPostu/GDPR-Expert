@@ -35,7 +35,7 @@ public class DataProcessingActivityEntity {
   @JoinColumn(name="department_id")
   private DepartmentEntity department;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="employee_id")
   private EmployeeEntity employee;
 
@@ -62,9 +62,5 @@ public class DataProcessingActivityEntity {
 
   @Column(name = "end_of_the_activity", columnDefinition = "DATE")
   private Date endOfTheActivity;
-
-  public static enum Status {
-    WAIT, DONE, IN_PROGRESS;
-  };
 
 }
