@@ -60,10 +60,9 @@ export function ProcessingActivityFormView(
         <QuestionA
           question="Datele procesate fac parte din categoria datelor sensibile?"
           answers={['Da', 'Nu']}
-          selectAnswer={(answerIndex) =>
+          selectAnswer={(answerIndex) => {
             props.setActivityData({ ...props.activity, dataIsSensible: answerIndex === 0 })
-          }
-          selectedAnswerIndex={0}
+          }}
         />
 
         <TextInputA

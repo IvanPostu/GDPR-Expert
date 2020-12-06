@@ -48,6 +48,7 @@ class ProcessingActivityFormComponent extends Component<
 
   onSubmit(e: SyntheticEvent): void {
     e.preventDefault()
+    // console.log(this.state.activity)
   }
 
   render(): ReactElement {
