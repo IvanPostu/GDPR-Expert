@@ -4,27 +4,22 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-
-  <bean id="userService" class="com.app.services.UserServiceImpl">
-  </bean>
+  <bean id="userService" class="com.app.services.UserServiceImpl"></bean>
 
   <bean id="userDetailsService" class="com.app.services.UserDetailsServiceImpl">
     <constructor-arg index="0" ref="userService" />
   </bean>
-  
-  <bean id="organisationService" class="com.app.services.OrganisationServiceImpl">
-  </bean>
 
-  <bean id="departmentService" class="com.app.services.DepartmentServiceImpl">
-  </bean>
+  <bean id="organisationService" class="com.app.services.OrganisationServiceImpl"></bean>
 
-  <bean id="employeeService" class="com.app.services.EmployeeServiceImpl">
-  </bean> 
+  <bean id="departmentService" class="com.app.services.DepartmentServiceImpl"></bean>
 
-  <bean id="employeeDocumentService" class="com.app.services.EmployeeDocumentServiceImpl">
-  </bean> 
+  <bean id="employeeService" class="com.app.services.EmployeeServiceImpl"></bean>
 
-  <bean id="gDPREvaluationService" class="com.app.services.GDPREvaluationServiceImpl">
-  </bean> 
+  <bean id="employeeDocumentService" class="com.app.services.EmployeeDocumentServiceImpl"></bean>
+
+  <bean id="gDPREvaluationService" class="com.app.services.GDPREvaluationServiceImpl"></bean>
+
+  <bean id="dataProcessingActivityService" class="com.app.services.DataProcessingActivityServiceImpl"></bean>
 
 </beans>

@@ -1,0 +1,31 @@
+
+
+
+
+
+POST http://127.0.0.1:8080/gdpr-expert-web/api/dataProcessingActivity HTTP/1.1
+Content-Type: application/json
+
+{
+  "organisationId": 1,
+  "dataResponsibleEmployeeId": 1,
+  "departmentId": 1,
+  "dataIsSensible": true,
+  "activityName": "activity name1",
+  "dataOwner": "Sergiu Moraru",
+  "beginningOfTheActivity": "2019-11-22",
+  "endOfTheActivity": "2029-11-22",
+  "description": "Simpla procesare de date2.",
+  "purposes": "Pentru cursuri de programare."
+}
+
+
+
+
+
+
+
+
+      
+      
+

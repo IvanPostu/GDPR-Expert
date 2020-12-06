@@ -14,7 +14,6 @@ import com.app.domain.entities.EmployeeDocumentEntity;
 
 public class EmployeeDocumentRepositoryImpl implements EmployeeDocumentRepository {
 
-  // private final EntityManagerFactory entityManagerFactory;
   @PersistenceContext
   private EntityManager em;
 

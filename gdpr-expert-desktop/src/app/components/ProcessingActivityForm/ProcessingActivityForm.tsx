@@ -15,6 +15,7 @@ import {
 } from '@/app/webApi/employee/employeesForDepartment'
 import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
 import { routeNames } from '@/app/routes/routeNames'
+import { createDataProcessingActivity } from '@/app/webApi/dataProcessingActivity/createDataProcessingActivity'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -62,6 +63,7 @@ class ProcessingActivityFormComponent extends Component<
       departments: [],
       departmentEmplyees: [],
       activity: {
+        organisationId: Number(this.props.organisationId),
         dataResponsibleEmployeeId: 0,
         departmentId: 0,
         activityName: '',
@@ -85,6 +87,7 @@ class ProcessingActivityFormComponent extends Component<
     this.fetchEmployeesForDepartment = this.fetchEmployeesForDepartment.bind(this)
     this.handleRequestError = this.handleRequestError.bind(this)
     this.clearMessage = this.clearMessage.bind(this)
+    this.fetchSaveDataProcessingActivity = this.fetchSaveDataProcessingActivity.bind(this)
   }
 
   componentDidMount(): void {
@@ -184,9 +187,36 @@ class ProcessingActivityFormComponent extends Component<
     }
   }
 
+  async fetchSaveDataProcessingActivity(): Promise<void> {
+    const res = await createDataProcessingActivity(this.state.activity)
+    if (!this._isMounted) return
+
+    if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+      this.setState({
+        msg: {
+          message: 'Activitate de procesare a datelor a fost creată cu success.',
+          onOkClick: this.clearMessage.bind(this, routeNames.OrganisationPageRoute),
+          type: 'success',
+        },
+      })
+    } else {
+      if ((res as UnsuccessResponseData).isSessionExpired) {
+        this.props.clearAuthDataActionCreator()
+      } else {
+        this.setState({
+          msg: {
+            message: 'A apărut eroare în procesul creării activității de procesare a datelor..',
+            onOkClick: this.clearMessage.bind(this, null),
+            type: 'error',
+          },
+        })
+      }
+    }
+  }
+
   onSubmit(e: SyntheticEvent): void {
     e.preventDefault()
-    // console.log(this.state.activity)
+    this.fetchSaveDataProcessingActivity()
   }
 
   clearMessage(redirectUrl: string | null): void {

@@ -33,6 +33,12 @@ export const ProcessingActivitiesView = (props: ProcessingActivitiesViewPropType
           </div>
         </Container>
       </div>
+
+      <Container>
+        <div className={styles.body}>
+          <h1>Lorem ipsum dolor, sit amet consectetur adipisicing.</h1>
+        </div>
+      </Container>
     </div>
   )
 }

@@ -63,5 +63,8 @@ public class DataProcessingActivityEntity {
   @Column(name = "end_of_the_activity", columnDefinition = "DATE")
   private Date endOfTheActivity;
 
+  public static enum Status {
+    WAIT, DONE, IN_PROGRESS;
+  };
 
 }

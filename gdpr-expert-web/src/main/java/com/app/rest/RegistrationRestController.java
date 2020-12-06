@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.app.domain.ApplicationUserRoles;
 import com.app.domain.dto.RegistrateUserDto;
 import com.app.domain.entities.UserEntity;
 import com.app.domain.entities.UserRoleEntity;
@@ -33,7 +32,7 @@ public class RegistrationRestController {
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> registerUser(@RequestBody RegistrateUserDto registrateUserDto) {
 
-    UserRoleEntity defaultUserRole = ApplicationUserRoles.userRole();
+    UserRoleEntity defaultUserRole = UserEntity.userRole();
     UserEntity user = new UserEntity();
 
     user.setActive(true);
