@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html th:fragment="layout (title, content, head, tail)" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" th:href="@{/static/libs/css/materialize.css}" />
+
+  <th:block th:replace="${head}"></th:block>
+
+  <title th:replace="${title}">GDPR Expert</title>
+</head>
+<body>
+
+  <th:block th:replace="${content}"></th:block>
+
+  <script type="text/javascript" th:src="@{/static/libs/js/materialize.js}"></script>
+  <th:block th:replace="${tail}"></th:block>
+</body>
+</html>
