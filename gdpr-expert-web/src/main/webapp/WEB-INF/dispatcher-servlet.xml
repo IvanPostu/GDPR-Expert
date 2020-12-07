@@ -10,4 +10,6 @@
     </mvc:argument-resolvers>
   </mvc:annotation-driven>
 
+  <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
+
 </beans>

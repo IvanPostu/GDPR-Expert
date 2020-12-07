@@ -4,7 +4,12 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
 
+
+
   <http auto-config="true" entry-point-ref="authenticationEntryPointImpl">
+
+    <intercept-url pattern="/home" access="permitAll" />
+    <intercept-url pattern="/static/**" access="permitAll" />
 
     <csrf disabled="true" />
 
