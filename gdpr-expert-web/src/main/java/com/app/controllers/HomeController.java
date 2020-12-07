@@ -17,7 +17,7 @@ public class HomeController {
     produces = "text/html; charset=utf-8")
   public ModelAndView home(ModelMap model) {
 
-    model.addAttribute("attribute", "redirectWithRedirectPrefix");
+    // model.addAttribute("attribute", "redirectWithRedirectPrefix");
     return new ModelAndView("redirect:/gdpr/personal-data-request", model);
   }
 
