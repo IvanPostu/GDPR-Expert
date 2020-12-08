@@ -63,13 +63,13 @@ final SPRING_SECURITY_VERSION = '5.4.0'
 
 dependencies {
 
+  compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
+
   compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
   compile group: 'commons-io', name: 'commons-io', version: '2.7'
 
-
   compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
   compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.16.Final'
-
 
   annotationProcessor 'org.projectlombok:lombok:1.18.12'
   compileOnly 'org.projectlombok:lombok:1.18.12'

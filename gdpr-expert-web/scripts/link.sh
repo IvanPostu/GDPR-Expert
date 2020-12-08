@@ -13,21 +13,54 @@ fi
 projectPath="/home/ivan/PROJECTS/GDPR-Expert/gdpr-expert-web"
 distPath=$1
 
-projectViews="$projectPath/src/main/webapp/WEB-INF/views"
-distViews="$distPath/views"
-
-cd $distViews
-
-for f in `find ./ -type f`; do
-  rm $f
-done
+linkViews () {
+  projectViews="$projectPath/src/main/webapp/WEB-INF/views"
+  distViews="$distPath/views"
 
 
-cd $projectViews
+  cd $distViews
 
-for f in `find ./ -type f`; do
-  f="${f:2}"
-  ln "./$f" "$distViews/$f"
+  for f in `find ./ -type f`; do
+    rm $f
+  done
 
-done
+
+  cd $projectViews
+
+  for f in `find ./ -type f`; do
+    f="${f:2}"
+    ln "./$f" "$distViews/$f"
+
+  done
+
+
+} 
+
+linkStaticFiles () {
+  projectStaticFiles="$projectPath/src/main/webapp/WEB-INF/static"
+  distStaticFiles="$distPath/static"
+
+
+  cd $distStaticFiles
+
+  for f in `find ./ -type f`; do
+    rm $f
+  done
+
+
+  cd $projectStaticFiles
+
+  for f in `find ./ -type f`; do
+    f="${f:2}"
+    ln "./$f" "$distStaticFiles/$f"
+
+  done
+
+
+} 
+
+
+
+linkViews && linkStaticFiles
+
 

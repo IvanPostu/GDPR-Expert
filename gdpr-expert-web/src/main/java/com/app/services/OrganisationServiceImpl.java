@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -14,17 +15,22 @@ import com.app.domain.entities.OrganisationLogoEntity;
 import com.app.persistence.repositories.OrganisationLogoRepository;
 import com.app.persistence.repositories.OrganisationRepository;
 
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 public class OrganisationServiceImpl implements OrganisationService {
 
   private final OrganisationRepository organisationRepository;
-  private final OrganisationLogoRepository organisationLogoRepository ;
+  private final OrganisationLogoRepository organisationLogoRepository;
   private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
-  public OrganisationServiceImpl(OrganisationRepository organisationRepository, OrganisationLogoRepository organisationLogoRepository, ApplicationDateFormatter dateFormatter) {
-        
+  public OrganisationServiceImpl(OrganisationRepository organisationRepository,
+      OrganisationLogoRepository organisationLogoRepository, ApplicationDateFormatter dateFormatter) {
+
     this.organisationRepository = organisationRepository;
     this.organisationLogoRepository = organisationLogoRepository;
     this.dateFormatter = dateFormatter;
@@ -57,11 +63,11 @@ public class OrganisationServiceImpl implements OrganisationService {
 
   @Transactional
   @Override
-  public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, 
-    Long ownerId, boolean withLogo) {
+  public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, Long ownerId,
+      boolean withLogo) {
 
     Optional<OrganisationEntity> organisationEntity = organisationRepository
-      .findOrganisationByIdAndOwnerId(organisationId, ownerId);
+        .findOrganisationByIdAndOwnerId(organisationId, ownerId);
 
     return organisationEntity;
   }
@@ -69,13 +75,11 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Override
   @Transactional
   public boolean deleteById(Long organisationId, Long ownerId) {
-    OrganisationEntity organisationEntity = organisationRepository
-      .findById(organisationId)
-      .get();
+    OrganisationEntity organisationEntity = organisationRepository.findById(organisationId).get();
 
     final Long ownerIdFromDb = organisationEntity.getOwner().getId();
 
-    if(ownerIdFromDb.equals(ownerId)){
+    if (ownerIdFromDb.equals(ownerId)) {
       organisationLogoRepository.deleteById(organisationId);
       organisationRepository.deleteById(organisationId);
       return true;
@@ -88,8 +92,8 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Transactional
   public void updateOrganisation(UpdateOrganisationDto updateOrganisationDto, Long ownerId) throws ParseException {
     OrganisationEntity organisationFromDb = organisationRepository
-      .findOrganisationByIdAndOwnerId(updateOrganisationDto.getId(), ownerId)
-      .orElseThrow(() -> new RuntimeException());
+        .findOrganisationByIdAndOwnerId(updateOrganisationDto.getId(), ownerId)
+        .orElseThrow(() -> new RuntimeException());
 
     organisationFromDb.setAddress(updateOrganisationDto.getAddress());
     organisationFromDb.setAdministrator(updateOrganisationDto.getLegalRepresentative());
@@ -104,11 +108,31 @@ public class OrganisationServiceImpl implements OrganisationService {
     OrganisationLogoEntity logoEntity = organisationFromDb.getOrganisationLogoEntity();
 
     logoEntity.setId(updateOrganisationDto.getId());
-    if(!"".equals(updateOrganisationDto.getBase64LogoImage())){
+    if (!"".equals(updateOrganisationDto.getBase64LogoImage())) {
       logoEntity.setImageData(updateOrganisationDto.getBase64LogoImage().getBytes());
     }
     organisationFromDb.setOrganisationLogoEntity(logoEntity);
-    
+
     organisationRepository.save(organisationFromDb);
   }
+
+  @Transactional
+  @Override
+  public Page<Pair<Long, String>> getOrganisationNames(Pageable pageable) {
+    Page<OrganisationEntity> organisationsPage = organisationRepository
+      .findAll(pageable);
+    
+    List<Pair<Long, String>> organisationNames = organisationsPage
+      .getContent()
+      .stream()
+      .map(a -> Pair.with(a.getId(), a.getName()))
+      .collect(Collectors.toList());
+
+    PageImpl<Pair<Long, String>> result = new PageImpl<Pair<Long, String>>(
+      organisationNames, organisationsPage.getPageable(), organisationsPage.getTotalElements());
+
+    return result;
+  }
+
+  
 }

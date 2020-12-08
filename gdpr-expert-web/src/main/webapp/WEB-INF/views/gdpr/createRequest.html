@@ -30,16 +30,16 @@
           </div>
 
           <div class="row" style="margin: 20px;">
-            <form action="#" th:action="@{/gdpr/personal-data-request}" th:method="POST" class="col s12">
+            <form th:object="${requestFromPerson}" action="#" th:action="@{/gdpr/personal-data-request}" th:method="POST" class="col s12">
 
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="first_name" type="text" class="validate">
+                  <input th:field="*{firstName}" id="first_name" type="text" class="validate">
                   <label for="first_name">Prenume</label>
                 </div>
 
                 <div class="input-field col s6">
-                  <input id="last_name" type="text" class="validate">
+                  <input th:field="*{lastName}" id="last_name" type="text" class="validate">
                   <label for="last_name">Nume</label>
                 </div>
               </div>
@@ -49,7 +49,7 @@
                   <i class="material-icons prefix">
                     <ion-icon name="mail-outline"></ion-icon>
                   </i>
-                  <input id="email" type="email" class="validate">
+                  <input th:field="*{email}" id="email" type="email" class="validate">
                   <label for="email">Email</label>
                 </div>
               </div>
@@ -59,35 +59,40 @@
                   <i class="material-icons prefix">
                     <ion-icon name="call-outline"></ion-icon>
                   </i>
-                  <input id="phone" type="text" class="validate">
+                  <input th:name="phone" id="phone" type="text" class="validate">
                   <label for="phone">Număr de telefon</label>
                 </div>
               </div>
 
+              <input id="_organisationId" type="hidden" th:name="organisationId">
               <div class="row">
-                <div class="col s12">
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">
-                        <ion-icon name="briefcase-outline"></ion-icon>
-                      </i>
-                      <input type="text" id="autocomplete-input" class="autocomplete">
-                      <label for="autocomplete-input">Organizația ce procesează datele dvs.</label>
-                    </div>
-                  </div>
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">
+                    <ion-icon name="briefcase-outline"></ion-icon>
+                  </i>
+                  <select id="organisationsSelectID">
+
+                    <option value="1" disabled selected>Organizația ce procesează datele dvs.</option>
+                    <th:block th:each="item : ${organisations}">
+                      <option th:value="${item.value0}" th:text="${item.value1}" />
+                    </th:block>
+
+                  </select>
+                  <label>Selectați organizația</label>
                 </div>
               </div>
 
+              <input id="_requestedRight" type="hidden" th:name="requestedRight">
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">
                     <ion-icon name="reader-outline"></ion-icon>
                   </i>
-                  <select>
+                  <select id="rightsSelectID">
 
-                    <option value="" disabled selected>Care drept doriți să-l solicitați?</option>
+                    <option value="" disabled selected>Ce drept doriți să-l solicitați?</option>
                     <th:block th:each="str,iterStat : ${PDRights}">
-                      <option th:value="${iterStat.index}" th:text="${str}" />
+                      <option th:value="${str}" th:text="${str}" />
                     </th:block>
 
                   </select>
@@ -97,7 +102,7 @@
 
               <div class="row">
                 <div class="input-field col s12">
-                  <textarea id="comment" class="materialize-textarea" data-length="1024"
+                  <textarea th:name="comment" id="comment" class="materialize-textarea" data-length="1024"
                     style="min-height: 220px;"></textarea>
                   <label for="comment">Comentariu</label>
                 </div>
@@ -120,19 +125,25 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Structure -->
+    <div th:if="${validationErrors}" id="validationErrorModal1" class="modal">
+      <div class="modal-content">
+        <h5>A apărut eroare în momentul procesării cererii</h5>
+        <th:block th:each="item : ${validationErrors}">
+          <blockquote th:text="${item}" />
+        </th:block>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+      </div>
+    </div>
+
   </div>
 
 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var selectElements = document.querySelectorAll('select');
-      var selectInstances = M.FormSelect.init(selectElements, { classes: '' });
-
-      var textareaDescription = document.querySelectorAll('textarea#comment');
-      M.CharacterCounter.init(textareaDescription);
-    });
-  </script>
+  <script type="text/javascript" th:src="@{/static/gdpr/createRequest.js}"></script>
 
 
 </body>
