@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.app.domain.dto.GDPRRequestFromThePersonDto;
 import com.app.services.OrganisationService;
+import com.app.services.RequestForPersonalInfoService;
 
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class DataPersonalRequestController {
 
   @Autowired
   private OrganisationService organisationService;
+
+  @Autowired
+  private RequestForPersonalInfoService requestForPersonalInfoService;
 
   private void getOrganisationsAndPersonalDataRights(ModelMap model){
     final String[] PDRights = { "Dreptul la informare", "Dreptul de acces la date",
@@ -81,6 +85,7 @@ public class DataPersonalRequestController {
 
       return new ModelAndView("gdpr/createRequest", model);
     }else{
+      requestForPersonalInfoService.addRequestForPersonalInfo(requestFromPerson);
       return new ModelAndView("redirect:/gdpr/personal-data-request/success", model);
     }
 
