@@ -1,11 +1,20 @@
 package com.app.services;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import com.app.domain.dto.GDPRRequestFromThePersonDto;
+import com.app.domain.dto.PersonalInfoRequestFromPeopleResponseDto;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.RequestForPersonalInfoEntity;
 import com.app.persistence.repositories.RequestForPersonalInfoRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 public class RequestForPersonalInfoServiceImpl implements RequestForPersonalInfoService {
 
@@ -14,7 +23,7 @@ public class RequestForPersonalInfoServiceImpl implements RequestForPersonalInfo
   public RequestForPersonalInfoServiceImpl(RequestForPersonalInfoRepository requestForPersonalInfoRepository) {
     this.requestForPersonalInfoRepository = requestForPersonalInfoRepository;
   }
-  
+
   @Override
   public void addRequestForPersonalInfo(GDPRRequestFromThePersonDto requestForPersonalInfoDto) {
 
@@ -34,6 +43,37 @@ public class RequestForPersonalInfoServiceImpl implements RequestForPersonalInfo
     requestForPersonalInfo.setOrganisation(org);
 
     requestForPersonalInfoRepository.save(requestForPersonalInfo);
+  }
+
+  @Override
+  @Transactional
+  public Page<PersonalInfoRequestFromPeopleResponseDto> getAllRequestsForUserOrganisations(Long userId, Pageable p) {
+    
+    Page<RequestForPersonalInfoEntity> pageFromDb =  requestForPersonalInfoRepository.getAllRequestsForUserOrganisations(userId, p);
+
+    List<PersonalInfoRequestFromPeopleResponseDto> resultArr = pageFromDb.getContent()
+      .stream()
+      .map(a -> PersonalInfoRequestFromPeopleResponseDto
+        .builder()
+        .comment(a.getComment())
+        .email(a.getPersonEmail())
+        .firstName(a.getPersonFirstname())
+        .lastName(a.getPersonLastname())
+        .personalInfoRequestId(a.getId())
+        .phone(a.getPersonPhoneNumber())
+        .requestedRight(a.getRequestedRight())
+        .requestedAt(a.getRequestedAt())
+        .organisationId(a.getOrganisation().getId())
+        .organisationName(a.getOrganisation().getName())
+        .processed(a.isProcessed())
+        .build())
+      .collect(Collectors.toList());
+
+    PageImpl <PersonalInfoRequestFromPeopleResponseDto> resultPage = new PageImpl<>(
+      resultArr, pageFromDb.getPageable(), pageFromDb.getTotalElements()
+    );
+
+    return resultPage;
   }
 
 }

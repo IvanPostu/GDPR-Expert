@@ -20,6 +20,7 @@ import { OrganisationsPage } from '../pages/OrganisationsPage'
 import { OrganisationUpdatePage } from '../pages/OrganisationUpdatePage'
 import { ProcessingActivitiesPage } from '../pages/ProcessingActivitiesPage/ProcessingActivitiesPage'
 import { RegistrationPage } from '../pages/RegistrationPage'
+import { RequestsForPersonalInfoPage } from '../pages/RequestsForPersonalInfoPage/RequestsForPersonalInfoPage'
 import { RootPage } from '../pages/RootPage'
 import { UpdateDepartmentPage } from '../pages/UpdateDepartmentPage'
 import { UpdateEmployeePage } from '../pages/UpdateEmployeePage/UpdateEmployeePage'
@@ -139,6 +140,12 @@ const AppRouterComponent = (): ReactElement => {
           component={DataProcessingActivityInfoPage}
           exact
           path={routeNames.DataProcessingActivityInfoPageRoute}
+        />
+
+        <ProtectedRoute
+          component={RequestsForPersonalInfoPage}
+          exact
+          path={routeNames.RequestsForPersonalInfoPageRoute}
         />
       </Switch>
     </HashRouter>

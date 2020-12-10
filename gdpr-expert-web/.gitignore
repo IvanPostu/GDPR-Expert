@@ -54,6 +54,5 @@ out/
 temp.txt
 /logfiles
 /bin
-/.vscode
 test.out
 **/pg_data

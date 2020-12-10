@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactElement } from 'react'
 import gdprImage from '@/app/assets/images/GDPR.png'
 import styles from './styles.module.scss'
 import { BAR_SIZE } from './constants'
-import { IoIosArrowBack, IoMdClipboard, IoMdCrop, IoMdPodium, IoMdWallet } from 'react-icons/io'
+import { IoIosArrowBack, IoMdClipboard, IoIosInformationCircleOutline } from 'react-icons/io'
 import { NavLink } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 
@@ -20,7 +20,6 @@ export const SideBarView: FunctionComponent<SideBarViewPropType> = (
       <span onClick={props.hide} className={styles.backButton}>
         <IoIosArrowBack size="45px" />
       </span>
-      <img className={styles.logo} src={gdprImage} width={`${BAR_SIZE - 50}px`} />
       <ul onClick={props.hide} className={styles.sidebar}>
         <li>
           <NavLink to={routeNames.OrganisationsPageRoute}>
@@ -30,31 +29,16 @@ export const SideBarView: FunctionComponent<SideBarViewPropType> = (
             Organizații
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink to={routeNames.ProcessingActivitiesPageRoute}>
-            <span style={{ marginRight: '8px' }}>
-              <IoMdCrop />
-            </span>
-            Activități de prelucrare
-          </NavLink>
-        </li> */}
         <li>
-          <NavLink to={routeNames.OrganisationsPageRoute}>
+          <NavLink to={routeNames.RequestsForPersonalInfoPageRoute}>
             <span style={{ marginRight: '8px' }}>
-              <IoMdPodium />
+              <IoIosInformationCircleOutline />
             </span>
-            Evaluare impact
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to={routeNames.OrganisationsPageRoute}>
-            <span style={{ marginRight: '8px' }}>
-              <IoMdWallet />
-            </span>
-            Documentație
+            Cereri de solicitare a datelor
           </NavLink>
         </li>
       </ul>
+      <img className={styles.logo} src={gdprImage} width={`${BAR_SIZE - 50}px`} />
     </div>
   )
 }

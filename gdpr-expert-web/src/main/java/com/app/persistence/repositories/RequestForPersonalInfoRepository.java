@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.app.domain.entities.RequestForPersonalInfoEntity;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 
 public interface RequestForPersonalInfoRepository extends Repository<RequestForPersonalInfoEntity, Long> {
@@ -13,5 +15,6 @@ public interface RequestForPersonalInfoRepository extends Repository<RequestForP
 
   List<RequestForPersonalInfoEntity> getRequestsForPersonalInfoForOrganisation(Long organisationId);
 
+  Page<RequestForPersonalInfoEntity> getAllRequestsForUserOrganisations(Long userId, Pageable pageable);
 
 }

@@ -95,8 +95,13 @@ public class OrganisationEntity {
   @Getter
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
-  @OrderBy(value = "completed_at")
   private List<GDPREvaluationEntity> evaluations;
+
+  @Setter 
+  @Getter
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name="organisation_id")
+  private List<RequestForPersonalInfoEntity> requestForPersonalInfo;
 
   @Override
   public boolean equals(Object o) {
