@@ -29,4 +29,5 @@ export enum routeNames {
   DataProcessingActivityInfoPageRoute = '/DataProcessingActivityInfoPageRoute',
 
   RequestsForPersonalInfoPageRoute = '/RequestsForPersonalInfoPageRoute',
+  RequestsForPersonalInfoDetailsPageRoute = '/RequestsForPersonalInfoDetailsPageRoute',
 }

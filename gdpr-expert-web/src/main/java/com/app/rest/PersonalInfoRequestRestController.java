@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,4 +35,13 @@ public class PersonalInfoRequestRestController {
     return ResponseEntity.ok(page);
   }
 
+  @RequestMapping(value = "/{personalInfoRequestId}", method = RequestMethod.GET)
+  public ResponseEntity<?> personalInfoRequestInfo(@AuthenticationPrincipal UserEntity user,
+      @PathVariable(value = "personalInfoRequestId", required = true) Long personalInfoRequestId) {
+
+    PersonalInfoRequestFromPeopleResponseDto result =   requestForPersonalInfoService
+      .getRequestById(personalInfoRequestId);
+    
+    return ResponseEntity.ok(result);
+  }
 }

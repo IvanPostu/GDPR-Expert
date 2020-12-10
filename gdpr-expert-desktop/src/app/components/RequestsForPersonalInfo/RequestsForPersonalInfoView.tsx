@@ -1,4 +1,4 @@
-import { GetPersonalInfoRequestItemType } from '@/app/webApi/personalInfoRequest/getPersonalInfoRequest'
+import { GetPersonalInfoRequestItemType } from '@/app/webApi/personalInfoRequest/getPersonalInfoRequests'
 import React, { Fragment, ReactElement } from 'react'
 import { FullWidthLoader } from '../BasicLoader'
 import { Container } from '../Container'
@@ -19,11 +19,12 @@ const HEADER_NAMES = [
 type TableRowPropType = {
   item: RequestForPersonalInfoItem
   index: number
+  onClick: () => void
 }
 
-function TableRow({ item, index }: TableRowPropType): ReactElement {
+function TableRow({ item, index, onClick }: TableRowPropType): ReactElement {
   return (
-    <div className={styles.tableRow + ' ' + styles.hover}>
+    <div onClick={onClick} className={styles.tableRow + ' ' + styles.hover}>
       <div style={{ width: WIDTH[0] }} className={styles.tableColumn}>
         {index}
       </div>
@@ -51,6 +52,7 @@ type RequestsForPersonalInfoViewPropType = {
   isLoad: boolean
   haveNextItems: boolean
   onNextItemsClick: () => void
+  onTableRowClick: (requestsForPersonalId: number) => void
 }
 
 export function RequestsForPersonalInfoView(
@@ -83,7 +85,14 @@ export function RequestsForPersonalInfoView(
         </header>
         <div>
           {props.items.map((item, index) => {
-            return <TableRow key={item.personalInfoRequestId} item={item} index={index + 1} />
+            return (
+              <TableRow
+                key={item.personalInfoRequestId}
+                onClick={props.onTableRowClick.bind(null, item.personalInfoRequestId)}
+                item={item}
+                index={index + 1}
+              />
+            )
           })}
           {props.isLoad && <FullWidthLoader />}
           {props.haveNextItems && (

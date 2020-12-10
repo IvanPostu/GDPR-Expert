@@ -80,13 +80,22 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
         organisationid);
 
     List<DataProcessingActivityItemDto> result = activities.stream().map(a -> {
-      DataProcessingActivityItemDto item = DataProcessingActivityItemDto.builder().activityId(a.getId())
-          .activityName(a.getActivityName())
-          .dataOwnerFullname(a.getEmployee().getFirstName() + ' ' + a.getEmployee().getLastName())
-          .dataProcessingResponsibleEmployeeFullname(a.getDataOwner()).departmentId(a.getDepartment().getId())
-          .departmentName(a.getDepartment().getName()).organisationId(a.getOrganisation().getId())
-          .organisationName(a.getOrganisation().getName()).processingPurposes(a.getPurposes()).status(a.getStatus())
-          .build();
+      String ownerFullName = a.getDataOwner();
+      String employeeFullName = a.getEmployee()
+        .getFirstName() + ' ' + a.getEmployee().getLastName();
+ 
+      DataProcessingActivityItemDto item = DataProcessingActivityItemDto
+        .builder()
+        .activityId(a.getId())
+        .activityName(a.getActivityName())
+        .dataOwnerFullname(ownerFullName)
+        .dataProcessingResponsibleEmployeeFullname(employeeFullName)
+        .departmentId(a.getDepartment().getId())
+        .departmentName(a.getDepartment().getName())
+        .organisationId(a.getOrganisation()
+        .getId())
+        .organisationName(a.getOrganisation().getName()).processingPurposes(a.getPurposes()).status(a.getStatus())
+        .build();
 
       return item;
     }).collect(Collectors.toList());

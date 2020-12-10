@@ -1,3 +1,3 @@
-import { GetPersonalInfoRequestItemType } from '@/app/webApi/personalInfoRequest/getPersonalInfoRequest'
+import { GetPersonalInfoRequestItemType } from '@/app/webApi/personalInfoRequest/getPersonalInfoRequests'
 
 export type RequestForPersonalInfoItem = GetPersonalInfoRequestItemType

@@ -1,6 +1,6 @@
 import { DataProcessingActivityInfo } from '@/app/components/DataProcessingActivityInfo'
 import { getUrlParameter } from '@/app/routes/getUrlParameter'
-import React, { ReactElement, useEffect, useRef } from 'react'
+import React, { ReactElement, useRef } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
 type DataProcessingActivityInfoPagePropType = RouteComponentProps

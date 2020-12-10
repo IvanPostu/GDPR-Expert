@@ -1,8 +1,8 @@
 import { PageableType } from '@/app/webApi/PageableType'
 import {
-  getPersonalInfoRequest,
+  getPersonalInfoRequests,
   GetPersonalInfoRequestItemType,
-} from '@/app/webApi/personalInfoRequest/getPersonalInfoRequest'
+} from '@/app/webApi/personalInfoRequest/getPersonalInfoRequests'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import React, { Component, ReactElement } from 'react'
 import { connect } from 'react-redux'
@@ -10,6 +10,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { bindActionCreators, Dispatch } from 'redux'
 import { RequestsForPersonalInfoView } from './RequestsForPersonalInfoView'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
+import { requestsForPersonalInfoDetailsPageRedirect } from '@/app/pages/RequestsForPersonalInfoDetailsPage/requestsForPersonalInfoDetailsPageRedirect'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { clearAuthDataActionCreator }
@@ -41,6 +42,7 @@ class RequestsForPersonalInfoComponent extends Component<
     }
 
     this.fetchRequestsForPersonalInfo = this.fetchRequestsForPersonalInfo.bind(this)
+    this.onRequestsForPersonalInfoClick = this.onRequestsForPersonalInfoClick.bind(this)
   }
 
   componentDidMount(): void {
@@ -54,7 +56,7 @@ class RequestsForPersonalInfoComponent extends Component<
 
   async fetchRequestsForPersonalInfo(): Promise<void> {
     this.setState({ isLoad: true })
-    const res = await getPersonalInfoRequest({ page: this.state.pageNumber })
+    const res = await getPersonalInfoRequests({ page: this.state.pageNumber })
     if (!this._isMounted) return
 
     if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
@@ -73,9 +75,17 @@ class RequestsForPersonalInfoComponent extends Component<
     }
   }
 
+  onRequestsForPersonalInfoClick(requestId: number): void {
+    requestsForPersonalInfoDetailsPageRedirect({
+      history: this.props.history,
+      requestForPersonalInfoId: requestId,
+    })
+  }
+
   render(): ReactElement {
     return (
       <RequestsForPersonalInfoView
+        onTableRowClick={this.onRequestsForPersonalInfoClick}
         onNextItemsClick={this.fetchRequestsForPersonalInfo}
         haveNextItems={this.state.pageNumber < this._totalPages}
         isLoad={this.state.isLoad}

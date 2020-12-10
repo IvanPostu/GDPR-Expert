@@ -2,7 +2,7 @@ import { webServerURL } from '@/app/constants/webServerUrl'
 import { PageableType } from '../PageableType'
 import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
-export type GetPersonalInfoRequestPropType = {
+export type GetPersonalInfoRequestsPropType = {
   page?: number
 }
 
@@ -20,12 +20,12 @@ export type GetPersonalInfoRequestItemType = {
   processed: boolean
 }
 
-const DEFAULT_PROP: GetPersonalInfoRequestPropType = {
+const DEFAULT_PROP: GetPersonalInfoRequestsPropType = {
   page: 0,
 }
 
-export async function getPersonalInfoRequest(
-  props: GetPersonalInfoRequestPropType = DEFAULT_PROP,
+export async function getPersonalInfoRequests(
+  props: GetPersonalInfoRequestsPropType = DEFAULT_PROP,
 ): Promise<PageableType<GetPersonalInfoRequestItemType> | UnsuccessResponseData> {
   const options: RequestInit = {
     method: 'GET',

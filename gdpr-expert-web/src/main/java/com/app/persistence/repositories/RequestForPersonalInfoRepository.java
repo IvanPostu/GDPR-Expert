@@ -1,7 +1,5 @@
 package com.app.persistence.repositories;
 
-import java.util.List;
-
 import com.app.domain.entities.RequestForPersonalInfoEntity;
 
 import org.springframework.data.domain.Page;
@@ -13,7 +11,7 @@ public interface RequestForPersonalInfoRepository extends Repository<RequestForP
 
   void save(RequestForPersonalInfoEntity requestForPersonalInfoEntity);
 
-  List<RequestForPersonalInfoEntity> getRequestsForPersonalInfoForOrganisation(Long organisationId);
+  RequestForPersonalInfoEntity getRequestForPersonalInfoById(Long requestForPersonalInfoId);
 
   Page<RequestForPersonalInfoEntity> getAllRequestsForUserOrganisations(Long userId, Pageable pageable);
 

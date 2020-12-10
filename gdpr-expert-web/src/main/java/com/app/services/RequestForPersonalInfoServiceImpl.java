@@ -45,8 +45,8 @@ public class RequestForPersonalInfoServiceImpl implements RequestForPersonalInfo
     requestForPersonalInfoRepository.save(requestForPersonalInfo);
   }
 
-  @Override
   @Transactional
+  @Override
   public Page<PersonalInfoRequestFromPeopleResponseDto> getAllRequestsForUserOrganisations(Long userId, Pageable p) {
     
     Page<RequestForPersonalInfoEntity> pageFromDb =  requestForPersonalInfoRepository.getAllRequestsForUserOrganisations(userId, p);
@@ -74,6 +74,31 @@ public class RequestForPersonalInfoServiceImpl implements RequestForPersonalInfo
     );
 
     return resultPage;
+  }
+
+  @Transactional
+  @Override
+  public PersonalInfoRequestFromPeopleResponseDto getRequestById(Long requestForPersonalInfoId) {
+    
+    RequestForPersonalInfoEntity requestForPersonalInfoEntity = requestForPersonalInfoRepository
+      .getRequestForPersonalInfoById(requestForPersonalInfoId);
+
+    PersonalInfoRequestFromPeopleResponseDto r = PersonalInfoRequestFromPeopleResponseDto
+      .builder()
+      .comment(requestForPersonalInfoEntity.getComment())
+      .email(requestForPersonalInfoEntity.getPersonEmail())
+      .firstName(requestForPersonalInfoEntity.getPersonFirstname())
+      .lastName(requestForPersonalInfoEntity.getPersonLastname())
+      .personalInfoRequestId(requestForPersonalInfoEntity.getId())
+      .phone(requestForPersonalInfoEntity.getPersonPhoneNumber())
+      .requestedRight(requestForPersonalInfoEntity.getRequestedRight())
+      .requestedAt(requestForPersonalInfoEntity.getRequestedAt())
+      .organisationId(requestForPersonalInfoEntity.getOrganisation().getId())
+      .organisationName(requestForPersonalInfoEntity.getOrganisation().getName())
+      .processed(requestForPersonalInfoEntity.isProcessed())
+      .build();
+
+    return r;
   }
 
 }

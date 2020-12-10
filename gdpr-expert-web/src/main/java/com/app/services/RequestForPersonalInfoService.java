@@ -11,4 +11,6 @@ public interface RequestForPersonalInfoService {
   void addRequestForPersonalInfo(GDPRRequestFromThePersonDto requestForPersonalInfoDto);
 
   Page<PersonalInfoRequestFromPeopleResponseDto> getAllRequestsForUserOrganisations(Long userId, Pageable p);
+
+  PersonalInfoRequestFromPeopleResponseDto getRequestById(Long requestForPersonalInfoId);
 }

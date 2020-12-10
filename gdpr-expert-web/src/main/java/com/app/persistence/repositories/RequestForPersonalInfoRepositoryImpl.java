@@ -32,11 +32,7 @@ public class RequestForPersonalInfoRepositoryImpl implements RequestForPersonalI
     entityManager.persist(requestForPersonalInfoEntity);
   }
 
-  @Override
-  public List<RequestForPersonalInfoEntity> getRequestsForPersonalInfoForOrganisation(Long organisationId) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+ 
 
   @Override
   public Page<RequestForPersonalInfoEntity> getAllRequestsForUserOrganisations(Long userId, Pageable pageable) {
@@ -81,6 +77,15 @@ public class RequestForPersonalInfoRepositoryImpl implements RequestForPersonalI
     PageImpl<RequestForPersonalInfoEntity> pageResult = new PageImpl<RequestForPersonalInfoEntity>(list, pageable, countResult);
 
     return pageResult;
+  }
+
+  @Override
+  public RequestForPersonalInfoEntity getRequestForPersonalInfoById(Long requestForPersonalInfoId) {
+    
+    RequestForPersonalInfoEntity entity = entityManager
+      .find(RequestForPersonalInfoEntity.class, requestForPersonalInfoId);
+    
+    return entity;
   }
   
 }
