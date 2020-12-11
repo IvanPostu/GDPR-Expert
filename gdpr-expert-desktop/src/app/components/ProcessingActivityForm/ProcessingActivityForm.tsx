@@ -113,7 +113,6 @@ class ProcessingActivityFormComponent extends Component<
   }
 
   setActivityData(newActivity: ProcessingPersonalDataActivity): void {
-    console.log(newActivity)
     this.setState({ activity: newActivity })
   }
 

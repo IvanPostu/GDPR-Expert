@@ -1,41 +1,48 @@
 @import '@/app/scss/index';
 
-.container{
+.container {
   width: 100%;
   min-height: 200px;
   margin: 30px 0 35px 0;
   @include whiteContainer;
   padding: 10px 10px 40px 10px;
-  
 
-  .row{
+  .row {
     margin: 10px 0 0 0;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
-    .title{
+    .title {
       font-size: 24px;
       text-align: center;
       width: 100%;
       margin: 10px 0 10px 0;
     }
 
-    .text{
+    .text {
       font-size: 20px;
     }
 
-    .column{
+    .column {
       flex: 0 1 calc(33.33% - 20px);
     }
 
-    .column:nth-child(2){
+    .column:nth-child(2) {
       flex: 0 1 calc(60% - 20px);
-      // background-color: yellow;
       text-align: right;
     }
 
-  }
+    &.buttonsContainer {
+      margin: 20px;
+      justify-content: center;
 
+      button {
+        background-color: $blue3;
+        max-width: 220px;
+        height: 65px;
+      }
+    }
+  }
 }

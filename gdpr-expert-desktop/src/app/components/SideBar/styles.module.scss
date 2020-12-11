@@ -33,15 +33,12 @@
         a{
           display: block;
           height: 100%;
-          width: 100%;
-          line-height: 65px;
+          width: 92%;
           font-size: 20px;
           color: $blue2;
-          padding: 0 0 0 40px;
+          padding: 10px 0 10px 15px;
           box-sizing: border-box;
           transition: .2s;
-
-          
         }
         & :hover{
           color: white;

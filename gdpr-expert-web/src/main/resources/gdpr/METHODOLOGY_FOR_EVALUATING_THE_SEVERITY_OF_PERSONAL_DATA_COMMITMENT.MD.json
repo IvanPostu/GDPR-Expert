@@ -1,0 +1,66 @@
+{
+  "title": "Metodologia de evaluare a severității compromiterii datelor cu caracter personale(E.S.C.P.D.) conform rgpd al U.E.",
+  "description": "Metodologia de evaluare a severității încălcărilor de date cu caracter personal, în conformitate cu opiniile grupului de lucru al articolului 29 „Orientări privind notificarea încălcării datelor cu caracter personal în temeiul Regulamentului 2016/679” și „Recomandări pentru o metodologie de evaluare a severității datelor personale încălcări de date” emisă de Agenția Uniunii Europene pentru Securitatea Rețelelor și Informațiilor (ENISA)",
+  "disclaimer": "Evaluarea corectă a unei încălcări a datelor este esențială în lumina noilor sancțiuni care vor fi aplicate de autoritățile de supraveghere, pentru faptul că nu se notifică încălcarea datelor, după cum este necesar, poate duce la amenzi administrative de până la 10.000.000 EUR sau, în cazul unei întreprindere, până la 2% din totalul cifrei de afaceri anuale mondiale din exercițiul financiar precedent. În cele din urmă, chiar dacă RGPD al UE solicită operatorilor doar să notifice încălcările de date, dacă procesatorii devin conștienți de o încălcare a datelor, aceștia trebuie să notifice operatorul fără întârzieri nejustificate pentru a permite operatorului să își respecte obligațiile de notificare. ",
+  "evaluation": {
+    "CPD": {
+      "id": 1,
+      "title": "Contextul procesării datelor (C.P.D.)",
+      "description": "CPD abordează tipul de date încălcate, împreună cu o serie de factori legați de contextul general al prelucrării. CPD evaluează criticitatea unui set de date dat într-un context de procesare specific, în funcție de categoria datelor personale implicate în încălcarea datelor.",
+      "variants": [
+        "Încălcarea datelor cu caracter personal implică doar categorii nesensibile de date cu caracter personal (cum ar fi numele, prenumele, adresele de e-mail etc.)",
+
+        "Încălcarea datelor cu caracter personal implică doar categorii nesensibile de date cu caracter personal, dar datele ar putea fi utilizate pentru a înțelege profilul persoanelor vizate afectate (de exemplu, dacă încălcarea datelor conține o listă de clienți de la o companie care vinde produse de lux, apoi se pot face ipoteze cu privire la starea financiară a persoanelor vizate)",
+
+        "Încălcarea datelor cu caracter personal implică doar categorii speciale de date cu caracter personal (cum ar fi date referitoare la sănătate, date genetice, condamnări penale, credințe religioase și / sau filosofice etc..)."
+      ],
+      "Cost": [1, 2, 3]
+    },
+    "UI": {
+      "id": 2,
+      "title": "Ușurința de identificare (U.I.)",
+      "description": "UI reflectă cât de ușor poate fi determinată identitatea persoanelor din datele personale implicate în încălcare. UI este un factor de corectare al CPD. UI evaluează cât de ușor va fi pentru o parte neautorizată care are acces la setul de date să le potrivească cu o anumită persoană vizată.",
+      "variants": [
+        "Datele personale implicate în încălcarea datelor sunt protejate utilizând o criptare puternică (cum ar fi Advanced Encryption Standard (AES), Rivest-Shamir-Adleman (RSA), Twofish etc.), ceea ce face dificilă identificarea unei persoane vizate",
+
+        "Datele cu caracter personal implicate în încălcarea datelor sunt în format text simplu și pot fi asociate în mod specific cu o persoană vizată (de exemplu, datele cu caracter personal implicate în încălcarea datelor constau din nume, prenume, adresă, număr de securitate socială și adresă de e-mail)."
+      ],
+      "Cost": [1, 2]
+    },
+    "CC": {
+      "id": 3,
+      "title": "Circumstanțe de compromitere (C.C.)",
+      "description": "CC abordează circumstanțele specifice ale compromiterii, care sunt legate de tipul compromiterii, inclusiv în principal pierderea securității datelor încălcate, precum și orice intenție rău intenționată implicată. CC cuantifică circumstanțele specifice ale compromiterii care pot fi sau nu prezente într-o anumită situație. Deci, atunci când este prezent, CC poate crește doar severitatea unei anumite încălcări.",
+      "variants": [
+        "Datele cu caracter personal sunt modificate și utilizate incorect sau ilegal, afectând persoanele vizate; cu toate acestea, datele modificate pot fi restaurate, de exemplu, unele parole de cont stocate în sistem sunt modificate. Prin urmare, conturile afectate nu pot fi conectate în mod normal într-o anumită perioadă de timp. Cu toate acestea, datele modificate pot fi restaurate",
+
+        "Datele cu caracter personal sunt modificate și utilizate incorect sau ilegal, afectând persoanele vizate. Datele modificate nu pot fi restaurate, de exemplu, unele parole de cont stocate în sistem sunt modificate, iar datele modificate nu pot fi restaurate. Ca urmare, conturile afectate nu mai pot fi conectate",
+
+        "Datele personale nu pot fi accesate, dar datele pot fi restaurate, de exemplu, datorită greșelilor personalului de întreținere, conturile utilizatorilor serviciilor online se pierd. Cu toate acestea, conturile pot fi recreate prin alte baze de date",
+
+        "Datele personale nu pot fi accesate sau restaurate, de exemplu, baza de date a unui forum este deteriorată și toate activitățile stocate ale utilizatorilor forumului sunt pierdute. Datele pierdute nu au nicio copie de rezervă și nu pot fi furnizate din nou de către utilizatori",
+
+        "Încălcările datelor cu caracter personal sunt cauzate de un comportament rău intenționat care afectează în mod negativ persoanele, de exemplu, (1) Angajații partajează datele personale ale clientului pe site-uri web externe, sau (2) Angajații vând datele personale ale clientului către terți, sau (3) Hackerii intră în sistemul IT corporativ și fură date cu caracter personal."
+      ],
+      "Cost": [1, 2, 1, 2, 2]
+    }
+  },
+  "evaluationInfo":{
+    "formula": "CPD*UI+CC",
+    "SClt4": {
+      "impactOnAffectedDataSubjects": "Este puțin probabil să conducă la un risc.",
+      "possibleConsequencesForDataSubjects": "Indivizii fie nu vor fi afectați, fie pot întâmpina câteva inconveniente, pe care le vor depăși fără nicio problemă (timpul petrecut reintroducând informații, supărări, iritații, etc..).",
+      "notificationObligation": "Încălcarea datelor trebuie înregistrată numai într-un registru."
+    },
+    "SCe4": {
+      "impactOnAffectedDataSubjects": "Este posibil să apară un risc.",
+      "possibleConsequencesForDataSubjects": "Persoanele pot întâmpina inconveniente semnificative, pe care le vor putea depăși în ciuda câtorva dificultăți (costuri suplimentare, refuzul accesului la serviciile comerciale, frică, lipsă de înțelegere, stres, afecțiuni fizice minore, etc..).",
+      "notificationObligation": "Încălcarea datelor ar trebui raportată autorității de supraveghere."
+    },
+    "SCgt4": {
+      "impactOnAffectedDataSubjects": "Este posibil să apară un risc.",
+      "possibleConsequencesForDataSubjects": "Persoanele pot întâmpina inconveniente semnificative, pe care le vor putea depăși în ciuda câtorva dificultăți (costuri suplimentare, refuzul accesului la serviciile comerciale, frică, lipsă de înțelegere, stres, afecțiuni fizice minore, etc..).",
+      "notificationObligation": "Încălcarea datelor ar trebui raportată autorității de supraveghere."
+    }
+  }
+}

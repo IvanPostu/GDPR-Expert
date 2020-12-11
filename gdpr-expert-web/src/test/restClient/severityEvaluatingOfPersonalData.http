@@ -1,0 +1,6 @@
+
+
+
+GET http://127.0.0.1:8080/gdpr-expert-web/api/severityEvaluatingOfPersonalData/questions HTTP/1.1
+
+

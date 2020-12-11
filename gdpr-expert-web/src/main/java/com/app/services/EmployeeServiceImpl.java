@@ -135,10 +135,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     String json = "";
 
     try {
-      File file = ResourceUtils.getFile("classpath:PersonalDataResponsibleQuestions.MD.json");
+      File file = ResourceUtils.getFile("classpath:gdpr/PersonalDataResponsibleQuestions.MD.json");
       json = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8).stream().reduce("", (a, c) -> a + c);
     } catch (IOException e) {
-      throw new RuntimeException("PersonalDataResponsibleQuestions.MD.json IO error.!!!");
+      throw new RuntimeException("gdpr/PersonalDataResponsibleQuestions.MD.json IO error.!!!");
     }
  
     try {
@@ -147,7 +147,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
       return Arrays.asList(questions);
     } catch (JsonProcessingException e) {
-      throw new RuntimeException("PersonalDataResponsibleQuestions.MD.json invalid JSON.!!!");
+      throw new RuntimeException("gdpr/PersonalDataResponsibleQuestions.MD.json invalid JSON.!!!");
     }
 
   }

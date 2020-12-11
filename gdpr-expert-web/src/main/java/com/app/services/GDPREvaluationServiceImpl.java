@@ -38,7 +38,7 @@ public class GDPREvaluationServiceImpl implements GDPREvaluationService {
   public GDPREvaluationQuestionsDto getQuestions() throws IOException {
 
     ObjectMapper objectMapper = new ObjectMapper();
-    File file = ResourceUtils.getFile("classpath:RGPD_evaluation.MD.json");
+    File file = ResourceUtils.getFile("classpath:gdpr/RGPD_evaluation.MD.json");
     String json = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8).stream().reduce("", (a, c) -> a + c);
 
     GDPREvaluationQuestionsDto result = objectMapper.readValue(json, GDPREvaluationQuestionsDto.class);

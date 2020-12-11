@@ -80,8 +80,8 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
         organisationid);
 
     List<DataProcessingActivityItemDto> result = activities.stream().map(a -> {
-      String ownerFullName = a.getDataOwner();
-      String employeeFullName = a.getEmployee()
+      final String ownerFullName = a.getDataOwner();
+      final String employeeFullName = a.getEmployee()
         .getFirstName() + ' ' + a.getEmployee().getLastName();
  
       DataProcessingActivityItemDto item = DataProcessingActivityItemDto
@@ -94,7 +94,8 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
         .departmentName(a.getDepartment().getName())
         .organisationId(a.getOrganisation()
         .getId())
-        .organisationName(a.getOrganisation().getName()).processingPurposes(a.getPurposes()).status(a.getStatus())
+        .organisationName(a.getOrganisation().getName())
+        .processingPurposes(a.getPurposes()).status(a.getStatus())
         .build();
 
       return item;

@@ -9,6 +9,7 @@ import {
   getDataProcessingActivityInfo,
 } from '@/app/webApi/dataProcessingActivity/getDataProcessingActivityInfo'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
+import { routeNames } from '@/app/routes/routeNames'
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   const actionCreators = { clearAuthDataActionCreator }
@@ -56,6 +57,7 @@ class DataProcessingActivityInfoComponent extends Component<
     }
 
     this.fetchDataProcessingActivityInfo = this.fetchDataProcessingActivityInfo.bind(this)
+    this.redirect = this.redirect.bind(this)
   }
 
   componentDidMount(): void {
@@ -82,8 +84,20 @@ class DataProcessingActivityInfoComponent extends Component<
     }
   }
 
+  redirect(routeName: string): void {
+    this.props.history.push(routeName)
+  }
+
   render(): ReactElement {
-    return <DataProcessingActivityInfoView activityData={this.state.activity} />
+    return (
+      <DataProcessingActivityInfoView
+        activityData={this.state.activity}
+        onSeverityEvaluateClick={this.redirect.bind(
+          null,
+          routeNames.SeverityEvaluationOfPersonalDataPageRoute,
+        )}
+      />
+    )
   }
 }
 

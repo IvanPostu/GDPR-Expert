@@ -1,10 +1,12 @@
 import { DataProcessingActivityInfoResponseType } from '@/app/webApi/dataProcessingActivity/getDataProcessingActivityInfo'
 import React, { ReactElement } from 'react'
 import { Container } from '../Container'
+import { GenericButton } from '../GenericButton'
 import styles from './styles.module.scss'
 
 type DataProcessingActivityInfoViewPropType = {
   activityData: DataProcessingActivityInfoResponseType //{ [key: string]: string }
+  onSeverityEvaluateClick: () => void
 }
 
 export const DataProcessingActivityInfoView = (
@@ -32,6 +34,11 @@ export const DataProcessingActivityInfoView = (
           <h5 className={styles.title}>
             Informație relativ la activitatea de procesare a datelor cu caracter personal
           </h5>
+        </div>
+        <div className={styles.row + ' ' + styles.buttonsContainer}>
+          <GenericButton onClick={props.onSeverityEvaluateClick}>
+            Evaluarea severității compromiterii datelor
+          </GenericButton>
         </div>
         {Object.keys(uiData).map((key) => (
           <div key={key} className={styles.row}>

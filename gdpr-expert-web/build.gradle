@@ -64,49 +64,43 @@ final SPRING_SECURITY_VERSION = '5.4.0'
 dependencies {
 
   compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
-
   compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
   compile group: 'commons-io', name: 'commons-io', version: '2.7'
-
   compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
   compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.16.Final'
-
   annotationProcessor 'org.projectlombok:lombok:1.18.12'
   compileOnly 'org.projectlombok:lombok:1.18.12'
-  
-  compile group: 'org.springframework.session', name: 'spring-session-core', version: '2.3.0.RELEASE'
+  compile group: 'org.springframework.session', name: 'spring-session-core', 
+    version: '2.3.0.RELEASE'
   compile group: 'org.springframework.session', name: 'spring-session', version: '1.3.5.RELEASE'
-
   compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
-
-  compile group: 'org.springframework.security', name: 'spring-security-web', version: SPRING_SECURITY_VERSION
-  compile group: 'org.springframework.security', name: 'spring-security-config', version: SPRING_SECURITY_VERSION
-  compile group: 'org.springframework.security', name: 'spring-security-core', version: SPRING_SECURITY_VERSION
-  compile group: 'org.springframework.security', name: 'spring-security-crypto', version: SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-web', 
+    version:    SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-config', 
+    version: SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-core', 
+    version: SPRING_SECURITY_VERSION
+  compile group: 'org.springframework.security', name: 'spring-security-crypto', 
+    version: SPRING_SECURITY_VERSION
 
   providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
-
   compile group: 'org.springframework', name: 'spring-context', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-beans', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-core', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-web', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-webmvc', version: SPRING_VERSION
   compile group: 'org.springframework', name: 'spring-orm', version: SPRING_VERSION
-
   compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'
   compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.2'
   compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
-
   compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.4.0'
   compile group: 'org.hibernate', name: 'hibernate-core', version: HIBERNATE_VERSION
   compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: HIBERNATE_VERSION
   compile group: 'org.postgresql', name: 'postgresql', version: '42.2.17'
-
   compile group: 'org.flywaydb', name: 'flyway-core', version: '7.0.0'
 
   testCompile group: 'org.springframework', name: 'spring-test', version: SPRING_VERSION
-
   testCompile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.7.0'
   testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.7.0'
   testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
@@ -114,7 +108,6 @@ dependencies {
   testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.7.0'
   testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.7.0'
   testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.7.0'
-
   testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
   testCompileOnly 'org.projectlombok:lombok:1.18.12'
 }

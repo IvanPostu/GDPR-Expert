@@ -23,6 +23,7 @@ import { RegistrationPage } from '../pages/RegistrationPage'
 import { RequestsForPersonalInfoDetailsPage } from '../pages/RequestsForPersonalInfoDetailsPage/RequestsForPersonalInfoDetailsPage'
 import { RequestsForPersonalInfoPage } from '../pages/RequestsForPersonalInfoPage/RequestsForPersonalInfoPage'
 import { RootPage } from '../pages/RootPage'
+import SeverityEvaluationOfPersonalDataPage from '../pages/SeverityEvaluationOfPersonalDataPage/SeverityEvaluationOfPersonalDataPage'
 import { UpdateDepartmentPage } from '../pages/UpdateDepartmentPage'
 import { UpdateEmployeePage } from '../pages/UpdateEmployeePage/UpdateEmployeePage'
 import { ProtectedRoute } from './ProtectedRoute'
@@ -153,6 +154,12 @@ const AppRouterComponent = (): ReactElement => {
           component={RequestsForPersonalInfoDetailsPage}
           exact
           path={routeNames.RequestsForPersonalInfoDetailsPageRoute}
+        />
+
+        <ProtectedRoute
+          component={SeverityEvaluationOfPersonalDataPage}
+          exact
+          path={routeNames.SeverityEvaluationOfPersonalDataPageRoute}
         />
       </Switch>
     </HashRouter>
