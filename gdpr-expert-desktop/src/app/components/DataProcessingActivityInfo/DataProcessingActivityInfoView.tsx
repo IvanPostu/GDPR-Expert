@@ -7,6 +7,7 @@ import styles from './styles.module.scss'
 type DataProcessingActivityInfoViewPropType = {
   activityData: DataProcessingActivityInfoResponseType //{ [key: string]: string }
   onSeverityEvaluateClick: () => void
+  onSeverityEvaluatingResultClick: () => void
 }
 
 export const DataProcessingActivityInfoView = (
@@ -38,6 +39,9 @@ export const DataProcessingActivityInfoView = (
         <div className={styles.row + ' ' + styles.buttonsContainer}>
           <GenericButton onClick={props.onSeverityEvaluateClick}>
             Realizarea evaluării severității compromiterii datelor
+          </GenericButton>
+          <GenericButton onClick={props.onSeverityEvaluatingResultClick}>
+            Rezultatul evaluării severității compromiterii datelor
           </GenericButton>
         </div>
         {Object.keys(uiData).map((key) => (

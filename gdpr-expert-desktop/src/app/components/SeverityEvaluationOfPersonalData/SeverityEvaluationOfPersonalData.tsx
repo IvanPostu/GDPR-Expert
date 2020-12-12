@@ -16,13 +16,19 @@ import {
   GetSeverityEvaluationOfPersonalDataQuestionsResponseType,
 } from '@/app/webApi/severityEvaluationOfPersonalData/getSeverityEvaluationOfPersonalDataQuestions'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
+import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
+
+import { saveSeverityEvaluationfPersonalDataResult } from '@/app/webApi/severityEvaluationOfPersonalData/saveSeverityEvaluationfPersonalDataResult'
+import { severityEvaluationOfPersonalDataResultPageRedirect } from '@/app/pages/SeverityEvaluationOfPersonalDataResultPage/severityEvaluationOfPersonalDataResultPageRedirect'
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators({ clearAuthDataActionCreator }, dispatch)
 }
 
 type SeverityEvaluationOfPersonalDataComponentPropType = RouteComponentProps &
-  ReturnType<typeof mapDispatchToProps>
+  ReturnType<typeof mapDispatchToProps> & {
+    dataProcessingActivityId: number
+  }
 
 type QuestionsType = {
   [key: string]: {
@@ -38,6 +44,8 @@ type SeverityEvaluationOfPersonalDataComponentStateType = {
   isLoad: boolean
   questions: QuestionsType
   title: string
+  messageBox: MessageBoxWrapperPropType
+  messageBoxShowContent: boolean
   // severityEvaluationOfPersonalData: GetSeverityEvaluationOfPersonalDataQuestionsResponseType | null
 }
 
@@ -49,6 +57,12 @@ const SeverityEvaluationOfPersonalDataComponent = (
     isLoad: true,
     questions: {},
     title: '',
+    messageBox: {
+      message: '',
+      onOkClick: alert,
+      type: 'error',
+    },
+    messageBoxShowContent: true,
   })
 
   useEffect(() => {
@@ -93,6 +107,74 @@ const SeverityEvaluationOfPersonalDataComponent = (
     [state.questions],
   )
 
+  const messageBoxCallback = useCallback(
+    (status: 'error' | 'success') => {
+      switch (status) {
+        case 'success':
+          severityEvaluationOfPersonalDataResultPageRedirect({
+            history: props.history,
+            severityEvaluationOfPersonalDataId: props.dataProcessingActivityId,
+          })
+          return
+        case 'error':
+          setState({
+            ...state,
+            messageBox: {
+              message: '',
+              onOkClick: messageBoxCallback.bind(null, 'error'),
+              type: 'error',
+            },
+          })
+          return
+
+        default:
+          return
+      }
+    },
+    [state],
+  )
+
+  async function saveEvaluationResult(): Promise<void> {
+    setState({ ...state, isLoad: true })
+    const CPD = state.questions['CPD'].Cost[state.questions['CPD'].selectedVariantIndex]
+    const UI = state.questions['UI'].Cost[state.questions['UI'].selectedVariantIndex]
+    const CC = state.questions['CC'].Cost[state.questions['CC'].selectedVariantIndex]
+    const res = await saveSeverityEvaluationfPersonalDataResult({
+      dataProcessingActivityId: props.dataProcessingActivityId,
+      circumstancesOfCompromiseGrade: CC,
+      dataProcessingContextGrade: CPD,
+      easeOfIdentificationGrade: UI,
+    })
+
+    if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+      setState({
+        ...state,
+        messageBoxShowContent: false,
+        messageBox: {
+          message:
+            'Evaluarea severității compromiterii datelor cu caracter personale a avut loc cu success',
+          onOkClick: messageBoxCallback.bind(null, 'success'),
+          type: 'success',
+        },
+      })
+    } else {
+      const err = res as UnsuccessResponseData
+      if (err.isSessionExpired) {
+        props.clearAuthDataActionCreator()
+      } else {
+        setState({
+          ...state,
+          isLoad: false,
+          messageBox: {
+            message: 'A apărut eroare la procesare cererii!!!',
+            onOkClick: messageBoxCallback.bind(null, 'error'),
+            type: 'error',
+          },
+        })
+      }
+    }
+  }
+
   const onSubmit = useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault()
@@ -102,27 +184,32 @@ const SeverityEvaluationOfPersonalDataComponent = (
       })
 
       if (!isValid) {
-        alert('Este necesar de selectat variantă de răspuns la toate întrebîrile!!!')
+        setState({
+          ...state,
+          messageBox: {
+            message: 'Este necesar de selectat variantă de răspuns la toate întrebîrile!!!',
+            onOkClick: messageBoxCallback.bind(null, 'error'),
+            type: 'error',
+          },
+        })
         return
       } else {
-        const CPD = state.questions['CPD'].Cost[state.questions['CPD'].selectedVariantIndex]
-        const UI = state.questions['UI'].Cost[state.questions['UI'].selectedVariantIndex]
-        const CC = state.questions['CC'].Cost[state.questions['CC'].selectedVariantIndex]
-
-        console.log(CPD, UI, CC)
+        saveEvaluationResult()
       }
     },
     [state.questions],
   )
 
   return (
-    <SeverityEvaluationOfPersonalDataView
-      onSubmit={onSubmit}
-      title={state.title}
-      isLoad={state.isLoad}
-      questions={state.questions}
-      selectAnswer={selectAnswer}
-    />
+    <MessageBoxWrapper withContent={state.messageBoxShowContent} {...state.messageBox}>
+      <SeverityEvaluationOfPersonalDataView
+        onSubmit={onSubmit}
+        title={state.title}
+        isLoad={state.isLoad}
+        questions={state.questions}
+        selectAnswer={selectAnswer}
+      />
+    </MessageBoxWrapper>
   )
 }
 

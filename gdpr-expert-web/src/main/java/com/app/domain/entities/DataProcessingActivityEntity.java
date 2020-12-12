@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -38,6 +39,12 @@ public class DataProcessingActivityEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="employee_id")
   private EmployeeEntity employee;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(
+    name = "data_processing_activity_id", 
+    referencedColumnName = "data_processing_activity_id")
+  private SeverityEvaluatingOfPersonalDataEntity severityEvaluatingOfPersonalDataEntity;
 
   @Column(name="activity_name")
   private String activityName;

@@ -39,9 +39,11 @@
       justify-content: center;
 
       button {
-        background-color: $blue3;
+        background-color: $blue2;
         max-width: 220px;
         height: 65px;
+
+        margin: 0 0 0 15px;
       }
     }
   }

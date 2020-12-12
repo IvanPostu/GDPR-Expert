@@ -24,4 +24,6 @@
 
   <bean id="requestForPersonalInfoService" class="com.app.services.RequestForPersonalInfoServiceImpl"></bean>
 
+  <bean id="severityEvaluatingOfPersonalDataService" class="com.app.services.SeverityEvaluatingOfPersonalDataServiceImpl"></bean>
+
 </beans>

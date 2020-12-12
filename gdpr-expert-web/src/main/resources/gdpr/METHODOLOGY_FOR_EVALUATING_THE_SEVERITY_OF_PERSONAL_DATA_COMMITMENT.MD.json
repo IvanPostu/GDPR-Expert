@@ -1,5 +1,5 @@
 {
-  "title": "Metodologia de evaluare a severității compromiterii datelor cu caracter personale(E.S.C.P.D.) conform rgpd al U.E.",
+  "title": "Metodologia de evaluare a severității compromiterii datelor cu caracter personale(E.S.C.P.D.) conform R.G.P.D. al U.E.",
   "description": "Metodologia de evaluare a severității încălcărilor de date cu caracter personal, în conformitate cu opiniile grupului de lucru al articolului 29 „Orientări privind notificarea încălcării datelor cu caracter personal în temeiul Regulamentului 2016/679” și „Recomandări pentru o metodologie de evaluare a severității datelor personale încălcări de date” emisă de Agenția Uniunii Europene pentru Securitatea Rețelelor și Informațiilor (ENISA)",
   "disclaimer": "Evaluarea corectă a unei încălcări a datelor este esențială în lumina noilor sancțiuni care vor fi aplicate de autoritățile de supraveghere, pentru faptul că nu se notifică încălcarea datelor, după cum este necesar, poate duce la amenzi administrative de până la 10.000.000 EUR sau, în cazul unei întreprindere, până la 2% din totalul cifrei de afaceri anuale mondiale din exercițiul financiar precedent. În cele din urmă, chiar dacă RGPD al UE solicită operatorilor doar să notifice încălcările de date, dacă procesatorii devin conștienți de o încălcare a datelor, aceștia trebuie să notifice operatorul fără întârzieri nejustificate pentru a permite operatorului să își respecte obligațiile de notificare. ",
   "evaluation": {
@@ -47,17 +47,17 @@
   },
   "evaluationInfo":{
     "formula": "CPD*UI+CC",
-    "SClt4": {
+    "lt_4": {
       "impactOnAffectedDataSubjects": "Este puțin probabil să conducă la un risc.",
       "possibleConsequencesForDataSubjects": "Indivizii fie nu vor fi afectați, fie pot întâmpina câteva inconveniente, pe care le vor depăși fără nicio problemă (timpul petrecut reintroducând informații, supărări, iritații, etc..).",
       "notificationObligation": "Încălcarea datelor trebuie înregistrată numai într-un registru."
     },
-    "SCe4": {
+    "e_4": {
       "impactOnAffectedDataSubjects": "Este posibil să apară un risc.",
       "possibleConsequencesForDataSubjects": "Persoanele pot întâmpina inconveniente semnificative, pe care le vor putea depăși în ciuda câtorva dificultăți (costuri suplimentare, refuzul accesului la serviciile comerciale, frică, lipsă de înțelegere, stres, afecțiuni fizice minore, etc..).",
       "notificationObligation": "Încălcarea datelor ar trebui raportată autorității de supraveghere."
     },
-    "SCgt4": {
+    "gt_4": {
       "impactOnAffectedDataSubjects": "Este posibil să apară un risc.",
       "possibleConsequencesForDataSubjects": "Persoanele pot întâmpina inconveniente semnificative, pe care le vor putea depăși în ciuda câtorva dificultăți (costuri suplimentare, refuzul accesului la serviciile comerciale, frică, lipsă de înțelegere, stres, afecțiuni fizice minore, etc..).",
       "notificationObligation": "Încălcarea datelor ar trebui raportată autorității de supraveghere."

@@ -24,6 +24,7 @@ import { RequestsForPersonalInfoDetailsPage } from '../pages/RequestsForPersonal
 import { RequestsForPersonalInfoPage } from '../pages/RequestsForPersonalInfoPage/RequestsForPersonalInfoPage'
 import { RootPage } from '../pages/RootPage'
 import SeverityEvaluationOfPersonalDataPage from '../pages/SeverityEvaluationOfPersonalDataPage/SeverityEvaluationOfPersonalDataPage'
+import { SeverityEvaluationOfPersonalDataResultPage } from '../pages/SeverityEvaluationOfPersonalDataResultPage/SeverityEvaluationOfPersonalDataResultPage'
 import { UpdateDepartmentPage } from '../pages/UpdateDepartmentPage'
 import { UpdateEmployeePage } from '../pages/UpdateEmployeePage/UpdateEmployeePage'
 import { ProtectedRoute } from './ProtectedRoute'
@@ -160,6 +161,17 @@ const AppRouterComponent = (): ReactElement => {
           component={SeverityEvaluationOfPersonalDataPage}
           exact
           path={routeNames.SeverityEvaluationOfPersonalDataPageRoute}
+        />
+
+        <ProtectedRoute
+          component={SeverityEvaluationOfPersonalDataResultPage}
+          exact
+          path={routeNames.SeverityEvaluationOfPersonalDataResultPageRoute}
+        />
+        <ProtectedRoute
+          component={SeverityEvaluationOfPersonalDataResultPage}
+          exact
+          path={routeNames.SeverityEvaluationOfPersonalDataResultPageRoute}
         />
       </Switch>
     </HashRouter>

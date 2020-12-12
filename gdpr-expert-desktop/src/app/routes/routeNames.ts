@@ -32,4 +32,5 @@ export enum routeNames {
   RequestsForPersonalInfoDetailsPageRoute = '/RequestsForPersonalInfoDetailsPageRoute',
 
   SeverityEvaluationOfPersonalDataPageRoute = '/SeverityEvaluationOfPersonalDataPageRoute',
+  SeverityEvaluationOfPersonalDataResultPageRoute = '/SeverityEvaluationOfPersonalDataResultPageRoute',
 }

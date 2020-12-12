@@ -6,6 +6,7 @@ export type MessageBoxWrapperPropType = {
   title?: string
   message: string
   type: 'error' | 'success'
+  withContent?: boolean
   onOkClick: () => void
 } & PropsWithChildren<unknown>
 
@@ -15,11 +16,23 @@ export class MessageBoxWrapper extends PureComponent<MessageBoxWrapperPropType> 
 
     if (!Boolean(message)) return <Fragment>{children}</Fragment>
 
-    if (type === 'success')
-      return <SuccessAlert title={this.props.title} onOkClick={onOkClick} text={message} />
+    if (type === 'success') {
+      return (
+        <Fragment>
+          <SuccessAlert title={this.props.title} onOkClick={onOkClick} text={message} />
+          {this.props.withContent && children}
+        </Fragment>
+      )
+    }
 
-    if (type === 'error')
-      return <ErrorAlert title={this.props.title} onOkClick={onOkClick} text={message} />
+    if (type === 'error') {
+      return (
+        <Fragment>
+          <ErrorAlert title={this.props.title} onOkClick={onOkClick} text={message} />
+          {this.props.withContent && children}
+        </Fragment>
+      )
+    }
 
     return null
   }

@@ -1,15 +1,16 @@
-import React, { Component, ReactElement } from 'react'
-import { connect } from 'react-redux'
-import { RouteComponentProps } from 'react-router-dom'
-import { bindActionCreators, Dispatch } from 'redux'
+import { severityEvaluationOfPersonalDataPageRedirect } from '@/app/pages/SeverityEvaluationOfPersonalDataPage/severityEvaluationOfPersonalDataPageRedirect'
+import { severityEvaluationOfPersonalDataResultPageRedirect } from '@/app/pages/SeverityEvaluationOfPersonalDataResultPage/severityEvaluationOfPersonalDataResultPageRedirect'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
-import { DataProcessingActivityInfoView } from './DataProcessingActivityInfoView'
 import {
   DataProcessingActivityInfoResponseType,
   getDataProcessingActivityInfo,
 } from '@/app/webApi/dataProcessingActivity/getDataProcessingActivityInfo'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
-import { routeNames } from '@/app/routes/routeNames'
+import React, { Component, ReactElement } from 'react'
+import { connect } from 'react-redux'
+import { RouteComponentProps } from 'react-router-dom'
+import { bindActionCreators, Dispatch } from 'redux'
+import { DataProcessingActivityInfoView } from './DataProcessingActivityInfoView'
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   const actionCreators = { clearAuthDataActionCreator }
@@ -92,9 +93,16 @@ class DataProcessingActivityInfoComponent extends Component<
     return (
       <DataProcessingActivityInfoView
         activityData={this.state.activity}
-        onSeverityEvaluateClick={this.redirect.bind(
+        onSeverityEvaluateClick={severityEvaluationOfPersonalDataPageRedirect.bind(null, {
+          history: this.props.history,
+          dataProcessingActivityId: this.props.activityId,
+        })}
+        onSeverityEvaluatingResultClick={severityEvaluationOfPersonalDataResultPageRedirect.bind(
           null,
-          routeNames.SeverityEvaluationOfPersonalDataPageRoute,
+          {
+            history: this.props.history,
+            severityEvaluationOfPersonalDataId: this.props.activityId,
+          },
         )}
       />
     )

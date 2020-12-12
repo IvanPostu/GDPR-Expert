@@ -12,21 +12,21 @@ export type GetSeverityEvaluationOfPersonalDataQuestionsResponseType = {
       Cost: Array<number>
     }
   }
-  evaluationInfo: {
-    formula: string //CPD*UI+CC
-    SClt4: {
-      impactOnAffectedDataSubjects: string
-      possibleConsequencesForDataSubjects: Array<string>
-    }
-    SCe4: {
-      impactOnAffectedDataSubjects: string
-      possibleConsequencesForDataSubjects: Array<string>
-    }
-    SCgt4: {
-      impactOnAffectedDataSubjects: string
-      possibleConsequencesForDataSubjects: Array<string>
-    }
-  }
+  // evaluationInfo: {
+  //   formula: string //CPD*UI+CC
+  //   SClt4: {
+  //     impactOnAffectedDataSubjects: string
+  //     possibleConsequencesForDataSubjects: Array<string>
+  //   }
+  //   SCe4: {
+  //     impactOnAffectedDataSubjects: string
+  //     possibleConsequencesForDataSubjects: Array<string>
+  //   }
+  //   SCgt4: {
+  //     impactOnAffectedDataSubjects: string
+  //     possibleConsequencesForDataSubjects: Array<string>
+  //   }
+  // }
 }
 
 export async function getSeverityEvaluationOfPersonalDataQuestions(): Promise<
