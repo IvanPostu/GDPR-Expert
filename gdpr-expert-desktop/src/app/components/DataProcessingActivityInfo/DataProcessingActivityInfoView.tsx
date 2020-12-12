@@ -37,7 +37,7 @@ export const DataProcessingActivityInfoView = (
         </div>
         <div className={styles.row + ' ' + styles.buttonsContainer}>
           <GenericButton onClick={props.onSeverityEvaluateClick}>
-            Evaluarea severității compromiterii datelor
+            Realizarea evaluării severității compromiterii datelor
           </GenericButton>
         </div>
         {Object.keys(uiData).map((key) => (

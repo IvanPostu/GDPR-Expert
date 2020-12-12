@@ -8,6 +8,7 @@ psql -U postgres -d app_db << EOF
 	ALTER TABLE app.gdpr_evaluation DISABLE TRIGGER ALL;
 	ALTER TABLE app.organisation DISABLE TRIGGER ALL;
 	ALTER TABLE app.organisation_logo DISABLE TRIGGER ALL;
+	ALTER TABLE app.data_processing_activity DISABLE TRIGGER ALL;
 EOF
 
 
@@ -21,4 +22,5 @@ psql -U postgres -d app_db << EOF
 	ALTER TABLE app.gdpr_evaluation ENABLE TRIGGER ALL;
 	ALTER TABLE app.organisation ENABLE TRIGGER ALL;
 	ALTER TABLE app.organisation_logo ENABLE TRIGGER ALL;
+	ALTER TABLE app.data_processing_activity ENABLE TRIGGER ALL;
 EOF

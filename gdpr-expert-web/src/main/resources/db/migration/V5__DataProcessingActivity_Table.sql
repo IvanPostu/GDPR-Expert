@@ -14,8 +14,9 @@ CREATE TABLE app.data_processing_activity
   "status" VARCHAR(32) NOT NULL, -- WAIT, IN_PROGRESS, COMPLETED
 
   "beginning_of_the_activity" DATE,
-  "end_of_the_activity" DATE
+  "end_of_the_activity" DATE,
 
+  PRIMARY KEY("data_processing_activity_id")
 );
 
 ALTER TABLE app.data_processing_activity
