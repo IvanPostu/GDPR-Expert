@@ -8,6 +8,7 @@ type DataProcessingActivityInfoViewPropType = {
   activityData: DataProcessingActivityInfoResponseType //{ [key: string]: string }
   onSeverityEvaluateClick: () => void
   onSeverityEvaluatingResultClick: () => void
+  onDPIAClick: () => void
 }
 
 export const DataProcessingActivityInfoView = (
@@ -42,6 +43,9 @@ export const DataProcessingActivityInfoView = (
           </GenericButton>
           <GenericButton onClick={props.onSeverityEvaluatingResultClick}>
             Rezultatul evaluării severității compromiterii datelor
+          </GenericButton>
+          <GenericButton onClick={props.onDPIAClick}>
+            Impactul privind protecția datelor
           </GenericButton>
         </div>
         {Object.keys(uiData).map((key) => (

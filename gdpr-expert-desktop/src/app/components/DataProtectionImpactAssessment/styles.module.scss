@@ -1,0 +1,104 @@
+@import "@/app/scss/index.scss";
+
+.container {
+
+
+  .header{
+    flex-basis: 75vh;
+    padding: 2em;
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 8px 0;
+    border-radius: .25em;
+
+    .buttons{
+      padding: 20px;
+
+      .btn{
+        @include whiteContainer;
+        background-color: $blue1;
+        font-size: 14px;
+        line-height: 15px;
+        margin-left: 10px;
+        max-width: 220px;
+        padding: 10px;
+  
+        & :hover{
+          background: white;
+        }
+      }
+  
+      h1{
+        text-align: center;
+      }
+    }
+  }
+
+  .body{
+    width: 100%;
+    min-height: 5;
+    margin: 30px 0 35px 0;
+    @include whiteContainer;
+
+    .collapsible {
+      margin-top: 20px;
+      background-color: $dark1;
+      color: white;
+      cursor: pointer;
+      padding: 6px;
+      width: 100%;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span{
+        font-size: 30px;
+      }
+    }
+    
+    .collapsible:hover {
+      background-color: $grey2;
+    }
+    
+    .content {
+      padding: 0 18px;
+      overflow: hidden;
+      transition: max-height 0.6s ease-out;
+      background-color: #f1f1f1;
+
+      h3 {
+        margin: 20px 0 10px 0;
+      }
+  
+      .list{
+        margin: 10px 0 0 40px;
+        list-style: decimal;
+  
+        li{
+          margin: 10px 0 10px 0;
+        }
+      }
+
+      p{
+        &:nth-child(1){
+          margin-top: 15px;
+        }
+      }
+
+      table, td, th {
+        margin: 15px 0; 
+        border: 1px solid black;
+        text-align: center;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+    }
+
+    
+    
+  }
+
+}

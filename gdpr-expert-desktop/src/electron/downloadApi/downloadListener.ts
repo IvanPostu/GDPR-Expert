@@ -6,7 +6,7 @@ import {
   DownloadStatusType,
 } from '@/app/rendererCallbacks/downloadStatusListener'
 
-function downloadStaturCreator(
+function downloadStatusCreator(
   item: DownloadItem & { id?: string },
   status: DownloadStatusType,
 ): DownloadStatusListenerPropType {
@@ -30,7 +30,7 @@ export function downloadListener(event: IpcMainEvent, data: DownloadOptionType):
       item['id'] = downloadUniqueId
       item.on('updated', (event, state) => {
         if (state === 'interrupted') {
-          const downloadData: DownloadStatusListenerPropType = downloadStaturCreator(
+          const downloadData: DownloadStatusListenerPropType = downloadStatusCreator(
             item,
             'interrupted',
           )
@@ -39,14 +39,14 @@ export function downloadListener(event: IpcMainEvent, data: DownloadOptionType):
           item.cancel()
         } else if (state === 'progressing') {
           if (item.isPaused()) {
-            const downloadData: DownloadStatusListenerPropType = downloadStaturCreator(
+            const downloadData: DownloadStatusListenerPropType = downloadStatusCreator(
               item,
               'paused',
             )
             win.webContents.send('download-file-status', downloadData)
             item.cancel()
           } else {
-            const downloadData: DownloadStatusListenerPropType = downloadStaturCreator(
+            const downloadData: DownloadStatusListenerPropType = downloadStatusCreator(
               item,
               'progressing',
             )

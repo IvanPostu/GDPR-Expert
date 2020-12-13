@@ -8,6 +8,7 @@ import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { CreateProcessingActivityPage } from '../pages/CreateProcessingActivityPage/CreateProcessingActivityPage'
 import { DataProcessingActivityInfoPage } from '../pages/DataProcessingActivityInfoPage/DataProcessingActivityInfoPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
+import DPIAPage from '../pages/DPIAPage/DPIAPage'
 import { EmployeeAddDocumentsPage } from '../pages/EmployeeAddDocumentsPage/EmployeeAddDocumentsPage'
 import { EmployeeDocumentsPage } from '../pages/EmployeeDocumentsPage/EmployeeDocumentsPage'
 import EmployeeInfoPage from '../pages/EmployeeInfoPage/EmployeeInfoPage'
@@ -173,6 +174,8 @@ const AppRouterComponent = (): ReactElement => {
           exact
           path={routeNames.SeverityEvaluationOfPersonalDataResultPageRoute}
         />
+
+        <ProtectedRoute component={DPIAPage} exact path={routeNames.DPIAPageRoute} />
       </Switch>
     </HashRouter>
   )

@@ -1,3 +1,4 @@
+import { dPIAPageRedirect } from '@/app/pages/DPIAPage/dPIAPageRedirect'
 import { severityEvaluationOfPersonalDataPageRedirect } from '@/app/pages/SeverityEvaluationOfPersonalDataPage/severityEvaluationOfPersonalDataPageRedirect'
 import { severityEvaluationOfPersonalDataResultPageRedirect } from '@/app/pages/SeverityEvaluationOfPersonalDataResultPage/severityEvaluationOfPersonalDataResultPageRedirect'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
@@ -104,6 +105,10 @@ class DataProcessingActivityInfoComponent extends Component<
             severityEvaluationOfPersonalDataId: this.props.activityId,
           },
         )}
+        onDPIAClick={dPIAPageRedirect.bind(null, {
+          history: this.props.history,
+          dataProcessingActivityId: this.props.activityId,
+        })}
       />
     )
   }

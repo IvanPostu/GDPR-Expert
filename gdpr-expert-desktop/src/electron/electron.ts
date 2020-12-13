@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, IpcMainEvent } from 'electron'
 import isDev from 'electron-is-dev'
 import { downloadListener } from './downloadApi/downloadListener'
 
