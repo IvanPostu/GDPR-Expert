@@ -83,6 +83,9 @@
         &:nth-child(1){
           margin-top: 15px;
         }
+        &:last-child{
+          margin-bottom: 15px;
+        }
       }
 
       table, td, th {

@@ -4,9 +4,16 @@ import { GenericButton } from '../GenericButton'
 import styles from './styles.module.scss'
 import DPIAGeneralItem from './DPIAGeneralItem'
 import { DPIACriteriaIfAnalyzeIsNeeded } from './DPIACriteriaIfAnalyzeIsNeeded'
+import { DPIAConclusionAndRecommendations } from './DPIAConclusionAndRecommendations'
 
-export default function DataProtectionImpactAssessmentView(): ReactElement {
-  const onEvaluateClick = undefined
+type DataProtectionImpactAssessmentViewPropType = {
+  onEvaluateClick: () => void
+}
+
+export default function DataProtectionImpactAssessmentView(
+  props: DataProtectionImpactAssessmentViewPropType,
+): ReactElement {
+  const onEvaluateClick = props.onEvaluateClick
 
   return (
     <div className={styles.container}>
@@ -23,6 +30,7 @@ export default function DataProtectionImpactAssessmentView(): ReactElement {
       <Container>
         <DPIAGeneralItem />
         <DPIACriteriaIfAnalyzeIsNeeded />
+        <DPIAConclusionAndRecommendations />
       </Container>
     </div>
   )

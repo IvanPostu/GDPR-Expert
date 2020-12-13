@@ -35,4 +35,5 @@ export enum routeNames {
   SeverityEvaluationOfPersonalDataResultPageRoute = '/SeverityEvaluationOfPersonalDataResultPageRoute',
 
   DPIAPageRoute = '/DPIAPageRoute',
+  DPIAEvaluationPageRoute = '/DPIAEvaluationPageRoute',
 }

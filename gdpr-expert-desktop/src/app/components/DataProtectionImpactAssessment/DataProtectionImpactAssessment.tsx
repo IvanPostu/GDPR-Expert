@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import { dPIAEvaluationPageRedirect } from '@/app/pages/DPIAEvaluationPage/dPIAEvaluationPageRedirect'
+import React, { ReactElement, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import DataProtectionImpactAssessmentView from './DataProtectionImpactAssessmentView'
 
@@ -9,5 +10,12 @@ type DataProtectionImpactAssessmentPropType = RouteComponentProps & {
 export const DataProtectionImpactAssessment = (
   props: DataProtectionImpactAssessmentPropType,
 ): ReactElement => {
-  return <DataProtectionImpactAssessmentView />
+  const onEvaluateClick = useCallback(() => {
+    dPIAEvaluationPageRedirect({
+      dataProcessingActivityId: props.dataProcessingActivityId,
+      history: props.history,
+    })
+  }, [])
+
+  return <DataProtectionImpactAssessmentView onEvaluateClick={onEvaluateClick} />
 }

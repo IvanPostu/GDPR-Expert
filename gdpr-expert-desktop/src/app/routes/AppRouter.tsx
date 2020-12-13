@@ -8,6 +8,7 @@ import { CreateOrganisationPage } from '../pages/CreateOrganisationPage'
 import { CreateProcessingActivityPage } from '../pages/CreateProcessingActivityPage/CreateProcessingActivityPage'
 import { DataProcessingActivityInfoPage } from '../pages/DataProcessingActivityInfoPage/DataProcessingActivityInfoPage'
 import { DepartmentPage } from '../pages/DepartamentPage'
+import { DPIAEvaluationPage } from '../pages/DPIAEvaluationPage/DPIAEvaluationPage'
 import DPIAPage from '../pages/DPIAPage/DPIAPage'
 import { EmployeeAddDocumentsPage } from '../pages/EmployeeAddDocumentsPage/EmployeeAddDocumentsPage'
 import { EmployeeDocumentsPage } from '../pages/EmployeeDocumentsPage/EmployeeDocumentsPage'
@@ -176,6 +177,11 @@ const AppRouterComponent = (): ReactElement => {
         />
 
         <ProtectedRoute component={DPIAPage} exact path={routeNames.DPIAPageRoute} />
+        <ProtectedRoute
+          component={DPIAEvaluationPage}
+          exact
+          path={routeNames.DPIAEvaluationPageRoute}
+        />
       </Switch>
     </HashRouter>
   )
