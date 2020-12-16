@@ -5,9 +5,10 @@ import {
   DownloadStatusListenerPropType,
   DownloadStatusType,
 } from '@/app/rendererCallbacks/downloadStatusListener'
+// import { dialog, shell } from 'electron'
 
 function downloadStatusCreator(
-  item: DownloadItem & { id?: string },
+  item: DownloadItem & { id?: string; isCompleted?: boolean },
   status: DownloadStatusType,
 ): DownloadStatusListenerPropType {
   const percent = item.getReceivedBytes() / item.getTotalBytes()
@@ -22,12 +23,20 @@ function downloadStatusCreator(
 
 export function downloadListener(event: IpcMainEvent, data: DownloadOptionType): void {
   const win = BrowserWindow.getFocusedWindow() as BrowserWindow
-  const { downloadUniqueId, url, filename } = data
+  const { downloadUniqueId, url } = data
   download(win, url, {
     openFolderWhenDone: true,
-    filename: filename,
+    // filename: filenamea,
     onStarted: (item: DownloadItem & { id?: string }) => {
       item['id'] = downloadUniqueId
+
+      win.webContents.send('download-file-start', {
+        downloadObjectId: downloadUniqueId,
+        filename: item.getFilename(),
+        percent: 0,
+        status: 'progressing',
+      } as DownloadStatusListenerPropType)
+
       item.on('updated', (event, state) => {
         if (state === 'interrupted') {
           const downloadData: DownloadStatusListenerPropType = downloadStatusCreator(
@@ -50,10 +59,19 @@ export function downloadListener(event: IpcMainEvent, data: DownloadOptionType):
               item,
               'progressing',
             )
+
             win.webContents.send('download-file-status', downloadData)
           }
         }
       })
     },
+  }).catch(() => {
+    const downloadData: DownloadStatusListenerPropType = {
+      downloadObjectId: downloadUniqueId,
+      percent: 0,
+      status: 'interrupted',
+    }
+
+    win.webContents.send('download-file-status', downloadData)
   })
 }

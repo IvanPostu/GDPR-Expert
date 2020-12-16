@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -45,6 +46,10 @@ public class DataProcessingActivityEntity {
     name = "data_processing_activity_id", 
     referencedColumnName = "data_processing_activity_id")
   private SeverityEvaluatingOfPersonalDataEntity severityEvaluatingOfPersonalDataEntity;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @PrimaryKeyJoinColumn
+  private DataProtectionImpactAssessmentEntity dataProtectionImpactAssessment;
 
   @Column(name="activity_name")
   private String activityName;

@@ -26,4 +26,6 @@
 
   <bean id="severityEvaluatingOfPersonalDataService" class="com.app.services.SeverityEvaluatingOfPersonalDataServiceImpl"></bean>
 
+  <bean id="dataProtectionImpactAssessmentService" class="com.app.services.DataProtectionImpactAssessmentServiceImpl"></bean>
+
 </beans>

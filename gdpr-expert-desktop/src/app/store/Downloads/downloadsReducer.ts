@@ -36,6 +36,9 @@ export const downloadsReducer: Reducer<DownloadsStateType, DownloadsRootActionTy
       const item = state.downloads[itemIndex]
 
       item.percent = percent
+      if (Boolean(action.payload.filename)) {
+        item.filename = action.payload.filename as string
+      }
 
       return {
         ...state,

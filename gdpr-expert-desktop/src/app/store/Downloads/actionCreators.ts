@@ -8,25 +8,18 @@ import {
 } from './types'
 import { nanoid } from 'nanoid'
 import { DownloadStatusListenerPropType } from '@/app/rendererCallbacks/downloadStatusListener'
-import { webServerURL } from '@/app/constants/webServerUrl'
 
-export function startDownloadActionCreator(
-  documentId: number,
-  employeeId: number,
-  filename: string,
-): StartDownloadActionType {
-  const uniqueId = nanoid(19) + Date.now().toString()
-  const url = `${webServerURL}/api/employee/docs?employeeId=${employeeId}&documentId=${documentId}`
+export function startDownloadActionCreator(url: string): StartDownloadActionType {
+  const uniqueId = nanoid(16)
 
   downloadFileSender({
-    filename,
     url,
     downloadUniqueId: uniqueId,
   })
 
   return {
     payload: {
-      filename,
+      filename: 'Wait...',
       url,
       id: uniqueId,
     },
@@ -60,6 +53,7 @@ export function updateDownloadItemActionCreator(
       id: data.downloadObjectId,
       percent: data.percent,
       status: data.status,
+      filename: data.filename || '',
     },
     type: T.UPDATE_ITEM,
   }

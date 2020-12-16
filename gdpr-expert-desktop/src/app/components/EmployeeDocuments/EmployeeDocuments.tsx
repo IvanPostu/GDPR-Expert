@@ -14,6 +14,7 @@ import { removeDocumentsForEmployee } from '@/app/webApi/employee/removeDocument
 import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
 import { employeeAddDocumentsPageRedirect } from '@/app/pages/EmployeeAddDocumentsPage/employeeAddDocumentsPageRedirect'
 import { employeeInfoPageRedirect } from '@/app/pages/EmployeeInfoPage/employeeInfoPageRedirect'
+import { webServerURL } from '@/app/constants/webServerUrl'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { startDownloadActionCreator }
@@ -88,7 +89,8 @@ class EmployeeDocumentsComponent extends Component<
   }
 
   downloadDocument(documentId: number, documentName: string): void {
-    this.props.startDownloadActionCreator(documentId, this.props.employeeId, documentName)
+    const url = `${webServerURL}/api/employee/docs?employeeId=${this.props.employeeId}&documentId=${documentId}`
+    this.props.startDownloadActionCreator(url)
   }
 
   fetchDocumentsInfoForEmployee(): void {

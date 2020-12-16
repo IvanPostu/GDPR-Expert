@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
-import { GenericButton } from '../GenericButton'
-import styles from './styles.module.scss'
+import styles from '../styles.module.scss'
 import { IoIosArrowDropdownCircle } from 'react-icons/io'
+import { GenericButton } from '../../GenericButton'
 
 export default function DPIAGeneralItem(): ReactElement {
   const [state, setState] = useState({

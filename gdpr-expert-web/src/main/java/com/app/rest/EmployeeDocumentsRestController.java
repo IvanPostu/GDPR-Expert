@@ -56,7 +56,7 @@ public class EmployeeDocumentsRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public void getDocumentForEmployee(HttpServletRequest request, HttpServletResponse response,
+  public void downloadDocumentForEmployee(HttpServletRequest request, HttpServletResponse response,
       @RequestParam(value = "employeeId", required = true) Long employeeId,
       @RequestParam(value = "documentId", required = true) Long documentId) throws IOException {
 

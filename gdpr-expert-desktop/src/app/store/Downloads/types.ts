@@ -48,6 +48,7 @@ export interface UpdateItemActionType {
     id: string
     percent: number
     status: DownloadStatusType
+    filename?: string
   }
 }
 
