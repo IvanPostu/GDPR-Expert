@@ -25,11 +25,6 @@ export function Header(): ReactElement {
   const content = isAuthenticated ? (
     <Fragment>
       <li className={styles.listItem}>
-        <NavLink className={styles.link} to={routeNames.LoginPageRoute}>
-          Organizații
-        </NavLink>
-      </li>
-      <li className={styles.listItem}>
         <a className={styles.link}>{email}</a>
       </li>
       <li className={styles.listItem}>

@@ -22,7 +22,7 @@ public interface EmployeeService {
 
   Optional<EmployeeEntity> getEmployeeWithDepartment(Long employeeId);
 
-  void addDocumentsToEmployee(Long employeeId, MultipartFile[] files, String[] filenames);
+  void addDocumentsToEmployee(Long employeeId, MultipartFile[] files);
 
   List<EmployeeDataResponsibleQuestionDto> getDataResponsibleQuestions();
 

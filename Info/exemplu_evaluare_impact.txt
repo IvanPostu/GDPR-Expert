@@ -17,6 +17,26 @@ Etapa 2 Este nevoie de indicat setul actual și existent de măsuri din punct de
 
 
 
-Setul actual, existent de măsuri din punct de vedere juridic:  
+Setul actual, existent de măsuri din punct de vedere juridic: sunt utilizate diverse standarte 
+internaționale și europene juridice.
+
+Setul actual, existent de măsuri din punct de vedere fizic: accesul fizic la documente este strict interzis pentru persoanele ce nu au necesitate documentată la ele.
+
+Setul actual, existent de măsuri din punct de vedere tehnic: este utilizat doar soft licenziat, 
+baze de date configurate și securizate la nivel înalt, se utilizează soft pentru securitate, IDS și Firewall.
 
 
+Etapa 3 Este nevoie de enumerat sursele de risc pentru prelucrarea datelor.
+
+Sursele principale de risc sunt: factorul uman, probabilitatea de iesire din functionare a serverului sau stației de lucru. La fel o sursă de risc este lipsa politicilor de securitate.
+
+
+Etapa 4 Analiza și listarea potențialelor evenimente negative și amenințări la procesarea datelor.
+
+Este posibil ca noile tehnologii să nu aibă o introducere clară a măsurilor de protecție prietenoase confidențialității și astfel să expună persoanele vizate la amenințări precum hacking, phishing și spam. Scopul său este de a determina la ce tip de amenințări poate fi expusă prelucrarea dvs. Să presupunem că sunteți directorul unui spital mare. Dosarele de sănătate ale pacienților sunt foarte sensibile. O amenințare umană ar fi că aceste înregistrări sunt accesate de membrii personalului greșit dintr-un motiv greșit, iar o amenințare non-umană ar fi că sistemul de operare utilizat de spitalul este cel care funcționează de 10 ani fără actualizări.
+
+
+
+Etapa 5
+
+Responsabilizarea personalul să facă schimbări și să conștientizeze protecția datelor cu caracter personal în cadrul companiei.

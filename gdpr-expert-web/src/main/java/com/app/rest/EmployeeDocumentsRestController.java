@@ -1,7 +1,6 @@
 package com.app.rest;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,16 +40,7 @@ public class EmployeeDocumentsRestController {
   public ResponseEntity<?> addEmployeeDocument(@RequestParam(required = true, value = "files") MultipartFile[] files,
       @RequestParam(required = true, value = "employeeId") Long employeeId) throws IOException {
 
-    String utf8Filenames[] = new String[files.length];
-
-    for (int j = 0; j < files.length; j++) {
-      String s = new String(files[j].getOriginalFilename().getBytes(StandardCharsets.ISO_8859_1),
-          StandardCharsets.UTF_8);
-      utf8Filenames[j] = s;
-
-    }
-
-    employeeService.addDocumentsToEmployee(employeeId, files, utf8Filenames);
+    employeeService.addDocumentsToEmployee(employeeId, files);
 
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
