@@ -48,6 +48,10 @@ test {
     // includeTags 'fast'
     // excludeTags 'slow'
   }
+
+  afterTest { desc, result -> 
+    logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+  }
 }
 
 repositories{
@@ -121,3 +125,4 @@ dependencies {
 war {
   
 }
+

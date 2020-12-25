@@ -1,16 +1,20 @@
 package com.app.persistence.repositories;
 
+import java.util.Optional;
+
 import com.app.domain.entities.DepartmentEntity;
 
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.Repository;
 
-public interface DepartmentRepository extends CrudRepository<DepartmentEntity, Long> {
+public interface DepartmentRepository extends Repository<DepartmentEntity, Long> {
   
-  @Modifying
-  @Query("DELETE FROM DepartmentEntity WHERE department_id=:depId")
-  void deleteById(@Param("depId") Long departmentId);
+  void deleteAll();
 
+  void save(DepartmentEntity departmentEntity);
+
+  void deleteById(Long departmentEntityId);
+
+  Optional<DepartmentEntity> findById(Long departmentEntityId); 
+
+  
 }
