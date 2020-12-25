@@ -28,7 +28,7 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   private EntityManager entityManager;
 
   @Override
-  public List<OrganisationEntity> findByOwnerId(Long userOwnerId) {
+  public List<OrganisationEntity> findAllByOwnerId(Long userOwnerId) {
     UserEntity u = entityManager.find(UserEntity.class, userOwnerId);
     List<OrganisationEntity> organisations = u.getOrganisations().stream().map(a -> a).collect(Collectors.toList());
 
@@ -39,11 +39,11 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   public Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(Long organisationId, Long userOwnerId) {
     OrganisationEntity organisation = entityManager.find(OrganisationEntity.class, organisationId);
 
-    if (organisation.getOwner().getId().equals(userOwnerId)) {
+    if (organisation != null && organisation.getOwner().getId().equals(userOwnerId)) {
       return Optional.of(organisation);
     }
 
-    return Optional.of(null);
+    return Optional.ofNullable(null);
   }
 
   @Transactional

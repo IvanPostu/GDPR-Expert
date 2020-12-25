@@ -35,11 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
   @Transactional
   @Override
   public void save(UserEntity userEntity) {
-    try {
-      entityManager.persist(userEntity);
-    } catch (Exception e) {
-      char c = 'a';
-    }
+    entityManager.persist(userEntity);
   }
 
   @Override

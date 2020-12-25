@@ -50,7 +50,7 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Transactional
   @Override
   public List<OrganisationEntity> findOrganisationsByOwnerId(Long userOwnerId, boolean withLogos) {
-    List<OrganisationEntity> organisations = organisationRepository.findByOwnerId(userOwnerId);
+    List<OrganisationEntity> organisations = organisationRepository.findAllByOwnerId(userOwnerId);
 
     if (withLogos) {
       for (OrganisationEntity o : organisations) {

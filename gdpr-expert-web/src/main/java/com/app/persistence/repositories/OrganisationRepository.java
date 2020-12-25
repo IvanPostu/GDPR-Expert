@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface OrganisationRepository extends Repository<OrganisationEntity, Long>{
   
-  List<OrganisationEntity> findByOwnerId(@Param("ownerId") Long userOwnerId); 
+  List<OrganisationEntity> findAllByOwnerId(@Param("ownerId") Long userOwnerId); 
 
   Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(@Param("orgId") Long organisationId,@Param("ownerId") Long userOwnerId );
 
