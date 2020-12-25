@@ -3,8 +3,10 @@ package com.app.persistence.repositories;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import com.app.domain.entities.OrganisationEntity;
+import com.app.domain.entities.UserEntity;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -17,17 +19,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @TestMethodOrder(OrderAnnotation.class)
+@Tag(value = "slow")
 public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
 
   @Autowired
   private OrganisationRepository organisationRepository;
+  @Autowired
+  private UserRepository userRepository;
 
   @Test
   @Order(1)
-  @Tag(value = "slow")
   public void saveOrganisationTest() {
-    Assertions.assertEquals(2, 1+1);
     organisationRepository.deleteAll();
+
+    UserEntity fakeUser = new UserEntity();
+    fakeUser.setActive(true);
+    fakeUser.setEmail(UUID.randomUUID().toString() + "a@mail.ru");
+    fakeUser.setPassword("p");
+    userRepository.save(fakeUser);
+    Assertions.assertNotNull(fakeUser.getId());
 
     OrganisationEntity oEntity = new OrganisationEntity();
     oEntity.setActive(true);
@@ -41,12 +51,12 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
     oEntity.setLegalForm("SRL");
     oEntity.setName("Organisation Name");
     oEntity.setPhoneNumber("099999999");
+    oEntity.setOwner(fakeUser);
 
-    // organisationRepository.save(oEntity);
+    organisationRepository.save(oEntity);
 
-    // List<UserEntity> users = UserRepositoryTest.users;
-    // char a = 'a';
-    // Assertions.assertTrue(oEntity.getId() > 0);
+
+    Assertions.assertTrue(oEntity.getId() > 0);
   }
 
 }
