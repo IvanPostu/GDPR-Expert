@@ -106,7 +106,6 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
   @Transactional
   public void findAllByOwnerIdTest() {
 
-    // findAllByOwnerId
     UserEntity userWithTwoOrganisations = organisations.get(1).getOwner();
     List<OrganisationEntity> orgs = organisationRepository.findAllByOwnerId(userWithTwoOrganisations.getId());
     Assertions.assertEquals(orgs.size(), 2);
@@ -132,7 +131,6 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
   @Order(4)
   @Transactional
   public void findByIdTest() {
-    // findById
     OrganisationEntity o2 = organisationRepository.findById(organisations.get(0).getId()).get();
     Assertions.assertNotNull(o2);
   }
@@ -141,7 +139,6 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
   @Order(5)
   @Transactional
   public void findAllTest() {
-    // //findAll
     Pageable pageable = PageRequest.of(0, 100, Sort.by("Id").descending());
     List<OrganisationEntity> allOrgs = organisationRepository.findAll(pageable).toList();
     Assertions.assertEquals(allOrgs.size(), 3);

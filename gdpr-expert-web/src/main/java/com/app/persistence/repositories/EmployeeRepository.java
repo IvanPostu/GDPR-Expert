@@ -7,10 +7,6 @@ import com.app.domain.entities.EmployeeEntity;
 import org.springframework.data.repository.Repository;
 
 public interface EmployeeRepository extends Repository<EmployeeEntity, Long> {
-  
-  // @Modifying
-  // @Query("DELETE FROM EmployeeEntity WHERE employee_id=:id")
-  // void deleteById(@Param("id") Long employeeId);
 
   Optional<EmployeeEntity> findById(Long employeeId);
 
@@ -20,5 +16,6 @@ public interface EmployeeRepository extends Repository<EmployeeEntity, Long> {
 
   void deleteById(Long employeeId);
 
- 
+  void deleteAll();
+
 }

@@ -26,9 +26,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     EmployeeEntity employee = em.find(EmployeeEntity.class, employeeId, properties);
 
-    return Optional.of(employee);
+    return Optional.ofNullable(employee);
   }
 
+  @Transactional
   @Override
   public EmployeeEntity save(EmployeeEntity employeeEntity) {
 
@@ -36,7 +37,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     return employeeEntity;
   }
 
-
+  @Transactional
   @Override
   public EmployeeEntity update(EmployeeEntity employeeEntity) {
 
@@ -50,15 +51,18 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     EmployeeEntity employeeEntity = em.find(EmployeeEntity.class, employeeId);
 
     if (employeeEntity != null) {
-      // for(EmployeeDocumentEntity d : employeeEntity.getEmployeeDocuments()){
-      //   em.remove(d);
-      // }
-
       em.remove(employeeEntity);
     }else{
       throw new EntityNotFoundException(String.format("EmployeeEntity with id: %d not found!", employeeId));
     }
 
+  }
+
+  @Transactional
+  @Override
+  public void deleteAll() {
+    em.createQuery("DELETE FROM EmployeeEntity")
+      .executeUpdate();
   }
 
 }
