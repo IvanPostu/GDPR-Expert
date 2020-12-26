@@ -12,5 +12,6 @@ ALTER TABLE app.gdpr_evaluation
 ADD CONSTRAINT organisation__gdpr_evaluations__fk
 FOREIGN KEY ("organisation_id") 
 REFERENCES app."organisation"("organisation_id")
-ON DELETE CASCADE;
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
 

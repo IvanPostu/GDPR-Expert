@@ -52,6 +52,8 @@ public class RegistrationRestController {
           return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
         }
       }
+
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
     }
 
     return ResponseEntity.status(HttpStatus.CREATED).build();

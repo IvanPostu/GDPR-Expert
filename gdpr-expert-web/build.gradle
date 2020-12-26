@@ -14,43 +14,65 @@ buildscript {
   }
 }
 
-Properties properties = new Properties()
-File propertiesFile = new File('flyway.properties')
-propertiesFile.withInputStream {
-  properties.load(it)
-}
+
 
 apply plugin: "org.flywaydb.flyway"
 
-String flywayDbUrl = properties.applicationDatabaseUrl
+flywayMigrate{
+  String migrationType=''
 
-if(project.hasProperty("databaseType") && databaseType=="test"){
-  flywayDbUrl = properties.applicationTestDatabaseUrl
+  if(project.hasProperty("test")){
+    migrationType='test'
+  }
+
+  if(project.hasProperty("default")){
+    migrationType='default'
+  }
+
+  Properties properties = new Properties()
+  File propertiesFile = new File('flyway.properties')
+  propertiesFile.withInputStream {
+    properties.load(it)
+  }
+  String flywayDbUrl = ""
+  String migrationLocation = ""
+
+  if(migrationType=="test"){
+    flywayDbUrl = properties.applicationTestDatabaseUrl
+    migrationLocation = "filesystem:"+projectDir.path+"/src/test/resources/db/migration"
+  } else if(migrationType=="default"){
+    flywayDbUrl = properties.applicationDatabaseUrl
+    migrationLocation = "filesystem:"+projectDir.path+"/src/main/resources/db/migration"
+  } else {
+    println("Please write: flywayMigrate -Pdefault or -Ptest")
+    System.exit(1)
+  }
+
+  flyway {
+    user = properties.user
+    password = properties.password
+    url = flywayDbUrl
+    driver = properties.driver
+    locations = [migrationLocation]
+  }
+
 }
 
 
-flyway {
-  user = properties.user
-  password = properties.password
-  url = flywayDbUrl
-  driver = properties.driver
-}
-
-
-task myTask {
+task sayHello {
   doFirst {
-    println flyway.url
+    println("hello")
   }
 }
 
 test {
   useJUnitPlatform {
-    // includeTags 'fast'
+    // includeTags ['fast', 'slow']
     // excludeTags 'slow'
   }
 
   afterTest { desc, result -> 
-    logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    logger.quiet "[${result.resultType}] Executing test ${desc.name} [${desc.className}]"
   }
 }
 

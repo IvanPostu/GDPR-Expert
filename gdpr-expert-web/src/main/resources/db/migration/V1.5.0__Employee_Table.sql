@@ -13,4 +13,5 @@ CREATE TABLE app."employee" (
 ALTER TABLE app.employee
 ADD CONSTRAINT department_employee_fk FOREIGN KEY ("department_id") 
 REFERENCES app."department"("department_id")
-ON DELETE CASCADE;
+ON DELETE CASCADE 
+ON UPDATE CASCADE;

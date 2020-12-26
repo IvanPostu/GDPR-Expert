@@ -20,5 +20,6 @@ ALTER TABLE app.request_for_personal_info
 ADD CONSTRAINT organisation__request_for_personal_info__fk
 FOREIGN KEY ("organisation_id") 
 REFERENCES app."organisation"("organisation_id")
-ON DELETE CASCADE;
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
 

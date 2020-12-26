@@ -15,6 +15,7 @@ ALTER TABLE app.severity_evaluating_of_personal_data
 ADD CONSTRAINT processing_activity__severity_evaluating_of_personal_data__fk 
 FOREIGN KEY ("data_processing_activity_id") 
 REFERENCES app."data_processing_activity"("data_processing_activity_id")
-ON DELETE CASCADE;
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
 
 
