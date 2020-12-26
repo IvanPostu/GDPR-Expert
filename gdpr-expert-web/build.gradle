@@ -2,6 +2,8 @@ group = 'com.app'
 
 apply plugin: 'eclipse'
 apply plugin: 'war'
+apply plugin: "org.flywaydb.flyway"
+
 
 buildscript {
   repositories {
@@ -15,37 +17,31 @@ buildscript {
 }
 
 
-
-apply plugin: "org.flywaydb.flyway"
-
 flywayMigrate{
-  String migrationType=''
-
-  if(project.hasProperty("test")){
-    migrationType='test'
-  }
-
-  if(project.hasProperty("default")){
-    migrationType='default'
-  }
+  String flywayDbUrl = ""
+  String[] migrationLocations
 
   Properties properties = new Properties()
   File propertiesFile = new File('flyway.properties')
   propertiesFile.withInputStream {
     properties.load(it)
   }
-  String flywayDbUrl = ""
-  String migrationLocation = ""
 
-  if(migrationType=="test"){
+  if(migrationType == "test"){
+    println("Migration for tests.")
     flywayDbUrl = properties.applicationTestDatabaseUrl
-    migrationLocation = "filesystem:"+projectDir.path+"/src/test/resources/db/migration"
-  } else if(migrationType=="default"){
+    migrationLocations = [
+      "filesystem:"+projectDir.path+"/src/main/resources/db/migration",
+      "filesystem:"+projectDir.path+"/src/test/resources/db/migration"
+    ]
+  } else if(migrationType == "default"){
+    println("Default database migration.")
     flywayDbUrl = properties.applicationDatabaseUrl
-    migrationLocation = "filesystem:"+projectDir.path+"/src/main/resources/db/migration"
-  } else {
-    println("Please write: flywayMigrate -Pdefault or -Ptest")
-    System.exit(1)
+    migrationLocations = [
+      "filesystem:"+projectDir.path+"/src/main/resources/db/migration"
+    ]  
+  } else{
+    throw new GradleException("Please use task flywayMigrate with -PmigrationType=default or -PmigrationType=test")
   }
 
   flyway {
@@ -53,7 +49,8 @@ flywayMigrate{
     password = properties.password
     url = flywayDbUrl
     driver = properties.driver
-    locations = [migrationLocation]
+    locations = migrationLocations
+    validateMigrationNaming = true
   }
 
 }

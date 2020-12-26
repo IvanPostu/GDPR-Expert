@@ -42,8 +42,8 @@ $ ./gradlew war
 
 ```bash
 $ cd gdpr-expert-web/
-$ ./gradlew flywayMigrate # for application database
-$ ./gradlew flywayMigrate -PdatabaseType=test # for tests database
+$ ./gradlew flywayMigrate -PmigrationType=default # for application database
+$ ./gradlew flywayMigrate -PmigrationType=test # for tests database
 ```
 
 ### Run web application
