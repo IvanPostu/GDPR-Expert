@@ -6,7 +6,6 @@ import com.app.domain.entities.UserEntity;
 import com.app.domain.entities.UserRoleEntity;
 import com.app.persistence.repositories.UserRepository;
 import com.app.persistence.repositories.UserRoleRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserServiceImpl implements UserService {

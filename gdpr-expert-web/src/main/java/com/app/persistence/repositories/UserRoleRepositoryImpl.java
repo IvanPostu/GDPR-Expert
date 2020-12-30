@@ -17,10 +17,13 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
     entityManager.persist(userRoleEntity);
   }
 
+
   @Transactional
   @Override
-  public void deleteAll() {
-    entityManager.createQuery("DELETE FROM DepartmentEntity")
+  public void removeById(Long roleId) {
+    entityManager
+      .createQuery("DELETE FROM UserRoleEntity r WHERE r.id=:paramId")
+      .setParameter("paramId", roleId)
       .executeUpdate();
   }
   

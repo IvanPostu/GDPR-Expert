@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.UserEntity;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -69,15 +68,6 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   public Optional<OrganisationEntity> findById(Long organisationId) {
     OrganisationEntity organisation = entityManager.find(OrganisationEntity.class, organisationId);
     return Optional.of(organisation);
-  }
-
-  @Transactional
-  @Override
-  public void deleteAll() {
-
-    Query query = entityManager.createQuery(" DELETE FROM OrganisationEntity ");
-
-    query.executeUpdate();
   }
 
   @Override

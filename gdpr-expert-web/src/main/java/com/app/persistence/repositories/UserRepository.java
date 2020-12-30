@@ -9,9 +9,11 @@ public interface UserRepository extends Repository<UserEntity, Long>   {
 
   Optional<UserEntity> findByEmail(String email);
 
-  void deleteAll(); 
+  void removeById(Long id);
 
   void save(UserEntity userEntity);
 
   Optional<UserEntity> findById(Long id);
+
+  Long count();
 }

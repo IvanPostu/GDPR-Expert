@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.app.domain.entities.OrganisationEntity;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
@@ -16,13 +15,11 @@ public interface OrganisationRepository extends Repository<OrganisationEntity, L
 
   Optional<OrganisationEntity> findOrganisationByIdAndOwnerId(@Param("orgId") Long organisationId,@Param("ownerId") Long userOwnerId );
 
-  void deleteById(@Param("id") Long organisationId);
+  void deleteById(Long organisationId);
 
   void save(OrganisationEntity organisationEntity);
 
   Optional<OrganisationEntity> findById(Long organisationId);
-
-  void deleteAll();
 
   Page<OrganisationEntity> findAll(Pageable pageable);
 }
