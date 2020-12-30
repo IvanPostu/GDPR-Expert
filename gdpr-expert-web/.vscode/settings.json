@@ -26,6 +26,8 @@
     },
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
+    "java.saveActions.organizeImports": true,
+    "java.completion.importOrder": ["java", "javax"],
     "java.configuration.updateBuildConfiguration": "disabled",
     "java.home": "/usr/lib/jvm/java-1.11.0-openjdk-amd64",
     "java.configuration.runtimes": [

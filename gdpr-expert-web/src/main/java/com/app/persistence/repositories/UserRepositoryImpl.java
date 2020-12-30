@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
     TypedQuery<UserEntity> typedQuery = entityManager.createQuery(hQuery, UserEntity.class).setParameter("paramEmail",
         email);
 
-    Optional<UserEntity> userEOptional = Optional.of(typedQuery.getSingleResult());
+    Optional<UserEntity> userEOptional = Optional.ofNullable(typedQuery.getSingleResult());
     return userEOptional;
   }
 
