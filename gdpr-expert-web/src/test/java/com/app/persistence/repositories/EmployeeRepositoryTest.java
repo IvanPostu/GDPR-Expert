@@ -1,145 +1,120 @@
-// package com.app.persistence.repositories;
+package com.app.persistence.repositories;
 
-// import java.time.LocalDateTime;
-// import java.util.ArrayList;
-// import java.util.Date;
-// import java.util.List;
-// import java.util.NoSuchElementException;
-// import java.util.UUID;
+import javax.transaction.Transactional;
 
-// import com.app.domain.entities.DepartmentEntity;
-// import com.app.domain.entities.EmployeeEntity;
-// import com.app.domain.entities.OrganisationEntity;
-// import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.DepartmentEntity;
+import com.app.domain.entities.EmployeeEntity;
+import com.app.domain.entities.OrganisationEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
-// import org.junit.jupiter.api.Assertions;
-// import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-// import org.junit.jupiter.api.Order;
-// import org.junit.jupiter.api.Tag;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.TestMethodOrder;
-// import org.springframework.beans.factory.annotation.Autowired;
-
-// @TestMethodOrder(OrderAnnotation.class)
-// @Tag(value = "slow")
-// public class EmployeeRepositoryTest extends _RepositoriesConfiguration {
+@TestMethodOrder(OrderAnnotation.class)
+@Tag(value = "slow")
+public class EmployeeRepositoryTest extends _RepositoriesConfiguration {
   
-//   @Autowired
-//   private OrganisationRepository organisationRepository;
-//   @Autowired
-//   private UserRepository userRepository;
-//   @Autowired
-//   private EmployeeRepository employeeRepository;
-//   @Autowired
-//   private DepartmentRepository departmentRepository;
+  @Autowired
+  private EmployeeRepository employeeRepository;
 
-//   private static final List<EmployeeEntity> employees = new ArrayList<>(2);
+  @Autowired
+  private OrganisationRepository organisationRepository;
 
-//   @Order(1)
-//   @Test
-//   public void saveTest(){
+  private static final Long INITIAL_EMPLOYEE_COUNT = 6L;
 
-//     UserEntity fakeUser1 = new UserEntity();
-//     fakeUser1.setActive(true);
-//     fakeUser1.setEmail(UUID.randomUUID().toString() + "a@mail.ru");
-//     fakeUser1.setPassword("p");
-//     userRepository.save(fakeUser1);
-//     Assertions.assertNotNull(fakeUser1.getId());
-//     OrganisationEntity oEntity1 = new OrganisationEntity();
-//     oEntity1.setActive(true);
-//     oEntity1.setAddress("aaa");
-//     oEntity1.setAdministrator("juk");
-//     oEntity1.setCreatedOnPlatformAt(LocalDateTime.now());
-//     oEntity1.setDepatrments(new ArrayList<>());
-//     oEntity1.setDescription("descr...");
-//     oEntity1.setEmail("email@mail.ru");
-//     oEntity1.setFoundedAt(new Date());
-//     oEntity1.setLegalForm("SRL");
-//     oEntity1.setName("Organisation Name");
-//     oEntity1.setPhoneNumber("099999999");
-//     oEntity1.setOwner(fakeUser1);
-//     organisationRepository.save(oEntity1);
-//     Assertions.assertTrue(oEntity1.getId() > 0);
-//     DepartmentEntity departmentEntity1 = new DepartmentEntity();
-//     departmentEntity1.setActive(true);
-//     departmentEntity1.setCreatedAt(LocalDateTime.now());
-//     departmentEntity1.setEmail("aaa@mail.ru");
-//     departmentEntity1.setName("TestName");
-//     departmentEntity1.setOrganisation(oEntity1);
-//     departmentEntity1.setPhoneNumber("0888888888");
-//     departmentEntity1.setResponsible("Vasile Siliv");
-//     departmentRepository.save(departmentEntity1);
+  private DepartmentEntity department;
+  private OrganisationEntity organisation;
 
-//     EmployeeEntity e1 = new EmployeeEntity();
-//     e1.setDepartment(departmentEntity1);
-//     e1.setFirstName("Vasile");
-//     e1.setLastName("Vasile");
-//     e1.setAddress("53 street");
-//     e1.setEmail("q@maiil.ru");
-//     e1.setPersonalDataResponsible(true);
-//     e1.setPhoneNumber("076666666");
+  private static Long savedEmployeeId1;
+  private static Long savedEmployeeId2;
 
-//     EmployeeEntity e2 = new EmployeeEntity();
-//     e2.setDepartment(departmentEntity1);
-//     e2.setFirstName("Vasile");
-//     e2.setLastName("Vasile");
-//     e2.setAddress("53 street");
-//     e2.setEmail("q@maiil.ru");
-//     e2.setPersonalDataResponsible(true);
-//     e2.setPhoneNumber("076666666");
+  @Order(1)
+  @Test
+  @Transactional
+  public void setupTest(){
+    Pageable pageable = PageRequest.of(0, 1, Sort.by("Id").ascending());
+    organisation = organisationRepository.findAll(pageable).getContent().get(0);
+    department = organisation.getDepatrments().get(0);
+  }
 
-//     employeeRepository.save(e1);
-//     employeeRepository.save(e2);
+  @Order(2)
+  @Test
+  public void saveTest(){
+    EmployeeEntity e1 = new EmployeeEntity();
+    e1.setDepartment(department);
+    e1.setFirstName("Vasile");
+    e1.setLastName("Vasile");
+    e1.setAddress("53 street");
+    e1.setEmail("q@maiil.ru");
+    e1.setPersonalDataResponsible(true);
+    e1.setPhoneNumber("076666666");
 
-//     Assertions.assertTrue(e1.getId() > 0);
-//     Assertions.assertTrue(e2.getId() > 0);
+    EmployeeEntity e2 = new EmployeeEntity();
+    e2.setDepartment(department);
+    e2.setFirstName("Vasile");
+    e2.setLastName("Vasile");
+    e2.setAddress("53 street");
+    e2.setEmail("q@maiil.ru");
+    e2.setPersonalDataResponsible(true);
+    e2.setPhoneNumber("076666666");
 
-//     employees.add(e1);
-//     employees.add(e2);
-//   }
+    employeeRepository.save(e1);
+    employeeRepository.save(e2);
+
+    
+    savedEmployeeId1 = e1.getId();
+    savedEmployeeId2 = e2.getId();
+
+    Assertions.assertTrue(savedEmployeeId1 > 0);
+    Assertions.assertTrue(savedEmployeeId2 > 0);
+  }
+
   
-//   @Order(2)
-//   @Test
-//   public void findByIdTest(){
-//     Long employeeId = employees.get(0).getId();
-//     EmployeeEntity employeeEntity = employeeRepository.findById(employeeId).get();
+  @Order(3)
+  @Test
+  void updateTest(){
+    EmployeeEntity employeeEntity = employeeRepository.findById(savedEmployeeId1).get();
+    employeeEntity.setFirstName("ZZZZAjadkhfjkad");
+    employeeEntity.setLastName("Ajadkhfjkad");
 
-//     Assertions.assertNotNull(employeeEntity);
-//   }
+    employeeRepository.update(employeeEntity);
+  }
 
-//   @Order(3)
-//   @Test
-//   public void updateTest(){
-//     Long employeeId = employees.get(0).getId();
-//     EmployeeEntity employeeEntity = employeeRepository.findById(employeeId).get();
+  @Order(4)
+  @Test
+  void findByIdTest(){
+    EmployeeEntity employeeEntity1 = employeeRepository.findById(savedEmployeeId1).get();
+    Assertions.assertNotNull(employeeEntity1);
+    Assertions.assertEquals(employeeEntity1.getFirstName(), "ZZZZAjadkhfjkad");
+    Assertions.assertEquals(employeeEntity1.getLastName(), "Ajadkhfjkad");
 
-//     final String newAddress = "updated address 139847813480931";
+    EmployeeEntity employeeEntity2 = employeeRepository.findById(savedEmployeeId2).get();
+    Assertions.assertNotNull(employeeEntity2);
+    Assertions.assertEquals(employeeEntity2.getFirstName(), "Vasile");
+    Assertions.assertEquals(employeeEntity2.getLastName(), "Vasile");
+  }
 
-//     employeeEntity.setAddress(newAddress);
-//     employeeRepository.update(employeeEntity);
+  @Order(5)
+  @Test
+  void countTest(){
+    Long count = employeeRepository.count();
+    Assertions.assertEquals(count, INITIAL_EMPLOYEE_COUNT + 2);
+  }
 
-//     employeeEntity = employeeRepository.findById(employeeId).get();
-
-//     Assertions.assertEquals(employeeEntity.getAddress(), newAddress);
-//   }
-
-//   @Order(4)
-//   @Test
-//   void deleteByIdTest(){
-//     Long employeeId = employees.get(0).getId();
-//     employeeRepository.deleteById(employeeId);
-//     Assertions.assertThrows(NoSuchElementException.class, () -> {
-//       employeeRepository.findById(employeeId).get();
-//     });
-//   }
-
-//   @Test
-//   @Order(100)
-//   public void deleteAllTest() {
-//     employeeRepository.deleteAll();
-//     departmentRepository.deleteAll();
-//     organisationRepository.deleteAll();
-//     userRepository.deleteAll();
-//   }
-
-// }
+  @Order(6)
+  @Test
+  void removeByIdTest(){
+    employeeRepository.removeById(savedEmployeeId1);
+    employeeRepository.removeById(savedEmployeeId2);
+    
+    Long count = employeeRepository.count();
+    Assertions.assertEquals(count, INITIAL_EMPLOYEE_COUNT);
+  }
+  
+}

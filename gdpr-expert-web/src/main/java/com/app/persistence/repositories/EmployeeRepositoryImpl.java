@@ -15,54 +15,52 @@ import com.app.domain.entities.EmployeeEntity;
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
   @PersistenceContext
-  private EntityManager em;
+  private EntityManager entityManager;
 
   @Override
   public Optional<EmployeeEntity> findById(Long employeeId) {
 
     Map<String, Object> properties = new HashMap<>();
-    EntityGraph<?> entityGraph = em.getEntityGraph("employee-department-entity-graph");
+    EntityGraph<?> entityGraph = entityManager.getEntityGraph("employee-department-entity-graph");
     properties.put("javax.persistence.fetchgraph", entityGraph);
 
-    EmployeeEntity employee = em.find(EmployeeEntity.class, employeeId, properties);
+    EmployeeEntity employee = entityManager.find(EmployeeEntity.class, employeeId, properties);
 
     return Optional.ofNullable(employee);
   }
 
   @Transactional
   @Override
-  public EmployeeEntity save(EmployeeEntity employeeEntity) {
-
-    em.persist(employeeEntity);
-    return employeeEntity;
+  public void save(EmployeeEntity employeeEntity) {
+    entityManager.persist(employeeEntity);
   }
 
   @Transactional
   @Override
-  public EmployeeEntity update(EmployeeEntity employeeEntity) {
-
-    em.merge(employeeEntity);
-    return employeeEntity;
+  public void update(EmployeeEntity employeeEntity) {
+    entityManager.merge(employeeEntity);
   }
 
   @Transactional
   @Override
-  public void deleteById(Long employeeId) {
-    EmployeeEntity employeeEntity = em.find(EmployeeEntity.class, employeeId);
+  public void removeById(Long employeeId) {
+    EmployeeEntity employeeEntity = entityManager.find(EmployeeEntity.class, employeeId);
 
     if (employeeEntity != null) {
-      em.remove(employeeEntity);
+      entityManager.remove(employeeEntity);
     }else{
       throw new EntityNotFoundException(String.format("EmployeeEntity with id: %d not found!", employeeId));
     }
 
   }
 
-  @Transactional
   @Override
-  public void deleteAll() {
-    em.createQuery("DELETE FROM EmployeeEntity")
-      .executeUpdate();
+  public Long count() {
+    final String hQuery = "SELECT COUNT(e.id) FROM EmployeeEntity e";
+    Long count = (Long)entityManager.createQuery(hQuery).getSingleResult();
+
+    return count;
   }
+
 
 }

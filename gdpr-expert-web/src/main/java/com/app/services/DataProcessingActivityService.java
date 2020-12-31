@@ -10,7 +10,7 @@ public interface DataProcessingActivityService {
   
   Long addDataProcessingActivity(CreateDataProcessingActivityDto createDataProcessingActivityDto);
 
-  List<DataProcessingActivityItemDto> getDataProcessingActivities(Long userId, Long organisationid);
+  List<DataProcessingActivityItemDto> getDataProcessingActivitiesForOrganisation(Long userId, Long organisationid);
 
   DataProcessingActivityInfoDto getDataProcessingActivityInfo(Long dataProcessingActivityId);
 

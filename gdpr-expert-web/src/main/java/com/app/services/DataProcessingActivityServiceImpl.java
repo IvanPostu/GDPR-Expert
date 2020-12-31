@@ -16,7 +16,6 @@ import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.EmployeeEntity;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.persistence.repositories.DataProcessingActivityRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DataProcessingActivityServiceImpl implements DataProcessingActivityService {
@@ -41,8 +40,10 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
     Date endOfTheActivity = new Date();
 
     try {
-      beginningOfTheActivity = dateFormatter.format(createDataProcessingActivityDto.getBeginningOfTheActivity());
-      endOfTheActivity = dateFormatter.format(createDataProcessingActivityDto.getEndOfTheActivity());
+      beginningOfTheActivity = dateFormatter
+        .format(createDataProcessingActivityDto.getBeginningOfTheActivity());
+      endOfTheActivity = dateFormatter
+        .format(createDataProcessingActivityDto.getEndOfTheActivity());
     } catch (ParseException e) {
       throw new RuntimeException("Date parse exception!!!");
     }
@@ -75,8 +76,8 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
 
   @Transactional
   @Override
-  public List<DataProcessingActivityItemDto> getDataProcessingActivities(Long userId, Long organisationid) {
-    List<DataProcessingActivityEntity> activities = dataProcessingActivityRepository.getDataProcessingActivities(userId,
+  public List<DataProcessingActivityItemDto> getDataProcessingActivitiesForOrganisation(Long userId, Long organisationid) {
+    List<DataProcessingActivityEntity> activities = dataProcessingActivityRepository.getDataProcessingActivitiesForOrganisation(userId,
         organisationid);
 
     List<DataProcessingActivityItemDto> result = activities.stream().map(a -> {
@@ -108,7 +109,7 @@ public class DataProcessingActivityServiceImpl implements DataProcessingActivity
   @Override
   public DataProcessingActivityInfoDto getDataProcessingActivityInfo(Long dataProcessingActivityId) {
     DataProcessingActivityEntity activity = dataProcessingActivityRepository
-        .getDataProcessingActivity(dataProcessingActivityId);
+      .getDataProcessingActivityById(dataProcessingActivityId);
 
 
     String beginningOfTheActivity;

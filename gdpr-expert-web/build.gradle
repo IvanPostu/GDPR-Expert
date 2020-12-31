@@ -92,6 +92,8 @@ final APACHE_POI_VERSION = '4.1.2'
 
 dependencies {
 
+
+
   compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: APACHE_POI_VERSION
   compile group: 'org.apache.poi', name: 'poi-ooxml', version: APACHE_POI_VERSION
   compile group: 'org.apache.poi', name: 'poi-scratchpad', version: APACHE_POI_VERSION

@@ -7,7 +7,6 @@ import com.app.domain.dto.DataProcessingActivityInfoDto;
 import com.app.domain.dto.DataProcessingActivityItemDto;
 import com.app.domain.entities.UserEntity;
 import com.app.services.DataProcessingActivityService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,7 @@ public class DataProcessingActivityRestController {
   public ResponseEntity<Object> getDataProcessingActivities(@AuthenticationPrincipal UserEntity user, @RequestParam(value = "organisationId") Long organisationId) {
 
     List<DataProcessingActivityItemDto> activities = dataProcessingActivityService
-      .getDataProcessingActivities(user.getId(), organisationId);
+      .getDataProcessingActivitiesForOrganisation(user.getId(), organisationId);
 
     return ResponseEntity.status(HttpStatus.OK).body(activities);
   }

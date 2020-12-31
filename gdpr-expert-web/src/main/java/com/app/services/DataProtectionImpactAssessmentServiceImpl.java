@@ -21,7 +21,6 @@ import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.persistence.repositories.DataProcessingActivityRepository;
 import com.app.persistence.repositories.DataProtectionImpactAssessmentRepository;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -115,7 +114,7 @@ public class DataProtectionImpactAssessmentServiceImpl implements DataProtection
         .getDataProcessingActivityId();
 
       DataProcessingActivityEntity dataProcessingActivity = dataProcessingActivityRepository
-        .getDataProcessingActivity(dataProcessingActivityId);
+        .getDataProcessingActivityById(dataProcessingActivityId);
 
       DepartmentEntity departmentEntity = dataProcessingActivity.getDepartment();
       OrganisationEntity organisationEntity = dataProcessingActivity.getOrganisation();

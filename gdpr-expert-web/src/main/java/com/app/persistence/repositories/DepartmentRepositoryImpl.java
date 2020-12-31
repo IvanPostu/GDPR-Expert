@@ -33,11 +33,12 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     return Optional.ofNullable(department);
   }
 
-  @Transactional
   @Override
-  public void deleteAll() {
-    entityManager.createQuery("DELETE FROM DepartmentEntity")
-      .executeUpdate();
+  public Long count() {
+    final String hQuery = "SELECT COUNT(d.id) FROM DepartmentEntity d";
+    Long count = (Long)entityManager.createQuery(hQuery).getSingleResult();
+
+    return count;
   }
-  
+
 }

@@ -8,10 +8,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({ 
-  UserRepositoryTest.class
-  // OrganisationRepositoryTest.class, 
-  // DepartmentRepositoryTest.class, 
-  // EmployeeRepositoryTest.class
+  UserRoleRepositoryTest.class,
+  UserRepositoryTest.class,
+  OrganisationRepositoryTest.class, 
+  DepartmentRepositoryTest.class, 
+  EmployeeRepositoryTest.class,
+  DataProcessingActivityRepositoryTest.class
 })
 @Tag(value = "slow")
 public class _OrderSutieClass extends _RepositoriesConfiguration {}

@@ -26,7 +26,7 @@ public class UserRepositoryTest extends _RepositoriesConfiguration {
   /**
    * Depends on the number of users in the test migration 
    */
-  private static final Long COUNT_FROM_TEST_MIGRATION = 7L;
+  private static final Long COUNT_FROM_TEST_MIGRATION = 8L;
 
   @Test
   @Order(1)
