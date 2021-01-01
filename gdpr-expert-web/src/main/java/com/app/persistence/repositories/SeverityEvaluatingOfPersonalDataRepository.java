@@ -1,7 +1,6 @@
 package com.app.persistence.repositories;
 
 import com.app.domain.entities.SeverityEvaluatingOfPersonalDataEntity;
-
 import org.springframework.data.repository.Repository;
 
 public interface SeverityEvaluatingOfPersonalDataRepository extends Repository<SeverityEvaluatingOfPersonalDataEntity, Long> {
@@ -9,5 +8,9 @@ public interface SeverityEvaluatingOfPersonalDataRepository extends Repository<S
   void save(SeverityEvaluatingOfPersonalDataEntity severityEvaluatingOfPersonalDataEntity);
 
   SeverityEvaluatingOfPersonalDataEntity findById(Long severityEvaluatingOfPersonalDataId);
+
+  Long count();
+
+  void removeById(Long severityEvaluatingOfPersonalDataId);
 
 }

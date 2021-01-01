@@ -39,4 +39,24 @@ public class SeverityEvaluatingOfPersonalDataRepositoryImpl implements SeverityE
     return objectFromDb;
   }
   
+  @Transactional
+  @Override
+  public void removeById(Long severityEvaluatingOfPersonalDataId) {
+    final String hQuery = "DELETE FROM SeverityEvaluatingOfPersonalDataEntity "
+      +" s WHERE s.id=:paramId";
+
+    entityManager
+      .createQuery(hQuery)
+      .setParameter("paramId", severityEvaluatingOfPersonalDataId)
+      .executeUpdate();
+  }
+
+
+  @Override
+  public Long count() {
+    final String hQuery = "SELECT COUNT(s.id) FROM SeverityEvaluatingOfPersonalDataEntity s";
+    Long count = (Long)entityManager.createQuery(hQuery).getSingleResult();
+
+    return count;
+  }
 }

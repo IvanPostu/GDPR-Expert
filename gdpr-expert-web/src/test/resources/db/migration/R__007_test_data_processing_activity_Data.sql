@@ -67,6 +67,32 @@ BEGIN;
     'activ',
     '2018-11-11',
     '2018-12-11'
+  ),
+  (
+    (SELECT organisation_id FROM app.organisation WHERE name='OrganisationName2' LIMIT 1),
+    (SELECT department_id FROM app.department WHERE name='DepartmentHardcodeName3' LIMIT 1),
+    (SELECT employee_id FROM app.employee WHERE email='employee5@mail.ru' LIMIT 1),
+    'ProcesareDeDateN5',
+    'Purposes example ...',
+    'Description example ...',
+    true,
+    'Ion Jimmy',
+    'activ',
+    '2018-11-11',
+    '2018-12-11'
+  ),
+  (
+    (SELECT organisation_id FROM app.organisation WHERE name='OrganisationName2' LIMIT 1),
+    (SELECT department_id FROM app.department WHERE name='DepartmentHardcodeName3' LIMIT 1),
+    (SELECT employee_id FROM app.employee WHERE email='employee5@mail.ru' LIMIT 1),
+    'ProcesareDeDateN6',
+    'Purposes example ...',
+    'Description example ...',
+    true,
+    'Ion Jimmy',
+    'activ',
+    '2018-11-11',
+    '2018-12-11'
   );
 
 

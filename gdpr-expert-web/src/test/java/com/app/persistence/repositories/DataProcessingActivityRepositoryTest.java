@@ -30,7 +30,7 @@ public class DataProcessingActivityRepositoryTest extends _RepositoriesConfigura
   @Autowired
   private OrganisationRepository organisationRepository;
 
-  private static final Long INITIAL_COUNT = 4L;
+  private static final Long INITIAL_COUNT = 6L;
 
   private static DepartmentEntity department;
   private static OrganisationEntity organisation;

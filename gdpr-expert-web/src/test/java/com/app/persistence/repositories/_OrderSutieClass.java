@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
   OrganisationRepositoryTest.class, 
   DepartmentRepositoryTest.class, 
   EmployeeRepositoryTest.class,
-  DataProcessingActivityRepositoryTest.class
+  DataProcessingActivityRepositoryTest.class,
+  SeverityEvaluatingOfPersonalDataRepositoryTest.class
 })
 @Tag(value = "slow")
 public class _OrderSutieClass extends _RepositoriesConfiguration {}
