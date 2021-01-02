@@ -6,10 +6,7 @@ import javax.transaction.Transactional;
 
 import com.app.domain.entities.DataProtectionImpactAssessmentEntity;
 
-import org.springframework.stereotype.Repository;
 
-
-@Repository
 public class DataProtectionImpactAssessmentRepositoryImpl implements DataProtectionImpactAssessmentRepository {
 
   @PersistenceContext
@@ -37,5 +34,25 @@ public class DataProtectionImpactAssessmentRepositoryImpl implements DataProtect
     
     return dataProtectionImpactAssessmentEntity;
   }
+
+  @Override
+  public Long count() {
+    final String hQuery = "SELECT COUNT(d.id) FROM DataProtectionImpactAssessmentEntity d";
+    Long count = (Long)entityManager.createQuery(hQuery).getSingleResult();
+  
+    return count;
+  }
+
+  @Transactional
+  @Override
+  public void removeById(Long dataProtectionImpactAssessmentId) {
+    final String hQuery = "DELETE FROM DataProtectionImpactAssessmentEntity a WHERE a.id=:paramId";
+    entityManager
+      .createQuery(hQuery)
+      .setParameter("paramId", dataProtectionImpactAssessmentId)
+      .executeUpdate();
+
+  }
+
   
 }
