@@ -31,8 +31,6 @@ public class RequestForPersonalInfoRepositoryImpl implements RequestForPersonalI
     entityManager.persist(requestForPersonalInfoEntity);
   }
 
- 
-
   @Override
   public Page<RequestForPersonalInfoEntity> getAllRequestsForUserOrganisations(Long userId, Pageable pageable) {
 

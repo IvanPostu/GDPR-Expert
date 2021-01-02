@@ -10,7 +10,6 @@ import com.app.domain.dto.EmployeeDocumentInfoDto;
 import com.app.domain.entities.EmployeeDocumentEntity;
 import com.app.services.EmployeeDocumentService;
 import com.app.services.EmployeeService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,7 +50,7 @@ public class EmployeeDocumentsRestController {
       @RequestParam(value = "documentId", required = true) Long documentId) throws IOException {
 
     EmployeeDocumentEntity document = employeeDocumentService.getDocumentById(documentId).get();
-    byte[] output = document.getDocumentData();
+    byte[] output = null;//document.getDocumentDataBlob();
 
     response.setContentLength(output.length);
     response.setContentType(MediaType.ALL_VALUE);

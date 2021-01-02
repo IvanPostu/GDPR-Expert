@@ -105,7 +105,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Override
   public void addDocumentsToEmployee(Long employeeId, MultipartFile[] files) {
-    EmployeeEntity employeeFromDb = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException());
+    EmployeeEntity employee = new EmployeeEntity();
+    employee.setId(employeeId);
 
     final Date uploadedToThePlatformAt = new Date();
 
@@ -113,12 +114,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     for (int i = 0; i < files.length; i++) {
       EmployeeDocumentEntity doc = new EmployeeDocumentEntity();
       try {
-        doc.setDocumentData(files[i].getBytes());
+        doc.setDocumentDataBlob(files[i].getBytes());
       } catch (IOException e) {
         e.printStackTrace();
         throw new RuntimeException();
       }
-      doc.setEmployeeId(employeeFromDb.getId());
+      doc.setEmployee(employee);
       doc.setUploadedToThePlatformAt(uploadedToThePlatformAt);
       doc.setFileName(files[i].getOriginalFilename());
       documents.add(doc);

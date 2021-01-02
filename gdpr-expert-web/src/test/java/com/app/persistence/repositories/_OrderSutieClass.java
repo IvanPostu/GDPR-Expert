@@ -1,6 +1,5 @@
 package com.app.persistence.repositories;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
@@ -10,12 +9,14 @@ import org.junit.runner.RunWith;
 @SelectClasses({ 
   UserRoleRepositoryTest.class,
   UserRepositoryTest.class,
-  OrganisationRepositoryTest.class, 
-  DepartmentRepositoryTest.class, 
-  EmployeeRepositoryTest.class,
-  DataProcessingActivityRepositoryTest.class,
   SeverityEvaluatingOfPersonalDataRepositoryTest.class,
-  RequestForPersonalInfoRepositoryTest.class
+  RequestForPersonalInfoRepositoryTest.class,
+  OrganisationRepositoryTest.class, 
+  GDPREvaluationRepositoryTest.class,
+  EmployeeRepositoryTest.class,
+  EmployeeDocumentRepositoryTest.class,
+  DepartmentRepositoryTest.class, 
+  DataProtectionImpactAssessmentRepositoryTest.class,
+  DataProcessingActivityRepositoryTest.class,
 })
-@Tag(value = "slow")
 public class _OrderSutieClass extends _RepositoriesConfiguration {}

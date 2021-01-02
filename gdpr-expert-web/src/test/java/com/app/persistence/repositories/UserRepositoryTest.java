@@ -4,14 +4,12 @@ import com.app.domain.entities.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @TestMethodOrder(OrderAnnotation.class)
-@Tag(value = "slow")
 public class UserRepositoryTest extends _RepositoriesConfiguration {
 
   @Autowired
