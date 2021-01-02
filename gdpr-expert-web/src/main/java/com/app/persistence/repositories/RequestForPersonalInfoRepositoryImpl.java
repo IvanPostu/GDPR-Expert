@@ -15,7 +15,6 @@ import javax.transaction.Transactional;
 
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.RequestForPersonalInfoEntity;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -86,6 +85,24 @@ public class RequestForPersonalInfoRepositoryImpl implements RequestForPersonalI
       .find(RequestForPersonalInfoEntity.class, requestForPersonalInfoId);
     
     return entity;
+  }
+
+  @Transactional
+  @Override
+  public void removeById(Long requestForPersonalInfoId) {
+    final String hQuery = "DELETE FROM RequestForPersonalInfoEntity r WHERE r.id=:paramId";
+    entityManager
+      .createQuery(hQuery)
+      .setParameter("paramId", requestForPersonalInfoId)
+      .executeUpdate();
+  }
+
+  @Override
+  public Long count() {
+    final String hQuery = "SELECT COUNT(u.id) FROM RequestForPersonalInfoEntity u";
+    Long count = (Long)entityManager.createQuery(hQuery).getSingleResult();
+  
+    return count;
   }
   
 }
