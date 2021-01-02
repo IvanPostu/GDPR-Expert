@@ -62,6 +62,14 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   @Override
   public void save(OrganisationEntity organisationEntity) {
     entityManager.persist(organisationEntity);
+    
+    /**
+     * OneToOne using shared primary key
+     */
+    if(organisationEntity.getOrganisationLogoEntity() != null){
+      organisationEntity.getOrganisationLogoEntity().setId(organisationEntity.getId());
+      entityManager.persist(organisationEntity.getOrganisationLogoEntity());
+    }
   }
 
   @Override

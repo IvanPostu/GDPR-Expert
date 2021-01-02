@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -91,8 +91,9 @@ public class OrganisationEntity {
   
   @Setter 
   @Getter
-  @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-  @JoinColumn(name = "organisation_id")
+  @OneToOne(fetch = FetchType.LAZY)
+  // @JoinColumn(name = "organisation_id")
+  @PrimaryKeyJoinColumn
   private OrganisationLogoEntity organisationLogoEntity;
 
 

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.app.domain.entities.OrganisationEntity;
+import com.app.domain.entities.OrganisationLogoEntity;
 import com.app.domain.entities.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -60,6 +61,11 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
     organisation1.setName("Organisation Name");
     organisation1.setPhoneNumber("099999999");
     organisation1.setOwner(user1);
+    OrganisationLogoEntity logo = new OrganisationLogoEntity();
+    logo.setImageData("aaa".getBytes());
+
+    logo.setOrganisation(organisation1);
+    organisation1.setOrganisationLogoEntity(logo);
     organisationRepository.save(organisation1);
     Assertions.assertTrue(organisation1.getId() > 0);
   

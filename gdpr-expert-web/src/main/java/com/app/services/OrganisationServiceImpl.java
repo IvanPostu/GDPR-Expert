@@ -12,9 +12,8 @@ import com.app.beans.ApplicationDateFormatter;
 import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
-import com.app.persistence.repositories.OrganisationLogoRepository;
+// import com.app.persistence.repositories.OrganisationLogoRepository;
 import com.app.persistence.repositories.OrganisationRepository;
-
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,15 +23,15 @@ import org.springframework.data.domain.Pageable;
 public class OrganisationServiceImpl implements OrganisationService {
 
   private final OrganisationRepository organisationRepository;
-  private final OrganisationLogoRepository organisationLogoRepository;
+  // private final OrganisationLogoRepository organisationLogoRepository;
   private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
   public OrganisationServiceImpl(OrganisationRepository organisationRepository,
-      OrganisationLogoRepository organisationLogoRepository, ApplicationDateFormatter dateFormatter) {
+      ApplicationDateFormatter dateFormatter) {
 
     this.organisationRepository = organisationRepository;
-    this.organisationLogoRepository = organisationLogoRepository;
+    // this.organisationLogoRepository = organisationLogoRepository;
     this.dateFormatter = dateFormatter;
   }
 
@@ -44,7 +43,7 @@ public class OrganisationServiceImpl implements OrganisationService {
     oEntity.setOrganisationLogoEntity(null);
     organisationRepository.save(oEntity);
     logo.setId(oEntity.getId());
-    organisationLogoRepository.save(logo);
+    // organisationLogoRepository.save(logo);
   }
 
   @Transactional
@@ -80,7 +79,7 @@ public class OrganisationServiceImpl implements OrganisationService {
     final Long ownerIdFromDb = organisationEntity.getOwner().getId();
 
     if (ownerIdFromDb.equals(ownerId)) {
-      organisationLogoRepository.deleteById(organisationId);
+      // organisationLogoRepository.deleteById(organisationId);
       organisationRepository.deleteById(organisationId);
       return true;
     }
