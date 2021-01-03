@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import com.app.domain.entities.AuthUserEntity;
+import com.app.domain.entities.AuthUserPersonalInfoEntity;
 
 public class UserRepositoryImpl implements UserRepository {
 
@@ -31,6 +32,17 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public void save(AuthUserEntity userEntity) {
     entityManager.persist(userEntity);
+
+    AuthUserPersonalInfoEntity personalInfoEntity = userEntity.getPersonalInfoEntity();
+    if(personalInfoEntity == null){
+      personalInfoEntity = new AuthUserPersonalInfoEntity();
+      userEntity.setPersonalInfoEntity(personalInfoEntity);
+    }
+
+    personalInfoEntity.setAuthUserEntity(userEntity);
+    personalInfoEntity.setId(userEntity.getId());
+
+    entityManager.persist(personalInfoEntity);
   }
 
   @Override

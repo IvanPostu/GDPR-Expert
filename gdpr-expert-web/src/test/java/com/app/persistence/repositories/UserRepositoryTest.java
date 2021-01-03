@@ -1,6 +1,9 @@
 package com.app.persistence.repositories;
 
+import javax.transaction.Transactional;
+
 import com.app.domain.entities.AuthUserEntity;
+import com.app.domain.entities.AuthUserPersonalInfoEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -33,20 +36,29 @@ public class UserRepositoryTest extends _RepositoriesConfiguration {
     u1.setActive(true);
     u1.setEmail(fakeEmail1);
     u1.setPassword("p1");
+    AuthUserPersonalInfoEntity personalInfoEntity1 = new AuthUserPersonalInfoEntity();
+    personalInfoEntity1.setPhoneNumber("0");
+    u1.setPersonalInfoEntity(personalInfoEntity1);
     userRepository.save(u1);
-    Assertions.assertNotNull(u1.getId());
 
     AuthUserEntity u2 = new AuthUserEntity();
     u2.setActive(false);
     u2.setEmail(fakeEmail2);
     u2.setPassword("p2");
+    AuthUserPersonalInfoEntity personalInfoEntity2 = new AuthUserPersonalInfoEntity();
+    personalInfoEntity2.setPhoneNumber("1");
+    u2.setPersonalInfoEntity(personalInfoEntity2);
     userRepository.save(u2);
-    Assertions.assertNotNull(u2.getId());
 
     savedId1 = u1.getId();
     savedId2 = u2.getId();
+
+    Assertions.assertNotNull(savedId1);
+    Assertions.assertNotNull(savedId2);
+
   }
 
+  @Transactional
   @Test
   @Order(2)
   public void findByEmailTest(){
@@ -55,8 +67,18 @@ public class UserRepositoryTest extends _RepositoriesConfiguration {
     AuthUserEntity u2 = userRepository.findByEmail(fakeEmail2)
       .orElseThrow(() -> new RuntimeException());
 
+    AuthUserEntity vasile = userRepository.findByEmail("vasile@mail.ru")
+      .orElseThrow(() -> new RuntimeException());
+    
+    String firstName = vasile.getPersonalInfoEntity().getFirstName();
+    Assertions.assertEquals(firstName, "Vasile");
+
     Assertions.assertEquals(u1.getId(), savedId1);
     Assertions.assertEquals(u2.getId(), savedId2);
+
+    Assertions.assertEquals(u1.getPersonalInfoEntity().getPhoneNumber(), "0");
+    Assertions.assertEquals(u2.getPersonalInfoEntity().getPhoneNumber(), "1");
+
   }
 
   @Test

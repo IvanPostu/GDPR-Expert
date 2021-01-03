@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -61,6 +63,12 @@ public class AuthUserEntity implements UserDetails {
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_owner_id")
   private Set<OrganisationEntity> organisations = new HashSet<>();
+
+  @Setter 
+  @Getter
+  @OneToOne(fetch = FetchType.LAZY)
+  @PrimaryKeyJoinColumn
+  private AuthUserPersonalInfoEntity personalInfoEntity;
 
   @Override
   public boolean equals(Object o) {

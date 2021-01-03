@@ -92,7 +92,6 @@ public class OrganisationEntity {
   @Setter 
   @Getter
   @OneToOne(fetch = FetchType.LAZY)
-  // @JoinColumn(name = "organisation_id")
   @PrimaryKeyJoinColumn
   private OrganisationLogoEntity organisationLogoEntity;
 
