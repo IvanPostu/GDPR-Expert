@@ -21,7 +21,7 @@ import com.app.domain.dto.CreateOrganisationDto;
 import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.OrganisationService;
 
 import org.apache.logging.log4j.LogManager;
@@ -64,7 +64,7 @@ public class OrganisationRestController {
    *         empty_representative }
    */
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> createOrganisation(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> createOrganisation(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody CreateOrganisationDto organisationDto) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -109,7 +109,7 @@ public class OrganisationRestController {
   }
 
   @RequestMapping( method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> updateOrganisation(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> updateOrganisation(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody UpdateOrganisationDto organisationDto) throws ParseException {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -128,7 +128,7 @@ public class OrganisationRestController {
   }
 
   @RequestMapping(value = "/all", method = RequestMethod.GET)
-  public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal UserEntity user) {
+  public ResponseEntity<?> getAllOrganisations(@AuthenticationPrincipal AuthUserEntity user) {
     List<OrganisationEntity> userOrgList = organisationService
       .findOrganisationsByOwnerId(user.getId(), true);
 
@@ -157,7 +157,7 @@ public class OrganisationRestController {
 
   @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
   public ResponseEntity<?> organisationInfo(@PathVariable("id") Long organisationId,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
 
     OrganisationEntity organisationEntity = null;
 
@@ -194,7 +194,7 @@ public class OrganisationRestController {
 
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<?> deleteOrganisation(@PathVariable("id") Long organisationId,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
 
     try{
       boolean deletedWithSuccess = organisationService.deleteById(organisationId, user.getId());

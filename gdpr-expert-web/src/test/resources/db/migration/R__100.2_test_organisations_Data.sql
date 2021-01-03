@@ -19,7 +19,7 @@ DELETE FROM app.organisation ;
   )
   VALUES
   (
-    (SELECT user_id FROM app.user WHERE email='vasile@mail.ru' LIMIT 1),
+    (SELECT auth_user_id FROM app.auth_user WHERE email='vasile@mail.ru' LIMIT 1),
     'OrganisationName1',
     'default description1 ...',
     'S.R.L.',
@@ -32,7 +32,7 @@ DELETE FROM app.organisation ;
     '2010-12-01'
   ),
   (
-    (SELECT user_id FROM app.user WHERE email='vasile@mail.ru' LIMIT 1),
+    (SELECT auth_user_id FROM app.auth_user WHERE email='vasile@mail.ru' LIMIT 1),
     'OrganisationName2',
     'default description2 ...',
     'S.R.L.',
@@ -45,7 +45,7 @@ DELETE FROM app.organisation ;
     '2011-11-21'
   ),
   (
-    (SELECT user_id FROM app.user WHERE email='mihail@mail.ru' LIMIT 1),
+    (SELECT auth_user_id FROM app.auth_user WHERE email='mihail@mail.ru' LIMIT 1),
     'OrganisationName3',
     'default description3 ...',
     'S.R.L.',
@@ -58,7 +58,7 @@ DELETE FROM app.organisation ;
     '2011-11-21'
   ),
   (
-    (SELECT user_id FROM app.user WHERE email='mihail@mail.ru' LIMIT 1),
+    (SELECT auth_user_id FROM app.auth_user WHERE email='mihail@mail.ru' LIMIT 1),
     'OrganisationName4',
     'default description4 ...',
     'S.R.L.',
@@ -71,7 +71,7 @@ DELETE FROM app.organisation ;
     '2011-11-21'
   ),
   (
-    (SELECT user_id FROM app.user WHERE email='mihail@mail.ru' LIMIT 1),
+    (SELECT auth_user_id FROM app.auth_user WHERE email='mihail@mail.ru' LIMIT 1),
     'OrganisationName5',
     'default description5 ...',
     'S.R.L.',

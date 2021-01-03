@@ -1,6 +1,6 @@
 package com.app.persistence.repositories;
 
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -29,14 +29,14 @@ public class UserRepositoryTest extends _RepositoriesConfiguration {
   @Test
   @Order(1)
   public void saveTest(){
-    UserEntity u1 = new UserEntity();
+    AuthUserEntity u1 = new AuthUserEntity();
     u1.setActive(true);
     u1.setEmail(fakeEmail1);
     u1.setPassword("p1");
     userRepository.save(u1);
     Assertions.assertNotNull(u1.getId());
 
-    UserEntity u2 = new UserEntity();
+    AuthUserEntity u2 = new AuthUserEntity();
     u2.setActive(false);
     u2.setEmail(fakeEmail2);
     u2.setPassword("p2");
@@ -50,9 +50,9 @@ public class UserRepositoryTest extends _RepositoriesConfiguration {
   @Test
   @Order(2)
   public void findByEmailTest(){
-    UserEntity u1 = userRepository.findByEmail(fakeEmail1)
+    AuthUserEntity u1 = userRepository.findByEmail(fakeEmail1)
       .orElseThrow(() -> new RuntimeException());
-    UserEntity u2 = userRepository.findByEmail(fakeEmail2)
+    AuthUserEntity u2 = userRepository.findByEmail(fakeEmail2)
       .orElseThrow(() -> new RuntimeException());
 
     Assertions.assertEquals(u1.getId(), savedId1);
@@ -62,9 +62,9 @@ public class UserRepositoryTest extends _RepositoriesConfiguration {
   @Test
   @Order(3)
   public void findByIdTest(){
-    UserEntity u1 = userRepository.findById(savedId1)
+    AuthUserEntity u1 = userRepository.findById(savedId1)
       .orElseThrow(() -> new RuntimeException());
-    UserEntity u2 = userRepository.findById(savedId2)
+    AuthUserEntity u2 = userRepository.findById(savedId2)
       .orElseThrow(() -> new RuntimeException());
 
     Assertions.assertEquals(u1.getId(), savedId1);

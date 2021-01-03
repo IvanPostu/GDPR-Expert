@@ -2,18 +2,18 @@ package com.app.persistence.repositories;
 
 import java.util.Optional;
 
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import org.springframework.data.repository.Repository;
 
-public interface UserRepository extends Repository<UserEntity, Long>   {
+public interface UserRepository extends Repository<AuthUserEntity, Long>   {
 
-  Optional<UserEntity> findByEmail(String email);
+  Optional<AuthUserEntity> findByEmail(String email);
 
   void removeById(Long id);
 
-  void save(UserEntity userEntity);
+  void save(AuthUserEntity userEntity);
 
-  Optional<UserEntity> findById(Long id);
+  Optional<AuthUserEntity> findById(Long id);
 
   Long count();
 }

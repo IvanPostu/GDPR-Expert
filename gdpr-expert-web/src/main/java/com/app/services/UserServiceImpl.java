@@ -2,8 +2,8 @@ package com.app.services;
 
 import javax.transaction.Transactional;
 
-import com.app.domain.entities.UserEntity;
-import com.app.domain.entities.UserRoleEntity;
+import com.app.domain.entities.AuthUserEntity;
+import com.app.domain.entities.AuthUserRoleEntity;
 import com.app.persistence.repositories.UserRepository;
 import com.app.persistence.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override
-  public void addUser(UserEntity user) {
+  public void addUser(AuthUserEntity user) {
     userRepository.save(user);
     
-    for(UserRoleEntity r: user.getRoles()){
+    for(AuthUserRoleEntity r: user.getRoles()){
       r.setId(user.getId());
       roleRepository.save(r);
     }
@@ -33,15 +33,15 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override
-  public UserEntity getUserById(Long id) {
-    UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
+  public AuthUserEntity getUserById(Long id) {
+    AuthUserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
     return user;
   }
 
   @Transactional
   @Override
-  public UserEntity getUserByEmail(String email) {
-    UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException());
+  public AuthUserEntity getUserByEmail(String email) {
+    AuthUserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException());
     return user;
   }
 

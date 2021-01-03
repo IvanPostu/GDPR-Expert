@@ -13,7 +13,7 @@ import com.app.domain.dto.CreateEmployeeDto;
 import com.app.domain.dto.EmployeeDataResponsibleQuestionDto;
 import com.app.domain.dto.UpdateEmployeeDto;
 import com.app.domain.entities.EmployeeEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.EmployeeService;
 
 import javax.validation.Validation;
@@ -41,7 +41,7 @@ public class EmployeeRestController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> getEmployee(@AuthenticationPrincipal UserEntity user, @PathVariable("id") Long employeeId) {
+  public ResponseEntity<?> getEmployee(@AuthenticationPrincipal AuthUserEntity user, @PathVariable("id") Long employeeId) {
 
     EmployeeEntity e = employeeService.getEmployeeWithDepartment(employeeId).get();
     Map<String, Object> result = new HashMap<>();
@@ -59,7 +59,7 @@ public class EmployeeRestController {
   }
 
   @RequestMapping(method = RequestMethod.PUT)
-  public ResponseEntity<?> updateEmployee(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> updateEmployee(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody UpdateEmployeeDto updateEmployeeDto) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -77,7 +77,7 @@ public class EmployeeRestController {
   }
 
   @RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> getEmployeesByDepartmentId(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> getEmployeesByDepartmentId(@AuthenticationPrincipal AuthUserEntity user,
       @PathVariable("id") Long departmentId) {
 
     List<EmployeeEntity> employees = employeeService.employeesForDepartment(departmentId);
@@ -99,7 +99,7 @@ public class EmployeeRestController {
   }
 
   @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> addEmployee(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> addEmployee(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody CreateEmployeeDto employeeDto) {
 
     EmployeeEntity e = employeeService.addEmployee(employeeDto);
@@ -108,7 +108,7 @@ public class EmployeeRestController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<?> removeEmployee(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> removeEmployee(@AuthenticationPrincipal AuthUserEntity user,
       @PathVariable("id") Long employeeId) {
 
     employeeService.removeEmployee(employeeId);

@@ -1,7 +1,7 @@
 package com.app.persistence.repositories;
 
-import com.app.domain.entities.UserEntity;
-import com.app.domain.entities.UserRoleEntity;
+import com.app.domain.entities.AuthUserEntity;
+import com.app.domain.entities.AuthUserRoleEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -25,9 +25,9 @@ public class UserRoleRepositoryTest extends _RepositoriesConfiguration {
   @Test
   public void saveTest(){
     
-    UserEntity user = userRepository.findByEmail("without_roles@gmail.ru").get();
+    AuthUserEntity user = userRepository.findByEmail("without_roles@gmail.ru").get();
 
-    UserRoleEntity fakeRole = new UserRoleEntity();
+    AuthUserRoleEntity fakeRole = new AuthUserRoleEntity();
     fakeRole.setName("USER");
     fakeRole.setId(user.getId());
     userRoleRepository.save(fakeRole);
@@ -37,7 +37,7 @@ public class UserRoleRepositoryTest extends _RepositoriesConfiguration {
     /**
      * Check if trigger is running.
      */
-    UserRoleEntity invalidRole = new UserRoleEntity();
+    AuthUserRoleEntity invalidRole = new AuthUserRoleEntity();
     invalidRole.setName("AAAAA");
     invalidRole.setId(user.getId());
 

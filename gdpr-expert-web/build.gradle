@@ -18,7 +18,15 @@ buildscript {
 
 
 flywayMigrate{
-  if(project.gradle.startParameter.taskNames.contains('flywayMigrate')){
+  boolean flywayTaskIsPresent = false
+  for(taskName in project.gradle.startParameter.taskNames){
+    if(taskName.contains("flyway")){
+      flywayTaskIsPresent = true
+      break
+    }
+  }
+
+  if(flywayTaskIsPresent){
     String flywayDbUrl = ""
     String[] migrationLocations
 
@@ -74,7 +82,19 @@ test {
   }
 
   afterTest { desc, result -> 
-    logger.quiet "[${result.resultType}] Executing test ${desc.name} [${desc.className}]"
+    def fg = 39 //default
+    
+    if("${result.resultType}"=="SUCCESS" ){
+      fg = 32
+    }
+
+    if("${result.resultType}"=="ERROR" ){
+      fg = 31
+    }
+
+    def style = "${(char)27}[$fg"+"m"
+    def end = "${(char)27}[0m"
+    logger.quiet "[${style + result.resultType + end}] Executing test ${desc.name} [${desc.className}]"
   }
 }
 
@@ -91,8 +111,6 @@ final SPRING_SECURITY_VERSION = '5.4.0'
 final APACHE_POI_VERSION = '4.1.2'
 
 dependencies {
-
-
 
   compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: APACHE_POI_VERSION
   compile group: 'org.apache.poi', name: 'poi-ooxml', version: APACHE_POI_VERSION

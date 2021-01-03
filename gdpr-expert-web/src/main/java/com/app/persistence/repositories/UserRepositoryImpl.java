@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 
 public class UserRepositoryImpl implements UserRepository {
 
@@ -15,41 +15,41 @@ public class UserRepositoryImpl implements UserRepository {
   private EntityManager entityManager;
 
   @Override
-  public Optional<UserEntity> findByEmail(String email) {
+  public Optional<AuthUserEntity> findByEmail(String email) {
 
-    final String hQuery = "FROM UserEntity u WHERE u.email=:paramEmail";
+    final String hQuery = "FROM AuthUserEntity u WHERE u.email=:paramEmail";
 
-    TypedQuery<UserEntity> typedQuery = entityManager
-      .createQuery(hQuery, UserEntity.class)
+    TypedQuery<AuthUserEntity> typedQuery = entityManager
+      .createQuery(hQuery, AuthUserEntity.class)
       .setParameter("paramEmail", email);
 
-    Optional<UserEntity> userEOptional = Optional.ofNullable(typedQuery.getSingleResult());
+    Optional<AuthUserEntity> userEOptional = Optional.ofNullable(typedQuery.getSingleResult());
     return userEOptional;
   }
 
   @Transactional
   @Override
-  public void save(UserEntity userEntity) {
+  public void save(AuthUserEntity userEntity) {
     entityManager.persist(userEntity);
   }
 
   @Override
-  public Optional<UserEntity> findById(Long id) {
-    UserEntity userEntity = entityManager.find(UserEntity.class, id);
+  public Optional<AuthUserEntity> findById(Long id) {
+    AuthUserEntity userEntity = entityManager.find(AuthUserEntity.class, id);
     return Optional.of(userEntity);
   }
 
   @Transactional
   @Override
   public void removeById(Long id) {
-    final String hQuery = "DELETE FROM UserEntity u WHERE u.id=:paramId";
+    final String hQuery = "DELETE FROM AuthUserEntity u WHERE u.id=:paramId";
     entityManager.createQuery(hQuery).setParameter("paramId", id).executeUpdate();
   }
 
 
   @Override
   public Long count() {
-    final String hQuery = "SELECT COUNT(u.id) FROM UserEntity u";
+    final String hQuery = "SELECT COUNT(u.id) FROM AuthUserEntity u";
     Long count = (Long)entityManager.createQuery(hQuery).getSingleResult();
 
     return count;

@@ -9,7 +9,7 @@ import com.app.domain.entities.DataProcessingActivityEntity;
 import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.EmployeeEntity;
 import com.app.domain.entities.OrganisationEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -33,7 +33,7 @@ public class DataProcessingActivityRepositoryTest extends _RepositoriesConfigura
   private static DepartmentEntity department;
   private static OrganisationEntity organisation;
   private static EmployeeEntity employee;
-  private static UserEntity user;
+  private static AuthUserEntity user;
 
   private static Long savedActivityId1;
   private static Long savedActivityId2;

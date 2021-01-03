@@ -13,7 +13,7 @@ import javax.validation.Validator;
 
 import com.app.domain.dto.DataProtectionImpactAssessmentRequestDto;
 import com.app.domain.entities.DataProtectionImpactAssessmentEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.DataProtectionImpactAssessmentService;
 
 import org.apache.logging.log4j.LogManager;
@@ -44,7 +44,7 @@ public class DataProtectionImpactAssessmentRestController {
 
 
   @RequestMapping(value = "/realize", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> realizeDataProtectionImpact(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> realizeDataProtectionImpact(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody DataProtectionImpactAssessmentRequestDto dataProtectionImpactAssessmentRequestDto) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();

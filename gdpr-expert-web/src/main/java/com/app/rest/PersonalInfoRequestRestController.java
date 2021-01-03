@@ -1,7 +1,7 @@
 package com.app.rest;
 
 import com.app.domain.dto.PersonalInfoRequestFromPeopleResponseDto;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.RequestForPersonalInfoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class PersonalInfoRequestRestController {
   private RequestForPersonalInfoService requestForPersonalInfoService;
 
   @RequestMapping(value = "/list", method = RequestMethod.GET)
-  public ResponseEntity<?> personalInfoRequests(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> personalInfoRequests(@AuthenticationPrincipal AuthUserEntity user,
       @RequestParam(value = "page", defaultValue = "0") int pageIndex) {
 
     final int pageSize = 5;
@@ -36,7 +36,7 @@ public class PersonalInfoRequestRestController {
   }
 
   @RequestMapping(value = "/{personalInfoRequestId}", method = RequestMethod.GET)
-  public ResponseEntity<?> personalInfoRequestInfo(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> personalInfoRequestInfo(@AuthenticationPrincipal AuthUserEntity user,
       @PathVariable(value = "personalInfoRequestId", required = true) Long personalInfoRequestId) {
 
     PersonalInfoRequestFromPeopleResponseDto result =   requestForPersonalInfoService

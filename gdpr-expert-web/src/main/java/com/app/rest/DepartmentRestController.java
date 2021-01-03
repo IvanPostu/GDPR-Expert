@@ -10,7 +10,7 @@ import com.app.domain.dto.CreateDepartment;
 import com.app.domain.dto.UpdateDepartmentDto;
 import com.app.domain.entities.DepartmentEntity;
 import com.app.domain.entities.OrganisationEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.DepartmentService;
 import com.app.services.OrganisationService;
 
@@ -47,7 +47,7 @@ public class DepartmentRestController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ResponseEntity<Object> getDepartmentById(@PathVariable("id") Long departmentId,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
 
     DepartmentEntity d = departmentService.getDepartment(departmentId).orElseThrow(() -> new RuntimeException());
 
@@ -65,7 +65,7 @@ public class DepartmentRestController {
   @RequestMapping(value = "/organisation/{id}", method = RequestMethod.GET)
   public ResponseEntity<?> getDepartmentsForOrganisation(@PathVariable("id") Long organisationId,
       @RequestParam(value = "onlyNames", defaultValue = "false", required = false) boolean onlyNames,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
 
     List<DepartmentEntity> departments = departmentService.getDepartmentsForOrganisation(organisationId, user.getId());
 
@@ -94,7 +94,7 @@ public class DepartmentRestController {
 
   @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> updateDepartment(@RequestBody UpdateDepartmentDto departmentDto,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
 
     departmentService.updateDepartment(departmentDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(departmentDto.getId());
@@ -102,14 +102,14 @@ public class DepartmentRestController {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Object> deleteDepartment(@PathVariable("id") Long departmentId,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
     departmentService.removeDepartment(departmentId);
     return ResponseEntity.status(HttpStatus.OK).body(departmentId);
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createDepartment(@RequestBody CreateDepartment departmentDto,
-      @AuthenticationPrincipal UserEntity user) {
+      @AuthenticationPrincipal AuthUserEntity user) {
 
     OrganisationEntity organisationEntity = organisationService
         .findOrganisationByIdAndOwnerId(departmentDto.getOrganisationId(), user.getId(), false).get();

@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name="user_role", schema = "app")
-public class UserRoleEntity implements GrantedAuthority {
+@Table(name="auth_user_role", schema = "app")
+public class AuthUserRoleEntity implements GrantedAuthority {
 
   private static final long serialVersionUID = 3857804786772325341L;
 
   @Id
-  @Column(name="user_id", unique = true)
+  @Column(name="auth_user_id", unique = true)
   private Long id;
   
   @Column(name = "role_name")

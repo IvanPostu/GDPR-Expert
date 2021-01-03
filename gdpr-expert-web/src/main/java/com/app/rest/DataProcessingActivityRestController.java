@@ -5,7 +5,7 @@ import java.util.List;
 import com.app.domain.dto.CreateDataProcessingActivityDto;
 import com.app.domain.dto.DataProcessingActivityInfoDto;
 import com.app.domain.dto.DataProcessingActivityItemDto;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.DataProcessingActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class DataProcessingActivityRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity<Object> getDepartmentById(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<Object> getDepartmentById(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody CreateDataProcessingActivityDto createDataProcessingActivityDto) {
 
     Long id = dataProcessingActivityService.addDataProcessingActivity(createDataProcessingActivityDto);
@@ -39,7 +39,7 @@ public class DataProcessingActivityRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<Object> getDataProcessingActivities(@AuthenticationPrincipal UserEntity user, @RequestParam(value = "organisationId") Long organisationId) {
+  public ResponseEntity<Object> getDataProcessingActivities(@AuthenticationPrincipal AuthUserEntity user, @RequestParam(value = "organisationId") Long organisationId) {
 
     List<DataProcessingActivityItemDto> activities = dataProcessingActivityService
       .getDataProcessingActivitiesForOrganisation(user.getId(), organisationId);
@@ -49,7 +49,7 @@ public class DataProcessingActivityRestController {
 
   @RequestMapping(value = "/info/{dataProcessingActivityId}", method = RequestMethod.GET)
   public ResponseEntity<Object> getDataProcessingActivityInfo(
-    @AuthenticationPrincipal UserEntity user, 
+    @AuthenticationPrincipal AuthUserEntity user, 
     @PathVariable(value = "dataProcessingActivityId") Long dataProcessingActivityId) {
 
     DataProcessingActivityInfoDto result = dataProcessingActivityService

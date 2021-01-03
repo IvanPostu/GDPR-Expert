@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.app.domain.dto.RegistrateUserDto;
-import com.app.domain.entities.UserEntity;
-import com.app.domain.entities.UserRoleEntity;
+import com.app.domain.entities.AuthUserEntity;
+import com.app.domain.entities.AuthUserRoleEntity;
 import com.app.services.UserService;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -32,8 +32,8 @@ public class RegistrationRestController {
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> registerUser(@RequestBody RegistrateUserDto registrateUserDto) {
 
-    UserRoleEntity defaultUserRole = UserEntity.userRole();
-    UserEntity user = new UserEntity();
+    AuthUserRoleEntity defaultUserRole = AuthUserEntity.userRole();
+    AuthUserEntity user = new AuthUserEntity();
 
     user.setActive(true);
     user.setEmail(registrateUserDto.getEmail());

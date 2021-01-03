@@ -15,7 +15,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import com.app.domain.entities.OrganisationEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
 
   @Override
   public List<OrganisationEntity> findAllByOwnerId(Long userOwnerId) {
-    UserEntity u = entityManager.find(UserEntity.class, userOwnerId);
+    AuthUserEntity u = entityManager.find(AuthUserEntity.class, userOwnerId);
     List<OrganisationEntity> organisations = u.getOrganisations().stream().map(a -> a).collect(Collectors.toList());
 
     return organisations;

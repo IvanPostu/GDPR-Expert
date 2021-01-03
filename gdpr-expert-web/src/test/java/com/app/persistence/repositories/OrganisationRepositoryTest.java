@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -31,8 +31,8 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
   private static final String userEmail1 = "vasile@mail.ru";
   private static final String userEmail2 = "mihail@mail.ru";
 
-  private static UserEntity user1;
-  private static UserEntity user2;
+  private static AuthUserEntity user1;
+  private static AuthUserEntity user2;
 
   private static OrganisationEntity organisation1;
   private static OrganisationEntity organisation2;
@@ -106,7 +106,7 @@ public class OrganisationRepositoryTest extends _RepositoriesConfiguration {
   @Transactional
   public void findAllByOwnerIdTest() {
 
-    UserEntity userWithTwoOrMoreOrganisations = user2;
+    AuthUserEntity userWithTwoOrMoreOrganisations = user2;
     List<OrganisationEntity> orgs = organisationRepository
       .findAllByOwnerId(userWithTwoOrMoreOrganisations.getId());
     Assertions.assertTrue(orgs.size() >= 2);

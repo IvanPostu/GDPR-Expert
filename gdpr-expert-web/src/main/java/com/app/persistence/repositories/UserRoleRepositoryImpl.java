@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import com.app.domain.entities.UserRoleEntity;
+import com.app.domain.entities.AuthUserRoleEntity;
 
 public class UserRoleRepositoryImpl implements UserRoleRepository {
 
@@ -13,7 +13,7 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
 
   @Transactional
   @Override
-  public void save(UserRoleEntity userRoleEntity) {
+  public void save(AuthUserRoleEntity userRoleEntity) {
     entityManager.persist(userRoleEntity);
   }
 
@@ -22,7 +22,7 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
   @Override
   public void removeById(Long roleId) {
     entityManager
-      .createQuery("DELETE FROM UserRoleEntity r WHERE r.id=:paramId")
+      .createQuery("DELETE FROM AuthUserRoleEntity r WHERE r.id=:paramId")
       .setParameter("paramId", roleId)
       .executeUpdate();
   }

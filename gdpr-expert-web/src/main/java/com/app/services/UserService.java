@@ -1,13 +1,13 @@
 package com.app.services;
 
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 
 public interface UserService {
   
-  void addUser(UserEntity user);
+  void addUser(AuthUserEntity user);
 
-  UserEntity getUserById(Long id);
+  AuthUserEntity getUserById(Long id);
 
-  UserEntity getUserByEmail(final String email);
+  AuthUserEntity getUserByEmail(final String email);
 
 }

@@ -17,15 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Table(name = "user", schema = "app")
-public class UserEntity implements UserDetails {
+@Table(name = "auth_user", schema = "app")
+public class AuthUserEntity implements UserDetails {
 
   private static final long serialVersionUID = 3167844333375708893L;
 
@@ -33,7 +32,7 @@ public class UserEntity implements UserDetails {
   @Getter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_id", unique = true)
+  @Column(name = "auth_user_id", unique = true)
   private Long id;
 
   @Setter
@@ -54,8 +53,8 @@ public class UserEntity implements UserDetails {
   @Setter
   @Getter
   @OneToMany(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_id")
-  private List<UserRoleEntity> roles = new ArrayList<>();
+  @JoinColumn(name = "auth_user_id")
+  private List<AuthUserRoleEntity> roles = new ArrayList<>();
 
   @Setter
   @Getter
@@ -69,7 +68,7 @@ public class UserEntity implements UserDetails {
       return true;
     if (o == null || this.getClass() != o.getClass())
       return false;
-    UserEntity user = (UserEntity) o;
+    AuthUserEntity user = (AuthUserEntity) o;
     return user.getId().equals(this.getId());
   }
 
@@ -108,20 +107,20 @@ public class UserEntity implements UserDetails {
     return isActive();
   }
 
-  public static UserRoleEntity userRole(){
-    UserRoleEntity role = new UserRoleEntity();
+  public static AuthUserRoleEntity userRole(){
+    AuthUserRoleEntity role = new AuthUserRoleEntity();
     role.setName("USER");
     return role;
   } 
 
-  public static UserRoleEntity moderatorRole(){
-    UserRoleEntity role = new UserRoleEntity();
+  public static AuthUserRoleEntity moderatorRole(){
+    AuthUserRoleEntity role = new AuthUserRoleEntity();
     role.setName("MODERATOR");
     return role;
   } 
 
-  public static UserRoleEntity adminRole(){
-    UserRoleEntity role = new UserRoleEntity();
+  public static AuthUserRoleEntity adminRole(){
+    AuthUserRoleEntity role = new AuthUserRoleEntity();
     role.setName("ADMIN");
     return role;
   } 

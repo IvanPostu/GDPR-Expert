@@ -15,7 +15,7 @@ import com.app.beans.ApplicationDateFormatter;
 import com.app.domain.dto.GDPREvaluationQuestionsDto;
 import com.app.domain.dto.GDPREvaluationQuestionsResultDto;
 import com.app.domain.entities.GDPREvaluationEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.GDPREvaluationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class GDPREvaluationRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<GDPREvaluationQuestionsDto> getGDPREvaluationQuestions(@AuthenticationPrincipal UserEntity user)
+  public ResponseEntity<GDPREvaluationQuestionsDto> getGDPREvaluationQuestions(@AuthenticationPrincipal AuthUserEntity user)
       throws IOException {
 
     GDPREvaluationQuestionsDto questions = gDPREvaluationService.getQuestions();
@@ -52,7 +52,7 @@ public class GDPREvaluationRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity<?> evaluateOrganisation(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> evaluateOrganisation(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody GDPREvaluationQuestionsResultDto dto) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -69,7 +69,7 @@ public class GDPREvaluationRestController {
   }
 
   @RequestMapping(value = "/results", method = RequestMethod.GET)
-  public ResponseEntity<?> getEvaluationsResults(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> getEvaluationsResults(@AuthenticationPrincipal AuthUserEntity user,
       @RequestParam(value = "organisationId") Long organisationId,
       @RequestParam(value = "limit") Short maxEvaluationsCount) {
 

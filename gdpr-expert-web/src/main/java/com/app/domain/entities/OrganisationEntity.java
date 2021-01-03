@@ -86,7 +86,7 @@ public class OrganisationEntity {
   @Getter
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="user_owner_id")
-  private UserEntity owner;
+  private AuthUserEntity owner;
 
   
   @Setter 

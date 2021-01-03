@@ -20,7 +20,7 @@ import com.app.beans.MethodologyForEvaluatingTheSeverityOfPersonalDataCommitment
 import com.app.beans.MethodologyForEvaluatingTheSeverityOfPersonalDataCommitment.EvaluationResult;
 import com.app.domain.dto.SeverityEvaluatingOfPersonalDataDto;
 import com.app.domain.entities.SeverityEvaluatingOfPersonalDataEntity;
-import com.app.domain.entities.UserEntity;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.services.SeverityEvaluatingOfPersonalDataService;
 
 import org.apache.logging.log4j.LogManager;
@@ -58,7 +58,7 @@ public class SeverityEvaluatingOfPersonalDataRestController {
   }
 
   @RequestMapping(value = "/questions", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-  public ResponseEntity<Object> getSeverityEvaluatingOfPersonalDataQuestions(@AuthenticationPrincipal UserEntity user) {
+  public ResponseEntity<Object> getSeverityEvaluatingOfPersonalDataQuestions(@AuthenticationPrincipal AuthUserEntity user) {
     try {
 
       String pathToJson = "classpath:gdpr/METHODOLOGY_FOR_EVALUATING_THE_"
@@ -77,7 +77,7 @@ public class SeverityEvaluatingOfPersonalDataRestController {
   }
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> addSeverityEvaluatingOfPersonalData(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> addSeverityEvaluatingOfPersonalData(@AuthenticationPrincipal AuthUserEntity user,
       @RequestBody SeverityEvaluatingOfPersonalDataDto severityEvaluatingOfPersonalDataDto) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -97,7 +97,7 @@ public class SeverityEvaluatingOfPersonalDataRestController {
   }
 
   @RequestMapping(value = "/{processingActivityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> getSeverityEvaluatingForDataprocessingActivit(@AuthenticationPrincipal UserEntity user,
+  public ResponseEntity<?> getSeverityEvaluatingForDataprocessingActivit(@AuthenticationPrincipal AuthUserEntity user,
       @PathVariable(value = "processingActivityId") Long processingActivityId) throws ParseException {
     
 
