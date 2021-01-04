@@ -2,4 +2,6 @@ postgres-docker-config/pg_data
 logs
 *.log
 *.swp
-app_db.tar
+postgres-docker-config/pg_scripts/app_db.tar
+postgres-docker-config/pg_scripts/*.backup.tar
+
