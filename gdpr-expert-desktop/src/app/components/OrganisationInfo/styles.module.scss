@@ -1,7 +1,9 @@
-  
+@import '@/app/scss/index';
+
 .container{
   padding-bottom: 100px;
   padding-top: 20px;
+  @include whiteContainer;
 
   .row{
     display: flex;

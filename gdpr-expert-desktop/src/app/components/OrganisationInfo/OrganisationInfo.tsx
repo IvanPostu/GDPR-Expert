@@ -1,6 +1,5 @@
-import React, { Component, ReactElement } from 'react'
+import React, { Component, ReactElement, Fragment } from 'react'
 import { RouteChildrenProps } from 'react-router-dom'
-import { FullWidthLoader } from '@/app/components/BasicLoader'
 import { connect } from 'react-redux'
 import { GlobalStateType } from '@/app/store'
 import { bindActionCreators, Dispatch } from 'redux'
@@ -12,6 +11,7 @@ import { ErrorAlert } from '@/app/components/CustomAlert/ErrorAlert/ErrorAlert'
 import { SuccessAlert } from '@/app/components/CustomAlert/SuccessAlert/SuccessAlert'
 import { OrganisationInfoView } from './OrganisationInfoView'
 import { OrganisationInfoLayout } from '../OrganisationInfoLayout'
+import { FullScreenLoader } from '../BasicLoader/FullScreenLoader'
 
 function mapStateToProps(globalState: GlobalStateType) {
   return {
@@ -94,27 +94,30 @@ class OrganisationInfoComponent extends Component<
   render(): ReactElement {
     const loading = this.props.isLoading || this.state.isLoading
 
-    const content = loading ? (
-      <FullWidthLoader />
-    ) : (
-      <OrganisationInfoView
-        updateOrganisation={this.updateOrganisation}
-        deleteOrganisation={this.deleteOrganisation}
-        orgAddress={this.props.organisationInfo.organisationAddress}
-        orgAdministrator={this.props.organisationInfo.organisationAdministrator}
-        orgDescription={this.props.organisationInfo.organisationDescription}
-        orgEmail={this.props.organisationInfo.organisationEmail}
-        orgLegalForm={this.props.organisationInfo.organisationLegalForm}
-        orgName={this.props.organisationInfo.organisationName}
-        orgPhoneNumber={this.props.organisationInfo.organisationPhoneNumber}
-        orgLogoImage={this.props.organisationInfo.organisationLogo}
-        orgDepartmentCount={Number(this.props.organisationInfo.organisationDepartmentCount)}
-        orgEmployeeCount={Number(this.props.organisationInfo.organisationEmployeeCount)}
-        orgFondationDate={this.props.organisationInfo.organisationFoundedDate}
-        orgPlatformRegistrationDate={
-          this.props.organisationInfo.organisationCreatedOnPlatformDateTime.split('T')[0]
-        }
-      />
+    const content = (
+      <Fragment>
+        {loading && <FullScreenLoader />}
+        {!loading && (
+          <OrganisationInfoView
+            updateOrganisation={this.updateOrganisation}
+            deleteOrganisation={this.deleteOrganisation}
+            orgAddress={this.props.organisationInfo.organisationAddress}
+            orgAdministrator={this.props.organisationInfo.organisationAdministrator}
+            orgDescription={this.props.organisationInfo.organisationDescription}
+            orgEmail={this.props.organisationInfo.organisationEmail}
+            orgLegalForm={this.props.organisationInfo.organisationLegalForm}
+            orgName={this.props.organisationInfo.organisationName}
+            orgPhoneNumber={this.props.organisationInfo.organisationPhoneNumber}
+            orgLogoImage={this.props.organisationInfo.organisationLogo}
+            orgDepartmentCount={Number(this.props.organisationInfo.organisationDepartmentCount)}
+            orgEmployeeCount={Number(this.props.organisationInfo.organisationEmployeeCount)}
+            orgFondationDate={this.props.organisationInfo.organisationFoundedDate}
+            orgPlatformRegistrationDate={
+              this.props.organisationInfo.organisationCreatedOnPlatformDateTime.split('T')[0]
+            }
+          />
+        )}
+      </Fragment>
     )
 
     if (this.state.orgDeleteFailMessage) {

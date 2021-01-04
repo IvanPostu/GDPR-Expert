@@ -50,7 +50,7 @@ public class EmployeeDocumentsRestController {
       @RequestParam(value = "documentId", required = true) Long documentId) throws IOException {
 
     EmployeeDocumentEntity document = employeeDocumentService.getDocumentById(documentId).get();
-    byte[] output = null;//document.getDocumentDataBlob();
+    byte[] output = document.getDocumentDataBlob();
 
     response.setContentLength(output.length);
     response.setContentType(MediaType.ALL_VALUE);

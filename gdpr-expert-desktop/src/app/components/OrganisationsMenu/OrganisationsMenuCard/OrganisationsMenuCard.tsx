@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { fetchOrganisationActionCreator } from '@/app/store/OrganisationInfo/actionCreators'
 import styles from './cards.module.scss'
 
-type OrganisationCardPropType = {
+type OrganisationsMenuCardPropType = {
   organisationId: number
   title: string
   text: string
@@ -16,7 +16,7 @@ type OrganisationCardPropType = {
   titleTextColor?: string
 }
 
-export const OrganisationCard: FC<OrganisationCardPropType> = (props): ReactElement => {
+export const OrganisationsMenuCard: FC<OrganisationsMenuCardPropType> = (props): ReactElement => {
   const titleBackgroundColor = props.titleBackgroundColor || 'rgba(75, 145, 220, 0.95)'
   const titleTextColor = props.titleTextColor || 'black'
   const description = props.text.length > 100 ? props.text.substr(0, 100) + ' ...' : props.text

@@ -1,7 +1,7 @@
 @import "@/app/scss/index.scss";
 
 .container {
-  $bRadius: 20px 20px 0 0;
+  $bRadius: 10px 10px 0 0;
 
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
   min-width: 320px;
@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-between;
     border-radius: $bRadius;
-    background-image: repeating-linear-gradient(45deg, rgba(38, 38, 38, 0.04) 0px, rgba(38, 38, 38, 0.04) 104px,rgba(106, 106, 106, 0.04) 104px, rgba(106, 106, 106, 0.04) 208px),repeating-linear-gradient(45deg, rgba(41, 41, 41, 0.14) 0px, rgba(41, 41, 41, 0.14) 99px,rgba(197, 197, 197, 0.14) 99px, rgba(197, 197, 197, 0.14) 198px),linear-gradient(90deg, rgb(94, 165, 255),rgb(8, 75, 110));
+    background: $blue3;
 
     div{
       display: flex;
@@ -34,13 +34,16 @@
       @include whiteContainer;
       background-color: $green1;
       font-size: 14px;
+      font-weight: bold;
       line-height: 15px;
       height: 50px;
       margin-left: 10px;
       max-width: 130px;
 
-      & :hover{
+      &:hover{
         background: white;
+        background-color: $green2;
+        opacity: 1;
       }
     }
   }

@@ -1,4 +1,4 @@
-import React, { Component, ReactElement } from 'react'
+import React, { Component, Fragment, ReactElement } from 'react'
 import { NavLink, RouteChildrenProps } from 'react-router-dom'
 import { GenericTableA } from '@/app/components/Tables'
 import styles from './styles.module.scss'
@@ -13,6 +13,7 @@ import { RouteComponentProps } from 'react-router'
 import { deleteDepartment } from '@/app/webApi/department/deleteDepartment'
 import { UnsuccessResponseData } from '@/app/webApi/UnsuccessResponseData'
 import { OrganisationInfoLayout } from '@/app/components/OrganisationInfoLayout'
+import { Container } from '../Container'
 
 function mapStateToProps(globalState: GlobalStateType) {
   return {
@@ -113,16 +114,18 @@ class OrganisationDepartmentsComponent extends Component<
     const finalContent = isLoading ? <Loader /> : content
 
     return (
-      <OrganisationInfoLayout {...this.props}>
-        <div className={styles.container}>
-          <div className={styles.panel}>
-            <NavLink to={routeNames.CreateDepartmentPageRoute}>
-              <InfoButton className={styles.btn} title="Adaugă departament nou" />
-            </NavLink>
+      <Fragment>
+        <OrganisationInfoLayout {...this.props}>
+          <div className={styles.container}>
+            <div className={styles.panel}>
+              <NavLink to={routeNames.CreateDepartmentPageRoute}>
+                <InfoButton className={styles.btn} title="Adaugă departament nou" />
+              </NavLink>
+            </div>
           </div>
-          {finalContent}
-        </div>
-      </OrganisationInfoLayout>
+        </OrganisationInfoLayout>
+        <Container>{finalContent}</Container>
+      </Fragment>
     )
   }
 }

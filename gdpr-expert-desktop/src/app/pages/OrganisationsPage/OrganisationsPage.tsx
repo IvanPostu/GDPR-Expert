@@ -1,57 +1,11 @@
-import { GlobalStateType } from '@/app/store'
+import { OrganisationsMenuContainer } from '@/app/components/OrganisationsMenu'
 import React, { Component, ReactElement } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { OrganisationsPageView } from './OrganisationsPageView'
-import {
-  reloadOrganisationsPageActionCreator,
-  fetchOrganisationsActionCreator,
-  setOrganisationsDataActionCreator,
-} from '@/app/store/Organisations/actionCreators'
+import { RouteComponentProps } from 'react-router-dom'
 
-function mapStateToProps(state: GlobalStateType) {
-  return {
-    organisationsIsLoadProcess: state.organisationsReducer.isLoadProcess,
-    organisations: state.organisationsReducer.organisations,
-  }
-}
+type OrganisationsPagePropType = RouteComponentProps
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  const actionCreators = {
-    reloadOrganisationsPageActionCreator,
-    fetchOrganisationsActionCreator,
-    setOrganisationsDataActionCreator,
-  }
-  return bindActionCreators(actionCreators, dispatch)
-}
-
-type OrganisationsPageComponentPropType = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>
-
-class OrganisationsPageComponent extends Component<OrganisationsPageComponentPropType> {
-  constructor(props: OrganisationsPageComponentPropType) {
-    super(props)
-  }
-
-  componentDidMount(): void {
-    if (!this.props.organisationsIsLoadProcess) {
-      this.props.setOrganisationsDataActionCreator([])
-      this.props.fetchOrganisationsActionCreator()
-    }
-  }
-
+export class OrganisationsPage extends Component<OrganisationsPagePropType> {
   render(): ReactElement {
-    return (
-      <OrganisationsPageView
-        onRefreshClick={this.props.reloadOrganisationsPageActionCreator}
-        organisations={this.props.organisations}
-        isLoad={this.props.organisationsIsLoadProcess}
-      />
-    )
+    return <OrganisationsMenuContainer {...this.props} />
   }
 }
-
-export const OrganisationsPage = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(OrganisationsPageComponent)

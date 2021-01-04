@@ -1,10 +1,31 @@
 .loader {
-  border: 16px solid #dbdbdb;
+  border: 12px solid #dbdbdb;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
+  border-top: 12px solid #4598be;
   animation: spin 1s linear infinite;
 }
 
+.fullscreenContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+
+  .loaderContainer{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.475);
+    position: absolute;
+  }
+}
 
 @keyframes spin {
   0% {

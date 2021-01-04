@@ -3,31 +3,27 @@ import { IoIosRefreshCircle } from 'react-icons/io'
 
 import { Container } from '@/app/components/Container'
 import styles from './styles.module.scss'
-import { OrganisationCard } from './OrganisationCard'
+import { OrganisationsMenuCard } from './OrganisationsMenuCard/OrganisationsMenuCard'
 import { InfoButton } from '@/app/components/Button/InfoButton'
 import { NavLink } from 'react-router-dom'
 import { routeNames } from '@/app/routes/routeNames'
 import { OrganisationResponseTypeA } from '@/app/webApi/organisation/getOrganisations'
-import { defaultOrganisationImage } from '../../../constants/defaultOrganisationImage'
-import { BasicLoader, FullWidthLoader } from '@/app/components/BasicLoader'
+import { defaultOrganisationImage } from '@/constants/defaultOrganisationImage'
+import { BasicLoader, FullScreenLoader } from '@/app/components/BasicLoader'
 
-type OrganisationsPageViewPropType = {
+type OrganisationsMenuViewPropType = {
   organisations: Array<OrganisationResponseTypeA>
   onRefreshClick: () => void
   isLoad: boolean
 }
 
-export const OrganisationsPageView = (props: OrganisationsPageViewPropType): ReactElement => {
+export const OrganisationsMenuView = (props: OrganisationsMenuViewPropType): ReactElement => {
   const organisations = props.organisations
   const listIsEmpty = organisations.length === 0
 
   const content = listIsEmpty ? (
     <Fragment>
-      {props.isLoad && (
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <FullWidthLoader />
-        </div>
-      )}
+      {props.isLoad && <FullScreenLoader />}
 
       {!props.isLoad && (
         <div style={{ marginTop: '20px', textAlign: 'center' }}>
@@ -38,7 +34,7 @@ export const OrganisationsPageView = (props: OrganisationsPageViewPropType): Rea
   ) : (
     <div className={styles.cards}>
       {organisations.map((item) => (
-        <OrganisationCard
+        <OrganisationsMenuCard
           organisationId={Number(item.organisationId)}
           key={item.organisationId}
           image={item.organisationLogo || defaultOrganisationImage}

@@ -2,6 +2,7 @@ package com.app.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.app.domain.dto.EmployeeDocumentInfoDto;
 import com.app.domain.entities.EmployeeDocumentEntity;
@@ -26,12 +27,16 @@ public class EmployeeDocumentServiceImpl implements EmployeeDocumentService {
   @Override
   public List<EmployeeDocumentInfoDto> getEmployeeDocuments(Long employeeId) {
 
-    return null;
-    //  employeeDocumentRepository.getEmployeeDocuments(employeeId).stream().map(a -> {
-    //   EmployeeDocumentInfoDto res = new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(), a.getFileName());
+    List<EmployeeDocumentInfoDto> documentsInfo = employeeDocumentRepository
+      .getEmployeeDocumentsWithoutBlob(employeeId)
+      .stream()
+      .map(a -> {
+        EmployeeDocumentInfoDto res = new EmployeeDocumentInfoDto(a.getEmployeeDocumentId(), a.getFileName());
 
-    //   return res;
-    // }).collect(Collectors.toList());
+        return res;
+      }).collect(Collectors.toList());
+
+    return documentsInfo;
   }
 
   @Override

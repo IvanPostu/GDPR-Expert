@@ -12,6 +12,7 @@ import { OrganisationDataType } from './types'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
 import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
 import { FullWidthLoader } from '../BasicLoader'
+import { legalForms } from './legalForms'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -64,7 +65,7 @@ class OrganisationFormComponent extends PureComponent<
           description: '',
           email: '',
           foundedAt: '',
-          legalForm: '',
+          legalForm: legalForms[1],
           legalRepresentative: '',
           organisationName: '',
           telephone: '',
@@ -170,7 +171,7 @@ class OrganisationFormComponent extends PureComponent<
           isLoad: false,
           messageBoxState: {
             message: 'Organizație modificată cu succes.',
-            onOkClick: this.clearMessage.bind(this, routeNames.OrganisationPageRoute),
+            onOkClick: this.clearMessage.bind(this, routeNames.OrganisationsPageRoute),
             type: 'success',
           },
         })

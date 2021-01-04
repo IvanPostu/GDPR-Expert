@@ -1,4 +1,4 @@
-@import "@/app/scss/colors";
+@import "@/app/scss/index";
 
 .table {
   display: table;
@@ -14,11 +14,13 @@
   .row {
     display: table-row;
     color: #000;
+    @include whiteContainer;
   }
 
   .cell {
+    $bColor: rgb(212, 212, 212);
     display: table-cell;
-    border-bottom: 1px solid $grey1;
+    border-bottom: 1px solid $bColor;
     font-size: 16px;
     line-height: 1.2;
     padding-top: 19px;
@@ -26,6 +28,12 @@
     padding-left: 10px;
     padding-right: 5px;
 
+    &:first-child{
+      border-left: 1px solid $bColor;
+    }
+    &:last-child{
+      border-right: 1px solid $bColor;
+    }
   
   }
 
