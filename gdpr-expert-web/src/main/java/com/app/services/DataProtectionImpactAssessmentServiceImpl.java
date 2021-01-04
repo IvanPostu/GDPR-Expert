@@ -32,6 +32,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.ResourceUtils;
 
 public class DataProtectionImpactAssessmentServiceImpl implements DataProtectionImpactAssessmentService {
@@ -43,8 +44,12 @@ public class DataProtectionImpactAssessmentServiceImpl implements DataProtection
   private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
-  public DataProtectionImpactAssessmentServiceImpl(DataProcessingActivityRepository dataProcessingActivityRepository,
-      DataProtectionImpactAssessmentRepository dataProtecDataProtectionImpactAssessmentRepository, ApplicationDateFormatter dateFormatter) {
+  public DataProtectionImpactAssessmentServiceImpl(
+    DataProcessingActivityRepository dataProcessingActivityRepository,
+    @Qualifier(value = "dataProtectionImpactAssessmentRepositoryImpl") 
+    DataProtectionImpactAssessmentRepository dataProtecDataProtectionImpactAssessmentRepository, 
+    ApplicationDateFormatter dateFormatter) 
+  {
     this.dataProcessingActivityRepository = dataProcessingActivityRepository;
     this.dataProtecDataProtectionImpactAssessmentRepository = dataProtecDataProtectionImpactAssessmentRepository;
     this.dateFormatter = dateFormatter;

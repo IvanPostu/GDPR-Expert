@@ -19,11 +19,10 @@ import com.app.beans.ApplicationDateFormatter;
 import com.app.beans.ApplicationDateTimeFormatter;
 import com.app.domain.dto.CreateOrganisationDto;
 import com.app.domain.dto.UpdateOrganisationDto;
+import com.app.domain.entities.AuthUserEntity;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
-import com.app.domain.entities.AuthUserEntity;
 import com.app.services.OrganisationService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +74,14 @@ public class OrganisationRestController {
       List<String> errors = violations.stream()
         .map(a -> a.getMessage()).collect(Collectors.toList());
 
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(errors);
     }
 
     Date orgFoundedAt = new Date();
     try {
       orgFoundedAt = dateFormatter.getApplicationDateFormat().parse(organisationDto.getFoundedAt());
     } catch (ParseException e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(String.format("Server date format is %s", dateFormatter.getApplicationDateFormat().toPattern()));
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(String.format("Server date format is %s", dateFormatter.getApplicationDateFormat().toPattern()));
     }
 
     OrganisationEntity organisationEntity = new OrganisationEntity();
@@ -105,7 +104,7 @@ public class OrganisationRestController {
     organisationService.addOrganisation(organisationEntity);
 
     logger.info(String.format("Created organisation with id %d.", organisationEntity.getId()));
-    return ResponseEntity.status(HttpStatus.CREATED).body(organisationEntity.getId());
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @RequestMapping( method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)

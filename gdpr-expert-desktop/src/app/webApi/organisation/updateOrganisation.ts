@@ -1,4 +1,4 @@
-import { webServerURL } from '@/app/constants/webServerUrl'
+import { webServerURL } from '@/constants/webServerUrl'
 import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
 export type UpdateOrganisationDataTypeForWebApi = {

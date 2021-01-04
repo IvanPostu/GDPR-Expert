@@ -1,4 +1,4 @@
-import { webServerURL } from '@/app/constants/webServerUrl'
+import { webServerURL } from '@/constants/webServerUrl'
 import { PageableType } from '../PageableType'
 import { UnsuccessResponseData } from '../UnsuccessResponseData'
 

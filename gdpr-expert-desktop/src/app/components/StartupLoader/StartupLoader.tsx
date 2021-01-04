@@ -1,6 +1,6 @@
 import React, { Component, PropsWithChildren, ReactElement } from 'react'
 import StartupLoaderView from './StartupLoaderView'
-import { startupTime, delay } from '@/app/constants/startup'
+import { startupTime, delay } from '@/constants/startup'
 
 type StartupLoaderPropType = PropsWithChildren<unknown> & {
   onComplete: () => void

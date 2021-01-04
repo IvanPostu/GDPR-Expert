@@ -1,4 +1,4 @@
-import { webServerURL } from '@/app/constants/webServerUrl'
+import { webServerURL } from '@/constants/webServerUrl'
 import { UnsuccessResponseData } from '../UnsuccessResponseData'
 
 export type CreateOrganisationDataTypeForWebApi = {
@@ -31,7 +31,9 @@ export async function createOrganisation(
     const response = await fetch(`${webServerURL}/api/organisation/create`, options)
     status = response.status
 
-    return response.status === 201
+    if (response.status !== 201) throw new Error()
+
+    return true
   } catch (e) {
     return new UnsuccessResponseData(status, {})
   }

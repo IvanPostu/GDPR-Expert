@@ -7,11 +7,11 @@ import React, { PropsWithChildren, PureComponent, ReactElement, SyntheticEvent }
 import { connect } from 'react-redux'
 import { RouteChildrenProps } from 'react-router-dom'
 import { bindActionCreators, Dispatch } from 'redux'
-import { ErrorAlert } from '../CustomAlert/ErrorAlert/ErrorAlert'
-import { SuccessAlert } from '../CustomAlert/SuccessAlert/SuccessAlert'
 import { OrganisationFormView } from './OrganisationFormView'
 import { OrganisationDataType } from './types'
 import { clearAuthDataActionCreator } from '@/app/store/Authentication/actionCreators'
+import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
+import { FullWidthLoader } from '../BasicLoader'
 
 function mapStateToProps(state: GlobalStateType) {
   return {
@@ -31,10 +31,10 @@ type OrganisationFormComponentPropType = RouteChildrenProps &
   ReturnType<typeof mapDispatchToProps>
 
 type OrganisationFormComponentStateType = {
-  successMessage: string
-  errorMessage: string
   organisation: OrganisationDataType
   imageChanged: boolean
+  isLoad: boolean
+  messageBoxState: MessageBoxWrapperPropType
 }
 
 class OrganisationFormComponent extends PureComponent<
@@ -50,9 +50,13 @@ class OrganisationFormComponent extends PureComponent<
 
     if (props.formType === 'create') {
       this.state = {
-        errorMessage: '',
-        successMessage: '',
+        isLoad: false,
         imageChanged: false,
+        messageBoxState: {
+          message: '',
+          onOkClick: alert,
+          type: 'success',
+        },
         organisation: {
           id: 0,
           address: '',
@@ -81,9 +85,13 @@ class OrganisationFormComponent extends PureComponent<
       } = props.organisation
 
       this.state = {
-        errorMessage: '',
-        successMessage: '',
+        isLoad: false,
         imageChanged: false,
+        messageBoxState: {
+          message: '',
+          onOkClick: alert,
+          type: 'success',
+        },
         organisation: {
           id: Number(organisationId),
           address: organisationAddress,
@@ -102,6 +110,7 @@ class OrganisationFormComponent extends PureComponent<
     this.setStateData = this.setStateData.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.sessionExpiredHandler = this.sessionExpiredHandler.bind(this)
+    this.clearMessage = this.clearMessage.bind(this)
   }
 
   componentDidMount(): void {
@@ -138,6 +147,9 @@ class OrganisationFormComponent extends PureComponent<
       organisationName,
       telephone,
     } = this.state.organisation
+
+    this.setState({ isLoad: true })
+
     if (this.props.formType === 'update') {
       const res = await updateOrganisation({
         id,
@@ -154,13 +166,29 @@ class OrganisationFormComponent extends PureComponent<
 
       if (!this._isMounted) return
       if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        this.setState({
+          isLoad: false,
+          messageBoxState: {
+            message: 'Organizație modificată cu succes.',
+            onOkClick: this.clearMessage.bind(this, routeNames.OrganisationPageRoute),
+            type: 'success',
+          },
+        })
+      } else {
         const resError = res as UnsuccessResponseData
-        this.setState({ successMessage: 'Organizație modificată cu succes.' })
+
         if (resError.isSessionExpired) {
           this.sessionExpiredHandler()
+        } else {
+          this.setState({
+            isLoad: false,
+            messageBoxState: {
+              message: 'A apărut eroare în procesul modificării organizației.',
+              onOkClick: this.clearMessage.bind(this, null),
+              type: 'error',
+            },
+          })
         }
-      } else {
-        this.setState({ errorMessage: 'A apărut eroare în procesul modificării organizației.' })
       }
     } else {
       const res = await createOrganisation({
@@ -177,48 +205,54 @@ class OrganisationFormComponent extends PureComponent<
 
       if (!this._isMounted) return
       if (!UnsuccessResponseData.isUnsuccessResponseData(res)) {
+        this.setState({
+          isLoad: false,
+          messageBoxState: {
+            message: 'Organizație creată cu succes.',
+            onOkClick: this.clearMessage.bind(this, routeNames.OrganisationsPageRoute),
+            type: 'success',
+          },
+        })
+      } else {
         const resError = res as UnsuccessResponseData
-        this.setState({ successMessage: 'Organizație creată cu succes.' })
         if (resError.isSessionExpired) {
           this.sessionExpiredHandler()
+        } else {
+          this.setState({
+            isLoad: false,
+            messageBoxState: {
+              message: 'A apărut eroare în procesul creării organizației.',
+              onOkClick: this.clearMessage.bind(this, null),
+              type: 'error',
+            },
+          })
         }
-      } else {
-        this.setState({ errorMessage: 'A apărut eroare în procesul creării organizației.' })
       }
     }
   }
 
-  render(): ReactElement {
-    if (this.state.successMessage) {
-      return (
-        <SuccessAlert
-          onOkClick={() => {
-            this.setState({ errorMessage: '', successMessage: '' })
-            this.props.history.push(routeNames.OrganisationsPageRoute)
-          }}
-          text={this.state.successMessage}
-        />
-      )
+  clearMessage(redirectUrl: string | null): void {
+    if (redirectUrl) {
+      this.props.history.push(redirectUrl)
+    } else {
+      this.setState({ messageBoxState: { message: '', onOkClick: alert, type: 'success' } })
     }
+  }
 
-    if (this.state.errorMessage) {
-      return (
-        <ErrorAlert
-          onOkClick={() => {
-            this.setState({ errorMessage: '', successMessage: '' })
-          }}
-          text={this.state.errorMessage}
-        />
-      )
+  render(): ReactElement {
+    if (this.state.isLoad) {
+      return <FullWidthLoader />
     }
 
     return (
-      <OrganisationFormView
-        onSubmit={this.onSubmit}
-        setStateData={this.setStateData}
-        organisation={this.state.organisation}
-        formType={this.props.formType}
-      />
+      <MessageBoxWrapper {...this.state.messageBoxState}>
+        <OrganisationFormView
+          onSubmit={this.onSubmit}
+          setStateData={this.setStateData}
+          organisation={this.state.organisation}
+          formType={this.props.formType}
+        />
+      </MessageBoxWrapper>
     )
   }
 }

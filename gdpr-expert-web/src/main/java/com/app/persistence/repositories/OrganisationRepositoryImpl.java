@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -14,8 +13,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.AuthUserEntity;
+import com.app.domain.entities.OrganisationEntity;
+import com.app.domain.entities.OrganisationLogoEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +29,10 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   @Override
   public List<OrganisationEntity> findAllByOwnerId(Long userOwnerId) {
     AuthUserEntity u = entityManager.find(AuthUserEntity.class, userOwnerId);
-    List<OrganisationEntity> organisations = u.getOrganisations().stream().map(a -> a).collect(Collectors.toList());
+    List<OrganisationEntity> organisations = u
+      .getOrganisations()
+      .stream()
+      .collect(Collectors.toList());
 
     return organisations;
   }
@@ -48,13 +51,12 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   @Transactional
   @Override
   public void deleteById(Long organisationId) {
-    OrganisationEntity organisation = entityManager.find(OrganisationEntity.class, organisationId);
-
-    if (organisation != null) {
-      entityManager.remove(organisation);
-    } else {
-      throw new EntityNotFoundException(String.format("OrganisationEntity with id %d not found", organisationId));
-    }
+    
+    final String hQuery = "DELETE FROM OrganisationEntity u WHERE u.id=:paramId";
+    entityManager
+      .createQuery(hQuery)
+      .setParameter("paramId", organisationId)
+      .executeUpdate();
 
   }
 
@@ -62,14 +64,20 @@ public class OrganisationRepositoryImpl implements OrganisationRepository {
   @Override
   public void save(OrganisationEntity organisationEntity) {
     entityManager.persist(organisationEntity);
-    
+    OrganisationLogoEntity logo = organisationEntity.getOrganisationLogoEntity();
     /**
      * OneToOne using shared primary key
      */
-    if(organisationEntity.getOrganisationLogoEntity() != null){
-      organisationEntity.getOrganisationLogoEntity().setId(organisationEntity.getId());
-      entityManager.persist(organisationEntity.getOrganisationLogoEntity());
+    if(logo == null){
+      logo = new OrganisationLogoEntity();
+      organisationEntity.setOrganisationLogoEntity(logo);
     }
+
+    
+    logo.setId(organisationEntity.getId());
+    logo.setOrganisation(organisationEntity);
+
+    entityManager.persist(logo);
   }
 
   @Override

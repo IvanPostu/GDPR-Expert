@@ -7,6 +7,7 @@ import com.app.domain.entities.AuthUserRoleEntity;
 import com.app.persistence.repositories.UserRepository;
 import com.app.persistence.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class UserServiceImpl implements UserService {
 
@@ -14,7 +15,10 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
   @Autowired
-  public UserServiceImpl(UserRoleRepository roleRepository, UserRepository userRepository){
+  public UserServiceImpl(
+    @Qualifier("userRoleRepositoryImpl") UserRoleRepository roleRepository, 
+    UserRepository userRepository)
+  {
     this.roleRepository = roleRepository;
     this.userRepository = userRepository;
   }

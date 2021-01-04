@@ -100,26 +100,26 @@ public class OrganisationEntity {
   @Getter
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
-  private List<DepartmentEntity> depatrments;
+  private List<DepartmentEntity> depatrments ;
 
   @Setter 
   @Getter
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
-  private List<DataProcessingActivityEntity> dataProcessingActivities;
+  private List<DataProcessingActivityEntity> dataProcessingActivities ;
 
 
   @Setter 
   @Getter
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
-  private List<GDPREvaluationEntity> evaluations;
+  private List<GDPREvaluationEntity> evaluations ;
 
   @Setter 
   @Getter
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="organisation_id")
-  private List<RequestForPersonalInfoEntity> requestForPersonalInfo;
+  private List<RequestForPersonalInfoEntity> requestForPersonalInfo ;
 
   @Override
   public boolean equals(Object o) {

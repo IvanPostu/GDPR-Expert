@@ -14,7 +14,7 @@ import { removeDocumentsForEmployee } from '@/app/webApi/employee/removeDocument
 import { MessageBoxWrapper, MessageBoxWrapperPropType } from '../MessageBoxWrapper'
 import { employeeAddDocumentsPageRedirect } from '@/app/pages/EmployeeAddDocumentsPage/employeeAddDocumentsPageRedirect'
 import { employeeInfoPageRedirect } from '@/app/pages/EmployeeInfoPage/employeeInfoPageRedirect'
-import { webServerURL } from '@/app/constants/webServerUrl'
+import { webServerURL } from '@/constants/webServerUrl'
 
 function mapDispatchToProps(dispatch: Dispatch) {
   const actionCreators = { startDownloadActionCreator }

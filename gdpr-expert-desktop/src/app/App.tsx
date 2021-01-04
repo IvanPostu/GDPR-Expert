@@ -3,7 +3,7 @@ import React, { FC, PropsWithChildren, ReactElement, Fragment, useState } from '
 import { AppRouter } from '@/app/routes/AppRouter'
 import { ReduxWrapper } from '@/app/store/root'
 import { StartupLoader } from '@/app/components/StartupLoader'
-import { isShowed } from '@/app/constants/startup'
+import { isShowed } from '@/constants/startup'
 import { Downloads } from './components/StaticComponents/Downloads/Downloads'
 import { ErrorBoundaryWrapper } from './components/StaticComponents/ErrorBoundary/ErrorBoundaryWrapper'
 

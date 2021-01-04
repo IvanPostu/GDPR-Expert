@@ -1,4 +1,4 @@
-import { webServerURL } from '@/app/constants/webServerUrl'
+import { webServerURL } from '@/constants/webServerUrl'
 import { dPIAEvaluationPageRedirect } from '@/app/pages/DPIAEvaluationPage/dPIAEvaluationPageRedirect'
 import React, { ReactElement, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'

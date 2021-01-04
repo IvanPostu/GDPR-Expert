@@ -1,4 +1,4 @@
-import { defaultOrganisationImage } from '@/app/constants/defaultOrganisationImage'
+import { defaultOrganisationImage } from '@/constants/defaultOrganisationImage'
 import React, { ReactElement, FC } from 'react'
 import { GenericButton } from '../GenericButton'
 import styles from './styles.module.scss'

@@ -12,7 +12,6 @@ import com.app.beans.ApplicationDateFormatter;
 import com.app.domain.dto.UpdateOrganisationDto;
 import com.app.domain.entities.OrganisationEntity;
 import com.app.domain.entities.OrganisationLogoEntity;
-// import com.app.persistence.repositories.OrganisationLogoRepository;
 import com.app.persistence.repositories.OrganisationRepository;
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +22,20 @@ import org.springframework.data.domain.Pageable;
 public class OrganisationServiceImpl implements OrganisationService {
 
   private final OrganisationRepository organisationRepository;
-  // private final OrganisationLogoRepository organisationLogoRepository;
   private final ApplicationDateFormatter dateFormatter;
 
   @Autowired
-  public OrganisationServiceImpl(OrganisationRepository organisationRepository,
-      ApplicationDateFormatter dateFormatter) {
-
+  public OrganisationServiceImpl(
+    OrganisationRepository organisationRepository,
+    ApplicationDateFormatter dateFormatter) 
+  {
     this.organisationRepository = organisationRepository;
-    // this.organisationLogoRepository = organisationLogoRepository;
     this.dateFormatter = dateFormatter;
   }
 
-  @Transactional
   @Override
   public void addOrganisation(OrganisationEntity oEntity) {
-
-    OrganisationLogoEntity logo = oEntity.getOrganisationLogoEntity();
-    oEntity.setOrganisationLogoEntity(null);
     organisationRepository.save(oEntity);
-    logo.setId(oEntity.getId());
-    // organisationLogoRepository.save(logo);
   }
 
   @Transactional
@@ -72,7 +64,6 @@ public class OrganisationServiceImpl implements OrganisationService {
   }
 
   @Override
-  @Transactional
   public boolean deleteById(Long organisationId, Long ownerId) {
     OrganisationEntity organisationEntity = organisationRepository.findById(organisationId).get();
 
