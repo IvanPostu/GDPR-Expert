@@ -18,14 +18,9 @@
     </Console>
   </Appenders>
   <Loggers>
-    <Logger name="com.app.rest" level="debug" additivity="true">
-      <appender-ref ref="fileLogger" level="debug" />
-    </Logger>
-    <Logger name="com.app.services" level="debug" additivity="true">
-      <appender-ref ref="fileLogger" level="debug" />
-    </Logger>
     <Root level="warn" additivity="false">
       <appender-ref ref="console" />
+      <appender-ref ref="fileLogger" />
     </Root>
   </Loggers>
 </Configuration>

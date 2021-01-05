@@ -11,6 +11,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <intercept-url pattern="/" access="permitAll" />
     <intercept-url pattern="/gdpr/**" access="permitAll" />
     <intercept-url pattern="/static/**" access="permitAll" />
+    <intercept-url pattern="/h2-console/**" access="permitAll" />
 
     <csrf disabled="true" />
 

@@ -3,6 +3,7 @@ package com.app.persistence.repositories;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -24,8 +25,12 @@ public class UserRepositoryImpl implements UserRepository {
       .createQuery(hQuery, AuthUserEntity.class)
       .setParameter("paramEmail", email);
 
-    Optional<AuthUserEntity> userEOptional = Optional.ofNullable(typedQuery.getSingleResult());
-    return userEOptional;
+    try{
+      Optional<AuthUserEntity> userEOptional = Optional.ofNullable(typedQuery.getSingleResult());
+      return userEOptional;
+    }catch(NoResultException e){
+      return Optional.ofNullable(null);
+    }
   }
 
   @Transactional

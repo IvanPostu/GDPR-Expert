@@ -1,5 +1,7 @@
 package com.app.services;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import com.app.domain.entities.AuthUserEntity;
@@ -44,8 +46,9 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override
-  public AuthUserEntity getUserByEmail(String email) {
-    AuthUserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException());
+  public Optional<AuthUserEntity> getUserByEmail(String email) {
+    Optional<AuthUserEntity> user = userRepository
+      .findByEmail(email);
     return user;
   }
 

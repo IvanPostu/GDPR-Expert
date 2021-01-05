@@ -14,8 +14,7 @@ public class WebConfig {
   public CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-  
-
+     
     return source;
   }
 

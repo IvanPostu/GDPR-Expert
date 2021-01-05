@@ -1,5 +1,7 @@
 package com.app.services;
 
+import java.util.Optional;
+
 import com.app.domain.entities.AuthUserEntity;
 
 public interface UserService {
@@ -8,6 +10,6 @@ public interface UserService {
 
   AuthUserEntity getUserById(Long id);
 
-  AuthUserEntity getUserByEmail(final String email);
+  Optional<AuthUserEntity> getUserByEmail(final String email);
 
 }
