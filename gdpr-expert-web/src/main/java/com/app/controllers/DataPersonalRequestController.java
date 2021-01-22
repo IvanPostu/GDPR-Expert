@@ -53,7 +53,10 @@ public class DataPersonalRequestController {
     return new ModelAndView("gdpr/createRequest", model);
   }
 
-  @RequestMapping(value = "/gdpr/personal-data-request/success", method = RequestMethod.GET, produces = "text/html; charset=utf-8")
+  @RequestMapping(
+    value = "/gdpr/personal-data-request/success", 
+    method = RequestMethod.GET, 
+    produces = "text/html; charset=utf-8")
   public ModelAndView gdprRequestSaveWithErrors(ModelMap model) {
 
     return new ModelAndView("gdpr/createWithSuccess", model);
